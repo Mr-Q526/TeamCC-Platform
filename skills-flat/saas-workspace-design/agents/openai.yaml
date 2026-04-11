@@ -1,0 +1,10 @@
+interface:
+  display_name: "SaaS Workspace Design"
+  short_description: "Design SaaS product UIs and workbench-style web apps"
+  icon_small: "./assets/saas-workspace-small.svg"
+  icon_large: "./assets/saas-workspace.svg"
+  brand_color: "#4F46E5"
+  default_prompt: "Use $saas-workspace-design to design a SaaS workspace or B2B web app with clear workflow hierarchy, efficient navigation, visible system states, and reduced UI chrome."
+
+policy:
+  allow_implicit_invocation: true

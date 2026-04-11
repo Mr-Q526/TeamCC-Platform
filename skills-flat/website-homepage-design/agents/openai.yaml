@@ -1,0 +1,10 @@
+interface:
+  display_name: "Website Homepage Design"
+  short_description: "Design branded website and company homepages"
+  icon_small: "./assets/website-homepage-small.svg"
+  icon_large: "./assets/website-homepage.svg"
+  brand_color: "#1D4ED8"
+  default_prompt: "Use $website-homepage-design to design a branded homepage with a strong hero, clear brand hierarchy, proof sections, and a clean path from positioning to conversion."
+
+policy:
+  allow_implicit_invocation: true

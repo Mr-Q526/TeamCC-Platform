@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2026-04-11",
-  "pilotCount": 26,
+  "pilotCount": 32,
   "skills": [
     {
       "skillId": "ai/humanizer-zh",
@@ -152,6 +152,34 @@
       ]
     },
     {
+      "skillId": "frontend/admin-dashboard-design",
+      "targetDir": "skills-flat/admin-dashboard-design",
+      "displayName": "Admin Dashboard Design",
+      "version": "0.1.0",
+      "sourceHash": "sha256:65365f5c8d2bf1105a4c457149037e1a9cd22725318c168e6e89175aaf908470",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/analytics-dashboard-design",
+      "targetDir": "skills-flat/analytics-dashboard-design",
+      "displayName": "Analytics Dashboard Design",
+      "version": "0.1.0",
+      "sourceHash": "sha256:d7536db894e437d186a9d9bce858aa8c7d96151782d78224d789e658b39fdbfb",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
       "skillId": "frontend/develop-web-game",
       "targetDir": "skills-flat/develop-web-game",
       "displayName": "Develop Web Game",
@@ -167,11 +195,39 @@
       ]
     },
     {
+      "skillId": "frontend/ecommerce-storefront-design",
+      "targetDir": "skills-flat/ecommerce-storefront-design",
+      "displayName": "Ecommerce Storefront Design",
+      "version": "0.1.0",
+      "sourceHash": "sha256:0f4250b23cdc4cc29fde8ec767f7b7d87c2fb9eb8c147f64b1be404da093895d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
       "skillId": "frontend/frontend-skill",
       "targetDir": "skills-flat/frontend-skill",
       "displayName": "Frontend Skill",
       "version": "0.1.0",
       "sourceHash": "sha256:d367b2d22825d74c169475507e7ff109b81c1e9c20b2de3421fb19fcfbe3329b",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/marketing-landing-page",
+      "targetDir": "skills-flat/marketing-landing-page",
+      "displayName": "Marketing Landing Page",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e617a29d211b2b19ed92d4e2145cc2e4de87670a5ad7ffcc2ddde13e08c8bf02",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
@@ -192,6 +248,34 @@
       ],
       "sceneTags": [
         "architecture"
+      ]
+    },
+    {
+      "skillId": "frontend/saas-workspace-design",
+      "targetDir": "skills-flat/saas-workspace-design",
+      "displayName": "SaaS Workspace Design",
+      "version": "0.1.0",
+      "sourceHash": "sha256:3b588cea23cd49823007dcad41d33eb8c2de4d7ede863c6405e3d34126907ad0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/website-homepage-design",
+      "targetDir": "skills-flat/website-homepage-design",
+      "displayName": "Website Homepage Design",
+      "version": "0.1.0",
+      "sourceHash": "sha256:015c250d27aa50d361649e900aa65b33a2ca1b59b54fb68976d2984d8ba7fb7f",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
       ]
     },
     {

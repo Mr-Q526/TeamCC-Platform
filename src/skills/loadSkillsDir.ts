@@ -63,6 +63,7 @@ import { isRestrictedToPluginOnly } from '../utils/settings/pluginOnlyPolicy.js'
 import { HooksSchema, type HooksSettings } from '../utils/settings/types.js'
 import { createSignal } from '../utils/signal.js'
 import { registerMCPSkillBuilders } from './mcpSkillBuilders.js'
+import { getSkillRegistryLocations } from '../services/skillSearch/registry.js'
 
 export type LoadedFrom =
   | 'commands_DEPRECATED'
@@ -640,9 +641,10 @@ export const getSkillDirCommands = memoize(
     const userSkillsDir = join(getClaudeConfigHomeDir(), 'skills')
     const managedSkillsDir = join(getManagedFilePath(), '.claude', 'skills')
     const projectSkillsDirs = getProjectDirsUpToHome('skills', cwd)
+    const skillRegistryLocations = getSkillRegistryLocations(cwd)
 
     logForDebugging(
-      `Loading skills from: managed=${managedSkillsDir}, user=${userSkillsDir}, project=[${projectSkillsDirs.join(', ')}]`,
+      `Loading skills from: managed=${managedSkillsDir}, user=${userSkillsDir}, project=[${projectSkillsDirs.join(', ')}], registries=[${skillRegistryLocations.map(location => location.dir).join(', ')}]`,
     )
 
     // Load from additional directories (--add-dir)
@@ -680,6 +682,7 @@ export const getSkillDirCommands = memoize(
       managedSkills,
       userSkills,
       projectSkillsNested,
+      registrySkillsNested,
       additionalSkillsNested,
       legacyCommands,
     ] = await Promise.all([
@@ -693,6 +696,13 @@ export const getSkillDirCommands = memoize(
         ? Promise.all(
             projectSkillsDirs.map(dir =>
               loadSkillsFromSkillsDir(dir, 'projectSettings'),
+            ),
+          )
+        : Promise.resolve([]),
+      projectSettingsEnabled
+        ? Promise.all(
+            skillRegistryLocations.map(location =>
+              loadSkillsFromSkillsDir(location.dir, location.source),
             ),
           )
         : Promise.resolve([]),
@@ -718,6 +728,7 @@ export const getSkillDirCommands = memoize(
       ...managedSkills,
       ...userSkills,
       ...projectSkillsNested.flat(),
+      ...registrySkillsNested.flat(),
       ...additionalSkillsNested.flat(),
       ...legacyCommands,
     ]
@@ -796,7 +807,7 @@ export const getSkillDirCommands = memoize(
     }
 
     logForDebugging(
-      `Loaded ${deduplicatedSkills.length} unique skills (${unconditionalSkills.length} unconditional, ${newConditionalSkills.length} conditional, managed: ${managedSkills.length}, user: ${userSkills.length}, project: ${projectSkillsNested.flat().length}, additional: ${additionalSkillsNested.flat().length}, legacy commands: ${legacyCommands.length})`,
+      `Loaded ${deduplicatedSkills.length} unique skills (${unconditionalSkills.length} unconditional, ${newConditionalSkills.length} conditional, managed: ${managedSkills.length}, user: ${userSkills.length}, project: ${projectSkillsNested.flat().length}, registries: ${registrySkillsNested.flat().length}, additional: ${additionalSkillsNested.flat().length}, legacy commands: ${legacyCommands.length})`,
     )
 
     return unconditionalSkills

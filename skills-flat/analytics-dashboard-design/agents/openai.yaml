@@ -1,0 +1,10 @@
+interface:
+  display_name: "Analytics Dashboard Design"
+  short_description: "Design KPI, BI, and data dashboard pages"
+  icon_small: "./assets/analytics-dashboard-small.svg"
+  icon_large: "./assets/analytics-dashboard.svg"
+  brand_color: "#0F766E"
+  default_prompt: "Use $analytics-dashboard-design to design an analytics dashboard that answers the top decision questions with clear KPIs, trend charts, breakdowns, and data freshness cues."
+
+policy:
+  allow_implicit_invocation: true

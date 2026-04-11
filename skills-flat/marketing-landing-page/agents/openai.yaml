@@ -1,0 +1,10 @@
+interface:
+  display_name: "Marketing Landing Page"
+  short_description: "Design campaign and conversion landing pages"
+  icon_small: "./assets/marketing-landing-small.svg"
+  icon_large: "./assets/marketing-landing.svg"
+  brand_color: "#EA580C"
+  default_prompt: "Use $marketing-landing-page to design a conversion-focused landing page with one offer, one CTA, persuasive sequencing, strong proof, and low-friction form or signup flows."
+
+policy:
+  allow_implicit_invocation: true
