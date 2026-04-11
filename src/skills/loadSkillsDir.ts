@@ -62,6 +62,7 @@ import { getManagedFilePath } from '../utils/settings/managedPath.js'
 import { isRestrictedToPluginOnly } from '../utils/settings/pluginOnlyPolicy.js'
 import { HooksSchema, type HooksSettings } from '../utils/settings/types.js'
 import { createSignal } from '../utils/signal.js'
+import { TEAMCC_PROJECT_DIR_NAME } from '../utils/teamccPaths.js'
 import { registerMCPSkillBuilders } from './mcpSkillBuilders.js'
 import { getSkillRegistryLocations } from '../services/skillSearch/registry.js'
 
@@ -82,11 +83,11 @@ export function getSkillsPath(
 ): string {
   switch (source) {
     case 'policySettings':
-      return join(getManagedFilePath(), '.claude', dir)
+      return join(getManagedFilePath(), TEAMCC_PROJECT_DIR_NAME, dir)
     case 'userSettings':
       return join(getClaudeConfigHomeDir(), dir)
     case 'projectSettings':
-      return `.claude/${dir}`
+      return `${TEAMCC_PROJECT_DIR_NAME}/${dir}`
     case 'plugin':
       return 'plugin'
     default:
@@ -639,7 +640,11 @@ async function loadSkillsFromCommandsDir(
 export const getSkillDirCommands = memoize(
   async (cwd: string): Promise<Command[]> => {
     const userSkillsDir = join(getClaudeConfigHomeDir(), 'skills')
-    const managedSkillsDir = join(getManagedFilePath(), '.claude', 'skills')
+    const managedSkillsDir = join(
+      getManagedFilePath(),
+      TEAMCC_PROJECT_DIR_NAME,
+      'skills',
+    )
     const projectSkillsDirs = getProjectDirsUpToHome('skills', cwd)
     const skillRegistryLocations = getSkillRegistryLocations(cwd)
 
@@ -667,7 +672,7 @@ export const getSkillDirCommands = memoize(
       const additionalSkillsNested = await Promise.all(
         additionalDirs.map(dir =>
           loadSkillsFromSkillsDir(
-            join(dir, '.claude', 'skills'),
+            join(dir, TEAMCC_PROJECT_DIR_NAME, 'skills'),
             'projectSettings',
           ),
         ),
@@ -710,7 +715,7 @@ export const getSkillDirCommands = memoize(
         ? Promise.all(
             additionalDirs.map(dir =>
               loadSkillsFromSkillsDir(
-                join(dir, '.claude', 'skills'),
+                join(dir, TEAMCC_PROJECT_DIR_NAME, 'skills'),
                 'projectSettings',
               ),
             ),
@@ -885,7 +890,7 @@ export async function discoverSkillDirsForPaths(
     // CWD-level skills are already loaded at startup, so we only discover nested ones
     // Use prefix+separator check to avoid matching /project-backup when cwd is /project
     while (currentDir.startsWith(resolvedCwd + pathSep)) {
-      const skillDir = join(currentDir, '.claude', 'skills')
+      const skillDir = join(currentDir, TEAMCC_PROJECT_DIR_NAME, 'skills')
 
       // Skip if we've already checked this path (hit or miss) — avoids
       // repeating the same failed stat on every Read/Write/Edit call when

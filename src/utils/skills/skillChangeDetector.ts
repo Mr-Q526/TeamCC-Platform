@@ -20,6 +20,7 @@ import { logForDebugging } from '../debug.js'
 import { getFsImplementation } from '../fsOperations.js'
 import { executeConfigChangeHooks, hasBlockingResult } from '../hooks.js'
 import { createSignal } from '../signal.js'
+import { TEAMCC_PROJECT_DIR_NAME } from '../teamccPaths.js'
 
 /**
  * Time in milliseconds to wait for file writes to stabilize before processing.
@@ -222,7 +223,11 @@ async function getWatchablePaths(): Promise<string[]> {
 
   // Additional directories (--add-dir) skills
   for (const dir of getAdditionalDirectoriesForClaudeMd()) {
-    const additionalSkillsPath = platformPath.join(dir, '.claude', 'skills')
+    const additionalSkillsPath = platformPath.join(
+      dir,
+      TEAMCC_PROJECT_DIR_NAME,
+      'skills',
+    )
     try {
       await fs.stat(additionalSkillsPath)
       paths.push(additionalSkillsPath)

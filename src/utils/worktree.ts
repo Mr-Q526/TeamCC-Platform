@@ -38,6 +38,7 @@ import {
 } from './hooks.js'
 import { containsPathTraversal } from './path.js'
 import { getPlatform } from './platform.js'
+import { getTeamCCWorktreesDir } from './teamccPaths.js'
 import {
   getInitialSettings,
   getRelativeSettingsFilePathForSource,
@@ -202,7 +203,7 @@ const GIT_NO_PROMPT_ENV = {
 }
 
 function worktreesDir(repoRoot: string): string {
-  return join(repoRoot, '.claude', 'worktrees')
+  return getTeamCCWorktreesDir(repoRoot)
 }
 
 // Flatten nested slugs (`user/feature` → `user+feature`) for both the branch

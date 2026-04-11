@@ -19,8 +19,9 @@ import { isProcessRunning } from './genericProcessUtils.js'
 import { safeParseJSON } from './json.js'
 import { lazySchema } from './lazySchema.js'
 import { jsonStringify } from './slowOperations.js'
+import { TEAMCC_PROJECT_DIR_NAME } from './teamccPaths.js'
 
-const LOCK_FILE_REL = join('.claude', 'scheduled_tasks.lock')
+const LOCK_FILE_REL = join(TEAMCC_PROJECT_DIR_NAME, 'scheduled_tasks.lock')
 
 const schedulerLockSchema = lazySchema(() =>
   z.object({

@@ -1,5 +1,6 @@
 import { feature } from 'bun:bundle'
 import mergeWith from 'lodash-es/mergeWith.js'
+import { homedir } from 'os'
 import { dirname, join, resolve } from 'path'
 import { z } from 'zod/v4'
 import {
@@ -12,7 +13,7 @@ import { getRemoteManagedSettingsSyncFromCache } from '../../services/remoteMana
 import { uniq } from '../array.js'
 import { logForDebugging } from '../debug.js'
 import { logForDiagnosticsNoPII } from '../diagLogs.js'
-import { getClaudeConfigHomeDir, isEnvTruthy } from '../envUtils.js'
+import { isEnvTruthy } from '../envUtils.js'
 import { getErrnoCode, isENOENT } from '../errors.js'
 import { writeFileSyncAndFlush_DEPRECATED } from '../file.js'
 import { readFileSync } from '../fileRead.js'
@@ -57,6 +58,16 @@ import {
  */
 function getManagedSettingsFilePath(): string {
   return join(getManagedFilePath(), 'managed-settings.json')
+}
+
+/**
+ * Resolve the TeamCC config home directory.
+ * Defaults to ~/.teamcc but can be overridden for tests or deployments.
+ */
+function getTeamCCConfigHomeDir(): string {
+  return (process.env.TEAMCC_CONFIG_DIR ?? join(homedir(), '.teamcc')).normalize(
+    'NFC',
+  )
 }
 
 /**
@@ -232,14 +243,14 @@ function parseSettingsFileUncached(path: string): {
 
 /**
  * Get the absolute path to the associated file root for a given settings source
- * (e.g. for $PROJ_DIR/.claude/settings.json, returns $PROJ_DIR)
+ * (e.g. for $PROJ_DIR/.teamcc/settings.json, returns $PROJ_DIR)
  * @param source The source of the settings
  * @returns The root path of the settings file
  */
 export function getSettingsRootPathForSource(source: SettingSource): string {
   switch (source) {
     case 'userSettings':
-      return resolve(getClaudeConfigHomeDir())
+      return resolve(getTeamCCConfigHomeDir())
     case 'policySettings':
     case 'projectSettings':
     case 'localSettings': {
@@ -300,9 +311,9 @@ export function getRelativeSettingsFilePathForSource(
 ): string {
   switch (source) {
     case 'projectSettings':
-      return join('.claude', 'settings.json')
+      return join('.teamcc', 'settings.json')
     case 'localSettings':
-      return join('.claude', 'settings.local.json')
+      return join('.teamcc', 'settings.local.json')
   }
 }
 

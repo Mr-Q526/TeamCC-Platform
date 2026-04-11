@@ -1,6 +1,7 @@
 import { join } from 'path'
 import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { getFsImplementation } from '../../utils/fsOperations.js'
+import { getTeamCCIdentityPath } from '../../utils/teamccPaths.js'
 import { logForDebugging } from '../../utils/debug.js'
 import {
   getSkillRegistryLocations,
@@ -310,7 +311,7 @@ function collectHintMatches(
 }
 
 async function loadDepartmentTag(cwd: string): Promise<string | null> {
-  const identityPath = join(cwd, '.claude', 'identity', 'active.md')
+  const identityPath = getTeamCCIdentityPath(cwd)
 
   try {
     const raw = await getFsImplementation().readFile(identityPath, {

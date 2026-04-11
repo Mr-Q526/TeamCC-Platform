@@ -22,6 +22,7 @@ import {
 import { getSmallFastModel } from '../model/model.js'
 import { jsonParse } from '../slowOperations.js'
 import { asSystemPrompt } from '../systemPromptType.js'
+import { TEAMCC_PROJECT_DIR_NAME } from '../teamccPaths.js'
 import {
   type ApiQueryHookConfig,
   createApiQueryHook,
@@ -195,7 +196,13 @@ export async function applySkillImprovement(
   const fs = await import('fs/promises')
 
   // Skills live at .claude/skills/<name>/SKILL.md relative to CWD
-  const filePath = join(getCwd(), '.claude', 'skills', skillName, 'SKILL.md')
+  const filePath = join(
+    getCwd(),
+    TEAMCC_PROJECT_DIR_NAME,
+    'skills',
+    skillName,
+    'SKILL.md',
+  )
 
   let currentContent: string
   try {

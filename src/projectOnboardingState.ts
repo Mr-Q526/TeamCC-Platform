@@ -7,6 +7,7 @@ import {
 import { getCwd } from './utils/cwd.js'
 import { isDirEmpty } from './utils/file.js'
 import { getFsImplementation } from './utils/fsOperations.js'
+import { TEAMCC_MEMORY_FILENAME } from './utils/teamccPaths.js'
 
 export type Step = {
   key: string
@@ -18,7 +19,7 @@ export type Step = {
 
 export function getSteps(): Step[] {
   const hasClaudeMd = getFsImplementation().existsSync(
-    join(getCwd(), 'CLAUDE.md'),
+    join(getCwd(), TEAMCC_MEMORY_FILENAME),
   )
   const isWorkspaceDirEmpty = isDirEmpty(getCwd())
 
@@ -32,7 +33,7 @@ export function getSteps(): Step[] {
     },
     {
       key: 'claudemd',
-      text: 'Run /init to create a CLAUDE.md file with instructions for Claude',
+      text: 'Run /init to create a TEAMCC.md file with instructions for TeamCC',
       isComplete: hasClaudeMd,
       isCompletable: true,
       isEnabled: !isWorkspaceDirEmpty,

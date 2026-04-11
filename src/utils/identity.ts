@@ -13,6 +13,7 @@ import { getFsImplementation } from './fsOperations.js'
 import { logForDebugging } from './debug.js'
 import { logForDiagnosticsNoPII } from './diagLogs.js'
 import type { IdentityEnvelope } from '../bootstrap/teamccAuth.js'
+import { getTeamCCIdentityPath } from './teamccPaths.js'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -118,7 +119,7 @@ export function mapTeam(id: number): string {
 export async function loadIdentityProfile(
   cwd: string,
 ): Promise<IdentityProfile | null> {
-  const identityPath = join(cwd, '.claude', 'identity', 'active.md')
+  const identityPath = getTeamCCIdentityPath(cwd)
   const startTime = Date.now()
 
   try {
@@ -199,7 +200,7 @@ export function envelopeToProfile(
 export async function loadLocalIdentityProfile(
   cwd: string,
 ): Promise<IdentityProfile | null> {
-  const identityPath = join(cwd, '.claude', 'identity', 'active.md')
+  const identityPath = getTeamCCIdentityPath(cwd)
 
   try {
     const raw = await getFsImplementation().readFile(identityPath, {

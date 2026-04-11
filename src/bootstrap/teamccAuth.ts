@@ -13,6 +13,10 @@ import { homedir } from 'os'
 import { readFile, writeFile, mkdir } from 'fs/promises'
 import { existsSync } from 'fs'
 import { logForDebugging } from '../utils/debug.js'
+import {
+  getTeamCCProjectCacheDir,
+  getTeamCCProjectConfigFile,
+} from '../utils/teamccPaths.js'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -58,12 +62,12 @@ export type LoginResponse = {
 
 const CONFIG_SEARCH_PATHS = [
   // 项目级配置（可提交到 git）
-  (cwd: string) => join(cwd, '.claude', 'teamcc.json'),
+  (cwd: string) => getTeamCCProjectConfigFile(cwd),
   // 用户级配置（敏感信息，应该 gitignore）
   () => join(homedir(), '.teamcc', 'config.json'),
 ]
 
-const CACHE_DIR_PATH = (cwd: string) => join(cwd, '.claude', 'cache')
+const CACHE_DIR_PATH = (cwd: string) => getTeamCCProjectCacheDir(cwd)
 
 /**
  * 从配置文件加载 TeamCC 配置

@@ -77,6 +77,12 @@ import { expandPath } from './path.js'
 import { pathInWorkingPath } from './permissions/filesystem.js'
 import { isSettingSourceEnabled } from './settings/constants.js'
 import { getInitialSettings } from './settings/settings.js'
+import {
+  TEAMCC_LOCAL_MEMORY_FILENAME,
+  TEAMCC_MEMORY_FILENAME,
+  TEAMCC_PROJECT_DIR_NAME,
+  TEAMCC_RULES_DIR_NAME,
+} from './teamccPaths.js'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const teamMemPaths = feature('TEAMMEM')
@@ -885,7 +891,7 @@ export const getMemoryFiles = memoize(
 
       // Try reading CLAUDE.md (Project) - only if projectSettings is enabled
       if (isSettingSourceEnabled('projectSettings') && !skipProject) {
-        const projectPath = join(dir, 'CLAUDE.md')
+        const projectPath = join(dir, TEAMCC_MEMORY_FILENAME)
         result.push(
           ...(await processMemoryFile(
             projectPath,
@@ -896,7 +902,11 @@ export const getMemoryFiles = memoize(
         )
 
         // Try reading .claude/CLAUDE.md (Project)
-        const dotClaudePath = join(dir, '.claude', 'CLAUDE.md')
+        const dotClaudePath = join(
+          dir,
+          TEAMCC_PROJECT_DIR_NAME,
+          TEAMCC_MEMORY_FILENAME,
+        )
         result.push(
           ...(await processMemoryFile(
             dotClaudePath,
@@ -907,7 +917,11 @@ export const getMemoryFiles = memoize(
         )
 
         // Try reading .claude/rules/*.md files (Project)
-        const rulesDir = join(dir, '.claude', 'rules')
+        const rulesDir = join(
+          dir,
+          TEAMCC_PROJECT_DIR_NAME,
+          TEAMCC_RULES_DIR_NAME,
+        )
         result.push(
           ...(await processMdRules({
             rulesDir,
@@ -921,7 +935,7 @@ export const getMemoryFiles = memoize(
 
       // Try reading CLAUDE.local.md (Local) - only if localSettings is enabled
       if (isSettingSourceEnabled('localSettings')) {
-        const localPath = join(dir, 'CLAUDE.local.md')
+        const localPath = join(dir, TEAMCC_LOCAL_MEMORY_FILENAME)
         result.push(
           ...(await processMemoryFile(
             localPath,
@@ -941,7 +955,7 @@ export const getMemoryFiles = memoize(
       const additionalDirs = getAdditionalDirectoriesForClaudeMd()
       for (const dir of additionalDirs) {
         // Try reading CLAUDE.md from the additional directory
-        const projectPath = join(dir, 'CLAUDE.md')
+        const projectPath = join(dir, TEAMCC_MEMORY_FILENAME)
         result.push(
           ...(await processMemoryFile(
             projectPath,
@@ -952,7 +966,11 @@ export const getMemoryFiles = memoize(
         )
 
         // Try reading .claude/CLAUDE.md from the additional directory
-        const dotClaudePath = join(dir, '.claude', 'CLAUDE.md')
+        const dotClaudePath = join(
+          dir,
+          TEAMCC_PROJECT_DIR_NAME,
+          TEAMCC_MEMORY_FILENAME,
+        )
         result.push(
           ...(await processMemoryFile(
             dotClaudePath,
@@ -963,7 +981,11 @@ export const getMemoryFiles = memoize(
         )
 
         // Try reading .claude/rules/*.md files from the additional directory
-        const rulesDir = join(dir, '.claude', 'rules')
+        const rulesDir = join(
+          dir,
+          TEAMCC_PROJECT_DIR_NAME,
+          TEAMCC_RULES_DIR_NAME,
+        )
         result.push(
           ...(await processMdRules({
             rulesDir,
@@ -1255,7 +1277,7 @@ export async function getMemoryFilesForNestedDirectory(
 
   // Process project memory files (CLAUDE.md and .claude/CLAUDE.md)
   if (isSettingSourceEnabled('projectSettings')) {
-    const projectPath = join(dir, 'CLAUDE.md')
+    const projectPath = join(dir, TEAMCC_MEMORY_FILENAME)
     result.push(
       ...(await processMemoryFile(
         projectPath,
@@ -1264,7 +1286,11 @@ export async function getMemoryFilesForNestedDirectory(
         false,
       )),
     )
-    const dotClaudePath = join(dir, '.claude', 'CLAUDE.md')
+    const dotClaudePath = join(
+      dir,
+      TEAMCC_PROJECT_DIR_NAME,
+      TEAMCC_MEMORY_FILENAME,
+    )
     result.push(
       ...(await processMemoryFile(
         dotClaudePath,
@@ -1277,13 +1303,13 @@ export async function getMemoryFilesForNestedDirectory(
 
   // Process local memory file (CLAUDE.local.md)
   if (isSettingSourceEnabled('localSettings')) {
-    const localPath = join(dir, 'CLAUDE.local.md')
+    const localPath = join(dir, TEAMCC_LOCAL_MEMORY_FILENAME)
     result.push(
       ...(await processMemoryFile(localPath, 'Local', processedPaths, false)),
     )
   }
 
-  const rulesDir = join(dir, '.claude', 'rules')
+  const rulesDir = join(dir, TEAMCC_PROJECT_DIR_NAME, TEAMCC_RULES_DIR_NAME)
 
   // Process project unconditional .claude/rules/*.md files, which were not eagerly loaded
   // Use a separate processedPaths set to avoid marking conditional rule files as processed
@@ -1331,7 +1357,7 @@ export async function getConditionalRulesForCwdLevelDirectory(
   targetPath: string,
   processedPaths: Set<string>,
 ): Promise<MemoryFileInfo[]> {
-  const rulesDir = join(dir, '.claude', 'rules')
+  const rulesDir = join(dir, TEAMCC_PROJECT_DIR_NAME, TEAMCC_RULES_DIR_NAME)
   return processConditionedMdRules(
     targetPath,
     rulesDir,
@@ -1436,14 +1462,19 @@ export function isMemoryFilePath(filePath: string): boolean {
   const name = basename(filePath)
 
   // CLAUDE.md or CLAUDE.local.md anywhere
-  if (name === 'CLAUDE.md' || name === 'CLAUDE.local.md') {
+  if (
+    name === TEAMCC_MEMORY_FILENAME ||
+    name === TEAMCC_LOCAL_MEMORY_FILENAME
+  ) {
     return true
   }
 
   // .md files in .claude/rules/ directories
   if (
     name.endsWith('.md') &&
-    filePath.includes(`${sep}.claude${sep}rules${sep}`)
+    filePath.includes(
+      `${sep}${TEAMCC_PROJECT_DIR_NAME}${sep}${TEAMCC_RULES_DIR_NAME}${sep}`,
+    )
   ) {
     return true
   }

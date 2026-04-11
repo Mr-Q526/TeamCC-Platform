@@ -30,6 +30,13 @@ import type { MemoryType } from './memory/types.js'
 import { normalizePathForConfigKey } from './path.js'
 import { getEssentialTrafficOnlyReason } from './privacyLevel.js'
 import { getManagedFilePath } from './settings/managedPath.js'
+import { migrateClaudeGlobalConfigToTeamCC } from './teamccPaths.js'
+import {
+  TEAMCC_LOCAL_MEMORY_FILENAME,
+  TEAMCC_MEMORY_FILENAME,
+  TEAMCC_PROJECT_DIR_NAME,
+  TEAMCC_RULES_DIR_NAME,
+} from './teamccPaths.js'
 import type { ThemeSetting } from './theme.js'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
@@ -877,7 +884,7 @@ let configCacheHits = 0
 let configCacheMisses = 0
 // Session-total count of actual disk writes to the global config file.
 // Exposed for ant-only dev diagnostics (see inc-4552) so anomalous write
-// rates surface in the UI before they corrupt ~/.claude.json.
+// rates surface in the UI before they corrupt the TeamCC global config.
 let globalConfigWriteCount = 0
 
 export function getGlobalConfigWriteCount(): number {
@@ -1216,7 +1223,7 @@ function saveConfigWithLock<A extends object>(
     const currentConfig = getConfig(file, createDefault)
     if (file === getGlobalClaudeFile() && wouldLoseAuthState(currentConfig)) {
       logForDebugging(
-        'saveConfigWithLock: re-read config is missing auth that cache has; refusing to write to avoid wiping ~/.claude.json. See GH #3117.',
+        'saveConfigWithLock: re-read config is missing auth that cache has; refusing to write to avoid wiping the TeamCC global config. See GH #3117.',
         { level: 'error' },
       )
       logEvent('tengu_config_auth_loss_prevented', {})
@@ -1240,7 +1247,7 @@ function saveConfigWithLock<A extends object>(
 
     // Create timestamped backup of existing config before writing
     // We keep multiple backups to prevent data loss if a reset/corrupted config
-    // overwrites a good backup. Backups are stored in ~/.claude/backups/ to
+    // overwrites a good backup. Backups are stored in ~/.teamcc/backups/ to
     // keep the home directory clean.
     try {
       const fileBase = basename(file)
@@ -1342,6 +1349,7 @@ export function enableConfigs(): void {
 
   // Any reads to configuration before this flag is set show an console warning
   // to prevent us from adding config reading during module initialization
+  migrateClaudeGlobalConfigToTeamCC()
   configReadingAllowed = true
   // We only check the global config because currently all the configs share a file
   getConfig(
@@ -1357,7 +1365,7 @@ export function enableConfigs(): void {
 
 /**
  * Returns the directory where config backup files are stored.
- * Uses ~/.claude/backups/ to keep the home directory clean.
+ * Uses ~/.teamcc/backups/ to keep the home directory clean.
  */
 function getConfigBackupDir(): string {
   return join(getClaudeConfigHomeDir(), 'backups')
@@ -1365,7 +1373,7 @@ function getConfigBackupDir(): string {
 
 /**
  * Find the most recent backup file for a given config file.
- * Checks ~/.claude/backups/ first, then falls back to the legacy location
+ * Checks ~/.teamcc/backups/ first, then falls back to the legacy location
  * (next to the config file) for backwards compatibility.
  * Returns the full path to the most recent backup, or null if none exist.
  */
@@ -1781,13 +1789,13 @@ export function getMemoryPath(memoryType: MemoryType): string {
 
   switch (memoryType) {
     case 'User':
-      return join(getClaudeConfigHomeDir(), 'CLAUDE.md')
+      return join(getClaudeConfigHomeDir(), TEAMCC_MEMORY_FILENAME)
     case 'Local':
-      return join(cwd, 'CLAUDE.local.md')
+      return join(cwd, TEAMCC_LOCAL_MEMORY_FILENAME)
     case 'Project':
-      return join(cwd, 'CLAUDE.md')
+      return join(cwd, TEAMCC_MEMORY_FILENAME)
     case 'Managed':
-      return join(getManagedFilePath(), 'CLAUDE.md')
+      return join(getManagedFilePath(), TEAMCC_MEMORY_FILENAME)
     case 'AutoMem':
       return getAutoMemEntrypoint()
   }
@@ -1799,11 +1807,15 @@ export function getMemoryPath(memoryType: MemoryType): string {
 }
 
 export function getManagedClaudeRulesDir(): string {
-  return join(getManagedFilePath(), '.claude', 'rules')
+  return join(
+    getManagedFilePath(),
+    TEAMCC_PROJECT_DIR_NAME,
+    TEAMCC_RULES_DIR_NAME,
+  )
 }
 
 export function getUserClaudeRulesDir(): string {
-  return join(getClaudeConfigHomeDir(), 'rules')
+  return join(getClaudeConfigHomeDir(), TEAMCC_RULES_DIR_NAME)
 }
 
 // Exported for testing only
