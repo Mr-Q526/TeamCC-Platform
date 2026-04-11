@@ -338,7 +338,7 @@ const COMMANDS = memoize((): Command[] => [
   hooks,
   exportCommand,
   sandboxToggle,
-  ...(!isUsing3PServices() ? [logout, login()] : []),
+  ...[logout, login()],
   passes,
   ...(peersCmd ? [peersCmd] : []),
   tasks,
