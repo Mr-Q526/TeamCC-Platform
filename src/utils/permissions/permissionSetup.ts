@@ -27,6 +27,8 @@ import {
 } from './PermissionMode.js'
 import { applyPermissionRulesToPermissionContext } from './permissions.js'
 import { loadAllPermissionRulesFromDisk } from './permissionsLoader.js'
+import { loadIdentityPolicyRules } from './identityPolicyLoader.js'
+import { getIdentityProfile } from '../../bootstrap/state.js'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const autoModeStateModule = feature('TRANSCRIPT_CLASSIFIER')
@@ -989,6 +991,23 @@ export async function initializeToolPermissionContext({
     },
     rulesFromDisk,
   )
+
+  // Inject identity-based policy rules (department + level deny rules).
+  // These are merged AFTER disk rules so they always win — deny is absolute.
+  const identityProfile = getIdentityProfile()
+  if (identityProfile) {
+    const identityRules = await loadIdentityPolicyRules(getCwd(), {
+      departmentId: identityProfile.departmentId,
+      levelId: identityProfile.levelId,
+      roleId: identityProfile.roleId,
+    })
+    if (identityRules.length > 0) {
+      toolPermissionContext = applyPermissionRulesToPermissionContext(
+        toolPermissionContext,
+        identityRules,
+      )
+    }
+  }
 
   // Add directories from settings and --add-dir
   const allAdditionalDirectories = [
