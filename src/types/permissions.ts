@@ -60,6 +60,7 @@ export type PermissionRuleSource =
   | 'cliArg'
   | 'command'
   | 'session'
+  | 'teamccAdmin'
 
 /**
  * The value of a permission rule - specifies which tool and optional content
