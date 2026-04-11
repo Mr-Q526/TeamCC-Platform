@@ -1,12 +1,16 @@
 import Fastify from 'fastify'
-import fastifyJwt from 'fastify-jwt'
-import fastifyCors from 'fastify-cors'
+import fastifyJwt from '@fastify/jwt'
+import fastifyCors from '@fastify/cors'
+import { initializeDatabase } from './db/index.js'
 
 const PORT = parseInt(process.env.PORT || '3000')
 const HOST = process.env.HOST || '127.0.0.1'
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production'
 
 async function start() {
+  // Initialize database connection
+  await initializeDatabase()
+
   const fastify = Fastify({
     logger: true,
   })

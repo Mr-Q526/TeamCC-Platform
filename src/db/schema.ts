@@ -1,129 +1,148 @@
 import {
-  sqliteTable,
-  integer,
+  pgTable as table,
+  serial,
+  varchar,
   text,
-  real,
+  timestamp,
   primaryKey,
-} from 'drizzle-orm/sqlite-core'
+  integer,
+  uniqueIndex,
+} from 'drizzle-orm/pg-core'
 import { sql } from 'drizzle-orm'
 
 /**
  * Dictionary tables
  */
 
-export const orgs = sqliteTable('orgs', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull(),
+export const orgs = table('orgs', {
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
   description: text('description'),
 })
 
-export const departments = sqliteTable('departments', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull(),
+export const departments = table('departments', {
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
   description: text('description'),
 })
 
-export const teams = sqliteTable('teams', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull(),
+export const teams = table('teams', {
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
   description: text('description'),
 })
 
-export const roles = sqliteTable('roles', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull(),
+export const roles = table('roles', {
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
   description: text('description'),
 })
 
-export const levels = sqliteTable('levels', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull(),
+export const levels = table('levels', {
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
   description: text('description'),
 })
 
-export const projects = sqliteTable('projects', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull(),
-  code: text('code').notNull().unique(),
-  status: text('status').notNull().default('active'), // active, archived
-  createdAt: integer('created_at', { mode: 'timestamp' })
+export const projects = table('projects', {
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
+  code: varchar('code').notNull().unique(),
+  status: varchar('status').notNull().default('active'), // active, archived
+  createdAt: timestamp('created_at', { withTimezone: true })
     .notNull()
-    .default(sql`current_timestamp`),
+    .default(sql`now()`),
 })
 
 /**
  * User management
  */
 
-export const users = sqliteTable('users', {
-  id: integer('id').primaryKey(),
-  username: text('username').notNull().unique(),
-  email: text('email').notNull().unique(),
-  passwordHash: text('password_hash').notNull(),
-  orgId: integer('org_id'),
-  departmentId: integer('department_id'),
-  teamId: integer('team_id'),
-  roleId: integer('role_id'),
-  levelId: integer('level_id'),
-  defaultProjectId: integer('default_project_id'),
-  status: text('status').notNull().default('active'), // active, suspended
-  roles: text('roles').notNull().default('viewer'), // comma-separated: admin, viewer
-  createdAt: integer('created_at', { mode: 'timestamp' })
-    .notNull()
-    .default(sql`current_timestamp`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' })
-    .notNull()
-    .default(sql`current_timestamp`),
-})
+export const users = table(
+  'users',
+  {
+    id: serial('id').primaryKey(),
+    username: varchar('username').notNull().unique(),
+    email: varchar('email').notNull().unique(),
+    passwordHash: varchar('password_hash').notNull(),
+    orgId: integer('org_id'),
+    departmentId: integer('department_id'),
+    teamId: integer('team_id'),
+    roleId: integer('role_id'),
+    levelId: integer('level_id'),
+    defaultProjectId: integer('default_project_id'),
+    status: varchar('status').notNull().default('active'), // active, suspended
+    roles: varchar('roles').notNull().default('viewer'), // comma-separated: admin, viewer
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .default(sql`now()`),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .default(sql`now()`),
+  },
+  (table) => ({
+    usernameIdx: uniqueIndex('users_username_idx').on(table.username),
+    emailIdx: uniqueIndex('users_email_idx').on(table.email),
+  })
+)
 
-export const apiTokens = sqliteTable('api_tokens', {
-  id: integer('id').primaryKey(),
-  userId: integer('user_id').notNull(),
-  tokenHash: text('token_hash').notNull().unique(),
-  deviceLabel: text('device_label'),
-  lastUsedAt: integer('last_used_at', { mode: 'timestamp' }),
-  revokedAt: integer('revoked_at', { mode: 'timestamp' }),
-  expiresAt: integer('expires_at', { mode: 'timestamp' }),
-  createdAt: integer('created_at', { mode: 'timestamp' })
-    .notNull()
-    .default(sql`current_timestamp`),
-})
+export const apiTokens = table(
+  'api_tokens',
+  {
+    id: serial('id').primaryKey(),
+    userId: integer('user_id').notNull(),
+    tokenHash: varchar('token_hash').notNull().unique(),
+    deviceLabel: varchar('device_label'),
+    lastUsedAt: timestamp('last_used_at', { withTimezone: true }),
+    revokedAt: timestamp('revoked_at', { withTimezone: true }),
+    expiresAt: timestamp('expires_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .default(sql`now()`),
+  },
+  (table) => ({
+    tokenHashIdx: uniqueIndex('api_tokens_hash_idx').on(table.tokenHash),
+  })
+)
 
 /**
  * Permission management
  */
 
-export const permissionTemplates = sqliteTable('permission_templates', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull(),
-  description: text('description'),
-  version: integer('version').notNull().default(1),
-  rulesJson: text('rules_json').notNull(), // PermissionRule[] as JSON
-  capabilitiesJson: text('capabilities_json').notNull(), // string[] as JSON
-  envOverridesJson: text('env_overrides_json').notNull(), // Record<string, string> as JSON
-  status: text('status').notNull().default('active'), // active, archived
-  createdAt: integer('created_at', { mode: 'timestamp' })
-    .notNull()
-    .default(sql`current_timestamp`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' })
-    .notNull()
-    .default(sql`current_timestamp`),
-})
+export const permissionTemplates = table(
+  'permission_templates',
+  {
+    id: serial('id').primaryKey(),
+    name: varchar('name').notNull(),
+    description: text('description'),
+    version: integer('version').notNull().default(1),
+    rulesJson: text('rules_json').notNull(), // PermissionRule[] as JSON
+    capabilitiesJson: text('capabilities_json').notNull(), // string[] as JSON
+    envOverridesJson: text('env_overrides_json').notNull(), // Record<string, string> as JSON
+    status: varchar('status').notNull().default('active'), // active, archived
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .default(sql`now()`),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .default(sql`now()`),
+  }
+)
 
-export const userAssignments = sqliteTable(
+export const userAssignments = table(
   'user_assignments',
   {
     userId: integer('user_id').notNull(),
     projectId: integer('project_id').notNull(),
-    templateIds: text('template_ids').notNull(), // comma-separated IDs
+    templateIds: varchar('template_ids').notNull(), // comma-separated IDs
     extraRulesJson: text('extra_rules_json'), // PermissionRule[] as JSON
-    expiresAt: integer('expires_at', { mode: 'timestamp' }),
-    createdAt: integer('created_at', { mode: 'timestamp' })
+    expiresAt: timestamp('expires_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
-      .default(sql`current_timestamp`),
-    updatedAt: integer('updated_at', { mode: 'timestamp' })
+      .default(sql`now()`),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
       .notNull()
-      .default(sql`current_timestamp`),
+      .default(sql`now()`),
   },
   (table) => ({
     pk: primaryKey({ columns: [table.userId, table.projectId] }),
@@ -134,15 +153,15 @@ export const userAssignments = sqliteTable(
  * Audit logging
  */
 
-export const auditLog = sqliteTable('audit_log', {
-  id: integer('id').primaryKey(),
+export const auditLog = table('audit_log', {
+  id: serial('id').primaryKey(),
   actorUserId: integer('actor_user_id'),
-  action: text('action').notNull(), // create, update, delete, login, logout
-  targetType: text('target_type'), // user, template, assignment
+  action: varchar('action').notNull(), // create, update, delete, login, logout
+  targetType: varchar('target_type'), // user, template, assignment
   targetId: integer('target_id'),
   beforeJson: text('before_json'),
   afterJson: text('after_json'),
-  createdAt: integer('created_at', { mode: 'timestamp' })
+  createdAt: timestamp('created_at', { withTimezone: true })
     .notNull()
-    .default(sql`current_timestamp`),
+    .default(sql`now()`),
 })

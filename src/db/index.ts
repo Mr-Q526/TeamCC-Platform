@@ -1,17 +1,26 @@
-import Database from 'better-sqlite3'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
+import { Pool } from 'pg'
+import { drizzle } from 'drizzle-orm/node-postgres'
 import * as schema from './schema.js'
 
-const dbPath = process.env.DATABASE_PATH || './teamcc-admin.db'
-const sqlite = new Database(dbPath)
-sqlite.pragma('journal_mode = WAL')
+const databaseUrl = process.env.DATABASE_URL || 'postgresql://teamcc_admin:teamcc_admin_dev_password@localhost:5432/teamcc_admin'
 
-export const db = drizzle(sqlite, { schema })
+const pool = new Pool({
+  connectionString: databaseUrl,
+})
+
+export const db = drizzle(pool, { schema })
 
 export async function initializeDatabase() {
-  // TODO: Run migrations using drizzle-kit
-  // For now, tables will be created on-demand by drizzle
-  console.log(`✓ Database initialized at ${dbPath}`)
+  try {
+    // Test connection
+    const client = await pool.connect()
+    await client.query('SELECT 1')
+    client.release()
+    console.log('✓ Database connection established')
+  } catch (error) {
+    console.error('✗ Database connection failed:', error)
+    throw error
+  }
 }
 
-export { sqlite }
+export { pool }
