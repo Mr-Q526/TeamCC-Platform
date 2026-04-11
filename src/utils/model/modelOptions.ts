@@ -483,21 +483,6 @@ export function getModelOptions(fastMode = false): ModelOption[] {
     }
   }
 
-  // If using LiteLLM/Custom Proxy, inject third-party providers into the picker
-  const baseUrl = process.env.ANTHROPIC_BASE_URL || ''
-  if (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1')) {
-    const proxyOptions: ModelOption[] = [
-      { value: 'minimax2.7', label: 'Minimax 2.7', description: 'Minimax via Proxy' },
-      { value: 'deepseek-chat', label: 'DeepSeek V3', description: 'DeepSeek via Proxy' },
-      { value: 'doubao-pro', label: 'Doubao Pro', description: 'Doubao via Proxy' }
-    ]
-    for (const po of proxyOptions) {
-      if (!options.some(existing => existing.value === po.value)) {
-        options.push(po);
-      }
-    }
-  }
-
   // Add custom model from either the current model value or the initial one
   // if it is not already in the options.
   let customModel: ModelSetting = null
