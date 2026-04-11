@@ -318,7 +318,7 @@ function ModeIndicator({
     return <Text color="bashBorder">! for bash mode</Text>;
   }
   const currentMode = toolPermissionContext?.mode;
-  const hasActiveMode = !isDefaultMode(currentMode);
+  const hasActiveMode = true; // always show the mode active
   const viewedTask = viewingAgentTaskId ? tasks[viewingAgentTaskId] : undefined;
   const isViewingTeammate = viewSelectionMode === 'viewing-agent' && viewedTask?.type === 'in_process_teammate';
   const isViewingCompletedTeammate = isViewingTeammate && viewedTask != null && viewedTask.status !== 'running';
