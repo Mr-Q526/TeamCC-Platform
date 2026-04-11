@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import UsersPage from './UsersPage'
 import TemplatesPage from './TemplatesPage'
 import '../styles/Dashboard.css'
@@ -9,15 +10,26 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
+  const { t, i18n } = useTranslation()
   const [currentPage, setCurrentPage] = useState<'home' | 'users' | 'templates' | 'audit'>('home')
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'zh' ? 'en' : 'zh'
+    i18n.changeLanguage(newLang)
+  }
 
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>TeamCC Admin</h1>
-        <button onClick={onLogout} className="logout-btn">
-          Logout
-        </button>
+        <h1>{t('app.title')}</h1>
+        <div className="header-controls">
+          <button onClick={toggleLanguage} className="lang-btn">
+            {i18n.language === 'zh' ? 'English' : '中文'}
+          </button>
+          <button onClick={onLogout} className="logout-btn">
+            {t('nav.logout')}
+          </button>
+        </div>
       </header>
 
       <nav className="dashboard-nav">
@@ -25,48 +37,48 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
           className={currentPage === 'home' ? 'active' : ''}
           onClick={() => setCurrentPage('home')}
         >
-          Dashboard
+          {t('nav.dashboard')}
         </button>
         <button
           className={currentPage === 'users' ? 'active' : ''}
           onClick={() => setCurrentPage('users')}
         >
-          Users
+          {t('nav.users')}
         </button>
         <button
           className={currentPage === 'templates' ? 'active' : ''}
           onClick={() => setCurrentPage('templates')}
         >
-          Permission Templates
+          {t('nav.templates')}
         </button>
         <button
           className={currentPage === 'audit' ? 'active' : ''}
           onClick={() => setCurrentPage('audit')}
         >
-          Audit Log
+          {t('nav.audit')}
         </button>
       </nav>
 
       <main className="dashboard-content">
         {currentPage === 'home' && (
           <div className="home-page">
-            <h2>Welcome to TeamCC Admin</h2>
-            <p>Manage identity and permissions for your organization</p>
+            <h2>{t('home.welcome')}</h2>
+            <p>{t('home.description')}</p>
             <div className="quick-stats">
               <div className="stat-card">
-                <h3>Users</h3>
-                <p>Manage employee accounts</p>
-                <button onClick={() => setCurrentPage('users')}>Go to Users</button>
+                <h3>{t('home.users.title')}</h3>
+                <p>{t('home.users.desc')}</p>
+                <button onClick={() => setCurrentPage('users')}>{t('home.users.button')}</button>
               </div>
               <div className="stat-card">
-                <h3>Templates</h3>
-                <p>Define permission templates</p>
-                <button onClick={() => setCurrentPage('templates')}>Go to Templates</button>
+                <h3>{t('home.templates.title')}</h3>
+                <p>{t('home.templates.desc')}</p>
+                <button onClick={() => setCurrentPage('templates')}>{t('home.templates.button')}</button>
               </div>
               <div className="stat-card">
-                <h3>Audit</h3>
-                <p>View activity logs</p>
-                <button onClick={() => setCurrentPage('audit')}>Go to Audit</button>
+                <h3>{t('home.audit.title')}</h3>
+                <p>{t('home.audit.desc')}</p>
+                <button onClick={() => setCurrentPage('audit')}>{t('home.audit.button')}</button>
               </div>
             </div>
           </div>
@@ -76,8 +88,8 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
         {currentPage === 'templates' && <TemplatesPage accessToken={accessToken} />}
         {currentPage === 'audit' && (
           <div className="page">
-            <h2>Audit Log</h2>
-            <p>Coming soon...</p>
+            <h2>{t('audit.title')}</h2>
+            <p>{t('audit.comingSoon')}</p>
           </div>
         )}
       </main>

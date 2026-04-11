@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { API_BASE } from '../api/client'
 import '../styles/LoginPage.css'
 
@@ -7,6 +8,7 @@ interface LoginPageProps {
 }
 
 export default function LoginPage({ onLogin }: LoginPageProps) {
+  const { t } = useTranslation()
   const [username, setUsername] = useState('admin')
   const [password, setPassword] = useState('password123')
   const [error, setError] = useState('')
@@ -25,7 +27,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       })
 
       if (!response.ok) {
-        throw new Error('Login failed')
+        throw new Error(t('login.failed'))
       }
 
       const data = await response.json()
@@ -40,12 +42,12 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h1>TeamCC Admin</h1>
-        <p className="subtitle">Identity & Permission Management</p>
+        <h1>{t('app.title')}</h1>
+        <p className="subtitle">{t('app.subtitle')}</p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">{t('login.username')}</label>
             <input
               id="username"
               type="text"
@@ -56,7 +58,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('login.password')}</label>
             <input
               id="password"
               type="password"
@@ -69,11 +71,11 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           {error && <div className="error-message">{error}</div>}
 
           <button type="submit" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? t('login.loggingIn') : t('login.button')}
           </button>
         </form>
 
-        <p className="hint">Demo: admin / password123</p>
+        <p className="hint">{t('login.demo')}</p>
       </div>
     </div>
   )
