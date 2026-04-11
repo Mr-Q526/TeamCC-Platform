@@ -18,3 +18,7 @@ coverage/
 .vscode/
 # LiteLLM Proxy
 .env.litellm
+
+# Python Virtual Env
+.venv/
+
