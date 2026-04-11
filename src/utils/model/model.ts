@@ -261,6 +261,9 @@ export function firstPartyNameToCanonical(name: ModelName): ModelShortName {
   if (name.includes('claude-3-haiku')) {
     return 'claude-3-haiku'
   }
+  if (name.includes('minimax2.7')) {
+    return 'minimax2.7'
+  }
   const match = name.match(/(claude-(\d+-\d+-)?\w+)/)
   if (match && match[1]) {
     return match[1]
@@ -378,6 +381,8 @@ export function getPublicModelDisplayName(model: ModelName): string | null {
       return 'Haiku 4.5'
     case getModelStrings().haiku35:
       return 'Haiku 3.5'
+    case getModelStrings().minimax27:
+      return 'Minimax 2.7'
     default:
       return null
   }
@@ -608,6 +613,9 @@ export function getMarketingNameForModel(modelId: string): string | undefined {
   }
   if (canonical.includes('claude-3-5-haiku')) {
     return 'Claude 3.5 Haiku'
+  }
+  if (canonical.includes('minimax2.7')) {
+    return 'Minimax 2.7'
   }
 
   return undefined

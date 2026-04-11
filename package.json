@@ -15,7 +15,7 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "dev": "bun run ./src/bootstrap-entry.ts",
+    "dev": "ANTHROPIC_API_KEY='sk-cp-yRIIpUY_9y9nop4d51Qm_yNt5uU1vy9uBZu73t17V8r8pPJCv36mzoVTHHshP2eXtMiQT-7dbfXGfOvm-mifue6i4ItrpD91YOY8TbU0mMkp3UXzk_wg81Q' ANTHROPIC_BASE_URL='https://api.minimax.chat/v1' ANTHROPIC_MODEL='minimax2.7' bun run ./src/bootstrap-entry.ts",
     "start": "bun run ./src/bootstrap-entry.ts",
     "version": "bun run ./src/bootstrap-entry.ts --version",
     "dev:restore-check": "bun run ./src/dev-entry.ts"
