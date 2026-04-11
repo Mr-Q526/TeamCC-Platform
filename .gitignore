@@ -22,3 +22,8 @@ coverage/
 # Python Virtual Env
 .venv/
 
+
+# Environment Variables
+.env
+.env.*
+!.env.example
