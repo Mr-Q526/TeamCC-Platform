@@ -26,6 +26,24 @@ async function start() {
     secret: JWT_SECRET,
   })
 
+  // Root endpoint
+  fastify.get('/', async () => ({
+    name: 'teamcc-admin',
+    version: '0.1.0',
+    endpoints: {
+      health: '/health',
+      auth: {
+        login: 'POST /auth/login',
+        refresh: 'POST /auth/refresh',
+        logout: 'POST /auth/logout',
+      },
+      client: {
+        identity: 'GET /identity/me',
+        policy: 'GET /policy/bundle?projectId=N',
+      },
+    },
+  }))
+
   // Health check
   fastify.get('/health', async () => ({ status: 'ok' }))
 
