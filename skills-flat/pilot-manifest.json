@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "2026-04-11",
+  "pilotCount": 6,
+  "skills": [
+    {
+      "skillId": "security/security-threat-model",
+      "targetDir": "skills-flat/security-threat-model",
+      "displayName": "Security Threat Model",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1283c0dd62a8104d9edda4583569b5d8510b4ddaa45120687c999250fd96bad2",
+      "domain": "security",
+      "departmentTags": ["security-platform"],
+      "sceneTags": ["architecture", "security-audit"]
+    },
+    {
+      "skillId": "tools/pdf",
+      "targetDir": "skills-flat/pdf",
+      "displayName": "PDF",
+      "version": "0.1.0",
+      "sourceHash": "sha256:d108cf2b36355ab37eb5962933f4d09785ec002f3105c506129320209306b9d2",
+      "domain": "tools",
+      "departmentTags": ["data-platform"],
+      "sceneTags": ["content-generation", "review"]
+    },
+    {
+      "skillId": "infra/vercel-deploy",
+      "targetDir": "skills-flat/vercel-deploy",
+      "displayName": "Vercel Deploy",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f4a6cbfbb378a320fae179a79f727a881d19677e9b3db96ed49d2dc02a74fa46",
+      "domain": "infra",
+      "departmentTags": ["infra-platform"],
+      "sceneTags": ["deploy", "release"]
+    },
+    {
+      "skillId": "ai/transcribe",
+      "targetDir": "skills-flat/transcribe",
+      "displayName": "Transcribe",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f530021da9f377362ee4214e0bc689cbb5404640d2eb88ee272d51d61f530a09",
+      "domain": "ai",
+      "departmentTags": ["ai-platform"],
+      "sceneTags": ["content-generation", "data-analysis"]
+    },
+    {
+      "skillId": "frontend/nextjs-app-router",
+      "targetDir": "skills-flat/nextjs-app-router",
+      "displayName": "Next.js App Router",
+      "version": "0.1.0",
+      "sourceHash": "sha256:678a88fb1f32913079ad4aea88f59ab6bbe5ba503cd2730a1bb8e2cf16f30391",
+      "domain": "frontend",
+      "departmentTags": ["frontend-platform"],
+      "sceneTags": ["architecture"]
+    },
+    {
+      "skillId": "frontend/frontend-skill",
+      "targetDir": "skills-flat/frontend-skill",
+      "displayName": "Frontend Skill",
+      "version": "0.1.0",
+      "sourceHash": "sha256:d367b2d22825d74c169475507e7ff109b81c1e9c20b2de3421fb19fcfbe3329b",
+      "domain": "frontend",
+      "departmentTags": ["frontend-platform"],
+      "sceneTags": ["design"]
+    }
+  ]
+}
