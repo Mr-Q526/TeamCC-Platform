@@ -674,6 +674,15 @@ export async function computeSimpleEnvInfo(
   const cwd = getCwd()
   const isWorktree = getCurrentWorktreeSession() !== null
 
+  const { getIdentityProfile } = await import('../bootstrap/state.js')
+  const { mapDepartment, mapRole, mapLevel, mapTeam } = await import('../utils/identity.js')
+  const profile = getIdentityProfile()
+
+  let identityItem: string | null = null
+  if (profile) {
+    identityItem = `Your Active Identity / Context: Department: ${mapDepartment(profile.departmentId)}, Team: ${mapTeam(profile.teamId)}, Role: ${mapRole(profile.roleId)}, Level: ${mapLevel(profile.levelId)}. You are strictly serving in the above organizational role. Do not offer to perform tasks outside your domain.`
+  }
+
   const envItems = [
     `Primary working directory: ${cwd}`,
     isWorktree
@@ -700,7 +709,8 @@ export async function computeSimpleEnvInfo(
     process.env.USER_TYPE === 'ant' && isUndercover()
       ? null
       : `Fast mode for Claude Code uses the same ${FRONTIER_MODEL_NAME} model with faster output. It does NOT switch to a different model. It can be toggled with /fast.`,
-  ].filter(item => item !== null)
+    identityItem,
+  ].filter((item): item is string | string[] => item !== null)
 
   return [
     `# Environment`,

@@ -1,4 +1,4 @@
-import { getDirectConnectServerUrl, getSessionId } from '../bootstrap/state.js'
+import { getDirectConnectServerUrl, getSessionId, getIdentityProfile } from '../bootstrap/state.js'
 import { stringWidth } from '../ink/stringWidth.js'
 import type { LogOption } from '../types/logs.js'
 import { getSubscriptionName, isClaudeAISubscriber } from './auth.js'
@@ -13,6 +13,13 @@ import { getStoredChangelogFromMemory, parseChangelog } from './releaseNotes.js'
 import { gt } from './semver.js'
 import { loadMessageLogs } from './sessionStorage.js'
 import { getInitialSettings } from './settings/settings.js'
+import {
+  mapDepartment,
+  mapLevel,
+  mapOrg,
+  mapRole,
+  mapTeam,
+} from './identity.js'
 
 // Layout constants
 const MAX_LEFT_WIDTH = 50
@@ -83,12 +90,14 @@ export function calculateOptimalLeftWidth(
   welcomeMessage: string,
   truncatedCwd: string,
   modelLine: string,
+  identityLine = '',
 ): number {
   const contentWidth = Math.max(
     stringWidth(welcomeMessage),
     stringWidth(truncatedCwd),
     stringWidth(modelLine),
-    20, // Minimum for clawd art
+    stringWidth(identityLine),
+    30, // Minimum for three clawd glyphs
   )
   return Math.min(contentWidth + 4, MAX_LEFT_WIDTH) // +4 for padding
 }
@@ -97,10 +106,62 @@ export function calculateOptimalLeftWidth(
  * Formats the welcome message based on username
  */
 export function formatWelcomeMessage(username: string | null): string {
-  if (!username || username.length > MAX_USERNAME_LENGTH) {
-    return 'Welcome back!'
+  if (username && username.length <= MAX_USERNAME_LENGTH) {
+    return `Welcome back ${username}!`
   }
-  return `Welcome back ${username}!`
+
+  return 'Welcome back!'
+}
+
+/**
+ * Formats the runtime-injected operator identity for the welcome panel.
+ */
+export function formatIdentityLines(
+  username: string | null,
+  maxWidth?: number,
+): string[] {
+  const profile = getIdentityProfile()
+  if (!profile) {
+    return []
+  }
+
+  const displayName =
+    username && username.length <= MAX_USERNAME_LENGTH
+      ? username
+      : `user-${profile.userId}`
+  const nameLine =
+    displayName === `user-${profile.userId}`
+      ? `Identity: ${displayName}`
+      : `Identity: ${displayName} · user-${profile.userId}`
+  const details =
+    `${mapDepartment(profile.departmentId)}/${mapTeam(profile.teamId)} · ` +
+    `${mapRole(profile.roleId)} · ${mapLevel(profile.levelId)}`
+  const detailsWithOrg =
+    profile.orgId !== null ? `${mapOrg(profile.orgId)} · ${details}` : details
+  const detailLine =
+    maxWidth && stringWidth(detailsWithOrg) > maxWidth
+      ? details
+      : detailsWithOrg
+
+  if (!maxWidth) {
+    return [nameLine, detailLine]
+  }
+
+  return [
+    truncateToWidth(nameLine, maxWidth),
+    truncateToWidth(detailLine, maxWidth),
+  ]
+}
+
+/**
+ * Formats identity as a single string for layout calculations and probes.
+ */
+export function formatIdentitySummary(
+  username: string | null,
+  maxWidth?: number,
+): string | null {
+  const lines = formatIdentityLines(username, maxWidth)
+  return lines.length > 0 ? lines.join(' · ') : null
 }
 
 /**

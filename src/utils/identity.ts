@@ -24,6 +24,7 @@ export type IdentityProfile = {
   teamId: number
   roleId: number
   levelId: number
+  projectId: number
 }
 
 // ---------------------------------------------------------------------------
@@ -126,6 +127,7 @@ export async function loadIdentityProfile(
     const { frontmatter } = parseFrontmatter(raw, identityPath)
 
     const userId = Number(frontmatter.user_id)
+    const projectId = frontmatter.project_id !== undefined ? Number(frontmatter.project_id) : 1000
     const departmentId = Number(frontmatter.department_id)
     const teamId = Number(frontmatter.team_id)
     const roleId = Number(frontmatter.role_id)
@@ -153,6 +155,7 @@ export async function loadIdentityProfile(
       teamId,
       roleId,
       levelId,
+      projectId,
     }
 
     logForDiagnosticsNoPII('info', 'identity_profile_loaded', {
@@ -190,5 +193,12 @@ export function buildIdentityContextString(
   if (profile.orgId !== null) {
     parts.unshift(`org=${mapOrg(profile.orgId)}`)
   }
-  return `Current operator identity: ${parts.join(', ')} (user_id=${profile.userId})`
+  return `Current operator identity: ${parts.join(', ')} (user_id=${profile.userId}, project_id=${profile.projectId})`
+}
+
+/**
+ * Identify if a profile has cross-project privileges
+ */
+export function isCrossProject(profile: IdentityProfile): boolean {
+  return profile.projectId === 0
 }
