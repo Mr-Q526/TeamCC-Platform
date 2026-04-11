@@ -1777,7 +1777,17 @@ async function run(): Promise<CommanderCommand> {
 
             profile = envelopeToProfile(envelope);
             await cacheIdentity(cwd, envelope);
-            logForDebugging('[main] Loaded identity from TeamCC Admin');
+            logForDebugging('[main] ✅ Loaded identity from TeamCC Admin');
+
+            // Auto-refresh permissions when logged in
+            try {
+              const { loadAndMergeAllPermissionRules } = await import('./utils/permissions/teamccIntegration.js');
+              const merged = await loadAndMergeAllPermissionRules(profile.projectId || 1);
+              logForDebugging(`[main] ✅ Updated permissions: ${merged.length} rules loaded`);
+            } catch (permError) {
+              const msg = permError instanceof Error ? permError.message : String(permError);
+              logForDebugging(`[main] Warning: Failed to refresh permissions: ${msg}`, { level: 'warn' });
+            }
           } catch (remoteError) {
             // Fallback to cache if remote fails
             const errorMsg = remoteError instanceof Error ? remoteError.message : String(remoteError);
@@ -1786,7 +1796,7 @@ async function run(): Promise<CommanderCommand> {
             const cached = await loadCachedIdentity(cwd);
             if (cached && isCacheValid(cached)) {
               profile = envelopeToProfile(cached);
-              logForDebugging('[main] Using cached identity from TeamCC Admin');
+              logForDebugging('[main] ⚠️  Using cached identity from TeamCC Admin');
             }
           }
         } else if (config?.apiBase && !config?.accessToken) {
