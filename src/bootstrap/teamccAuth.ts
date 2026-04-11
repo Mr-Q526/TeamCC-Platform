@@ -241,36 +241,46 @@ export async function getValidAccessToken(
 
 /**
  * 从 teamcc-admin 的 /identity/me 端点获取身份信息
+ * 包含 5 秒超时以防止启动卡顿
  */
 export async function fetchIdentityFromTeamCC(
   config: TeamCCConfig,
+  timeoutMs: number = 5000,
 ): Promise<IdentityEnvelope> {
-  const { token, updatedConfig } = await getValidAccessToken(config)
+  const { token } = await getValidAccessToken(config)
 
   try {
-    const response = await fetch(`${config.apiBase}/identity/me`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch identity: ${response.status} ${response.statusText}`,
-      )
-    }
+    try {
+      const response = await fetch(`${config.apiBase}/identity/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+        signal: controller.signal,
+      })
 
-    const envelope = (await response.json()) as IdentityEnvelope
-    logForDebugging('[teamcc] Identity fetched successfully')
+      clearTimeout(timeoutId)
 
-    // 更新配置以反映刷新后的 token
-    if (updatedConfig !== config) {
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch identity: ${response.status} ${response.statusText}`,
+        )
+      }
+
+      const envelope = (await response.json()) as IdentityEnvelope
+      logForDebugging('[teamcc] Identity fetched successfully')
       return envelope
+    } catch (fetchError) {
+      clearTimeout(timeoutId)
+      if (fetchError instanceof Error && fetchError.name === 'AbortError') {
+        throw new Error(`Identity fetch timeout after ${timeoutMs}ms`)
+      }
+      throw fetchError
     }
-
-    return envelope
   } catch (e) {
     logForDebugging(
       `[teamcc] Failed to fetch identity: ${(e as Error).message}`,
-      { level: 'error' },
+      { level: 'debug' },
     )
     throw e
   }

@@ -926,19 +926,65 @@ flowchart TD
 
 ```text
 V1:
-  PostgreSQL + pgvector + 本地 JSONL
-  先把 registry、反馈、聚合分和少量 embedding 放在一个 Postgres 里。
+  PostgreSQL + pgvector + 火山 embedding API + 本地 JSONL
+  火山 API 负责生成 embedding，Postgres/pgvector 只负责存储和近邻检索。
 
 V2:
-  PostgreSQL + pgvector + Neo4j + JSONL/Langfuse
-  图谱关系进入 Neo4j，Postgres 继续作为事实表和聚合表。
+  PostgreSQL + pgvector + 火山 embedding API + Neo4j + JSONL/Langfuse
+  图谱关系进入 Neo4j，Postgres 继续作为事实表、聚合表和轻量向量索引。
 
 V3:
-  PostgreSQL + Neo4j + 专用向量库 或 OpenSearch/Weaviate
+  PostgreSQL + Neo4j + 火山 embedding API + 专用向量库 或 OpenSearch/Weaviate
   当 Skill、文档、历史任务、反馈证据规模上来后，把向量检索拆出去。
 ```
 
-### 11.2 为什么 V1 不建议直接上专用向量数据库
+### 11.2 向量 embedding 由火山 API 生成
+
+本项目不需要自建 embedding 模型服务。向量生成统一调用火山 API：
+
+```text
+文本构造
+  -> 火山 embedding API
+  -> embedding vector
+  -> pgvector / 向量库保存
+  -> 检索阶段做向量相似度召回
+```
+
+需要生成 embedding 的对象：
+
+- Skill 元信息：`displayName + description + aliases + domain + sceneTags`。
+- Skill 摘要：`SKILL.md` 的标题、目标、适用场景、关键规则摘要。
+- Alias / Concept：中文别名、英文别名、缩写和归一化概念。
+- 用户任务 query：当前用户输入、检索上下文摘要。
+- 后续可选：历史任务、成功案例、失败案例、代码片段、文档块。
+
+embedding 生成策略：
+
+- registry 构建时，为每个 Skill 当前版本生成 embedding。
+- `sourceHash` 变化时重新生成对应 SkillVersion 的 embedding。
+- 用户 query embedding 按检索轮次实时生成，可按 `queryTextHash` 做短期缓存。
+- embedding 维度、模型名、火山 API 版本必须写入 embedding metadata，避免后续模型升级导致向量不可比。
+
+建议字段：
+
+```ts
+type SkillEmbeddingRecord = {
+  embeddingId: string
+  skillId?: string
+  version?: string
+  sourceHash?: string
+  objectType: 'skill-metadata' | 'skill-summary' | 'alias' | 'concept' | 'query' | 'case'
+  textHash: string
+  embeddingModel: string
+  embeddingProvider: 'volcengine'
+  embeddingDim: number
+  vector: number[]
+  payload: Record<string, unknown>
+  createdAt: string
+}
+```
+
+### 11.3 为什么 V1 不建议直接上专用向量数据库
 
 如果当前 Skill 数量是几十到几千级，V1 阶段直接引入专用向量数据库通常收益不高。原因：
 
@@ -950,11 +996,11 @@ V3:
 V1 推荐用 PostgreSQL 承担两件事：
 
 - 关系数据：registry、feedback、aggregate、retrieval_snapshot。
-- 轻量向量：Skill embedding、alias embedding、description embedding。
+- 轻量向量：由火山 API 生成的 Skill embedding、alias embedding、description embedding。
 
 `pgvector` 官方支持在 Postgres 中存储向量，并支持 exact / approximate nearest neighbor、HNSW、IVFFlat、cosine / L2 / inner product 等距离函数；这足够支撑早期 Skill 语义召回。参考：[pgvector](https://github.com/pgvector/pgvector)。
 
-### 11.3 什么时候需要独立向量数据库
+### 11.4 什么时候需要独立向量数据库
 
 满足以下任意条件时，再考虑独立向量库：
 
@@ -979,7 +1025,81 @@ V1 推荐用 PostgreSQL 承担两件事：
 - Weaviate hybrid search 同时融合 vector 和 BM25：[Weaviate Hybrid Search](https://docs.weaviate.io/weaviate/search/hybrid)
 - OpenSearch 支持向量搜索和 k-NN filtering：[OpenSearch Vector Search](https://docs.opensearch.org/latest/vector-search/filter-search-knn/index/)
 
-### 11.4 图谱数据库要不要
+### 11.5 BM25 + 向量混合检索是否需要
+
+需要。评分加权不能替代 BM25 + 向量混合召回。
+
+原因：
+
+- 评分加权只能在“已经召回的候选集”里排序，不能找回没有召回的 Skill。
+- BM25 擅长精确词、技术名词、缩写、命令名、框架名，例如 `RBAC`、`Playwright`、`pgvector`、`Next.js App Router`。
+- 向量检索擅长语义相似和中英文表达差异，例如“管理后台页面”召回 `admin-dashboard-design`。
+- 图谱评分擅长表达历史效果和偏好，例如某部门在安全审查场景下更常成功使用哪个 Skill。
+
+因此检索阶段应分成两步：
+
+```text
+召回阶段:
+  exact / alias / BM25 / vector / graph / path-rule 多路召回
+
+重排序阶段:
+  对召回候选做评分融合，包括文本分、向量分、图谱分、反馈分、上下文分
+```
+
+推荐 V1 检索组合：
+
+| 通道 | 是否保留 | 作用 |
+| --- | --- | --- |
+| Exact / Alias | 必须 | 用户直接说 Skill 名、别名、缩写时稳定命中 |
+| BM25 | 必须 | 处理技术关键词、命令名、框架名、精确短语 |
+| Vector | 必须 | 处理语义表达、中文口语、描述性任务 |
+| Graph score | 必须 | 提供部门、场景、项目、历史效果偏好 |
+| Path rule | 建议 | 根据文件路径、技术栈、改动区域加权 |
+
+### 11.6 为什么只靠评分加权不够
+
+只靠评分加权有三个问题：
+
+1. 冷启动 Skill 没有历史分，容易永远排不上来。
+2. 用户明确输入专业词时，历史评分高但语义不匹配的 Skill 可能误排到前面。
+3. 评分分布会强化既有偏好，导致新 Skill 和长尾 Skill 没有探索机会。
+
+正确做法：
+
+```text
+先多路召回保证不漏:
+  BM25 top 20
+  vector top 20
+  alias/exact top 10
+  graph preference top 20
+  path rule top 10
+
+再统一重排序:
+  finalScore = relevance + graphQuality + context + exploration - penalties
+```
+
+建议 V1 公式：
+
+```text
+finalScore =
+  0.25 * bm25Score +
+  0.20 * vectorScore +
+  0.15 * aliasExactScore +
+  0.15 * graphQualityScore +
+  0.10 * departmentPreferenceScore +
+  0.05 * sceneMatchScore +
+  0.05 * pathContextBoost +
+  0.05 * explorationBoost -
+  0.10 * repeatedInjectionPenalty
+```
+
+如果 query 很短、命中精确别名，则提高 `aliasExactScore` 和 `bm25Score` 权重。
+
+如果 query 很口语化、没有明确技术词，则提高 `vectorScore` 权重。
+
+如果任务是高风险安全、数据迁移、支付、权限，则降低 `explorationBoost`，提高 `graphQualityScore` 和 `confidence` 权重。
+
+### 11.7 图谱数据库要不要
 
 要。只要目标是“知识图谱沉淀”，图谱数据库就是目标架构的一部分。
 
@@ -1002,13 +1122,15 @@ V1 推荐用 PostgreSQL 承担两件事：
 
 Neo4j 官方支持 vector index，可对节点或关系向量做近邻查询；同时 Neo4j Graph Data Science 提供 PageRank、community detection 等图算法。参考：[Neo4j Vector Indexes](https://neo4j.com/docs/cypher-manual/current/indexes/semantic-indexes/vector-indexes)、[Neo4j GDS PageRank](https://neo4j.com/docs/graph-data-science/current/algorithms/page-rank/)、[Neo4j GDS Community Detection](https://neo4j.com/docs/graph-data-science/current/algorithms/community/)。
 
-### 11.5 推荐的逻辑架构
+### 11.8 推荐的逻辑架构
 
 ```mermaid
 flowchart TD
   A["skills-flat/SKILL.md"] --> B["Registry Builder"]
   B --> C["PostgreSQL: skill_registry / skill_version / aliases"]
   B --> D["Embedding Job"]
+  D --> V["火山 embedding API"]
+  V --> D
   D --> E["pgvector or Vector DB"]
 
   F["Runtime Telemetry"] --> G["Local JSONL / Langfuse"]
@@ -1025,6 +1147,7 @@ flowchart TD
   K["Retrieval Service"] --> C
   K --> E
   K --> I
+  K --> M["BM25 Index"]
   K --> L["Hybrid Reranker"]
 ```
 
@@ -1033,12 +1156,13 @@ flowchart TD
 | 组件 | 保存什么 |
 | --- | --- |
 | PostgreSQL | registry 当前状态、SkillVersion、反馈事实表、聚合分、检索快照索引 |
-| pgvector / 向量库 | Skill、alias、description、案例、历史任务的 embedding |
+| 火山 embedding API | 生成 Skill、query、alias、case 的 embedding |
+| pgvector / 向量库 | 保存 embedding 并执行向量近邻召回 |
 | Neo4j | Skill 图谱、动态边权、推荐路径、Concept 关系、版本关系 |
 | JSONL / Langfuse | 原始 trace、prompt、候选列表、模型行为、人工评价证据 |
-| OpenSearch | 可选，全文检索、日志检索、BM25 baseline |
+| BM25 Index / OpenSearch | 文本关键词召回、技术词精确召回、BM25 baseline |
 
-### 11.6 推荐表结构草案
+### 11.9 推荐表结构草案
 
 PostgreSQL 表：
 
@@ -1123,7 +1247,7 @@ Neo4j 节点和边：
 ```text
 skill_embedding
   id = skillId + version + sourceHash + field
-  vector = embedding(displayName + description + aliases + selected SKILL.md summary)
+  vector = volcengine_embedding(displayName + description + aliases + selected SKILL.md summary)
   payload = {
     skillId,
     version,
@@ -1131,37 +1255,61 @@ skill_embedding
     domain,
     departmentTags,
     sceneTags,
-    field
+    field,
+    embeddingProvider,
+    embeddingModel,
+    embeddingDim
   }
 ```
 
-### 11.7 选型决策矩阵
+BM25 索引字段：
+
+```text
+skill_text_index
+  skillId
+  version
+  sourceHash
+  name
+  displayName
+  description
+  aliases
+  domain
+  departmentTags
+  sceneTags
+  selectedSkillSummary
+```
+
+BM25 可以先用本地索引或 Postgres full-text search 实现；如果后续已经引入 OpenSearch，再迁移到 OpenSearch。
+
+### 11.10 选型决策矩阵
 
 | 问题 | 选择 |
 | --- | --- |
-| 只有 100-5000 个 Skill，要先跑通闭环 | PostgreSQL + pgvector + JSONL |
+| 只有 100-5000 个 Skill，要先跑通闭环 | PostgreSQL + pgvector + 火山 embedding API + JSONL |
 | 需要长期知识图谱沉淀和可解释多跳推荐 | Neo4j |
 | 已经有 OpenSearch，且 BM25/日志检索很重 | OpenSearch 做搜索补充，不做唯一事实源 |
-| 语义检索对象扩展到大量文档块、代码块、历史任务 | Qdrant 或 Weaviate |
+| 语义检索对象扩展到大量文档块、代码块、历史任务 | 火山 embedding API + Qdrant 或 Weaviate |
 | 强依赖 hybrid vector + BM25 一体化 | Weaviate 或 OpenSearch |
 | 要最少组件、最少运维 | Postgres + pgvector，图谱先用边表模拟 |
 | 要图算法和推荐解释 | Neo4j + GDS |
 | 要企业级超大图计算 | 评估 TigerGraph |
 
-### 11.8 本项目推荐
+### 11.11 本项目推荐
 
 对当前仓库和 100 个 Skill 的规模，推荐：
 
-1. V1 使用 PostgreSQL + pgvector + 本地 JSONL。
-2. 先不要引入独立向量数据库。
-3. 图谱先用 Postgres 边表或本地导出模拟，等反馈事件跑起来后接 Neo4j。
-4. V2 将静态关系和动态边权写入 Neo4j，用 Neo4j 提供多跳解释和图谱特征。
-5. V3 如果检索对象从 Skill 扩展到大量代码片段、历史任务和文档块，再引入 Qdrant / Weaviate / OpenSearch。
+1. V1 使用 PostgreSQL + pgvector + 火山 embedding API + 本地 JSONL。
+2. 保留 BM25 + 向量混合召回；不要只靠反馈评分加权。
+3. 先不要引入独立向量数据库。
+4. 图谱先用 Postgres 边表或本地导出模拟，等反馈事件跑起来后接 Neo4j。
+5. V2 将静态关系和动态边权写入 Neo4j，用 Neo4j 提供多跳解释和图谱特征。
+6. V3 如果检索对象从 Skill 扩展到大量代码片段、历史任务和文档块，再引入 Qdrant / Weaviate / OpenSearch。
 
 一句话结论：
 
 ```text
-当前阶段：PostgreSQL + pgvector 足够启动。
+当前阶段：PostgreSQL + pgvector + 火山 embedding API 足够启动。
+检索阶段：必须保留 BM25 + 向量混合召回；评分加权只做重排序，不替代召回。
 知识图谱阶段：Neo4j 是推荐主选。
 大规模语义检索阶段：再引入专用向量库，不要一开始就上。
 ```
@@ -1177,4 +1325,5 @@ skill_embedding
 - 每天或每次 eval run 后聚合 `SkillQualityAggregate`。
 - reranker 至少读取 `graphQualityScore` 和 `departmentPreferenceScore`。
 - Telemetry 通过统一 adapter 写本地 JSONL，后续再接 Langfuse/OTel。
-- V1 数据库使用 PostgreSQL + pgvector；图谱先边表模拟，V2 再接 Neo4j。
+- V1 数据库使用 PostgreSQL + pgvector，embedding 由火山 API 生成；图谱先边表模拟，V2 再接 Neo4j。
+- 检索链路保留 BM25 + 向量混合召回，评分加权只用于 rerank。

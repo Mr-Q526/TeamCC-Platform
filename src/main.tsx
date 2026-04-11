@@ -1759,27 +1759,43 @@ async function run(): Promise<CommanderCommand> {
       let profile = null;
 
       // Try to load from TeamCC Admin (with cache and fallback support)
+      // Only attempt remote fetch if explicitly configured AND has token
       try {
         const config = await loadTeamCCConfig(cwd);
-        if (config?.accessToken) {
+
+        // Only try remote if:
+        // 1. Config exists AND
+        // 2. Has explicit accessToken (not just URL)
+        if (config?.accessToken && config?.apiBase) {
           try {
-            // Try to fetch fresh identity from remote
+            // Try to fetch fresh identity from remote with timeout
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+
             const envelope = await fetchIdentityFromTeamCC(config);
+            clearTimeout(timeoutId);
+
             profile = envelopeToProfile(envelope);
             await cacheIdentity(cwd, envelope);
             logForDebugging('[main] Loaded identity from TeamCC Admin');
           } catch (remoteError) {
             // Fallback to cache if remote fails
-            logForDebugging(`[main] Failed to fetch from TeamCC Admin: ${(remoteError as Error).message}`, { level: 'warn' });
+            const errorMsg = remoteError instanceof Error ? remoteError.message : String(remoteError);
+            logForDebugging(`[main] Failed to fetch from TeamCC Admin: ${errorMsg}`, { level: 'debug' });
+
             const cached = await loadCachedIdentity(cwd);
             if (cached && isCacheValid(cached)) {
               profile = envelopeToProfile(cached);
               logForDebugging('[main] Using cached identity from TeamCC Admin');
             }
           }
+        } else if (config?.apiBase && !config?.accessToken) {
+          logForDebugging('[main] TeamCC URL configured but no token, skipping remote fetch');
         }
       } catch (e) {
-        logForDebugging(`[main] Error loading TeamCC config: ${(e as Error).message}`, { level: 'debug' });
+        // Silently ignore config loading errors, just skip TeamCC
+        const msg = e instanceof Error ? e.message : String(e);
+        logForDebugging(`[main] Skipping TeamCC: ${msg}`, { level: 'debug' });
       }
 
       // Fallback to local file if remote not available
