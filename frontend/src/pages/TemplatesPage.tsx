@@ -63,8 +63,8 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
   const getMockTemplates = (): Template[] => [
     {
       id: 1,
-      name: 'Frontend Developer',
-      description: 'Standard permissions for frontend developers',
+      name: '前端开发',
+      description: '前端开发人员标准权限',
       version: 1,
       rulesJson: JSON.stringify([
         { behavior: 'deny', tool: 'Read', content: '*src/server/**' },
@@ -78,8 +78,8 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
     },
     {
       id: 2,
-      name: 'Backend Developer',
-      description: 'Standard permissions for backend developers',
+      name: '后端开发',
+      description: '后端开发人员标准权限',
       version: 1,
       rulesJson: JSON.stringify([
         { behavior: 'allow', tool: 'Read', content: '*src/server/**' },
@@ -93,8 +93,8 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
     },
     {
       id: 3,
-      name: 'QA Engineer',
-      description: 'Read-only access for testing',
+      name: '测试工程师',
+      description: '测试人员只读权限',
       version: 1,
       rulesJson: JSON.stringify([
         { behavior: 'allow', tool: 'Read', content: '**' },
@@ -108,8 +108,8 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
     },
     {
       id: 4,
-      name: 'DevOps/SRE',
-      description: 'Infrastructure and deployment access',
+      name: '运维工程师',
+      description: '基础设施和部署权限',
       version: 1,
       rulesJson: JSON.stringify([
         { behavior: 'allow', tool: 'Read', content: '**' },
@@ -123,8 +123,8 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
     },
     {
       id: 5,
-      name: 'Data Analyst',
-      description: 'Data access and analysis',
+      name: '数据分析师',
+      description: '数据访问和分析权限',
       version: 1,
       rulesJson: JSON.stringify([
         { behavior: 'allow', tool: 'Read', content: '*data/**' },
