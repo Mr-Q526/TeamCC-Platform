@@ -1,0 +1,10 @@
+interface:
+  display_name: "Data Migration Backfill"
+  short_description: "Guidance for data migration backfill"
+  icon_small: "./assets/data-migration-backfill-small.svg"
+  icon_large: "./assets/data-migration-backfill.svg"
+  brand_color: "#A16207"
+  default_prompt: "Use $data-migration-backfill to handle schema migrations, data migrations, backfills, dual writes, and rollout plans with emphasis on reversibility, idempotency, batching, verification, and rollback safety."
+
+policy:
+  allow_implicit_invocation: true

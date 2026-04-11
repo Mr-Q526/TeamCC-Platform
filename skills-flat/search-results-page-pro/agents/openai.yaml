@@ -1,0 +1,10 @@
+interface:
+  display_name: "Search Results Page PRO"
+  short_description: "Pro guidance for search results page UI"
+  icon_small: "./assets/search-results-page-pro-small.svg"
+  icon_large: "./assets/search-results-page-pro.svg"
+  brand_color: "#0369A1"
+  default_prompt: "Use $search-results-page-pro to design search results, filtering, sorting, faceted navigation, and discovery pages with query feedback, relevance, filters, and result scanning."
+
+policy:
+  allow_implicit_invocation: true

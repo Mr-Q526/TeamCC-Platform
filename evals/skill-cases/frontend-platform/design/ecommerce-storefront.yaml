@@ -1,0 +1,17 @@
+caseId: frontend_ecommerce_storefront_001
+caseVersion: 0.1.0
+department: frontend-platform
+scene: design
+domain: frontend
+input:
+  userQuery: 给电商项目做一个商品店铺首页，突出商品图、价格、促销、评价和购买入口
+  businessContext: 面向消费者的 storefront，需要商品发现、信任、价格清晰和转化路径。
+expected:
+  skillIds:
+    - frontend/ecommerce-storefront-design
+  acceptableSkillIds:
+    - frontend/website-homepage-design
+    - frontend/frontend-skill
+  forbiddenSkillIds:
+    - frontend/admin-dashboard-design
+    - security/threat-modeling

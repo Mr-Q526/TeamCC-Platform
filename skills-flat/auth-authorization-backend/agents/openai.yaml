@@ -1,0 +1,10 @@
+interface:
+  display_name: "Backend Auth Authorization"
+  short_description: "Guidance for backend auth authorization"
+  icon_small: "./assets/auth-authorization-backend-small.svg"
+  icon_large: "./assets/auth-authorization-backend.svg"
+  brand_color: "#991B1B"
+  default_prompt: "Use $auth-authorization-backend to handle authentication, authorization, sessions, API keys, RBAC, ABAC, and tenant boundaries with emphasis on least privilege, secure defaults, session safety, and auditable permission checks."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,16 @@
+caseId: backend_cache_strategy_001
+caseVersion: 0.1.0
+department: backend-platform
+scene: performance
+domain: backend
+input:
+  userQuery: 设计服务端缓存策略，使用 Redis，处理缓存失效、击穿、雪崩和延迟优化
+  businessContext: 高并发接口性能优化，重点是正确性、freshness、失效策略和降延迟。
+expected:
+  skillIds:
+    - backend/cache-strategy-backend
+  acceptableSkillIds:
+    - backend/backend-performance-profiling
+  forbiddenSkillIds:
+    - frontend/data-table-basic
+    - frontend/ecommerce-storefront-design

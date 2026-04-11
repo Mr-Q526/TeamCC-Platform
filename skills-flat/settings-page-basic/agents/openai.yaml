@@ -1,0 +1,10 @@
+interface:
+  display_name: "Settings Page Basic"
+  short_description: "Basic guidance for settings page UI"
+  icon_small: "./assets/settings-page-basic-small.svg"
+  icon_large: "./assets/settings-page-basic.svg"
+  brand_color: "#16A34A"
+  default_prompt: "Use $settings-page-basic to design settings, preferences, billing settings, integrations, and admin configuration pages with grouping, consequence clarity, defaults, and safe changes."
+
+policy:
+  allow_implicit_invocation: true

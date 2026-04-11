@@ -1,0 +1,10 @@
+interface:
+  display_name: "Notification Center PRO"
+  short_description: "Pro guidance for notification center UI"
+  icon_small: "./assets/notification-center-pro-small.svg"
+  icon_large: "./assets/notification-center-pro.svg"
+  brand_color: "#B45309"
+  default_prompt: "Use $notification-center-pro to design notification centers, inboxes, alerts, activity feeds, and message queues with priority, read state, grouping, and actionability."
+
+policy:
+  allow_implicit_invocation: true

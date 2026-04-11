@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2026-04-11",
-  "pilotCount": 32,
+  "pilotCount": 100,
   "skills": [
     {
       "skillId": "ai/humanizer-zh",
@@ -29,6 +29,153 @@
       "sceneTags": [
         "content-generation",
         "data-analysis"
+      ]
+    },
+    {
+      "skillId": "backend/api-integration-testing",
+      "targetDir": "skills-flat/api-integration-testing",
+      "displayName": "API Integration Testing",
+      "version": "0.1.0",
+      "sourceHash": "sha256:82e4763402f9dc0fe8a3f3b6a8a3ef350368b892372a1ffd9f09cb9f970e5292",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "test"
+      ]
+    },
+    {
+      "skillId": "backend/auth-authorization-backend",
+      "targetDir": "skills-flat/auth-authorization-backend",
+      "displayName": "Backend Auth Authorization",
+      "version": "0.1.0",
+      "sourceHash": "sha256:6d0c5fa5935044dfe46da249b1150f237daab956690dcc1fd678c4fc95c0d293",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
+      ]
+    },
+    {
+      "skillId": "backend/backend-api-architecture",
+      "targetDir": "skills-flat/backend-api-architecture",
+      "displayName": "Backend API Architecture",
+      "version": "0.1.0",
+      "sourceHash": "sha256:0ee2c152a33aeea6f98ca54d2145b66537508d4dfa2b01f5c3cf22f0ee815f53",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ]
+    },
+    {
+      "skillId": "backend/backend-performance-profiling",
+      "targetDir": "skills-flat/backend-performance-profiling",
+      "displayName": "Backend Performance Profiling",
+      "version": "0.1.0",
+      "sourceHash": "sha256:b874645a0e498f6ac80c9f48745b8de8deba5c59cc441cc4546f2cc359ef595a",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "performance"
+      ]
+    },
+    {
+      "skillId": "backend/background-jobs-queues",
+      "targetDir": "skills-flat/background-jobs-queues",
+      "displayName": "Background Jobs Queues",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7023d995084ad8f8c427c491c005f5744bddc1996fe536c0b64dbf4b30149d7a",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "debug"
+      ]
+    },
+    {
+      "skillId": "backend/cache-strategy-backend",
+      "targetDir": "skills-flat/cache-strategy-backend",
+      "displayName": "Backend Cache Strategy",
+      "version": "0.1.0",
+      "sourceHash": "sha256:8e95bafceb527178109011bfc2b5f8c9b7aaf3491ed0d56f98a0de42bdb5eac0",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "performance"
+      ]
+    },
+    {
+      "skillId": "backend/data-migration-backfill",
+      "targetDir": "skills-flat/data-migration-backfill",
+      "displayName": "Data Migration Backfill",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7810b35536695e00023060a197952f952014697258cd66a733d9315c58e4482e",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "release"
+      ]
+    },
+    {
+      "skillId": "backend/database-schema-design",
+      "targetDir": "skills-flat/database-schema-design",
+      "displayName": "Database Schema Design",
+      "version": "0.1.0",
+      "sourceHash": "sha256:dd7cb117dc3a2f2fed6db2c63c02818f8dce2521f057482fa6950875d0976e80",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ]
+    },
+    {
+      "skillId": "backend/graphql-api-implementation",
+      "targetDir": "skills-flat/graphql-api-implementation",
+      "displayName": "GraphQL API Implementation",
+      "version": "0.1.0",
+      "sourceHash": "sha256:cda8f8563e15c4b88c95eb25c4f43b8738b32dc34254454758854a981079bd66",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "test"
+      ]
+    },
+    {
+      "skillId": "backend/rest-api-implementation",
+      "targetDir": "skills-flat/rest-api-implementation",
+      "displayName": "REST API Implementation",
+      "version": "0.1.0",
+      "sourceHash": "sha256:3943bc128aedb96bca3c443a2fb9d90eae91c2d1a8c44b7d0a9cba91395b94e5",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "test"
       ]
     },
     {
@@ -152,6 +299,34 @@
       ]
     },
     {
+      "skillId": "frontend/about-company-page-basic",
+      "targetDir": "skills-flat/about-company-page-basic",
+      "displayName": "About Company Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:4830f6b5e83e2481096bea12a0e3e4200648988769e9a1637fdd92354e025b74",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/about-company-page-pro",
+      "targetDir": "skills-flat/about-company-page-pro",
+      "displayName": "About Company Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c05455a52e9f6414a72eaaf51abcddc573045502813167b4a7e51bf42eb9c867",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
       "skillId": "frontend/admin-dashboard-design",
       "targetDir": "skills-flat/admin-dashboard-design",
       "displayName": "Admin Dashboard Design",
@@ -166,11 +341,235 @@
       ]
     },
     {
+      "skillId": "frontend/ai-chat-interface-basic",
+      "targetDir": "skills-flat/ai-chat-interface-basic",
+      "displayName": "AI Chat Interface Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:b167a30ed1261f977f7b65f9fbf71e0912e36cf1e9919f545b371943b8fe012e",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/ai-chat-interface-pro",
+      "targetDir": "skills-flat/ai-chat-interface-pro",
+      "displayName": "AI Chat Interface PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:91add5834913a4676bdfbac54113b3196b75422afa0b9b21f0bb9f084fba1053",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
       "skillId": "frontend/analytics-dashboard-design",
       "targetDir": "skills-flat/analytics-dashboard-design",
       "displayName": "Analytics Dashboard Design",
       "version": "0.1.0",
       "sourceHash": "sha256:d7536db894e437d186a9d9bce858aa8c7d96151782d78224d789e658b39fdbfb",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/auth-login-page-basic",
+      "targetDir": "skills-flat/auth-login-page-basic",
+      "displayName": "Auth Login Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:fefeb9e67865760204a410fd1e94c9e5ec6cee5b7416545fdd57948fc49f7e18",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/auth-login-page-pro",
+      "targetDir": "skills-flat/auth-login-page-pro",
+      "displayName": "Auth Login Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:a1fe3325715d2f4726365b2d800e71188dbfcd68a49fd73a0ac1441710a39cd1",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/careers-page-basic",
+      "targetDir": "skills-flat/careers-page-basic",
+      "displayName": "Careers Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:859535f8b46f51b627af2e3390f86ab92541196de42b4e70ad2103a143e9dfe1",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/careers-page-pro",
+      "targetDir": "skills-flat/careers-page-pro",
+      "displayName": "Careers Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:2e593872a55f218b460119ebe9201c791c296f7e4769470c807d9bfda951d876",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/checkout-flow-basic",
+      "targetDir": "skills-flat/checkout-flow-basic",
+      "displayName": "Checkout Flow Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:14e105a3a0b0360db1360c9ace7fe2ba5758a0a40b4c2aca32f0cce4d4197195",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/checkout-flow-pro",
+      "targetDir": "skills-flat/checkout-flow-pro",
+      "displayName": "Checkout Flow PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:8cd6eb4f0609291b39c3255457fc07b9295cdb3b7a85e7c86773c0bba2983089",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/component-library-basic",
+      "targetDir": "skills-flat/component-library-basic",
+      "displayName": "Component Library Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:2a91d34686464f3a8bb4c300340c4ee9e5ed04e57761a778c9914faa34ce1d5b",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/component-library-pro",
+      "targetDir": "skills-flat/component-library-pro",
+      "displayName": "Component Library PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1332990c5df0870c8916e51bf4ed329504784a5f68200d2390afd106e606b930",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/contact-sales-page-basic",
+      "targetDir": "skills-flat/contact-sales-page-basic",
+      "displayName": "Contact Sales Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:772a34547d181ec7605adc30877efdc91afef230c73a4833f8a5c3cf5ec4fd91",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/contact-sales-page-pro",
+      "targetDir": "skills-flat/contact-sales-page-pro",
+      "displayName": "Contact Sales Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:db094214a3659b5f4888f0399d339f0e8e2c11e6eb223493c4d810112f3bdd66",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/data-table-basic",
+      "targetDir": "skills-flat/data-table-basic",
+      "displayName": "Data Table Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:dbd1b07abb0cf7b0f7dd614a5da79f3612bdb6f0fd14ee716a85ad28de5545e7",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/data-table-pro",
+      "targetDir": "skills-flat/data-table-pro",
+      "displayName": "Data Table PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e81e289448388dc2ee30be7686aac5882f7b4fed729517e133a043bd097b76c6",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/design-system-builder-basic",
+      "targetDir": "skills-flat/design-system-builder-basic",
+      "displayName": "Design System Builder Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e824b5079552ad378cd76444b51e7b7c51e91f92b208661426bf0c7f80a5090b",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/design-system-builder-pro",
+      "targetDir": "skills-flat/design-system-builder-pro",
+      "displayName": "Design System Builder PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:2e143dd1812e2b531a36f57c28f7587b7eb991bd4ec9d892337adafcae226660",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
@@ -195,6 +594,62 @@
       ]
     },
     {
+      "skillId": "frontend/developer-portal-basic",
+      "targetDir": "skills-flat/developer-portal-basic",
+      "displayName": "Developer Portal Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:d7a99f31632ea12eecce4fcbbfbbb6f412678077c42592d3b0e2075fd3104866",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/developer-portal-pro",
+      "targetDir": "skills-flat/developer-portal-pro",
+      "displayName": "Developer Portal PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:287ddca5dafed262cd85aa3365a259887b801e387bc8acb10360153ebdfc1c67",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/docs-site-basic",
+      "targetDir": "skills-flat/docs-site-basic",
+      "displayName": "Docs Site Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:bf6a35b519da2e476ce9b38b98591d145faf120b73d2090be247c8153f1fbab0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/docs-site-pro",
+      "targetDir": "skills-flat/docs-site-pro",
+      "displayName": "Docs Site PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:ff0e64c0f79969d252f6933242edb9cb7a735553252792249706846c291e5acb",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
       "skillId": "frontend/ecommerce-storefront-design",
       "targetDir": "skills-flat/ecommerce-storefront-design",
       "displayName": "Ecommerce Storefront Design",
@@ -209,11 +664,179 @@
       ]
     },
     {
+      "skillId": "frontend/education-course-page-basic",
+      "targetDir": "skills-flat/education-course-page-basic",
+      "displayName": "Education Course Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:035cca421adb146735eff8162ff1fa411cd5326fce8626569656bffa9e6fad14",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/education-course-page-pro",
+      "targetDir": "skills-flat/education-course-page-pro",
+      "displayName": "Education Course Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:9a6cf00e11a8f8b9a752b19adbd849e64a4178c49c2e994da407b1aae6b6c9b7",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/enterprise-security-page-basic",
+      "targetDir": "skills-flat/enterprise-security-page-basic",
+      "displayName": "Enterprise Security Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:4bb5eefcffb9e1f52f849f0b41cb016a2deac2e1062edc3dba889b1f0e468d99",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/enterprise-security-page-pro",
+      "targetDir": "skills-flat/enterprise-security-page-pro",
+      "displayName": "Enterprise Security Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:6896f4af804209285d46a52bf53db8dfdb780fb6883a51a4e5be23d6fd19962f",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/error-empty-states-basic",
+      "targetDir": "skills-flat/error-empty-states-basic",
+      "displayName": "Error Empty States Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:eb24c8d5b2fbd02d475f2dde4a36ce9034c576d0b638b91f3bd8adb87c1f083d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/error-empty-states-pro",
+      "targetDir": "skills-flat/error-empty-states-pro",
+      "displayName": "Error Empty States PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:62d7c5cade09b012c45fe4d82a1c21decf82ea460891bc6d1edb0654b43e7a75",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/fintech-dashboard-basic",
+      "targetDir": "skills-flat/fintech-dashboard-basic",
+      "displayName": "Fintech Dashboard Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f6018be707d772e97d04423b72d6cee5d0cc6b2862ed8e2c3641295f780800ea",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/fintech-dashboard-pro",
+      "targetDir": "skills-flat/fintech-dashboard-pro",
+      "displayName": "Fintech Dashboard PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:695f117b458d9d50b7b32e10b18366f4f65f585cac794993da4ab9b63358a4f0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/form-builder-basic",
+      "targetDir": "skills-flat/form-builder-basic",
+      "displayName": "Form Builder Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:5466fe6ed36d740a698bb0ff43d51f7284eff0cda7eb4d06e064be0156dfff51",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/form-builder-pro",
+      "targetDir": "skills-flat/form-builder-pro",
+      "displayName": "Form Builder PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1d8347e4d888cfd4a143af0cf07b20a1603e6550fae907cb8f3ca79da7f61b26",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
       "skillId": "frontend/frontend-skill",
       "targetDir": "skills-flat/frontend-skill",
       "displayName": "Frontend Skill",
       "version": "0.1.0",
       "sourceHash": "sha256:d367b2d22825d74c169475507e7ff109b81c1e9c20b2de3421fb19fcfbe3329b",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/healthcare-portal-basic",
+      "targetDir": "skills-flat/healthcare-portal-basic",
+      "displayName": "Healthcare Portal Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:25622e3c6032f3640ad4521d6d761dfae9625cf71d771ee642fd059879f49d2a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/healthcare-portal-pro",
+      "targetDir": "skills-flat/healthcare-portal-pro",
+      "displayName": "Healthcare Portal PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1bffe9b66307a4ca97bcaa9461aefaf10ecc6abd12c9c552b1c9cb65a3b0bd21",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
@@ -251,11 +874,207 @@
       ]
     },
     {
+      "skillId": "frontend/notification-center-basic",
+      "targetDir": "skills-flat/notification-center-basic",
+      "displayName": "Notification Center Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c2beb28156818c2e4f6d3bf06e36b4fc89fa0bf0c948bec970e9d06f4869ab4e",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/notification-center-pro",
+      "targetDir": "skills-flat/notification-center-pro",
+      "displayName": "Notification Center PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:9f002be007ee7fad4531c0acde231597f3ea2898c81848ebfe7e6a69ea4d04c7",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/onboarding-flow-basic",
+      "targetDir": "skills-flat/onboarding-flow-basic",
+      "displayName": "Onboarding Flow Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:650e8d4aade2716024155edfa1b640856faa7eda2828cce97682941a58aa9705",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/onboarding-flow-pro",
+      "targetDir": "skills-flat/onboarding-flow-pro",
+      "displayName": "Onboarding Flow PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:a0313958f5f085faa003e043d9cc13dea066f580ad2b51d4c5594ee0bc997c8a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/pricing-page-basic",
+      "targetDir": "skills-flat/pricing-page-basic",
+      "displayName": "Pricing Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f0efd3eb68fdf13f5e85769bce9aff1b871f4ec8577498d52d8febbe76a1aeb4",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/pricing-page-pro",
+      "targetDir": "skills-flat/pricing-page-pro",
+      "displayName": "Pricing Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c67b828f1c1a5787b2bbd4f02314ccf38ebad4f2f9bbc82e453157af62c8443a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/profile-account-page-basic",
+      "targetDir": "skills-flat/profile-account-page-basic",
+      "displayName": "Profile Account Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:a67baafc116b40b4f467b5d709f2440e66a55032290cac9997e046eb821c81d7",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/profile-account-page-pro",
+      "targetDir": "skills-flat/profile-account-page-pro",
+      "displayName": "Profile Account Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:a567578a06aebdcc84d395b437333352156f210a2dc836ebcf0081888548f80c",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/responsive-navigation-basic",
+      "targetDir": "skills-flat/responsive-navigation-basic",
+      "displayName": "Responsive Navigation Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:57de8a7947bf1d6d0c9e6167364e48befe619d95bf72eb3065335b178ab701e0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/responsive-navigation-pro",
+      "targetDir": "skills-flat/responsive-navigation-pro",
+      "displayName": "Responsive Navigation PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7a7d038da7d56b3f9e85c2d5f4ce950fa0b8d4f0ec4100a1668ef93987db158a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
       "skillId": "frontend/saas-workspace-design",
       "targetDir": "skills-flat/saas-workspace-design",
       "displayName": "SaaS Workspace Design",
       "version": "0.1.0",
       "sourceHash": "sha256:3b588cea23cd49823007dcad41d33eb8c2de4d7ede863c6405e3d34126907ad0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/search-results-page-basic",
+      "targetDir": "skills-flat/search-results-page-basic",
+      "displayName": "Search Results Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7bda52e8a2468910951dd46d2aaa3f5a31162db2c44d7dd30d723160a1f0e435",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/search-results-page-pro",
+      "targetDir": "skills-flat/search-results-page-pro",
+      "displayName": "Search Results Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:07f135ae9cf29c52344d8768b0cf30d7b66954950ec6347e9121105e859f422e",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/settings-page-basic",
+      "targetDir": "skills-flat/settings-page-basic",
+      "displayName": "Settings Page Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:303beb5eba94aed8c512727f50abd05826658dc7c0989fe7054b888095604cc9",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/settings-page-pro",
+      "targetDir": "skills-flat/settings-page-pro",
+      "displayName": "Settings Page PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:91c11abb8f21d6aa501f1c6552651c13fe8a440c8fa59055d09b2713db586b29",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
@@ -309,6 +1128,66 @@
       ]
     },
     {
+      "skillId": "infra/ci-quality-gates",
+      "targetDir": "skills-flat/ci-quality-gates",
+      "displayName": "CI Quality Gates",
+      "version": "0.1.0",
+      "sourceHash": "sha256:bc7443d41e55fe575a1275e0b34d0272753f416da1cd75a6a4f86d787b590645",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "release",
+        "test"
+      ]
+    },
+    {
+      "skillId": "infra/load-testing",
+      "targetDir": "skills-flat/load-testing",
+      "displayName": "Load Testing",
+      "version": "0.1.0",
+      "sourceHash": "sha256:6467eb49be493508c0a0dcaab298110165f45722b7d8c0f6d341ba91babdb547",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "performance",
+        "test"
+      ]
+    },
+    {
+      "skillId": "infra/observability-backend",
+      "targetDir": "skills-flat/observability-backend",
+      "displayName": "Backend Observability",
+      "version": "0.1.0",
+      "sourceHash": "sha256:3c43bfa26c5cdace6f1404d4ac3431e063a3db2576fcc873f380e23d2ea072b7",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "incident"
+      ]
+    },
+    {
+      "skillId": "infra/stress-testing",
+      "targetDir": "skills-flat/stress-testing",
+      "displayName": "Stress Testing",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7ffa72f6f400bbf9567bfd2b463e6c90f3ab3a4171ccb1168453fdd17b5a998a",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "performance",
+        "test"
+      ]
+    },
+    {
       "skillId": "infra/vercel-deploy",
       "targetDir": "skills-flat/vercel-deploy",
       "displayName": "Vercel Deploy",
@@ -321,6 +1200,80 @@
       "sceneTags": [
         "deploy",
         "release"
+      ]
+    },
+    {
+      "skillId": "review/code-review-general",
+      "targetDir": "skills-flat/code-review-general",
+      "displayName": "General Code Review",
+      "version": "0.1.0",
+      "sourceHash": "sha256:609382f2f81dce2a144c4335dd59e10c88b08c695f177e3066dfdcf87a5c8d47",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "review"
+      ]
+    },
+    {
+      "skillId": "review/code-review-risk-based",
+      "targetDir": "skills-flat/code-review-risk-based",
+      "displayName": "Risk Based Code Review",
+      "version": "0.1.0",
+      "sourceHash": "sha256:fdb6f9555ab61a55895d125c9273c1730634b978ebfc8eb95deef8ed9a62985b",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "review",
+        "architecture"
+      ]
+    },
+    {
+      "skillId": "review/unit-test-strategy",
+      "targetDir": "skills-flat/unit-test-strategy",
+      "displayName": "Unit Test Strategy",
+      "version": "0.1.0",
+      "sourceHash": "sha256:9df60aeea3b2da929269f9f2c7e7cf022ccd472e22c751e340c745114cbf6a2e",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "skillId": "security/dependency-supply-chain-audit",
+      "targetDir": "skills-flat/dependency-supply-chain-audit",
+      "displayName": "Dependency Supply Chain Audit",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7250bcac1284f2b5ed3050603cc988f233c69fd84bbd90a310862b5dddbc103c",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "security-audit",
+        "review"
+      ]
+    },
+    {
+      "skillId": "security/rate-limiting-abuse-protection",
+      "targetDir": "skills-flat/rate-limiting-abuse-protection",
+      "displayName": "Rate Limiting Abuse Protection",
+      "version": "0.1.0",
+      "sourceHash": "sha256:546e5bc8f3ed4a05aeca1780f31d147f7b285de091e26dcde9a204fce6c2e5a1",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
       ]
     },
     {
@@ -366,6 +1319,21 @@
       "sceneTags": [
         "architecture",
         "security-audit"
+      ]
+    },
+    {
+      "skillId": "security/security-vulnerability-check",
+      "targetDir": "skills-flat/security-vulnerability-check",
+      "displayName": "Security Vulnerability Check",
+      "version": "0.1.0",
+      "sourceHash": "sha256:02082902f602da95a2078a8aebf72961443df3271876931baa6051588cc63248",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "security-audit",
+        "review"
       ]
     },
     {

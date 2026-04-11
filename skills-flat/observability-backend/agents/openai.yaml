@@ -1,0 +1,10 @@
+interface:
+  display_name: "Backend Observability"
+  short_description: "Guidance for backend observability"
+  icon_small: "./assets/observability-backend-small.svg"
+  icon_large: "./assets/observability-backend.svg"
+  brand_color: "#0369A1"
+  default_prompt: "Use $observability-backend to handle logs, metrics, traces, dashboards, alerts, and production debugging for backend systems with emphasis on diagnosability, signal quality, SLOs, and incident response."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Stress Testing"
+  short_description: "Guidance for stress testing"
+  icon_small: "./assets/stress-testing-small.svg"
+  icon_large: "./assets/stress-testing.svg"
+  brand_color: "#BE123C"
+  default_prompt: "Use $stress-testing to handle stress, soak, spike, and capacity tests for production-like systems with emphasis on breaking points, degradation behavior, recovery, and resource saturation."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Component Library PRO"
+  short_description: "Pro guidance for component library UI"
+  icon_small: "./assets/component-library-pro-small.svg"
+  icon_large: "./assets/component-library-pro.svg"
+  brand_color: "#0E7490"
+  default_prompt: "Use $component-library-pro to design component libraries, UI kits, reusable React components, and implementation examples with API clarity, variants, states, and usage consistency."
+
+policy:
+  allow_implicit_invocation: true

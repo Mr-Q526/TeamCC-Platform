@@ -1,0 +1,10 @@
+interface:
+  display_name: "REST API Implementation"
+  short_description: "Guidance for rest api implementation"
+  icon_small: "./assets/rest-api-implementation-small.svg"
+  icon_large: "./assets/rest-api-implementation.svg"
+  brand_color: "#1E40AF"
+  default_prompt: "Use $rest-api-implementation to handle REST API routes, controllers, validation, pagination, errors, and versioning with emphasis on predictable resources, validation, error semantics, and compatibility."
+
+policy:
+  allow_implicit_invocation: true

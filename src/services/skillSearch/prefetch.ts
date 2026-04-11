@@ -9,6 +9,10 @@ import {
   createSkillSearchSignal,
   type DiscoverySignal,
 } from './signals.js'
+import {
+  createSkillTelemetryTraceId,
+  logSkillSearchTelemetry,
+} from './telemetry.js'
 
 export type SkillDiscoveryPrefetchHandle = {
   promise: Promise<Attachment[]>
@@ -162,11 +166,14 @@ async function buildSkillDiscoveryAttachments(
     return []
   }
 
+  const traceId = createSkillTelemetryTraceId()
+  const queryContext = buildQueryContext(messages)
   const results = await localSkillSearch({
     cwd: getProjectRoot(),
     query: trimmedQuery,
     limit: 3,
-    queryContext: buildQueryContext(messages),
+    queryContext,
+    traceId,
   })
 
   if (results.length === 0) {
@@ -196,6 +203,42 @@ async function buildSkillDiscoveryAttachments(
   for (const result of newResults) {
     toolUseContext.discoveredSkillNames?.add(result.name)
   }
+
+  await logSkillSearchTelemetry({
+    eventName: 'skill_exposed',
+    traceId,
+    cwd: getProjectRoot(),
+    payload: {
+      query: trimmedQuery,
+      queryContext,
+      signal,
+      source: 'native',
+      topK: newResults.length,
+      candidates: newResults.map(result => ({
+        skillId: result.skillId,
+        name: result.name,
+        displayName: result.displayName,
+        version: result.version,
+        sourceHash: result.sourceHash,
+        domain: result.domain,
+        departmentTags: result.departmentTags,
+        sceneTags: result.sceneTags,
+        rank: result.rank,
+        score: result.score,
+        scoreBreakdown: result.scoreBreakdown,
+        retrievalSource: result.retrievalSource,
+      })),
+      suppressedCandidates: results
+        .filter(result => !newResults.includes(result))
+        .map(result => ({
+          skillId: result.skillId,
+          name: result.name,
+          reason: alreadyDiscovered.has(result.name.toLowerCase())
+            ? 'already_discovered'
+            : 'already_invoked',
+        })),
+    },
+  })
 
   return [
     {

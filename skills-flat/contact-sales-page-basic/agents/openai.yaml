@@ -1,0 +1,10 @@
+interface:
+  display_name: "Contact Sales Page Basic"
+  short_description: "Basic guidance for contact sales page UI"
+  icon_small: "./assets/contact-sales-page-basic-small.svg"
+  icon_large: "./assets/contact-sales-page-basic.svg"
+  brand_color: "#CA8A04"
+  default_prompt: "Use $contact-sales-page-basic to design contact, sales, demo request, consultation, and lead qualification pages with form clarity, next-step confidence, routing, and trust."
+
+policy:
+  allow_implicit_invocation: true

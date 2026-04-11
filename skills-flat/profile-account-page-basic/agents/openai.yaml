@@ -1,0 +1,10 @@
+interface:
+  display_name: "Profile Account Page Basic"
+  short_description: "Basic guidance for profile account page UI"
+  icon_small: "./assets/profile-account-page-basic-small.svg"
+  icon_large: "./assets/profile-account-page-basic.svg"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $profile-account-page-basic to design profile, account center, identity, privacy, and user preference pages with ownership, editability, privacy, and account state visibility."
+
+policy:
+  allow_implicit_invocation: true

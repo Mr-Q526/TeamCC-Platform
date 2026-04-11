@@ -61,6 +61,11 @@ import { recordSkillUsage } from '../../utils/suggestions/skillUsageTracking.js'
 import { createAgentId } from '../../utils/uuid.js'
 import { runAgent } from '../AgentTool/runAgent.js'
 import {
+  logSkillSearchTelemetry,
+  resolveSkillTelemetryMetadata,
+  type SkillTelemetryEventName,
+} from '../../services/skillSearch/telemetry.js'
+import {
   getToolUseIDFromParentMessage,
   tagMessagesWithToolUseID,
 } from '../utils.js'
@@ -91,6 +96,40 @@ async function getAllCommands(context: ToolUseContext): Promise<Command[]> {
   if (mcpSkills.length === 0) return getCommands(getProjectRoot())
   const localCommands = await getCommands(getProjectRoot())
   return uniqBy([...localCommands, ...mcpSkills], 'name')
+}
+
+async function logSkillToolTelemetry(
+  eventName: SkillTelemetryEventName,
+  commandName: string,
+  context: ToolUseContext,
+  command: Command | undefined,
+  payload: Record<string, unknown> = {},
+): Promise<void> {
+  const cwd = getProjectRoot()
+  const metadata = await resolveSkillTelemetryMetadata(cwd, commandName)
+
+  await logSkillSearchTelemetry({
+    eventName,
+    cwd,
+    skillId: metadata?.skillId,
+    skillName: metadata?.name ?? commandName,
+    skillVersion: metadata?.version,
+    sourceHash: metadata?.sourceHash,
+    selectedBy:
+      eventName === 'skill_selected'
+        ? (payload.selectedBy as 'model' | 'user' | 'system' | 'eval_oracle')
+        : undefined,
+    payload: {
+      commandName,
+      commandSource: command?.type === 'prompt' ? command.source : undefined,
+      loadedFrom: command?.loadedFrom,
+      kind: command?.kind,
+      agentId: context.agentId ?? null,
+      agentType: context.agentType ?? null,
+      wasDiscovered: context.discoveredSkillNames?.has(commandName) ?? false,
+      ...payload,
+    },
+  })
 }
 
 // Re-export Progress from centralized types to break import cycles
@@ -615,34 +654,74 @@ export const SkillTool: Tool<InputSchema, Output, Progress> = buildTool({
     const commands = await getAllCommands(context)
     const command = findCommand(commandName, commands)
 
+    await logSkillToolTelemetry('skill_selected', commandName, context, command, {
+      selectedBy: 'model',
+      selectionSource: 'skill_tool',
+    })
+
     // Track skill usage for ranking
     recordSkillUsage(commandName)
 
     // Check if skill should run as a forked sub-agent
     if (command?.type === 'prompt' && command.context === 'fork') {
-      return executeForkedSkill(
-        command,
-        commandName,
-        args,
-        context,
-        canUseTool,
-        parentMessage,
-        onProgress,
-      )
+      await logSkillToolTelemetry('skill_invoked', commandName, context, command, {
+        executionContext: 'fork',
+      })
+      try {
+        const result = await executeForkedSkill(
+          command,
+          commandName,
+          args,
+          context,
+          canUseTool,
+          parentMessage,
+          onProgress,
+        )
+        await logSkillToolTelemetry(
+          'skill_completed',
+          commandName,
+          context,
+          command,
+          {
+            executionContext: 'fork',
+            status: result.data.status,
+          },
+        )
+        return result
+      } catch (error) {
+        await logSkillToolTelemetry('skill_failed', commandName, context, command, {
+          executionContext: 'fork',
+          error: error instanceof Error ? error.message : String(error),
+        })
+        throw error
+      }
     }
 
     // Process the skill with optional args
     const { processPromptSlashCommand } = await import(
       'src/utils/processUserInput/processSlashCommand.js'
     )
-    const processedCommand = await processPromptSlashCommand(
-      commandName,
-      args || '', // Pass args if provided
-      commands,
-      context,
-    )
+    let processedCommand
+    try {
+      processedCommand = await processPromptSlashCommand(
+        commandName,
+        args || '', // Pass args if provided
+        commands,
+        context,
+      )
+    } catch (error) {
+      await logSkillToolTelemetry('skill_failed', commandName, context, command, {
+        executionContext: 'inline',
+        error: error instanceof Error ? error.message : String(error),
+      })
+      throw error
+    }
 
     if (!processedCommand.shouldQuery) {
+      await logSkillToolTelemetry('skill_failed', commandName, context, command, {
+        executionContext: 'inline',
+        error: 'Command processing failed',
+      })
       throw new Error('Command processing failed')
     }
 
@@ -757,6 +836,18 @@ export const SkillTool: Tool<InputSchema, Output, Progress> = buildTool({
     logForDebugging(
       `SkillTool returning ${newMessages.length} newMessages for skill ${commandName}`,
     )
+
+    await logSkillToolTelemetry('skill_invoked', commandName, context, command, {
+      executionContext: 'inline',
+      allowedTools,
+      model,
+    })
+    await logSkillToolTelemetry('skill_completed', commandName, context, command, {
+      executionContext: 'inline',
+      allowedTools,
+      model,
+      status: 'inline',
+    })
 
     // Note: addInvokedSkill and registerSkillHooks are called inside
     // processPromptSlashCommand (via getMessagesForPromptSlashCommand), so

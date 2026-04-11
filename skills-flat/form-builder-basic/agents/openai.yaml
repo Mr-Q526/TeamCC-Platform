@@ -1,0 +1,10 @@
+interface:
+  display_name: "Form Builder Basic"
+  short_description: "Basic guidance for form builder UI"
+  icon_small: "./assets/form-builder-basic-small.svg"
+  icon_large: "./assets/form-builder-basic.svg"
+  brand_color: "#A16207"
+  default_prompt: "Use $form-builder-basic to design forms, multi-step forms, application forms, survey flows, and validation-heavy screens with labels, validation, progressive disclosure, and completion."
+
+policy:
+  allow_implicit_invocation: true

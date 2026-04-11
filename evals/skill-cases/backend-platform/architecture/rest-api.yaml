@@ -1,0 +1,16 @@
+caseId: backend_rest_api_001
+caseVersion: 0.1.0
+department: backend-platform
+scene: architecture
+domain: backend
+input:
+  userQuery: 设计并实现一组 REST API，包括路由、controller、参数校验、分页和错误返回
+  businessContext: 后端服务接口实现，需要稳定资源模型、校验、错误语义和兼容性。
+expected:
+  skillIds:
+    - backend/rest-api-implementation
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+  forbiddenSkillIds:
+    - frontend/website-homepage-design
+    - frontend/admin-dashboard-design

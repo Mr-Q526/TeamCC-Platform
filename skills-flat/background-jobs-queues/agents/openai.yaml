@@ -1,0 +1,10 @@
+interface:
+  display_name: "Background Jobs Queues"
+  short_description: "Guidance for background jobs queues"
+  icon_small: "./assets/background-jobs-queues-small.svg"
+  icon_large: "./assets/background-jobs-queues.svg"
+  brand_color: "#334155"
+  default_prompt: "Use $background-jobs-queues to handle queues, workers, scheduled jobs, retries, idempotency, and async workflows with emphasis on idempotency, retry policy, dead-letter handling, and operational visibility."
+
+policy:
+  allow_implicit_invocation: true

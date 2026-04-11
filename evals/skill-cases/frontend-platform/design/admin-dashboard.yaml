@@ -1,0 +1,17 @@
+caseId: frontend_admin_dashboard_001
+caseVersion: 0.1.0
+department: frontend-platform
+scene: design
+domain: frontend
+input:
+  userQuery: 帮我设计一个运营管理后台，包含订单列表、筛选、批量操作和状态看板
+  businessContext: 内部操作员高频使用，重点是表格效率、筛选、状态可见性和低噪音 UI。
+expected:
+  skillIds:
+    - frontend/admin-dashboard-design
+  acceptableSkillIds:
+    - frontend/analytics-dashboard-design
+    - frontend/frontend-skill
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - security/security-best-practices

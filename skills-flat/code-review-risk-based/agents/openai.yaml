@@ -1,0 +1,10 @@
+interface:
+  display_name: "Risk Based Code Review"
+  short_description: "Guidance for risk based code review"
+  icon_small: "./assets/code-review-risk-based-small.svg"
+  icon_large: "./assets/code-review-risk-based.svg"
+  brand_color: "#6D28D9"
+  default_prompt: "Use $code-review-risk-based to handle high-risk diffs touching auth, payments, data loss, concurrency, migrations, or public APIs with emphasis on blast radius, invariants, rollback, observability, and edge cases."
+
+policy:
+  allow_implicit_invocation: true

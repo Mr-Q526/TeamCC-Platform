@@ -1,0 +1,10 @@
+interface:
+  display_name: "Docs Site Basic"
+  short_description: "Basic guidance for docs site UI"
+  icon_small: "./assets/docs-site-basic-small.svg"
+  icon_large: "./assets/docs-site-basic.svg"
+  brand_color: "#EA580C"
+  default_prompt: "Use $docs-site-basic to design documentation sites, knowledge bases, developer docs, and help centers with findability, readable hierarchy, examples, and navigation."
+
+policy:
+  allow_implicit_invocation: true

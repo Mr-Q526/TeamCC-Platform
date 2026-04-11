@@ -1,0 +1,10 @@
+interface:
+  display_name: "Error Empty States PRO"
+  short_description: "Pro guidance for error empty states UI"
+  icon_small: "./assets/error-empty-states-pro-small.svg"
+  icon_large: "./assets/error-empty-states-pro.svg"
+  brand_color: "#475569"
+  default_prompt: "Use $error-empty-states-pro to design 404 pages, empty states, error states, permission states, and offline states with recovery, explanation, next actions, and tone."
+
+policy:
+  allow_implicit_invocation: true

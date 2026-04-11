@@ -1,0 +1,16 @@
+caseId: backend_database_schema_001
+caseVersion: 0.1.0
+department: backend-platform
+scene: architecture
+domain: backend
+input:
+  userQuery: 设计数据库表结构、索引、约束和迁移方案，保证数据完整性和查询性能
+  businessContext: 后端数据建模任务，需要考虑查询形态、索引、约束和未来迁移。
+expected:
+  skillIds:
+    - backend/database-schema-design
+  acceptableSkillIds:
+    - backend/data-migration-backfill
+  forbiddenSkillIds:
+    - frontend/pricing-page-basic
+    - frontend/settings-page-basic

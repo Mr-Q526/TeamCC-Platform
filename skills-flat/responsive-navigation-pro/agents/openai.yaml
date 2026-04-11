@@ -1,0 +1,10 @@
+interface:
+  display_name: "Responsive Navigation PRO"
+  short_description: "Pro guidance for responsive navigation UI"
+  icon_small: "./assets/responsive-navigation-pro-small.svg"
+  icon_large: "./assets/responsive-navigation-pro.svg"
+  brand_color: "#DC2626"
+  default_prompt: "Use $responsive-navigation-pro to design navbars, sidebars, mega menus, mobile drawers, tabs, and information architecture with orientation, hierarchy, responsive behavior, and wayfinding."
+
+policy:
+  allow_implicit_invocation: true

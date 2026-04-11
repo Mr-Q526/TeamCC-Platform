@@ -1,0 +1,10 @@
+interface:
+  display_name: "Auth Login Page Basic"
+  short_description: "Basic guidance for auth login page UI"
+  icon_small: "./assets/auth-login-page-basic-small.svg"
+  icon_large: "./assets/auth-login-page-basic.svg"
+  brand_color: "#1D4ED8"
+  default_prompt: "Use $auth-login-page-basic to design login, signup, password reset, MFA, and account access pages with trust, clarity, error recovery, and low-friction account access."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,10 @@
+interface:
+  display_name: "AI Chat Interface PRO"
+  short_description: "Pro guidance for ai chat interface UI"
+  icon_small: "./assets/ai-chat-interface-pro-small.svg"
+  icon_large: "./assets/ai-chat-interface-pro.svg"
+  brand_color: "#1D4ED8"
+  default_prompt: "Use $ai-chat-interface-pro to design AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces with conversation flow, tool state, citations, safety, and trust."
+
+policy:
+  allow_implicit_invocation: true

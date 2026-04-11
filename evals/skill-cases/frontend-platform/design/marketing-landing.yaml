@@ -1,0 +1,17 @@
+caseId: frontend_marketing_landing_001
+caseVersion: 0.1.0
+department: frontend-platform
+scene: design
+domain: frontend
+input:
+  userQuery: 做一个新功能发布的营销落地页，目标是引导用户预约 demo
+  businessContext: 单一转化目标，需要产品亮点、用户痛点、证明材料和表单 CTA。
+expected:
+  skillIds:
+    - frontend/marketing-landing-page
+  acceptableSkillIds:
+    - frontend/website-homepage-design
+    - frontend/frontend-skill
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - frontend/admin-dashboard-design

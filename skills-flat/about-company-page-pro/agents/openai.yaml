@@ -1,0 +1,10 @@
+interface:
+  display_name: "About Company Page PRO"
+  short_description: "Pro guidance for about company page UI"
+  icon_small: "./assets/about-company-page-pro-small.svg"
+  icon_large: "./assets/about-company-page-pro.svg"
+  brand_color: "#9333EA"
+  default_prompt: "Use $about-company-page-pro to design about pages, company story pages, team pages, and mission pages with trust, narrative, people, values, and company proof."
+
+policy:
+  allow_implicit_invocation: true

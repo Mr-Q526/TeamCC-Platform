@@ -3,23 +3,39 @@ import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { getFsImplementation } from '../../utils/fsOperations.js'
 import { logForDebugging } from '../../utils/debug.js'
 import { getSkillRegistryLocations } from './registry.js'
+import {
+  createSkillTelemetryTraceId,
+  logSkillSearchTelemetry,
+  type SkillCandidateTelemetry,
+} from './telemetry.js'
 
 type IndexedSkill = {
+  skillId: string
   name: string
   displayName: string
   description: string
+  version: string
+  sourceHash: string
   domain: string
   departmentTags: string[]
   sceneTags: string[]
+  skillPath: string
 }
 
 export type LocalSkillSearchResult = {
+  skillId: string
   name: string
+  displayName: string
   description: string
+  version: string
+  sourceHash: string
   score: number
+  scoreBreakdown: SkillScoreBreakdown
+  rank: number
   domain: string
   departmentTags: string[]
   sceneTags: string[]
+  retrievalSource: 'local_lexical'
 }
 
 type LocalSkillSearchOptions = {
@@ -27,6 +43,18 @@ type LocalSkillSearchOptions = {
   query: string
   limit?: number
   queryContext?: string
+  traceId?: string
+  telemetry?: boolean
+}
+
+export type SkillScoreBreakdown = {
+  exactName: number
+  displayName: number
+  lexical: number
+  department: number
+  domain: number
+  scene: number
+  penalty: number
 }
 
 const DEPARTMENT_ID_TO_TAG: Record<number, string> = {
@@ -45,8 +73,12 @@ const QUERY_EXPANSIONS: Record<string, string[]> = {
   '设计': ['design', 'ui', 'frontend'],
   '官网': ['landing', 'homepage', 'marketing', 'brand', 'design'],
   '首页': ['landing', 'homepage', 'hero', 'design'],
+  '营销': ['marketing', 'landing', 'campaign', 'conversion', 'lead'],
+  '落地页': ['landing', 'marketing', 'campaign', 'conversion', 'lead'],
+  '预约': ['demo', 'signup', 'lead', 'marketing', 'landing'],
   landing: ['官网', '首页', 'marketing', 'design'],
   homepage: ['官网', '首页', 'landing', 'design'],
+  demo: ['预约', 'signup', 'lead', 'marketing', 'landing'],
   '安全': ['security', 'audit', 'threat', 'model'],
   '威胁建模': ['security', 'threat', 'model'],
   '部署': ['deploy', 'vercel', 'release'],
@@ -77,8 +109,11 @@ const DOMAIN_HINTS: Record<string, string[]> = {
     'css',
     '官网',
     '首页',
+    '营销',
+    '落地页',
     'landing',
     'homepage',
+    'marketing',
   ],
   security: ['security', 'audit', 'threat', '威胁建模', '安全'],
   infra: ['deploy', 'release', 'vercel', '部署', '发布', '上线'],
@@ -102,8 +137,12 @@ const DOMAIN_HINTS: Record<string, string[]> = {
     '视频',
     '官网',
     '首页',
+    '营销',
+    '落地页',
     'landing',
     'homepage',
+    'marketing',
+    'conversion',
     'hero',
     'brand',
   ],
@@ -120,6 +159,8 @@ const SCENE_HINTS: Record<string, string[]> = {
     '页面',
     '官网',
     '首页',
+    '营销',
+    '落地页',
     'landing',
     'homepage',
     'hero',
@@ -250,14 +291,20 @@ async function buildSkillIndex(cwd: string): Promise<IndexedSkill[]> {
         try {
           const raw = await fs.readFile(skillPath, { encoding: 'utf-8' })
           const { frontmatter } = parseFrontmatter(raw, skillPath)
+          const name = toStringValue(frontmatter.name, entry.name)
+          const domain = toStringValue(frontmatter.domain, 'general')
 
           return {
-            name: toStringValue(frontmatter.name, entry.name),
-            displayName: toStringValue(frontmatter.displayName, entry.name),
+            skillId: toStringValue(frontmatter.skillId, `${domain}/${name}`),
+            name,
+            displayName: toStringValue(frontmatter.displayName, name),
             description: toStringValue(frontmatter.description),
-            domain: toStringValue(frontmatter.domain, 'general'),
+            version: toStringValue(frontmatter.version, '0.0.0'),
+            sourceHash: toStringValue(frontmatter.sourceHash),
+            domain,
             departmentTags: toStringArray(frontmatter.departmentTags),
             sceneTags: toStringArray(frontmatter.sceneTags),
+            skillPath,
           } satisfies IndexedSkill
         } catch (error) {
           logForDebugging(
@@ -306,7 +353,7 @@ function scoreSkill(
   departmentTag: string | null,
   hintedDomains: Set<string>,
   hintedScenes: Set<string>,
-): number {
+): { score: number; scoreBreakdown: SkillScoreBreakdown } {
   const normalizedQuery = normalizeText(query)
   const normalizedName = normalizeText(skill.name)
   const normalizedDisplayName = normalizeText(skill.displayName)
@@ -321,52 +368,60 @@ function scoreSkill(
   ]
   const searchableTokenSet = new Set(searchableTokens)
 
-  let score = 0
+  const scoreBreakdown: SkillScoreBreakdown = {
+    exactName: 0,
+    displayName: 0,
+    lexical: 0,
+    department: 0,
+    domain: 0,
+    scene: 0,
+    penalty: 0,
+  }
 
   if (normalizedQuery.includes(normalizedName)) {
-    score += 80
+    scoreBreakdown.exactName += 80
   }
 
   if (normalizedDisplayName && normalizedQuery.includes(normalizedDisplayName)) {
-    score += 55
+    scoreBreakdown.displayName += 55
   }
 
   for (const token of queryTokens) {
     if (normalizedName.includes(token)) {
-      score += 26
+      scoreBreakdown.lexical += 26
       continue
     }
 
     if (normalizedDisplayName.includes(token)) {
-      score += 20
+      scoreBreakdown.lexical += 20
       continue
     }
 
     if (normalizedDescription.includes(token)) {
-      score += 10
+      scoreBreakdown.lexical += 10
       continue
     }
 
     if (searchableTokenSet.has(token)) {
-      score += 8
+      scoreBreakdown.lexical += 8
     }
   }
 
   if (departmentTag) {
     if (skill.departmentTags.includes(departmentTag)) {
-      score += 18
+      scoreBreakdown.department += 18
     } else if (skill.departmentTags.length > 0) {
-      score -= 4
+      scoreBreakdown.penalty -= 4
     }
   }
 
   if (hintedDomains.has(skill.domain)) {
-    score += 18
+    scoreBreakdown.domain += 18
   }
 
   for (const sceneTag of skill.sceneTags) {
     if (hintedScenes.has(sceneTag)) {
-      score += 14
+      scoreBreakdown.scene += 14
     }
   }
 
@@ -376,10 +431,32 @@ function scoreSkill(
     hintedDomains.size === 0 &&
     hintedScenes.size === 0
   ) {
-    score -= 4
+    scoreBreakdown.penalty -= 4
   }
 
-  return score
+  return {
+    score: Object.values(scoreBreakdown).reduce((sum, value) => sum + value, 0),
+    scoreBreakdown,
+  }
+}
+
+function toTelemetryCandidate(
+  skill: LocalSkillSearchResult,
+): SkillCandidateTelemetry {
+  return {
+    skillId: skill.skillId,
+    name: skill.name,
+    displayName: skill.displayName,
+    version: skill.version,
+    sourceHash: skill.sourceHash,
+    domain: skill.domain,
+    departmentTags: skill.departmentTags,
+    sceneTags: skill.sceneTags,
+    rank: skill.rank,
+    score: skill.score,
+    scoreBreakdown: skill.scoreBreakdown,
+    retrievalSource: skill.retrievalSource,
+  }
 }
 
 export async function localSkillSearch({
@@ -387,6 +464,8 @@ export async function localSkillSearch({
   query,
   limit = 5,
   queryContext = '',
+  traceId = createSkillTelemetryTraceId(),
+  telemetry = true,
 }: LocalSkillSearchOptions): Promise<LocalSkillSearchResult[]> {
   const trimmedQuery = query.trim()
   if (!trimmedQuery) {
@@ -411,17 +490,21 @@ export async function localSkillSearch({
   const hintedScenes = collectHintMatches(enrichedQuery, SCENE_HINTS)
 
   const ranked = skills
-    .map(skill => ({
-      ...skill,
-      score: scoreSkill(
+    .map(skill => {
+      const { score, scoreBreakdown } = scoreSkill(
         skill,
         enrichedQuery,
         queryTokens,
         departmentTag,
         hintedDomains,
         hintedScenes,
-      ),
-    }))
+      )
+      return {
+        ...skill,
+        score,
+        scoreBreakdown,
+      }
+    })
     .filter(skill => skill.score >= 32)
     .sort((left, right) => {
       if (right.score !== left.score) {
@@ -431,12 +514,46 @@ export async function localSkillSearch({
     })
     .slice(0, limit)
 
-  return ranked.map(skill => ({
+  const results = ranked.map((skill, index) => ({
+    skillId: skill.skillId,
     name: skill.name,
+    displayName: skill.displayName,
     description: skill.description,
+    version: skill.version,
+    sourceHash: skill.sourceHash,
     score: skill.score,
+    scoreBreakdown: skill.scoreBreakdown,
+    rank: index + 1,
     domain: skill.domain,
     departmentTags: skill.departmentTags,
     sceneTags: skill.sceneTags,
+    retrievalSource: 'local_lexical' as const,
   }))
+
+  if (telemetry) {
+    await logSkillSearchTelemetry({
+      eventName: 'skill_retrieval_run',
+      traceId,
+      cwd,
+      department: departmentTag,
+      payload: {
+        query: trimmedQuery,
+        queryContext,
+        enhancedQuery: enrichedQuery,
+        limit,
+        indexSkillCount: skills.length,
+        returnedSkillCount: results.length,
+        queryTokens,
+        hintedDomains: [...hintedDomains],
+        hintedScenes: [...hintedScenes],
+        registryLocations: getSkillRegistryLocations(cwd).map(location => ({
+          kind: location.kind,
+          dir: location.dir,
+        })),
+        candidates: results.map(toTelemetryCandidate),
+      },
+    })
+  }
+
+  return results
 }

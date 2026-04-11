@@ -1,0 +1,10 @@
+interface:
+  display_name: "Healthcare Portal PRO"
+  short_description: "Pro guidance for healthcare portal UI"
+  icon_small: "./assets/healthcare-portal-pro-small.svg"
+  icon_large: "./assets/healthcare-portal-pro.svg"
+  brand_color: "#4F46E5"
+  default_prompt: "Use $healthcare-portal-pro to design patient portals, provider dashboards, scheduling, records, and care coordination pages with clarity, privacy, accessibility, and sensitive task support."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Careers Page PRO"
+  short_description: "Pro guidance for careers page UI"
+  icon_small: "./assets/careers-page-pro-small.svg"
+  icon_large: "./assets/careers-page-pro.svg"
+  brand_color: "#0891B2"
+  default_prompt: "Use $careers-page-pro to design careers pages, job boards, recruiting funnels, and employer brand pages with role discovery, culture proof, benefits, and application clarity."
+
+policy:
+  allow_implicit_invocation: true

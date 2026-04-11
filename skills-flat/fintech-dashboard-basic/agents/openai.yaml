@@ -1,0 +1,10 @@
+interface:
+  display_name: "Fintech Dashboard Basic"
+  short_description: "Basic guidance for fintech dashboard UI"
+  icon_small: "./assets/fintech-dashboard-basic-small.svg"
+  icon_large: "./assets/fintech-dashboard-basic.svg"
+  brand_color: "#BE123C"
+  default_prompt: "Use $fintech-dashboard-basic to design banking, finance, investment, payments, risk, and revenue dashboards with precision, compliance cues, risk visibility, and decision context."
+
+policy:
+  allow_implicit_invocation: true
