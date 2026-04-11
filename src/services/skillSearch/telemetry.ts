@@ -3,7 +3,10 @@ import { appendFile, mkdir, readFile, readdir } from 'fs/promises'
 import { dirname, join } from 'path'
 import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { logForDebugging } from '../../utils/debug.js'
-import { getSkillRegistryLocations } from './registry.js'
+import {
+  getSkillRegistryLocations,
+  readGeneratedSkillRegistry,
+} from './registry.js'
 
 export type SkillTelemetryEventName =
   | 'skill_retrieval_run'
@@ -163,6 +166,36 @@ async function resolveSkillTelemetryMetadataUncached(
   normalizedSkillName: string,
 ): Promise<SkillTelemetryMetadata | null> {
   for (const location of getSkillRegistryLocations(cwd)) {
+    const generatedRegistry = await readGeneratedSkillRegistry(location.dir)
+    if (generatedRegistry && generatedRegistry.skills.length > 0) {
+      for (const skill of generatedRegistry.skills) {
+        if (
+          normalizeSkillName(skill.name) !== normalizedSkillName &&
+          normalizeSkillName(skill.skillId) !== normalizedSkillName &&
+          normalizeSkillName(skill.displayName) !== normalizedSkillName &&
+          !skill.aliases.some(
+            alias => normalizeSkillName(alias) === normalizedSkillName,
+          )
+        ) {
+          continue
+        }
+
+        return {
+          skillId: skill.skillId,
+          name: skill.name,
+          displayName: skill.displayName,
+          description: skill.description,
+          aliases: skill.aliases,
+          version: skill.version,
+          sourceHash: skill.sourceHash,
+          domain: skill.domain,
+          departmentTags: skill.departmentTags,
+          sceneTags: skill.sceneTags,
+          skillPath: join(location.dir, skill.skillFile),
+        }
+      }
+    }
+
     let entries
     try {
       entries = await readdir(location.dir, { withFileTypes: true })

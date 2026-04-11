@@ -1759,22 +1759,24 @@ async function run(): Promise<CommanderCommand> {
       let profile = null;
 
       // Try to load from TeamCC Admin (with cache and fallback support)
-      // Only attempt remote fetch if explicitly configured AND has token
       try {
         const config = await loadTeamCCConfig(cwd);
 
-        // Only try remote if:
-        // 1. Config exists AND
-        // 2. Has explicit accessToken (not just URL)
-        if (config?.accessToken && config?.apiBase) {
+        if (config?.apiBase) {
+          // Mode 1: TeamCC is configured. Identity MUST come from TeamCC.
+          if (!config.accessToken) {
+            // Only hard block if they are trying to start the agent. Allow `/auth login` passes.
+            const isAuthCommand = process.argv.includes('auth') || process.argv.includes('login') || process.argv.includes('logout');
+            if (!isAuthCommand) {
+              console.error('\n❌ TeamCC is enabled but no login token found.');
+              console.error('Please run: `bun run dev auth` to login.');
+              process.exit(1);
+            }
+          }
+
           try {
             // Try to fetch fresh identity from remote with timeout
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
-
             const envelope = await fetchIdentityFromTeamCC(config);
-            clearTimeout(timeoutId);
-
             profile = envelopeToProfile(envelope);
             await cacheIdentity(cwd, envelope);
             logForDebugging('[main] ✅ Loaded identity from TeamCC Admin');
@@ -1789,28 +1791,39 @@ async function run(): Promise<CommanderCommand> {
               logForDebugging(`[main] Warning: Failed to refresh permissions: ${msg}`, { level: 'warn' });
             }
           } catch (remoteError) {
-            // Fallback to cache if remote fails
             const errorMsg = remoteError instanceof Error ? remoteError.message : String(remoteError);
             logForDebugging(`[main] Failed to fetch from TeamCC Admin: ${errorMsg}`, { level: 'debug' });
 
+            // If it's explicitly auth-related (e.g. 401, refresh failed), we MUST re-login
+            if (errorMsg.includes('401') || errorMsg.includes('refresh failed')) {
+              const isAuthCommand = process.argv.includes('auth') || process.argv.includes('login') || process.argv.includes('logout');
+              if (!isAuthCommand) {
+                console.error(`\n❌ TeamCC Authentication failed (token expired or unauthorized).`);
+                console.error('Please run: `bun run dev auth` again.');
+                process.exit(1);
+              }
+            }
+
+            // Fallback to cache if remote fails (e.g., disconnected, timed out)
             const cached = await loadCachedIdentity(cwd);
             if (cached && isCacheValid(cached)) {
               profile = envelopeToProfile(cached);
               logForDebugging('[main] ⚠️  Using cached identity from TeamCC Admin');
+            } else {
+              const isAuthCommand = process.argv.includes('auth') || process.argv.includes('login') || process.argv.includes('logout');
+              if (!isAuthCommand) {
+                console.error('\n❌ Could not verify identity from TeamCC Admin and no valid cache exists.');
+                process.exit(1);
+              }
             }
           }
-        } else if (config?.apiBase && !config?.accessToken) {
-          logForDebugging('[main] TeamCC URL configured but no token, skipping remote fetch');
+        } else {
+          // Mode 2: No TeamCC configured. Fallback to local file.
+          profile = await loadIdentityProfile(cwd);
         }
       } catch (e) {
-        // Silently ignore config loading errors, just skip TeamCC
         const msg = e instanceof Error ? e.message : String(e);
-        logForDebugging(`[main] Skipping TeamCC: ${msg}`, { level: 'debug' });
-      }
-
-      // Fallback to local file if remote not available
-      if (!profile) {
-        profile = await loadIdentityProfile(cwd);
+        logForDebugging(`[main] Error during identity setup: ${msg}`, { level: 'error' });
       }
 
       setIdentityProfile(profile);

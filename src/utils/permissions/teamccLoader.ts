@@ -7,12 +7,7 @@
 
 import type { PermissionBehavior, PermissionRule } from '../../types/permissions.js'
 import type { TeamCCConfig } from '../../bootstrap/teamccAuth.js'
-import {
-  getValidAccessToken,
-  cacheIdentity,
-  loadCachedIdentity,
-  isCacheValid,
-} from '../../bootstrap/teamccAuth.js'
+import { getValidAccessToken } from '../../bootstrap/teamccAuth.js'
 import { logForDebugging } from '../debug.js'
 
 // ---------------------------------------------------------------------------
@@ -26,17 +21,24 @@ export type PermissionBundleRule = {
 }
 
 export type PermissionBundle = {
+  schema?: string
   bundleId: string
-  projectId: number
-  subject: {
+  projectId?: number
+  subject?: {
     userId: number
     username: string
+  }
+  subjectRef?: {
+    userId: number
+    projectId: number
   }
   rules: PermissionBundleRule[]
   capabilities: string[]
   envOverrides: Record<string, string>
-  timestamp: string
-  expiry: string
+  timestamp?: string
+  expiry?: string
+  issuedAt?: string
+  expiresAt?: string
 }
 
 export type RuleWithSource = PermissionRule & {
@@ -56,23 +58,57 @@ export type RuleWithSource = PermissionRule & {
 
 const CACHE_DIR_PATH = (cwd: string) => `${cwd}/.claude/cache`
 
+function getBundleProjectId(
+  bundle: PermissionBundle,
+  fallbackProjectId?: number,
+): number {
+  return bundle.projectId ?? bundle.subjectRef?.projectId ?? fallbackProjectId ?? 1
+}
+
+function isPermissionBundleValid(bundle: PermissionBundle): boolean {
+  const expiry = bundle.expiry ?? bundle.expiresAt
+  if (!expiry) return false
+
+  try {
+    return new Date(expiry).getTime() > Date.now()
+  } catch {
+    return false
+  }
+}
+
 async function cachePermissionBundle(
   cwd: string,
   projectId: number,
   bundle: PermissionBundle,
 ): Promise<void> {
-  // Not implemented yet - would cache the bundle JSON
-  logForDebugging(
-    `[teamcc-loader] Permission bundle caching not yet implemented`,
-  )
+  const fs = await import('fs/promises')
+  const cacheDir = CACHE_DIR_PATH(cwd)
+  const cachePath = `${cacheDir}/permission-bundle-${projectId}.json`
+
+  try {
+    await fs.mkdir(cacheDir, { recursive: true })
+    await fs.writeFile(cachePath, JSON.stringify(bundle, null, 2), 'utf-8')
+  } catch (e) {
+    logForDebugging(
+      `[teamcc-loader] Failed to cache permission bundle: ${(e as Error).message}`,
+      { level: 'warn' },
+    )
+  }
 }
 
 async function loadCachedPermissionBundle(
   cwd: string,
   projectId: number,
 ): Promise<PermissionBundle | null> {
-  // Not implemented yet - would load the cached bundle JSON
-  return null
+  const fs = await import('fs/promises')
+  const cachePath = `${CACHE_DIR_PATH(cwd)}/permission-bundle-${projectId}.json`
+
+  try {
+    const raw = await fs.readFile(cachePath, 'utf-8')
+    return JSON.parse(raw) as PermissionBundle
+  } catch {
+    return null
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -109,7 +145,24 @@ export async function fetchPermissionBundleFromTeamCC(
       return null
     }
 
-    const bundle = (await response.json()) as PermissionBundle
+    const raw = (await response.json()) as Partial<PermissionBundle>
+    const bundle: PermissionBundle = {
+      bundleId: raw.bundleId ?? `teamcc-${projectId}`,
+      projectId: raw.projectId ?? raw.subjectRef?.projectId ?? projectId,
+      subject: raw.subject,
+      subjectRef: raw.subjectRef,
+      rules: Array.isArray(raw.rules) ? raw.rules : [],
+      capabilities: Array.isArray(raw.capabilities) ? raw.capabilities : [],
+      envOverrides:
+        raw.envOverrides && typeof raw.envOverrides === 'object'
+          ? raw.envOverrides
+          : {},
+      schema: raw.schema,
+      timestamp: raw.timestamp,
+      expiry: raw.expiry,
+      issuedAt: raw.issuedAt,
+      expiresAt: raw.expiresAt,
+    }
     logForDebugging(
       `[teamcc-loader] Fetched permission bundle for project ${projectId}`,
     )
@@ -153,8 +206,9 @@ function bundleRuleToPermissionRule(
 export function bundleToRules(
   bundle: PermissionBundle,
 ): RuleWithSource[] {
+  const projectId = getBundleProjectId(bundle)
   return bundle.rules.map((rule) =>
-    bundleRuleToPermissionRule(rule, 'teamccAdmin', bundle.projectId),
+    bundleRuleToPermissionRule(rule, 'teamccAdmin', projectId),
   )
 }
 
@@ -194,7 +248,7 @@ export async function loadPermissionBundleWithFallback(
 
   // Try to load from cache
   const cached = await loadCachedPermissionBundle(cwd, projectId)
-  if (cached && isCacheValid(cached as any)) {
+  if (cached && isPermissionBundleValid(cached)) {
     logForDebugging(
       `[teamcc-loader] Using cached permission bundle for project ${projectId}`,
     )

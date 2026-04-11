@@ -184,7 +184,7 @@ export function envelopeToProfile(
   const subject = envelope.subject
   return {
     userId: subject.userId,
-    orgId: null, // Will be populated from context if needed
+    orgId: subject.orgId ?? null,
     departmentId: subject.departmentId,
     teamId: subject.teamId,
     roleId: subject.roleId,

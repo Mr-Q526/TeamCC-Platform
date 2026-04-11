@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
-import {
-  getInvokedSkillsForAgent,
-  useAppState,
-} from '../../bootstrap/state.js'
-import { logEvent } from '../../services/analytics/index.js'
+import { getInvokedSkillsForAgent, getSessionId } from '../bootstrap/state.js'
+import { logEvent } from '../services/analytics/index.js'
 import { randomUUID } from 'crypto'
 
 export type SkillInfo = {
@@ -24,7 +21,7 @@ export function useSkillFeedbackSurvey(
 ) {
   const [pendingSkill, setPendingSkill] = useState<SkillInfo | null>(null)
   const [inputValue, setInputValue] = useState('')
-  const appState = useAppState()
+  const sessionId = getSessionId()
 
   // Track the most recent skill invoked for profanity interception
   const [lastInvokedSkill, setLastInvokedSkill] = useState<SkillInfo | null>(null)
@@ -37,7 +34,7 @@ export function useSkillFeedbackSurvey(
     if (invokedSkills && invokedSkills.length > 0) {
       // Pick the latest invoked skill (or any that hasn't been surveyed)
       for (const skillName of [...invokedSkills].reverse()) {
-        const uniqueKey = `${appState.sessionId}-${skillName}`
+        const uniqueKey = `${sessionId}-${skillName}`
         if (!surveyedSkills.has(uniqueKey)) {
           // Identify skill metadata (mocked here, ideally pulled from Command resolution)
           const skillObj = {
@@ -51,12 +48,12 @@ export function useSkillFeedbackSurvey(
         }
       }
     }
-  }, [isLoading, state, appState.sessionId])
+  }, [isLoading, hasActivePrompt, sessionId])
 
   const submitFeedback = (rating: 1 | 2 | 3 | 4 | 5, sentiment?: 'positive' | 'negative' | 'neutral') => {
     if (!pendingSkill) return
     
-    const uniqueKey = `${appState.sessionId}-${pendingSkill.skillId}`
+    const uniqueKey = `${sessionId}-${pendingSkill.skillId}`
     surveyedSkills.add(uniqueKey)
 
     if (rating === 5 && !sentiment) {
@@ -64,7 +61,7 @@ export function useSkillFeedbackSurvey(
       logEvent('tengu_skill_execution_feedback' as any, {
         eventType: 'skill.feedback.recorded',
         eventId: randomUUID(),
-        taskId: appState.sessionId,
+        taskId: sessionId,
         skillName: pendingSkill.skillId,
         skillId: pendingSkill.skillId,
         version: pendingSkill.version,
@@ -77,7 +74,7 @@ export function useSkillFeedbackSurvey(
       logEvent('tengu_skill_execution_feedback' as any, {
         eventType: 'skill.feedback.recorded',
         eventId: randomUUID(),
-        taskId: appState.sessionId,
+        taskId: sessionId,
         skillName: pendingSkill.skillId,
         skillId: pendingSkill.skillId,
         version: pendingSkill.version,
@@ -99,13 +96,13 @@ export function useSkillFeedbackSurvey(
     
     const isProfane = PROFANITY_RATES.some(regex => regex.test(text))
     if (isProfane) {
-      const uniqueKey = `${appState.sessionId}-${lastInvokedSkill.skillId}`
+      const uniqueKey = `${sessionId}-${lastInvokedSkill.skillId}`
       surveyedSkills.add(uniqueKey)
       
       logEvent('tengu_skill_execution_feedback' as any, {
         eventType: 'skill.feedback.recorded',
         eventId: randomUUID(),
-        taskId: appState.sessionId,
+        taskId: sessionId,
         skillName: lastInvokedSkill.skillId,
         skillId: lastInvokedSkill.skillId,
         version: lastInvokedSkill.version,

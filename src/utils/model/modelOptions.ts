@@ -483,11 +483,30 @@ export function getModelOptions(fastMode = false): ModelOption[] {
     }
   }
 
-  // Inject third-party native providers into the picker
-  const customProviders: ModelOption[] = [
-    { value: 'minimax2.7', label: 'Minimax 2.7', description: 'Minimax (Direct API)' },
-    { value: 'DeepSeek-V3.2', label: 'DeepSeek V3', description: 'DeepSeek (Direct API)' },
-  ]
+  // Inject third-party native providers dynamically from .env
+  const customProviders: ModelOption[] = []
+  const envKeys = Object.keys(process.env)
+  
+  const providerPrefixes = envKeys
+    .filter(k => k.endsWith('_MODELS'))
+    .map(k => k.replace('_MODELS', ''))
+
+  for (const prefix of providerPrefixes) {
+    const modelsStr = process.env[`${prefix}_MODELS`]
+    if (!modelsStr) continue
+
+    const displayPrefix = prefix.charAt(0).toUpperCase() + prefix.slice(1).toLowerCase()
+    const customModels = modelsStr.split(',').map(s => s.trim()).filter(Boolean)
+    
+    for (const m of customModels) {
+      customProviders.push({
+        value: m,
+        label: m,
+        description: `${displayPrefix} (Custom API)`
+      })
+    }
+  }
+
   for (const po of customProviders) {
     if (!options.some(existing => existing.value === po.value)) {
       options.push(po);

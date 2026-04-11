@@ -33,14 +33,17 @@ export type IdentityEnvelope = {
     userId: number
     username: string
     email: string
+    orgId?: number | null
     departmentId: number
     teamId: number
     roleId: number
     levelId: number
     defaultProjectId: number
   }
-  timestamp: string
-  expiry: string
+  timestamp?: string
+  expiry?: string
+  issuedAt?: string
+  expiresAt?: string
 }
 
 export type LoginResponse = {
@@ -135,18 +138,30 @@ export async function loginToTeamCC(
   username: string,
   password: string,
   apiBase: string = 'http://localhost:3000',
+  timeoutMs: number = 5000,
 ): Promise<{ tokens: LoginResponse; config: TeamCCConfig }> {
   try {
-    const response = await fetch(`${apiBase}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    })
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+    let response: Response;
 
-    if (!response.ok) {
-      throw new Error(
-        `Login failed with status ${response.status}: ${response.statusText}`,
-      )
+    try {
+      response = await fetch(`${apiBase}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+        signal: controller.signal,
+      })
+      clearTimeout(timeoutId)
+
+      if (!response.ok) {
+        throw new Error(
+          `Login failed with status ${response.status}: ${response.statusText}`,
+        )
+      }
+    } catch (fetchError) {
+      clearTimeout(timeoutId)
+      throw fetchError
     }
 
     const tokens = (await response.json()) as LoginResponse
@@ -162,6 +177,10 @@ export async function loginToTeamCC(
 
     return { tokens, config }
   } catch (e) {
+    if (e instanceof Error && e.name === 'AbortError') {
+      logForDebugging(`[teamcc] Login fetch timeout`, { level: 'error' })
+      throw new Error('Login request timed out')
+    }
     logForDebugging(`[teamcc] Login failed: ${(e as Error).message}`, {
       level: 'error',
     })
@@ -174,22 +193,34 @@ export async function loginToTeamCC(
  */
 export async function refreshAccessToken(
   config: TeamCCConfig,
+  timeoutMs: number = 5000,
 ): Promise<{ tokens: LoginResponse; updatedConfig: TeamCCConfig }> {
   if (!config.refreshToken) {
     throw new Error('No refresh token available')
   }
 
   try {
-    const response = await fetch(`${config.apiBase}/auth/refresh`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ refreshToken: config.refreshToken }),
-    })
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+    let response: Response;
 
-    if (!response.ok) {
-      throw new Error(
-        `Token refresh failed with status ${response.status}`,
-      )
+    try {
+      response = await fetch(`${config.apiBase}/auth/refresh`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken: config.refreshToken }),
+        signal: controller.signal,
+      })
+      clearTimeout(timeoutId)
+
+      if (!response.ok) {
+        throw new Error(
+          `Token refresh failed with status ${response.status}`,
+        )
+      }
+    } catch (fetchError) {
+      clearTimeout(timeoutId)
+      throw fetchError
     }
 
     const tokens = (await response.json()) as LoginResponse
@@ -203,6 +234,10 @@ export async function refreshAccessToken(
 
     return { tokens, updatedConfig }
   } catch (e) {
+    if (e instanceof Error && e.name === 'AbortError') {
+      logForDebugging(`[teamcc] Token refresh timeout`, { level: 'error' })
+      throw new Error('Token refresh request timed out')
+    }
     logForDebugging(`[teamcc] Token refresh failed: ${(e as Error).message}`, {
       level: 'error',
     })
@@ -216,6 +251,7 @@ export async function refreshAccessToken(
  */
 export async function getValidAccessToken(
   config: TeamCCConfig,
+  timeoutMs: number = 5000,
 ): Promise<{ token: string; updatedConfig: TeamCCConfig }> {
   // 如果没有 token，直接抛出错误
   if (!config.accessToken) {
@@ -231,7 +267,7 @@ export async function getValidAccessToken(
   }
 
   // Token 即将过期，尝试刷新
-  const { updatedConfig } = await refreshAccessToken(config)
+  const { updatedConfig } = await refreshAccessToken(config, timeoutMs)
   return { token: updatedConfig.accessToken!, updatedConfig }
 }
 
@@ -247,7 +283,8 @@ export async function fetchIdentityFromTeamCC(
   config: TeamCCConfig,
   timeoutMs: number = 5000,
 ): Promise<IdentityEnvelope> {
-  const { token } = await getValidAccessToken(config)
+  // 把超时传下去，避免在里面死锁
+  const { token } = await getValidAccessToken(config, timeoutMs)
 
   try {
     const controller = new AbortController()
@@ -343,10 +380,11 @@ export async function loadCachedIdentity(
  * 检查缓存是否仍然有效（基于 expiry）
  */
 export function isCacheValid(envelope: IdentityEnvelope): boolean {
-  if (!envelope.expiry) return false
+  const expiry = envelope.expiry ?? envelope.expiresAt
+  if (!expiry) return false
 
   try {
-    const expiryTime = new Date(envelope.expiry).getTime()
+    const expiryTime = new Date(expiry).getTime()
     return expiryTime > Date.now()
   } catch {
     return false

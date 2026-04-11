@@ -1,0 +1,3834 @@
+{
+  "schemaVersion": "2026-04-11",
+  "generatedAt": "2026-04-11T08:47:01.076Z",
+  "registryVersion": "sha256:c53cac0df36b9550523a11044d216266ac4bac9c5760d76bac7998523ea9a126",
+  "skillCount": 102,
+  "source": "skills-flat",
+  "skills": [
+    {
+      "skillId": "ai/humanizer-zh",
+      "name": "humanizer-zh",
+      "displayName": "Humanizer ZH",
+      "description": "Removes AI-style writing traces to make text sound naturally written by a real author, primarily in Chinese-language contexts.",
+      "aliases": [
+        "humanizer-zh",
+        "Humanizer ZH",
+        "humanizer",
+        "zh",
+        "ai",
+        "人工智能",
+        "智能助手",
+        "content-generation",
+        "ai-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:20a59a212136d2e8d4f3ee887475bc42cd7b202e06692727fad9d81a9d48e923",
+      "domain": "ai",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation"
+      ],
+      "targetDir": "humanizer-zh",
+      "skillFile": "humanizer-zh/SKILL.md"
+    },
+    {
+      "skillId": "ai/transcribe",
+      "name": "transcribe",
+      "displayName": "Transcribe",
+      "description": "Transcribe audio files to text with optional diarization and known-speaker hints. Use when a user asks to transcribe speech from audio/video, extract text from recordings, or label speakers in interviews or meetings.",
+      "aliases": [
+        "transcribe",
+        "ai",
+        "人工智能",
+        "智能助手",
+        "content-generation",
+        "data-analysis",
+        "数据",
+        "data",
+        "ai-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:4e33510ba683cfcce1fd74ec88a18cfc6c25f6e9e1c2df6bb11d851e4ead9abc",
+      "domain": "ai",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ],
+      "targetDir": "transcribe",
+      "skillFile": "transcribe/SKILL.md"
+    },
+    {
+      "skillId": "backend/api-integration-testing",
+      "name": "api-integration-testing",
+      "displayName": "API Integration Testing",
+      "description": "Use when working on API integration tests across services, databases, auth, and external dependencies. Focus on contract correctness, realistic fixtures, isolation, and deterministic assertions.",
+      "aliases": [
+        "api-integration-testing",
+        "API",
+        "接口",
+        "服务接口",
+        "测试",
+        "测试策略",
+        "testing",
+        "API Integration Testing",
+        "integration",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "test",
+        "验证",
+        "backend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:7bf16bc4af3988d4dd30e902c218e9584214e9cecbd5fe4105c444932158175e",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "test"
+      ],
+      "targetDir": "api-integration-testing",
+      "skillFile": "api-integration-testing/SKILL.md"
+    },
+    {
+      "skillId": "backend/auth-authorization-backend",
+      "name": "auth-authorization-backend",
+      "displayName": "Backend Auth Authorization",
+      "description": "Use when working on authentication, authorization, sessions, API keys, RBAC, ABAC, and tenant boundaries. Focus on least privilege, secure defaults, session safety, and auditable permission checks.",
+      "aliases": [
+        "后端鉴权",
+        "接口授权",
+        "租户边界",
+        "权限检查",
+        "auth-authorization-backend",
+        "认证",
+        "鉴权",
+        "授权",
+        "登录态",
+        "权限",
+        "RBAC",
+        "ABAC",
+        "后端",
+        "服务端",
+        "server side",
+        "Backend Auth Authorization",
+        "auth authorization backend",
+        "auth",
+        "authorization",
+        "backend",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "security-audit",
+        "安全",
+        "安全审计",
+        "security"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:c4d9c9fc1cbb59b8de303065e50e8cc17551a473b7d85da7989d34de0ae46fe6",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
+      ],
+      "targetDir": "auth-authorization-backend",
+      "skillFile": "auth-authorization-backend/SKILL.md"
+    },
+    {
+      "skillId": "backend/backend-api-architecture",
+      "name": "backend-api-architecture",
+      "displayName": "Backend API Architecture",
+      "description": "Use when working on backend service architecture, API boundaries, module decomposition, service contracts, and data flow design. Focus on clear ownership, stable interfaces, failure isolation, and maintainability.",
+      "aliases": [
+        "backend-api-architecture",
+        "后端",
+        "服务端",
+        "server side",
+        "API",
+        "接口",
+        "服务接口",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "Backend API Architecture",
+        "backend",
+        "architecture",
+        "backend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:2e46978fe281ed0f5da9c1dc20fa9cd700072ffc7973cbab42ed5cd71e100bed",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ],
+      "targetDir": "backend-api-architecture",
+      "skillFile": "backend-api-architecture/SKILL.md"
+    },
+    {
+      "skillId": "backend/backend-performance-profiling",
+      "name": "backend-performance-profiling",
+      "displayName": "Backend Performance Profiling",
+      "description": "Use when working on backend performance profiling, slow endpoint analysis, query hotspots, CPU, memory, and latency work. Focus on measurement, profiling evidence, hot path reduction, and regression guards.",
+      "aliases": [
+        "backend-performance-profiling",
+        "后端",
+        "服务端",
+        "server side",
+        "性能",
+        "性能优化",
+        "性能分析",
+        "Backend Performance Profiling",
+        "backend",
+        "performance",
+        "profiling",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "backend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:9b4d8b9c7a47d9b186fea138434080b028876653514da76635bb1f142b61597c",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "performance"
+      ],
+      "targetDir": "backend-performance-profiling",
+      "skillFile": "backend-performance-profiling/SKILL.md"
+    },
+    {
+      "skillId": "backend/background-jobs-queues",
+      "name": "background-jobs-queues",
+      "displayName": "Background Jobs Queues",
+      "description": "Use when working on queues, workers, scheduled jobs, retries, idempotency, and async workflows. Focus on idempotency, retry policy, dead-letter handling, and operational visibility.",
+      "aliases": [
+        "后台任务队列",
+        "异步队列",
+        "任务重试",
+        "幂等任务",
+        "死信队列",
+        "background-jobs-queues",
+        "后台任务",
+        "异步任务",
+        "后台作业",
+        "任务队列",
+        "定时任务",
+        "job",
+        "scheduled job",
+        "队列",
+        "worker",
+        "重试",
+        "幂等",
+        "dead-letter queue",
+        "Background Jobs Queues",
+        "background",
+        "jobs",
+        "queues",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:4856687a2e468f2f3059758a505110e9942a705950903fedab8d6cdcc001b5db",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "debug"
+      ],
+      "targetDir": "background-jobs-queues",
+      "skillFile": "background-jobs-queues/SKILL.md"
+    },
+    {
+      "skillId": "backend/cache-strategy-backend",
+      "name": "cache-strategy-backend",
+      "displayName": "Backend Cache Strategy",
+      "description": "Use when working on server-side caching, Redis, CDN coordination, invalidation, and freshness rules. Focus on correctness, invalidation, stampede control, and latency reduction.",
+      "aliases": [
+        "Redis 缓存",
+        "缓存击穿",
+        "缓存雪崩",
+        "缓存失效",
+        "cache-strategy-backend",
+        "缓存",
+        "Redis",
+        "cache invalidation",
+        "策略",
+        "方案",
+        "后端",
+        "服务端",
+        "server side",
+        "Backend Cache Strategy",
+        "cache strategy backend",
+        "cache",
+        "strategy",
+        "backend",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "performance",
+        "性能",
+        "性能优化",
+        "性能分析",
+        "backend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:5cbfd83fb6553a716000887328ec8c75aa543d89fa1159e8bc60adea10ab0f99",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "performance"
+      ],
+      "targetDir": "cache-strategy-backend",
+      "skillFile": "cache-strategy-backend/SKILL.md"
+    },
+    {
+      "skillId": "backend/data-migration-backfill",
+      "name": "data-migration-backfill",
+      "displayName": "Data Migration Backfill",
+      "description": "Use when working on schema migrations, data migrations, backfills, dual writes, and rollout plans. Focus on reversibility, idempotency, batching, verification, and rollback safety.",
+      "aliases": [
+        "data-migration-backfill",
+        "数据",
+        "data",
+        "迁移",
+        "数据迁移",
+        "migration",
+        "数据回填",
+        "补数据",
+        "backfill",
+        "Data Migration Backfill",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "release",
+        "backend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:eadcec67071b149d9280b770b579ad88c397b551f269bd1fe89ea56e8c512332",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "release"
+      ],
+      "targetDir": "data-migration-backfill",
+      "skillFile": "data-migration-backfill/SKILL.md"
+    },
+    {
+      "skillId": "backend/database-schema-design",
+      "name": "database-schema-design",
+      "displayName": "Database Schema Design",
+      "description": "Use when working on relational or document database schema design, indexing, constraints, and migration planning. Focus on data integrity, query shape, indexing, and future-safe migrations.",
+      "aliases": [
+        "数据库设计",
+        "表结构设计",
+        "索引设计",
+        "迁移方案",
+        "database-schema-design",
+        "数据库",
+        "数据表",
+        "DB",
+        "表结构",
+        "schema",
+        "数据建模",
+        "索引",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Database Schema Design",
+        "database",
+        "design",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "backend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:e4d06b7ebf7effa4855950b05206aa4cc561fe8cab2d4100a619edc7c457ee7d",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ],
+      "targetDir": "database-schema-design",
+      "skillFile": "database-schema-design/SKILL.md"
+    },
+    {
+      "skillId": "backend/graphql-api-implementation",
+      "name": "graphql-api-implementation",
+      "displayName": "GraphQL API Implementation",
+      "description": "Use when working on GraphQL schemas, resolvers, mutations, subscriptions, and dataloader patterns. Focus on schema clarity, N+1 avoidance, auth boundaries, and client ergonomics.",
+      "aliases": [
+        "GraphQL API",
+        "resolver",
+        "dataloader",
+        "N+1 查询",
+        "graphql-api-implementation",
+        "GraphQL",
+        "schema",
+        "mutation",
+        "API",
+        "接口",
+        "服务接口",
+        "GraphQL API Implementation",
+        "implementation",
+        "Graph",
+        "QL",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "test",
+        "测试",
+        "验证",
+        "backend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:2db34c44acb8dfbf60e10e057b2554fdb348f7fc0864056b70b9a36d06fc1c96",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "test"
+      ],
+      "targetDir": "graphql-api-implementation",
+      "skillFile": "graphql-api-implementation/SKILL.md"
+    },
+    {
+      "skillId": "backend/rest-api-implementation",
+      "name": "rest-api-implementation",
+      "displayName": "REST API Implementation",
+      "description": "Use when working on REST API routes, controllers, validation, pagination, errors, and versioning. Focus on predictable resources, validation, error semantics, and compatibility.",
+      "aliases": [
+        "REST 接口",
+        "controller",
+        "参数校验",
+        "分页接口",
+        "rest-api-implementation",
+        "REST",
+        "REST API",
+        "资源接口",
+        "API",
+        "接口",
+        "服务接口",
+        "REST API Implementation",
+        "implementation",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "test",
+        "测试",
+        "验证",
+        "backend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:269df220bec0c3d8e183e0f08592f32e636c9530828743bd31da318d2fb9781e",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "test"
+      ],
+      "targetDir": "rest-api-implementation",
+      "skillFile": "rest-api-implementation/SKILL.md"
+    },
+    {
+      "skillId": "design/jimeng",
+      "name": "jimeng",
+      "displayName": "Jimeng",
+      "description": "Generate images via Jimeng (即梦) AI image generation API.",
+      "aliases": [
+        "jimeng",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "ai-platform",
+        "AI",
+        "人工智能",
+        "智能助手"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:ace4ba11f89a8af052dab4c00478695a0fa294671b30ef63949c2b98c9da859f",
+      "domain": "design",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "targetDir": "jimeng",
+      "skillFile": "jimeng/SKILL.md"
+    },
+    {
+      "skillId": "design/motion-video-maker",
+      "name": "motion-video-maker",
+      "displayName": "Motion Video Maker",
+      "description": "根据文本、脚本或 Markdown 生成结构化讲解动画视频，使用 Web 页面制作和预览 AE / PR 风格的动效。必须严格根据解说文本规划合理的动画播放与切换时间，先生成预览，只有在用户明确确认后才导出 mp4。适用于知识讲解、产品介绍、口播配套动画、字幕强化、步骤演示和数据解说视频。",
+      "aliases": [
+        "motion-video-maker",
+        "Motion Video Maker",
+        "motion",
+        "video",
+        "maker",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:45d0918b64d41b2f6c195268b48d9261ef57adfb0327aeab645edde120b2552c",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "targetDir": "motion-video-maker",
+      "skillFile": "motion-video-maker/SKILL.md"
+    },
+    {
+      "skillId": "design/ppt-club-recruiting",
+      "name": "ppt-club-recruiting",
+      "displayName": "PPT Club Recruiting",
+      "description": "面向大学社团招新、活动宣讲和拉赞助路演生成高能结构化 PPT，强调大标题、强节奏、收益表达和明确报名行动。",
+      "aliases": [
+        "ppt-club-recruiting",
+        "PPT Club Recruiting",
+        "ppt",
+        "club",
+        "recruiting",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:12f30637276720829d0509e7bdfa4581767d2c40038bcb3dca4cf64a4008fe6f",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "targetDir": "ppt-club-recruiting",
+      "skillFile": "ppt-club-recruiting/SKILL.md"
+    },
+    {
+      "skillId": "design/ppt-course-presentation",
+      "name": "ppt-course-presentation",
+      "displayName": "PPT Course Presentation",
+      "description": "面向小组作业、读书报告和期末展示生成结构化 PPT，强调问题引入、案例讲解、团队观点和课堂讨论的节奏感。",
+      "aliases": [
+        "ppt-course-presentation",
+        "课程",
+        "教学",
+        "课程页",
+        "PPT Course Presentation",
+        "ppt",
+        "course",
+        "presentation",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:62f430c76232199838442c3d0859e7781735506a7c7ee6506f31cbbd852a84d4",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "targetDir": "ppt-course-presentation",
+      "skillFile": "ppt-course-presentation/SKILL.md"
+    },
+    {
+      "skillId": "design/ppt-customer-story",
+      "name": "ppt-customer-story",
+      "displayName": "PPT Customer Story",
+      "description": "面向客户案例、售前证明和项目成效展示生成结构化 PPT，强调客户背景、业务痛点、落地方案、结果数据和客户背书。",
+      "aliases": [
+        "ppt-customer-story",
+        "PPT Customer Story",
+        "ppt",
+        "customer",
+        "story",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:9761e20a1992fcad16568d074a0912fd8efaba48a9a72f3a7bc6e40c2099a3c5",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "targetDir": "ppt-customer-story",
+      "skillFile": "ppt-customer-story/SKILL.md"
+    },
+    {
+      "skillId": "design/ppt-english-lesson",
+      "name": "ppt-english-lesson",
+      "displayName": "PPT English Lesson",
+      "description": "面向英语课堂教学场景生成结构化课件，覆盖导入、课文讲解、词汇、句型、练习和总结等教学环节，并强调课堂节奏与投屏可读性。",
+      "aliases": [
+        "ppt-english-lesson",
+        "PPT English Lesson",
+        "ppt",
+        "english",
+        "lesson",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:21bf0df293c99af81bcaafe6897dd4c4c74c2c8e6da2591a713df067a4e0afbe",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "targetDir": "ppt-english-lesson",
+      "skillFile": "ppt-english-lesson/SKILL.md"
+    },
+    {
+      "skillId": "design/ppt-maker",
+      "name": "ppt-maker",
+      "displayName": "PPT Maker",
+      "description": "根据一句话主题、Markdown 或已有文稿生成结构化 PPT，并支持自然语言修改页面与组件后导出为可编辑 PPT。适用于需要生成大纲、创建逐页布局、维护 deck.json、渲染 HTML 预览和导出 .pptx 的场景。",
+      "aliases": [
+        "ppt-maker",
+        "PPT Maker",
+        "ppt",
+        "maker",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:861d0d49725e2724350030fe50b3934ac83426e832d0a62972f18affad0ddf68",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "targetDir": "ppt-maker",
+      "skillFile": "ppt-maker/SKILL.md"
+    },
+    {
+      "skillId": "design/ppt-personal-intro",
+      "name": "ppt-personal-intro",
+      "displayName": "PPT Personal Intro",
+      "description": "面向个人介绍、自我介绍、嘉宾简介和作品集场景生成结构化 PPT，强调身份定位、经历主线、代表项目和可记忆结尾。",
+      "aliases": [
+        "ppt-personal-intro",
+        "PPT Personal Intro",
+        "ppt",
+        "personal",
+        "intro",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:08c74c6820d35fd8df0dc2b15f276ed86cf292749a0eb2478f41f3728717a9ae",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "targetDir": "ppt-personal-intro",
+      "skillFile": "ppt-personal-intro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/about-company-page-basic",
+      "name": "about-company-page-basic",
+      "displayName": "About Company Page Basic",
+      "description": "Use when designing about pages, company story pages, team pages, and mission pages. Basic version focused on trust, narrative, people, values, and company proof; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "about-company-page-basic",
+        "关于我们",
+        "公司介绍",
+        "品牌介绍",
+        "公司",
+        "企业",
+        "品牌",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "About Company Page Basic",
+        "about",
+        "company",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:3f68881d65e2b0c0c3e473028a8be475a8c072886e32df1a4fafd495925a0e10",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "about-company-page-basic",
+      "skillFile": "about-company-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/about-company-page-pro",
+      "name": "about-company-page-pro",
+      "displayName": "About Company Page PRO",
+      "description": "Use when designing about pages, company story pages, team pages, and mission pages. Pro version focused on trust, narrative, people, values, and company proof; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "about-company-page-pro",
+        "关于我们",
+        "公司介绍",
+        "品牌介绍",
+        "公司",
+        "企业",
+        "品牌",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "About Company Page PRO",
+        "about",
+        "company",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:237e3b33333d7c99bfbce54170a9e8f3a2735cf8f50f3e865d5f1833d753587e",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "about-company-page-pro",
+      "skillFile": "about-company-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/admin-dashboard-design",
+      "name": "admin-dashboard-design",
+      "displayName": "Admin Dashboard Design",
+      "description": "Use when the task is to design a management console, 管理后台, admin panel, operations dashboard, moderation tool, or back-office web app. Focus on operator efficiency, table-first layout, filters, bulk actions, status visibility, and low-noise product UI.",
+      "aliases": [
+        "admin-dashboard-design",
+        "管理后台",
+        "后台管理",
+        "管理台",
+        "admin panel",
+        "仪表盘",
+        "看板",
+        "控制台",
+        "dashboard",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Admin Dashboard Design",
+        "admin",
+        "design",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:5ae365da050ebe49ea080f128b4d48ba1d60d544ca2f99ed99a25fcac3a57b71",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "admin-dashboard-design",
+      "skillFile": "admin-dashboard-design/SKILL.md"
+    },
+    {
+      "skillId": "frontend/ai-chat-interface-basic",
+      "name": "ai-chat-interface-basic",
+      "displayName": "AI Chat Interface Basic",
+      "description": "Use when designing AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces. Basic version focused on conversation flow, tool state, citations, safety, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "ai-chat-interface-basic",
+        "AI",
+        "人工智能",
+        "智能助手",
+        "基础版",
+        "basic",
+        "AI Chat Interface Basic",
+        "chat",
+        "interface",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:398ad35b57180b9a5fb6651fd5dd9dd0f3ce2821dd4b39b616248f93062ff7be",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "ai-chat-interface-basic",
+      "skillFile": "ai-chat-interface-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/ai-chat-interface-pro",
+      "name": "ai-chat-interface-pro",
+      "displayName": "AI Chat Interface PRO",
+      "description": "Use when designing AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces. Pro version focused on conversation flow, tool state, citations, safety, and trust; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "ai-chat-interface-pro",
+        "AI",
+        "人工智能",
+        "智能助手",
+        "专业版",
+        "pro",
+        "AI Chat Interface PRO",
+        "chat",
+        "interface",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:4fc5048633159105d7b3532862d90d4cf61e380d3735c21be3f4c46848d27a48",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "ai-chat-interface-pro",
+      "skillFile": "ai-chat-interface-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/analytics-dashboard-design",
+      "name": "analytics-dashboard-design",
+      "displayName": "Analytics Dashboard Design",
+      "description": "Use when the task is to design a BI dashboard, 数据大屏, analytics workspace, reporting console, KPI board, or monitoring page. Focus on question-first information hierarchy, chart choice, filter clarity, metric context, and decision-ready layout.",
+      "aliases": [
+        "analytics-dashboard-design",
+        "数据分析",
+        "分析看板",
+        "BI",
+        "指标看板",
+        "仪表盘",
+        "看板",
+        "控制台",
+        "dashboard",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Analytics Dashboard Design",
+        "analytics",
+        "design",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:bafea9da77fa0032a6e8fa494441b9a06942cb14b2fc9be44d46678158d83716",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "analytics-dashboard-design",
+      "skillFile": "analytics-dashboard-design/SKILL.md"
+    },
+    {
+      "skillId": "frontend/auth-login-page-basic",
+      "name": "auth-login-page-basic",
+      "displayName": "Auth Login Page Basic",
+      "description": "Use when designing login, signup, password reset, MFA, and account access pages. Basic version focused on trust, clarity, error recovery, and low-friction account access; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "auth-login-page-basic",
+        "认证",
+        "鉴权",
+        "授权",
+        "登录态",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Auth Login Page Basic",
+        "auth",
+        "login",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:4b30c095e8d7225ee923576b569d8ef5ca57dfb0e5eb8e77ca3be3e0b2d6d024",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "auth-login-page-basic",
+      "skillFile": "auth-login-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/auth-login-page-pro",
+      "name": "auth-login-page-pro",
+      "displayName": "Auth Login Page PRO",
+      "description": "Use when designing login, signup, password reset, MFA, and account access pages. Pro version focused on trust, clarity, error recovery, and low-friction account access; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "auth-login-page-pro",
+        "认证",
+        "鉴权",
+        "授权",
+        "登录态",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Auth Login Page PRO",
+        "auth",
+        "login",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:f1ee04f7a239c45fd181d0eb87ab4f514e2f4d66002e5871b7ea3742369c1a4f",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "auth-login-page-pro",
+      "skillFile": "auth-login-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/careers-page-basic",
+      "name": "careers-page-basic",
+      "displayName": "Careers Page Basic",
+      "description": "Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Basic version focused on role discovery, culture proof, benefits, and application clarity; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "careers-page-basic",
+        "招聘",
+        "加入我们",
+        "职位页面",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Careers Page Basic",
+        "careers",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:19ffb27453db37ad11cf46a97810fb09986bb2b1422973f73bfe3e33df775012",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "careers-page-basic",
+      "skillFile": "careers-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/careers-page-pro",
+      "name": "careers-page-pro",
+      "displayName": "Careers Page PRO",
+      "description": "Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Pro version focused on role discovery, culture proof, benefits, and application clarity; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "careers-page-pro",
+        "招聘",
+        "加入我们",
+        "职位页面",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Careers Page PRO",
+        "careers",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:b668cd4e0938029ba39fc52c4e8cd700f2822bb4ddded4a3135c636903334ff4",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "careers-page-pro",
+      "skillFile": "careers-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/checkout-flow-basic",
+      "name": "checkout-flow-basic",
+      "displayName": "Checkout Flow Basic",
+      "description": "Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Basic version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "checkout-flow-basic",
+        "结账",
+        "支付流程",
+        "下单流程",
+        "基础版",
+        "basic",
+        "Checkout Flow Basic",
+        "checkout",
+        "flow",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:a6653535c3295ae9ef923255a1fc1fc67d8f769086288f25999310ea63489908",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "checkout-flow-basic",
+      "skillFile": "checkout-flow-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/checkout-flow-pro",
+      "name": "checkout-flow-pro",
+      "displayName": "Checkout Flow PRO",
+      "description": "Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Pro version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "checkout-flow-pro",
+        "结账",
+        "支付流程",
+        "下单流程",
+        "专业版",
+        "pro",
+        "Checkout Flow PRO",
+        "checkout",
+        "flow",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:93c3723199ba7ffa59adf82b519e637c12a10e3f92388455afc6d0a56b0302d8",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "checkout-flow-pro",
+      "skillFile": "checkout-flow-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/component-library-basic",
+      "name": "component-library-basic",
+      "displayName": "Component Library Basic",
+      "description": "Use when designing component libraries, UI kits, reusable React components, and implementation examples. Basic version focused on API clarity, variants, states, and usage consistency; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "component-library-basic",
+        "组件",
+        "组件库",
+        "UI 组件",
+        "库",
+        "library",
+        "基础版",
+        "basic",
+        "Component Library Basic",
+        "component",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:9fd339ac818ad7d01373d9e881b5dd480b5b6e8461cbb52ddaefef586ff8f119",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "component-library-basic",
+      "skillFile": "component-library-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/component-library-pro",
+      "name": "component-library-pro",
+      "displayName": "Component Library PRO",
+      "description": "Use when designing component libraries, UI kits, reusable React components, and implementation examples. Pro version focused on API clarity, variants, states, and usage consistency; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "component-library-pro",
+        "组件",
+        "组件库",
+        "UI 组件",
+        "库",
+        "library",
+        "专业版",
+        "pro",
+        "Component Library PRO",
+        "component",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:6893dd7a1dff52f14e9fd328a5c7156e2a9b09aec4ca515618e3bb7f9f87ed29",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "component-library-pro",
+      "skillFile": "component-library-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/contact-sales-page-basic",
+      "name": "contact-sales-page-basic",
+      "displayName": "Contact Sales Page Basic",
+      "description": "Use when designing contact, sales, demo request, consultation, and lead qualification pages. Basic version focused on form clarity, next-step confidence, routing, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "contact-sales-page-basic",
+        "联系",
+        "联系销售",
+        "contact sales",
+        "销售",
+        "销售线索",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Contact Sales Page Basic",
+        "contact",
+        "sales",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:821f13138a43397af0fbf7bcc927ee3e348ddc1151993f53400f59a0289800c5",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "contact-sales-page-basic",
+      "skillFile": "contact-sales-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/contact-sales-page-pro",
+      "name": "contact-sales-page-pro",
+      "displayName": "Contact Sales Page PRO",
+      "description": "Use when designing contact, sales, demo request, consultation, and lead qualification pages. Pro version focused on form clarity, next-step confidence, routing, and trust; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "contact-sales-page-pro",
+        "联系",
+        "联系销售",
+        "contact sales",
+        "销售",
+        "销售线索",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Contact Sales Page PRO",
+        "contact",
+        "sales",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:1a489fa136cda84439abc6f75085a35c1d7622de981696ce7340a9f375ad9136",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "contact-sales-page-pro",
+      "skillFile": "contact-sales-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/data-table-basic",
+      "name": "data-table-basic",
+      "displayName": "Data Table Basic",
+      "description": "Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Basic version focused on columns, sorting, selection, inline actions, and density; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "data-table-basic",
+        "数据",
+        "data",
+        "表格",
+        "数据表格",
+        "data table",
+        "基础版",
+        "basic",
+        "Data Table Basic",
+        "table",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:d9759dbf661b02387c4ace7c56fe0bdef7001134ba0739ec22c98a4b7e7d3d6d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "data-table-basic",
+      "skillFile": "data-table-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/data-table-pro",
+      "name": "data-table-pro",
+      "displayName": "Data Table PRO",
+      "description": "Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Pro version focused on columns, sorting, selection, inline actions, and density; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "data-table-pro",
+        "数据",
+        "data",
+        "表格",
+        "数据表格",
+        "data table",
+        "专业版",
+        "pro",
+        "Data Table PRO",
+        "table",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:9e4123448435d6cf0697f0701510f9b668eaabf0764c9cac38e796e536e14ad0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "data-table-pro",
+      "skillFile": "data-table-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/design-system-builder-basic",
+      "name": "design-system-builder-basic",
+      "displayName": "Design System Builder Basic",
+      "description": "Use when designing design systems, token systems, UI foundations, and reusable component standards. Basic version focused on tokens, consistency, accessibility, and component governance; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "design-system-builder-basic",
+        "设计",
+        "UI",
+        "视觉设计",
+        "系统",
+        "设计系统",
+        "构建器",
+        "生成器",
+        "builder",
+        "基础版",
+        "basic",
+        "Design System Builder Basic",
+        "design",
+        "system",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:fe738cd6fadafcee2f9f4ceff296a3ed09a2967b382f2089a43df46938e355d8",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "design-system-builder-basic",
+      "skillFile": "design-system-builder-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/design-system-builder-pro",
+      "name": "design-system-builder-pro",
+      "displayName": "Design System Builder PRO",
+      "description": "Use when designing design systems, token systems, UI foundations, and reusable component standards. Pro version focused on tokens, consistency, accessibility, and component governance; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "design-system-builder-pro",
+        "设计",
+        "UI",
+        "视觉设计",
+        "系统",
+        "设计系统",
+        "构建器",
+        "生成器",
+        "builder",
+        "专业版",
+        "pro",
+        "Design System Builder PRO",
+        "design",
+        "system",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:7e8f050979cabe4e0bb470b7f55c573c7979741dd7cda682edecc64986d6e135",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "design-system-builder-pro",
+      "skillFile": "design-system-builder-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/develop-web-game",
+      "name": "develop-web-game",
+      "displayName": "Develop Web Game",
+      "description": "Use when Codex is building or iterating on a web game (HTML/JS) and needs a reliable development + testing loop: implement small changes, run a Playwright-based test script with short input bursts and intentional pauses, inspect screenshots/text, and review console errors with render_game_to_text.",
+      "aliases": [
+        "develop-web-game",
+        "Develop Web Game",
+        "develop",
+        "web",
+        "game",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "test",
+        "测试",
+        "验证",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:19106e1253f1ed065975566d66e79227468975bc1583f3ec88254500403cf069",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design",
+        "test"
+      ],
+      "targetDir": "develop-web-game",
+      "skillFile": "develop-web-game/SKILL.md"
+    },
+    {
+      "skillId": "frontend/developer-portal-basic",
+      "name": "developer-portal-basic",
+      "displayName": "Developer Portal Basic",
+      "description": "Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Basic version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "developer-portal-basic",
+        "开发者",
+        "开发者门户",
+        "developer portal",
+        "基础版",
+        "basic",
+        "Developer Portal Basic",
+        "developer",
+        "portal",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:3afef322b696a6cdd1da1114346e372994d921f802cccf0ef2a860cce1b61111",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "developer-portal-basic",
+      "skillFile": "developer-portal-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/developer-portal-pro",
+      "name": "developer-portal-pro",
+      "displayName": "Developer Portal PRO",
+      "description": "Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Pro version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "developer-portal-pro",
+        "开发者",
+        "开发者门户",
+        "developer portal",
+        "专业版",
+        "pro",
+        "Developer Portal PRO",
+        "developer",
+        "portal",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:befefa5e9203a3dcd264ebf02cc74530708f89231657597b38ad1bd6cfa2a332",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "developer-portal-pro",
+      "skillFile": "developer-portal-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/docs-site-basic",
+      "name": "docs-site-basic",
+      "displayName": "Docs Site Basic",
+      "description": "Use when designing documentation sites, knowledge bases, developer docs, and help centers. Basic version focused on findability, readable hierarchy, examples, and navigation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "docs-site-basic",
+        "文档站",
+        "文档网站",
+        "documentation",
+        "基础版",
+        "basic",
+        "Docs Site Basic",
+        "docs",
+        "site",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:6efc00ac06a70bd9d98baec5d9cb4543afc9ad3773acfe2df1646fe097abcabf",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "docs-site-basic",
+      "skillFile": "docs-site-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/docs-site-pro",
+      "name": "docs-site-pro",
+      "displayName": "Docs Site PRO",
+      "description": "Use when designing documentation sites, knowledge bases, developer docs, and help centers. Pro version focused on findability, readable hierarchy, examples, and navigation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "docs-site-pro",
+        "文档站",
+        "文档网站",
+        "documentation",
+        "专业版",
+        "pro",
+        "Docs Site PRO",
+        "docs",
+        "site",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:cd2b555fb098962eba62a4db991a40de6d37c9b0293efd3d7eb059534863da0b",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "docs-site-pro",
+      "skillFile": "docs-site-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/ecommerce-storefront-design",
+      "name": "ecommerce-storefront-design",
+      "displayName": "Ecommerce Storefront Design",
+      "description": "Use when the task is to design an ecommerce storefront, 电商首页, product listing page, product detail page, shopping flow, or brand shop. Focus on product discovery, merchandising hierarchy, trust, pricing clarity, and conversion flow.",
+      "aliases": [
+        "ecommerce-storefront-design",
+        "电商",
+        "商城",
+        "购物",
+        "店铺首页",
+        "商城首页",
+        "商品页",
+        "storefront",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Ecommerce Storefront Design",
+        "ecommerce",
+        "design",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:262a61b1434fe1764c9720e9abff1c9397e4758ecc1da89841015fd278c490d1",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "ecommerce-storefront-design",
+      "skillFile": "ecommerce-storefront-design/SKILL.md"
+    },
+    {
+      "skillId": "frontend/education-course-page-basic",
+      "name": "education-course-page-basic",
+      "displayName": "Education Course Page Basic",
+      "description": "Use when designing course pages, lesson players, LMS dashboards, and learning paths. Basic version focused on learning hierarchy, progress, practice, and motivation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "education-course-page-basic",
+        "教育",
+        "课程",
+        "学习",
+        "教学",
+        "课程页",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Education Course Page Basic",
+        "education",
+        "course",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:717ec58a11d432845546c41c244eaa14f3c4da976b917306bec38aac5b102ec1",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "education-course-page-basic",
+      "skillFile": "education-course-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/education-course-page-pro",
+      "name": "education-course-page-pro",
+      "displayName": "Education Course Page PRO",
+      "description": "Use when designing course pages, lesson players, LMS dashboards, and learning paths. Pro version focused on learning hierarchy, progress, practice, and motivation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "education-course-page-pro",
+        "教育",
+        "课程",
+        "学习",
+        "教学",
+        "课程页",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Education Course Page PRO",
+        "education",
+        "course",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:b5e64b0046355c1b684e3a3a867c062276278fe5a663b3bcf5e6f00d5ec8caa0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "education-course-page-pro",
+      "skillFile": "education-course-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/enterprise-security-page-basic",
+      "name": "enterprise-security-page-basic",
+      "displayName": "Enterprise Security Page Basic",
+      "description": "Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Basic version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "enterprise-security-page-basic",
+        "企业",
+        "企业级",
+        "B2B",
+        "安全",
+        "安全审计",
+        "security",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Enterprise Security Page Basic",
+        "enterprise",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:778b17123a28b4672c90cce57b97b92ca690c61292ea424bc2c6c2fa99f466c6",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "enterprise-security-page-basic",
+      "skillFile": "enterprise-security-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/enterprise-security-page-pro",
+      "name": "enterprise-security-page-pro",
+      "displayName": "Enterprise Security Page PRO",
+      "description": "Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Pro version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "enterprise-security-page-pro",
+        "企业",
+        "企业级",
+        "B2B",
+        "安全",
+        "安全审计",
+        "security",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Enterprise Security Page PRO",
+        "enterprise",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:5dfc5a27751665fec7aaacda7b8bb9394c69c9dde822cc42d122735fe099ea1f",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "enterprise-security-page-pro",
+      "skillFile": "enterprise-security-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/error-empty-states-basic",
+      "name": "error-empty-states-basic",
+      "displayName": "Error Empty States Basic",
+      "description": "Use when designing 404 pages, empty states, error states, permission states, and offline states. Basic version focused on recovery, explanation, next actions, and tone; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "error-empty-states-basic",
+        "错误状态",
+        "异常状态",
+        "报错页",
+        "空状态",
+        "empty state",
+        "状态",
+        "UI 状态",
+        "基础版",
+        "basic",
+        "Error Empty States Basic",
+        "error",
+        "empty",
+        "states",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:602114a519102f67d7d7e86bbf8574366754f8b19795a8a6309f0945a4f7d443",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "error-empty-states-basic",
+      "skillFile": "error-empty-states-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/error-empty-states-pro",
+      "name": "error-empty-states-pro",
+      "displayName": "Error Empty States PRO",
+      "description": "Use when designing 404 pages, empty states, error states, permission states, and offline states. Pro version focused on recovery, explanation, next actions, and tone; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "error-empty-states-pro",
+        "错误状态",
+        "异常状态",
+        "报错页",
+        "空状态",
+        "empty state",
+        "状态",
+        "UI 状态",
+        "专业版",
+        "pro",
+        "Error Empty States PRO",
+        "error",
+        "empty",
+        "states",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:e71476cf4a4d684a09a5164ddce9e410cb95dbd538f3820123f03ef352666a2c",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "error-empty-states-pro",
+      "skillFile": "error-empty-states-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/fintech-dashboard-basic",
+      "name": "fintech-dashboard-basic",
+      "displayName": "Fintech Dashboard Basic",
+      "description": "Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Basic version focused on precision, compliance cues, risk visibility, and decision context; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "fintech-dashboard-basic",
+        "金融科技",
+        "金融",
+        "fintech",
+        "仪表盘",
+        "看板",
+        "控制台",
+        "dashboard",
+        "基础版",
+        "basic",
+        "Fintech Dashboard Basic",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:324257293b2ef94bcc5a05f04a10183addd1dec7787a81aa9a534059948c88ca",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "fintech-dashboard-basic",
+      "skillFile": "fintech-dashboard-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/fintech-dashboard-pro",
+      "name": "fintech-dashboard-pro",
+      "displayName": "Fintech Dashboard PRO",
+      "description": "Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Pro version focused on precision, compliance cues, risk visibility, and decision context; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "fintech-dashboard-pro",
+        "金融科技",
+        "金融",
+        "fintech",
+        "仪表盘",
+        "看板",
+        "控制台",
+        "dashboard",
+        "专业版",
+        "pro",
+        "Fintech Dashboard PRO",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:bbc57001525c136afa51c864148d8bb5e20192652d83723de845b20e5e5c234a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "fintech-dashboard-pro",
+      "skillFile": "fintech-dashboard-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/form-builder-basic",
+      "name": "form-builder-basic",
+      "displayName": "Form Builder Basic",
+      "description": "Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Basic version focused on labels, validation, progressive disclosure, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "form-builder-basic",
+        "表单",
+        "表单构建",
+        "form",
+        "构建器",
+        "生成器",
+        "builder",
+        "基础版",
+        "basic",
+        "Form Builder Basic",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:84a72ee973701636d8d04a6043e3b3439baae909fe2b53c4f7eb9badc3c7dbe0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "form-builder-basic",
+      "skillFile": "form-builder-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/form-builder-pro",
+      "name": "form-builder-pro",
+      "displayName": "Form Builder PRO",
+      "description": "Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Pro version focused on labels, validation, progressive disclosure, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "form-builder-pro",
+        "表单",
+        "表单构建",
+        "form",
+        "构建器",
+        "生成器",
+        "builder",
+        "专业版",
+        "pro",
+        "Form Builder PRO",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:82ba5daa4f84a138f2df090614494b06c1d56788dc4f26cbf1f8f0e6cb7fca17",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "form-builder-pro",
+      "skillFile": "form-builder-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/frontend-skill",
+      "name": "frontend-skill",
+      "displayName": "Frontend Skill",
+      "description": "Use when the task asks for a visually strong landing page, website, app, prototype, demo, or game UI. This skill enforces restrained composition, image-led hierarchy, cohesive content structure, and tasteful motion while avoiding generic cards, weak branding, and UI clutter.",
+      "aliases": [
+        "frontend-skill",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "Frontend Skill",
+        "frontend",
+        "skill",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:520cd8196eb61d86358467ffdac5406b8956a6748186838639ae56c644e2b249",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "frontend-skill",
+      "skillFile": "frontend-skill/SKILL.md"
+    },
+    {
+      "skillId": "frontend/healthcare-portal-basic",
+      "name": "healthcare-portal-basic",
+      "displayName": "Healthcare Portal Basic",
+      "description": "Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Basic version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "healthcare-portal-basic",
+        "医疗",
+        "健康",
+        "healthcare",
+        "基础版",
+        "basic",
+        "Healthcare Portal Basic",
+        "portal",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:198294d840e635f9696fa4ea454b5a1d648b9b37da07d0a8ade7bda6416ddb7f",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "healthcare-portal-basic",
+      "skillFile": "healthcare-portal-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/healthcare-portal-pro",
+      "name": "healthcare-portal-pro",
+      "displayName": "Healthcare Portal PRO",
+      "description": "Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Pro version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "healthcare-portal-pro",
+        "医疗",
+        "健康",
+        "healthcare",
+        "专业版",
+        "pro",
+        "Healthcare Portal PRO",
+        "portal",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:b29f5c57a30fcf43472e347e6b251b1970df63518ca136b4f9e65b7bd1736952",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "healthcare-portal-pro",
+      "skillFile": "healthcare-portal-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/marketing-landing-page",
+      "name": "marketing-landing-page",
+      "displayName": "Marketing Landing Page",
+      "description": "Use when the task is to design a campaign page, 营销落地页, launch page, feature promotion page, webinar signup page, or lead generation page. Focus on one conversion goal, persuasive sequencing, proof, CTA rhythm, and low-friction form design.",
+      "aliases": [
+        "营销落地页",
+        "转化页",
+        "预约 demo",
+        "获客页",
+        "marketing-landing-page",
+        "营销",
+        "落地页",
+        "campaign page",
+        "页面",
+        "page",
+        "Marketing Landing Page",
+        "marketing",
+        "landing",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:f29a2e7e33b6fdba19ed3754bdf489967d4bfb0c88506fe6ec2b73f308a064c2",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "marketing-landing-page",
+      "skillFile": "marketing-landing-page/SKILL.md"
+    },
+    {
+      "skillId": "frontend/nextjs-app-router",
+      "name": "nextjs-app-router",
+      "displayName": "Next.js App Router",
+      "description": "Provides patterns and code examples for building Next.js 16+ applications with App Router architecture. Use when creating projects with App Router, implementing Server Components and Client Components (\"use client\"), creating Server Actions for forms, building Route Handlers (route.ts), configuring caching with \"use cache\" directive (cacheLife, cacheTag), setting up parallel routes (`@slot`) or intercepting routes, migrating to proxy.ts, or working with App Router file conventions (layout.tsx, page.tsx, loading.tsx, error.tsx).",
+      "aliases": [
+        "nextjs-app-router",
+        "Next.js App Router",
+        "nextjs app router",
+        "nextjs",
+        "app",
+        "router",
+        "Next",
+        "js",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:44735c6c2a05ffeaca65e360402f23452b752ef17ea2aaa7a7cceed18cced09a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ],
+      "targetDir": "nextjs-app-router",
+      "skillFile": "nextjs-app-router/SKILL.md"
+    },
+    {
+      "skillId": "frontend/notification-center-basic",
+      "name": "notification-center-basic",
+      "displayName": "Notification Center Basic",
+      "description": "Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Basic version focused on priority, read state, grouping, and actionability; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "notification-center-basic",
+        "通知",
+        "消息中心",
+        "notification",
+        "基础版",
+        "basic",
+        "Notification Center Basic",
+        "center",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:2467137998ed0d9e12954ab9df59434cd82227bfab0b7e35d31387c05650e8e3",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "notification-center-basic",
+      "skillFile": "notification-center-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/notification-center-pro",
+      "name": "notification-center-pro",
+      "displayName": "Notification Center PRO",
+      "description": "Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Pro version focused on priority, read state, grouping, and actionability; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "notification-center-pro",
+        "通知",
+        "消息中心",
+        "notification",
+        "专业版",
+        "pro",
+        "Notification Center PRO",
+        "center",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:8c662edfd4cfb64e22a1be7655581f2a5f308d705dd80d4ec1702141e26c8ac3",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "notification-center-pro",
+      "skillFile": "notification-center-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/onboarding-flow-basic",
+      "name": "onboarding-flow-basic",
+      "displayName": "Onboarding Flow Basic",
+      "description": "Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Basic version focused on progress, motivation, task sequencing, and activation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "onboarding-flow-basic",
+        "新手引导",
+        "入门流程",
+        "onboarding",
+        "基础版",
+        "basic",
+        "Onboarding Flow Basic",
+        "flow",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:bb9c11e733f0622022a4be72887851eb2a6a3c603b63d471360cf3e27fd8dbf8",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "onboarding-flow-basic",
+      "skillFile": "onboarding-flow-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/onboarding-flow-pro",
+      "name": "onboarding-flow-pro",
+      "displayName": "Onboarding Flow PRO",
+      "description": "Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Pro version focused on progress, motivation, task sequencing, and activation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "onboarding-flow-pro",
+        "新手引导",
+        "入门流程",
+        "onboarding",
+        "专业版",
+        "pro",
+        "Onboarding Flow PRO",
+        "flow",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:2c239264a2899d43836489aff03b3b35dc6ed4ae23222922977d52b37d4f88e0",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "onboarding-flow-pro",
+      "skillFile": "onboarding-flow-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/pricing-page-basic",
+      "name": "pricing-page-basic",
+      "displayName": "Pricing Page Basic",
+      "description": "Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Basic version focused on plan clarity, comparison, trust, and conversion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "pricing-page-basic",
+        "定价",
+        "价格页",
+        "pricing",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Pricing Page Basic",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:a36ae6571334aa656d9751c709373ea6f317e4499765170ab02dae94f10e3d40",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "pricing-page-basic",
+      "skillFile": "pricing-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/pricing-page-pro",
+      "name": "pricing-page-pro",
+      "displayName": "Pricing Page PRO",
+      "description": "Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Pro version focused on plan clarity, comparison, trust, and conversion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "pricing-page-pro",
+        "定价",
+        "价格页",
+        "pricing",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Pricing Page PRO",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:b77feb08d10bcb23de9f12445f73712d8fbde3c82381dd6a71392746e487859d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "pricing-page-pro",
+      "skillFile": "pricing-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/profile-account-page-basic",
+      "name": "profile-account-page-basic",
+      "displayName": "Profile Account Page Basic",
+      "description": "Use when designing profile, account center, identity, privacy, and user preference pages. Basic version focused on ownership, editability, privacy, and account state visibility; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "profile-account-page-basic",
+        "个人资料",
+        "用户资料",
+        "profile",
+        "账户",
+        "账号",
+        "个人中心",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Profile Account Page Basic",
+        "account",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:503b5ecc0b8b30d9b50194f05ed7c114c2eebc0b9959dba641b6af170ba9986d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "profile-account-page-basic",
+      "skillFile": "profile-account-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/profile-account-page-pro",
+      "name": "profile-account-page-pro",
+      "displayName": "Profile Account Page PRO",
+      "description": "Use when designing profile, account center, identity, privacy, and user preference pages. Pro version focused on ownership, editability, privacy, and account state visibility; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "profile-account-page-pro",
+        "个人资料",
+        "用户资料",
+        "profile",
+        "账户",
+        "账号",
+        "个人中心",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Profile Account Page PRO",
+        "account",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:72be631671b5a9b1b618596ff350a1a22e398bd134c672b0ae69cc07ab79960d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "profile-account-page-pro",
+      "skillFile": "profile-account-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/responsive-navigation-basic",
+      "name": "responsive-navigation-basic",
+      "displayName": "Responsive Navigation Basic",
+      "description": "Use when designing navbars, sidebars, mega menus, mobile drawers, tabs, and information architecture. Basic version focused on orientation, hierarchy, responsive behavior, and wayfinding; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "responsive-navigation-basic",
+        "响应式",
+        "移动端适配",
+        "responsive",
+        "导航",
+        "响应式导航",
+        "navbar",
+        "基础版",
+        "basic",
+        "Responsive Navigation Basic",
+        "navigation",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:0d45c2a928a5cb60817eaf2e73a8d3b01a1582c9f3a53aa4f61ab5300d086466",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "responsive-navigation-basic",
+      "skillFile": "responsive-navigation-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/responsive-navigation-pro",
+      "name": "responsive-navigation-pro",
+      "displayName": "Responsive Navigation PRO",
+      "description": "Use when designing navbars, sidebars, mega menus, mobile drawers, tabs, and information architecture. Pro version focused on orientation, hierarchy, responsive behavior, and wayfinding; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "responsive-navigation-pro",
+        "响应式",
+        "移动端适配",
+        "responsive",
+        "导航",
+        "响应式导航",
+        "navbar",
+        "专业版",
+        "pro",
+        "Responsive Navigation PRO",
+        "navigation",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:416c1f2392acdda8b4cce1b7dee0aadb6e26c89dd54149b0b6195f347bf44f28",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "responsive-navigation-pro",
+      "skillFile": "responsive-navigation-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/saas-workspace-design",
+      "name": "saas-workspace-design",
+      "displayName": "SaaS Workspace Design",
+      "description": "Use when the task is to design a SaaS product UI, B2B web app, 工作台, product workspace, settings-heavy application, or multi-pane web tool. Focus on workflow clarity, navigation depth, density balance, state design, and operational efficiency.",
+      "aliases": [
+        "saas-workspace-design",
+        "SaaS",
+        "工作台",
+        "B2B 产品",
+        "设计",
+        "UI",
+        "视觉设计",
+        "SaaS Workspace Design",
+        "workspace",
+        "design",
+        "Saa",
+        "S",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:84ccc87b2a7a10012fdfaaf4d5fdc3449f78bd6e4bbf90c109046076298cf47d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "saas-workspace-design",
+      "skillFile": "saas-workspace-design/SKILL.md"
+    },
+    {
+      "skillId": "frontend/search-results-page-basic",
+      "name": "search-results-page-basic",
+      "displayName": "Search Results Page Basic",
+      "description": "Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Basic version focused on query feedback, relevance, filters, and result scanning; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "search-results-page-basic",
+        "搜索",
+        "搜索结果",
+        "search results",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Search Results Page Basic",
+        "search",
+        "results",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:30e9b0e4c1a49e854426ffa5e37a511b837f13fd7cda48f641a6b84e611c90b1",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "search-results-page-basic",
+      "skillFile": "search-results-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/search-results-page-pro",
+      "name": "search-results-page-pro",
+      "displayName": "Search Results Page PRO",
+      "description": "Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Pro version focused on query feedback, relevance, filters, and result scanning; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "search-results-page-pro",
+        "搜索",
+        "搜索结果",
+        "search results",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Search Results Page PRO",
+        "search",
+        "results",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:cd0ecdd7cc7c96b1db8ca56a33f5b54b97bd97690579dccc4cd4dc85e1242f43",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "search-results-page-pro",
+      "skillFile": "search-results-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/settings-page-basic",
+      "name": "settings-page-basic",
+      "displayName": "Settings Page Basic",
+      "description": "Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Basic version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "aliases": [
+        "settings-page-basic",
+        "设置",
+        "配置页",
+        "settings",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Settings Page Basic",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:ec05d218a08e32a142ad9ac088131efcbd0ace8b17d86fb7c2a9cc0e36968406",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "settings-page-basic",
+      "skillFile": "settings-page-basic/SKILL.md"
+    },
+    {
+      "skillId": "frontend/settings-page-pro",
+      "name": "settings-page-pro",
+      "displayName": "Settings Page PRO",
+      "description": "Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Pro version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "aliases": [
+        "settings-page-pro",
+        "设置",
+        "配置页",
+        "settings",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Settings Page PRO",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:6e9996a0ecd665b06bdf1ec4d188fc556c95e7f247df0562a832fd5858a8110c",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "settings-page-pro",
+      "skillFile": "settings-page-pro/SKILL.md"
+    },
+    {
+      "skillId": "frontend/website-homepage-design",
+      "name": "website-homepage-design",
+      "displayName": "Website Homepage Design",
+      "description": "Use when the task is to design a branded homepage, 官网首页, company website, startup homepage, product website, or corporate front page. Focus on brand hierarchy, hero composition, proof sequencing, section rhythm, and clear conversion paths.",
+      "aliases": [
+        "官网首页",
+        "品牌首页",
+        "企业官网",
+        "产品官网",
+        "website-homepage-design",
+        "官网",
+        "website",
+        "首页",
+        "主页",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Website Homepage Design",
+        "homepage",
+        "design",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:3870a8b4041802741ed872451e4b21de51c9107c4109a9938f32bc6809945608",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "targetDir": "website-homepage-design",
+      "skillFile": "website-homepage-design/SKILL.md"
+    },
+    {
+      "skillId": "general/bug-fix-debugging",
+      "name": "bug-fix-debugging",
+      "displayName": "Bug Fix Debugging",
+      "description": "Use when diagnosing and fixing bugs, regressions, failing tests, runtime errors, broken behavior, and root-cause issues in code. Focus on reproduction, hypothesis-driven debugging, minimal patches, regression tests, and verification.",
+      "aliases": [
+        "修复 bug",
+        "修 bug",
+        "bug 修复",
+        "问题排查",
+        "故障定位",
+        "回归测试",
+        "bug-fix-debugging",
+        "bug",
+        "缺陷",
+        "故障",
+        "问题修复",
+        "修复",
+        "调试",
+        "bug 排查",
+        "Bug Fix Debugging",
+        "fix",
+        "debugging",
+        "general",
+        "通用",
+        "debug",
+        "排查",
+        "定位问题",
+        "test",
+        "测试",
+        "验证",
+        "backend-platform",
+        "后端",
+        "服务端"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:5db2690bda9605c332ac813b9bfea3893dc856c79077ff0dddc9f8fe499a7972",
+      "domain": "general",
+      "departmentTags": [
+        "backend-platform",
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ],
+      "targetDir": "bug-fix-debugging",
+      "skillFile": "bug-fix-debugging/SKILL.md"
+    },
+    {
+      "skillId": "general/development-plan-doc",
+      "name": "development-plan-doc",
+      "displayName": "Development Plan Document",
+      "description": "Use when creating an implementation plan, technical design document, development task breakdown, migration plan, or coding roadmap before writing code. Focus on scope, architecture, steps, risks, validation, rollout, and ownership.",
+      "aliases": [
+        "开发计划文档",
+        "技术方案",
+        "实施方案",
+        "任务拆解",
+        "开发路线图",
+        "coding plan",
+        "development-plan-doc",
+        "计划",
+        "开发计划",
+        "实施计划",
+        "文档",
+        "方案文档",
+        "技术文档",
+        "Development Plan Document",
+        "development plan doc",
+        "development",
+        "plan",
+        "doc",
+        "Document",
+        "general",
+        "通用",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "review",
+        "代码审查",
+        "code review"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:03a6a9273050dbc187009c93ccdad0a639331436c69a06b32662b8114004f982",
+      "domain": "general",
+      "departmentTags": [
+        "backend-platform",
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "review"
+      ],
+      "targetDir": "development-plan-doc",
+      "skillFile": "development-plan-doc/SKILL.md"
+    },
+    {
+      "skillId": "general/wechat-toolkit",
+      "name": "wechat-toolkit",
+      "displayName": "WeChat Toolkit",
+      "description": "微信公众号一站式工具包 — 集成文章搜索、文章下载、AI洗稿改写、公众号发布四大功能。当用户需要搜索/下载/改写/发布微信公众号文章时使用。",
+      "aliases": [
+        "wechat-toolkit",
+        "微信",
+        "公众号",
+        "微信运营",
+        "WeChat Toolkit",
+        "wechat",
+        "toolkit",
+        "We",
+        "Chat",
+        "general",
+        "通用",
+        "content-generation",
+        "release",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:2a7e1b1249e156c7dc2311b47419647b1c161c1effa22eed43d64a75f38573cd",
+      "domain": "general",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "release"
+      ],
+      "targetDir": "wechat-toolkit",
+      "skillFile": "wechat-toolkit/SKILL.md"
+    },
+    {
+      "skillId": "general/xiaohongshu-ops",
+      "name": "xiaohongshu-ops",
+      "displayName": "Xiaohongshu Ops",
+      "description": "End-to-end Xiaohongshu operations including positioning, topic research, content production, publish execution, and post-incident recovery. Reusable across verticals with templates and a concrete 陪你看剧 case preset.",
+      "aliases": [
+        "xiaohongshu-ops",
+        "小红书",
+        "种草",
+        "内容运营",
+        "Xiaohongshu Ops",
+        "xiaohongshu",
+        "ops",
+        "general",
+        "通用",
+        "content-generation",
+        "data-analysis",
+        "数据",
+        "data",
+        "growth"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:fae81011d754a981d146bb242e3a1998464d1e2468808a6092413e3a7886e597",
+      "domain": "general",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ],
+      "targetDir": "xiaohongshu-ops",
+      "skillFile": "xiaohongshu-ops/SKILL.md"
+    },
+    {
+      "skillId": "infra/ci-quality-gates",
+      "name": "ci-quality-gates",
+      "displayName": "CI Quality Gates",
+      "description": "Use when working on CI pipelines, required checks, coverage gates, lint gates, and release validation workflows. Focus on fast feedback, required checks, reproducibility, and safe release criteria.",
+      "aliases": [
+        "ci-quality-gates",
+        "CI",
+        "持续集成",
+        "质量门禁",
+        "质量",
+        "质量检查",
+        "quality gate",
+        "门禁",
+        "required checks",
+        "CI Quality Gates",
+        "quality",
+        "gates",
+        "infra",
+        "release",
+        "test",
+        "测试",
+        "验证",
+        "infra-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:d01a3ec6ccb21f179b847f4761bcdbe775947129aeebf4cce68500de0aa7e34c",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "release",
+        "test"
+      ],
+      "targetDir": "ci-quality-gates",
+      "skillFile": "ci-quality-gates/SKILL.md"
+    },
+    {
+      "skillId": "infra/load-testing",
+      "name": "load-testing",
+      "displayName": "Load Testing",
+      "description": "Use when working on load tests for APIs, web services, queues, and critical user flows. Focus on realistic traffic models, throughput, latency percentiles, and bottleneck evidence.",
+      "aliases": [
+        "load-testing",
+        "负载测试",
+        "load test",
+        "压测",
+        "测试",
+        "测试策略",
+        "testing",
+        "Load Testing",
+        "load",
+        "infra",
+        "performance",
+        "性能",
+        "性能优化",
+        "性能分析",
+        "test",
+        "验证",
+        "infra-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:700d5e1c55715eb52eeba7d322ff5b208581892be4b4a35aed644fbdf47bb883",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "performance",
+        "test"
+      ],
+      "targetDir": "load-testing",
+      "skillFile": "load-testing/SKILL.md"
+    },
+    {
+      "skillId": "infra/observability-backend",
+      "name": "observability-backend",
+      "displayName": "Backend Observability",
+      "description": "Use when working on logs, metrics, traces, dashboards, alerts, and production debugging for backend systems. Focus on diagnosability, signal quality, SLOs, and incident response.",
+      "aliases": [
+        "observability-backend",
+        "可观测性",
+        "日志",
+        "指标",
+        "链路追踪",
+        "告警",
+        "后端",
+        "服务端",
+        "server side",
+        "Backend Observability",
+        "observability backend",
+        "observability",
+        "backend",
+        "infra",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "incident",
+        "infra-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:84cbc272655a25a00d2b69372d619ad3ab4a5a20063b9a38cebee8d98ce41450",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "incident"
+      ],
+      "targetDir": "observability-backend",
+      "skillFile": "observability-backend/SKILL.md"
+    },
+    {
+      "skillId": "infra/stress-testing",
+      "name": "stress-testing",
+      "displayName": "Stress Testing",
+      "description": "Use when working on stress, soak, spike, and capacity tests for production-like systems. Focus on breaking points, degradation behavior, recovery, and resource saturation.",
+      "aliases": [
+        "stress-testing",
+        "压力测试",
+        "压测",
+        "stress test",
+        "测试",
+        "测试策略",
+        "testing",
+        "Stress Testing",
+        "stress",
+        "infra",
+        "performance",
+        "性能",
+        "性能优化",
+        "性能分析",
+        "test",
+        "验证",
+        "infra-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:8324b8a7608c1a607366cbfcd63593b9f860da0628bdad30ef8f642aa0e1cd66",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "performance",
+        "test"
+      ],
+      "targetDir": "stress-testing",
+      "skillFile": "stress-testing/SKILL.md"
+    },
+    {
+      "skillId": "infra/vercel-deploy",
+      "name": "vercel-deploy",
+      "displayName": "Vercel Deploy",
+      "description": "Deploy applications and websites to Vercel. Use when the user requests deployment actions like \"deploy my app\", \"deploy and give me the link\", \"push this live\", or \"create a preview deployment\".",
+      "aliases": [
+        "vercel-deploy",
+        "Vercel",
+        "部署",
+        "预览环境",
+        "发布",
+        "上线",
+        "Vercel Deploy",
+        "deploy",
+        "infra",
+        "release",
+        "infra-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:8ace7b360b7fd88d0088c9cf543357c7bf41c214ae5e725c8d52409a07f1021e",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "deploy",
+        "release"
+      ],
+      "targetDir": "vercel-deploy",
+      "skillFile": "vercel-deploy/SKILL.md"
+    },
+    {
+      "skillId": "review/code-review-general",
+      "name": "code-review-general",
+      "displayName": "General Code Review",
+      "description": "Use when working on general code review across frontend, backend, scripts, and infrastructure changes. Focus on bugs, regressions, maintainability risks, and missing tests.",
+      "aliases": [
+        "code-review-general",
+        "代码",
+        "coding",
+        "代码实现",
+        "代码审查",
+        "code review",
+        "评审",
+        "通用",
+        "general",
+        "General Code Review",
+        "code review general",
+        "code",
+        "review",
+        "backend-platform",
+        "后端",
+        "服务端",
+        "server side"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:66afab9b81835288d1925a616d35b138e5dd7c028610dfefcabdb10b14a9b43a",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "review"
+      ],
+      "targetDir": "code-review-general",
+      "skillFile": "code-review-general/SKILL.md"
+    },
+    {
+      "skillId": "review/code-review-risk-based",
+      "name": "code-review-risk-based",
+      "displayName": "Risk Based Code Review",
+      "description": "Use when working on high-risk diffs touching auth, payments, data loss, concurrency, migrations, or public APIs. Focus on blast radius, invariants, rollback, observability, and edge cases.",
+      "aliases": [
+        "code-review-risk-based",
+        "代码",
+        "coding",
+        "代码实现",
+        "代码审查",
+        "code review",
+        "评审",
+        "风险",
+        "风险审查",
+        "risk-based",
+        "Risk Based Code Review",
+        "code review risk based",
+        "code",
+        "review",
+        "risk",
+        "based",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "backend-platform",
+        "后端",
+        "服务端",
+        "server side"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:93133dfa4213cad3f63cca2336bc1cdd89fd8b023d228f6e517ef35bfbfe6734",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "review",
+        "architecture"
+      ],
+      "targetDir": "code-review-risk-based",
+      "skillFile": "code-review-risk-based/SKILL.md"
+    },
+    {
+      "skillId": "review/unit-test-strategy",
+      "name": "unit-test-strategy",
+      "displayName": "Unit Test Strategy",
+      "description": "Use when working on unit test design, missing test analysis, mocks, fixtures, and behavior coverage. Focus on meaningful assertions, boundary cases, maintainability, and regression prevention.",
+      "aliases": [
+        "unit-test-strategy",
+        "单元测试",
+        "unit test",
+        "测试",
+        "验证",
+        "test",
+        "策略",
+        "方案",
+        "Unit Test Strategy",
+        "unit",
+        "strategy",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "backend-platform",
+        "后端",
+        "服务端",
+        "server side"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:8e7e555605108969f98aefa51ac8504aaeda83149ee2f3b2426d584ea6bd3c59",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "test",
+        "review"
+      ],
+      "targetDir": "unit-test-strategy",
+      "skillFile": "unit-test-strategy/SKILL.md"
+    },
+    {
+      "skillId": "security/dependency-supply-chain-audit",
+      "name": "dependency-supply-chain-audit",
+      "displayName": "Dependency Supply Chain Audit",
+      "description": "Use when working on dependency review, vulnerable packages, lockfile risk, license concerns, and supply-chain hygiene. Focus on known CVEs, typosquatting risk, lockfile integrity, and update safety.",
+      "aliases": [
+        "dependency-supply-chain-audit",
+        "依赖",
+        "依赖安全",
+        "dependency",
+        "供应链",
+        "软件供应链",
+        "链路",
+        "Dependency Supply Chain Audit",
+        "supply",
+        "chain",
+        "audit",
+        "security",
+        "安全",
+        "安全审计",
+        "security-audit",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "security-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:74855dfa0a67e1c73d3a4c550b7752bb4510ab0ad972e73f561be24a9fceaf52",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "security-audit",
+        "review"
+      ],
+      "targetDir": "dependency-supply-chain-audit",
+      "skillFile": "dependency-supply-chain-audit/SKILL.md"
+    },
+    {
+      "skillId": "security/rate-limiting-abuse-protection",
+      "name": "rate-limiting-abuse-protection",
+      "displayName": "Rate Limiting Abuse Protection",
+      "description": "Use when working on rate limiting, abuse prevention, anti-scraping, quota, and API protection design. Focus on fairness, tenant isolation, bypass resistance, and operational controls.",
+      "aliases": [
+        "rate-limiting-abuse-protection",
+        "限流",
+        "速率限制",
+        "rate limit",
+        "rate limiting",
+        "配额",
+        "Rate Limiting Abuse Protection",
+        "rate",
+        "limiting",
+        "abuse",
+        "protection",
+        "security",
+        "安全",
+        "安全审计",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "security-audit",
+        "security-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:6da8a8706e84977563cb4f349f48e7807a2abe98e093162127e09a49ea6b1b2c",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
+      ],
+      "targetDir": "rate-limiting-abuse-protection",
+      "skillFile": "rate-limiting-abuse-protection/SKILL.md"
+    },
+    {
+      "skillId": "security/security-best-practices",
+      "name": "security-best-practices",
+      "displayName": "Security Best Practices",
+      "description": "Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.",
+      "aliases": [
+        "security-best-practices",
+        "安全",
+        "安全审计",
+        "security",
+        "Security Best Practices",
+        "best",
+        "practices",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "security-audit",
+        "security-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:deae1d67b8e4e3b6dcdc3ee0bfd4b3e278e7347c7507e4bd272dab5a46a00dbd",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "review",
+        "security-audit"
+      ],
+      "targetDir": "security-best-practices",
+      "skillFile": "security-best-practices/SKILL.md"
+    },
+    {
+      "skillId": "security/security-ownership-map",
+      "name": "security-ownership-map",
+      "displayName": "Security Ownership Map",
+      "description": "Analyze git repositories to build a security ownership topology (people-to-file), compute bus factor and sensitive-code ownership, and export CSV/JSON for graph databases and visualization. Trigger only when the user explicitly wants a security-oriented ownership or bus-factor analysis grounded in git history (for example: orphaned sensitive code, security maintainers, CODEOWNERS reality checks for risk, sensitive hotspots, or ownership clusters). Do not trigger for general maintainer lists or non-security ownership questions.",
+      "aliases": [
+        "security-ownership-map",
+        "安全",
+        "安全审计",
+        "security",
+        "Security Ownership Map",
+        "ownership",
+        "map",
+        "data-analysis",
+        "数据",
+        "data",
+        "security-audit",
+        "security-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:dfb554bcb5ffaaf9104e493c4d098c19920cbe5166e6db378fd31ec6cbe67177",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "data-analysis",
+        "security-audit"
+      ],
+      "targetDir": "security-ownership-map",
+      "skillFile": "security-ownership-map/SKILL.md"
+    },
+    {
+      "skillId": "security/security-threat-model",
+      "name": "security-threat-model",
+      "displayName": "Security Threat Model",
+      "description": "Repository-grounded threat modeling that enumerates trust boundaries, assets, attacker capabilities, abuse paths, and mitigations, and writes a concise Markdown threat model. Trigger only when the user explicitly asks to threat model a codebase or path, enumerate threats/abuse paths, or perform AppSec threat modeling. Do not trigger for general architecture summaries, code review, or non-security design work.",
+      "aliases": [
+        "security-threat-model",
+        "安全",
+        "安全审计",
+        "security",
+        "威胁建模",
+        "威胁分析",
+        "threat model",
+        "模型",
+        "建模",
+        "Security Threat Model",
+        "threat",
+        "model",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "security-audit",
+        "security-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:dadd445c81d4fcf2ca9bec0508a4492051da9aae5ea59a1281e0cbd7b415c987",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
+      ],
+      "targetDir": "security-threat-model",
+      "skillFile": "security-threat-model/SKILL.md"
+    },
+    {
+      "skillId": "security/security-vulnerability-check",
+      "name": "security-vulnerability-check",
+      "displayName": "Security Vulnerability Check",
+      "description": "Use when working on application security vulnerability checks for web apps, APIs, auth, data access, and secrets. Focus on exploitable flaws, secure defaults, input validation, and sensitive data exposure.",
+      "aliases": [
+        "security-vulnerability-check",
+        "安全",
+        "安全审计",
+        "security",
+        "漏洞",
+        "漏洞检查",
+        "安全漏洞",
+        "Security Vulnerability Check",
+        "vulnerability",
+        "check",
+        "security-audit",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "security-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:edb6f0801e24ddacac9b99cc0e2d2fc2389c1d1b0d928c85032d81b20d1f2f67",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "security-audit",
+        "review"
+      ],
+      "targetDir": "security-vulnerability-check",
+      "skillFile": "security-vulnerability-check/SKILL.md"
+    },
+    {
+      "skillId": "tools/doc",
+      "name": "doc",
+      "displayName": "Doc",
+      "description": "Use when the task involves reading, creating, or editing `.docx` documents, especially when formatting or layout fidelity matters; prefer `python-docx` plus the bundled `scripts/render_docx.py` for visual checks.",
+      "aliases": [
+        "doc",
+        "文档",
+        "方案文档",
+        "技术文档",
+        "tools",
+        "content-generation",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "data-platform",
+        "数据",
+        "data"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:8800069bf33a5a16dc9a9b416b6aa4055542d5e33896a63ca766c74ff640eede",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "review"
+      ],
+      "targetDir": "doc",
+      "skillFile": "doc/SKILL.md"
+    },
+    {
+      "skillId": "tools/linear",
+      "name": "linear",
+      "displayName": "Linear",
+      "description": "Manage issues, projects & team workflows in Linear. Use when the user wants to read, create or updates tickets in Linear.",
+      "aliases": [
+        "linear",
+        "tools",
+        "review",
+        "代码审查",
+        "code review",
+        "评审"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:c2f47c3a78173e4280d97eb1a47b4a1cadf3e38c85a2004e4871a550114a7da8",
+      "domain": "tools",
+      "departmentTags": [],
+      "sceneTags": [
+        "review"
+      ],
+      "targetDir": "linear",
+      "skillFile": "linear/SKILL.md"
+    },
+    {
+      "skillId": "tools/pdf",
+      "name": "pdf",
+      "displayName": "PDF",
+      "description": "Use when tasks involve reading, creating, or reviewing PDF files where rendering and layout matter; prefer visual checks by rendering pages (Poppler) and use Python tools such as `reportlab`, `pdfplumber`, and `pypdf` for generation and extraction.",
+      "aliases": [
+        "pdf",
+        "tools",
+        "content-generation",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "data-platform",
+        "数据",
+        "data"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:5b397873d0639384e68fc8c8037be1c4dab3e8b65183e4cc2f89f5b97e9213d2",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "review"
+      ],
+      "targetDir": "pdf",
+      "skillFile": "pdf/SKILL.md"
+    },
+    {
+      "skillId": "tools/playwright",
+      "name": "playwright",
+      "displayName": "Playwright",
+      "description": "Use when the task requires automating a real browser from the terminal (navigation, form filling, snapshots, screenshots, data extraction, UI-flow debugging) via `playwright-cli` or the bundled wrapper script.",
+      "aliases": [
+        "playwright",
+        "tools",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "test",
+        "测试",
+        "验证",
+        "frontend-platform",
+        "前端",
+        "Web 前端",
+        "页面开发"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:a537f13f154660eeeb0e72a93beecd165fc49409dd4b203441a711bc7d1c7e2a",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ],
+      "targetDir": "playwright",
+      "skillFile": "playwright/SKILL.md"
+    },
+    {
+      "skillId": "tools/playwright-interactive",
+      "name": "playwright-interactive",
+      "displayName": "Playwright Interactive",
+      "description": "Persistent browser and Electron interaction through `js_repl` for fast iterative UI debugging.",
+      "aliases": [
+        "playwright-interactive",
+        "Playwright Interactive",
+        "playwright",
+        "interactive",
+        "tools",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "test",
+        "测试",
+        "验证",
+        "frontend-platform",
+        "前端",
+        "Web 前端",
+        "页面开发"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:2013245683be87839bea22892cbf86c1d49752338417b215edf2fe15b5c7352f",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ],
+      "targetDir": "playwright-interactive",
+      "skillFile": "playwright-interactive/SKILL.md"
+    },
+    {
+      "skillId": "tools/screenshot",
+      "name": "screenshot",
+      "displayName": "Screenshot",
+      "description": "Use when the user explicitly asks for a desktop or system screenshot (full screen, specific app or window, or a pixel region), or when tool-specific capture capabilities are unavailable and an OS-level capture is needed.",
+      "aliases": [
+        "screenshot",
+        "截图",
+        "截屏",
+        "tools",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "frontend-platform",
+        "前端",
+        "Web 前端",
+        "页面开发"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:0a975ac18be83090be3a0f48745f354269b0e18a015cc97cf65ad417602a3c13",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "review"
+      ],
+      "targetDir": "screenshot",
+      "skillFile": "screenshot/SKILL.md"
+    },
+    {
+      "skillId": "tools/spreadsheet",
+      "name": "spreadsheet",
+      "displayName": "Spreadsheet",
+      "description": "Use when tasks involve creating, editing, analyzing, or formatting spreadsheets (`.xlsx`, `.csv`, `.tsv`) with formula-aware workflows, cached recalculation, and visual review.",
+      "aliases": [
+        "spreadsheet",
+        "表格",
+        "Excel",
+        "电子表格",
+        "tools",
+        "content-generation",
+        "data-analysis",
+        "数据",
+        "data",
+        "data-platform"
+      ],
+      "version": "0.1.0",
+      "sourceHash": "sha256:0a2de6c5e7666e749d6623eb5a669cb67ba117e60eb468fff58f47af7360935b",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ],
+      "targetDir": "spreadsheet",
+      "skillFile": "spreadsheet/SKILL.md"
+    }
+  ]
+}

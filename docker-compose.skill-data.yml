@@ -1,0 +1,52 @@
+services:
+  skill-pg:
+    image: pgvector/pgvector:pg16
+    container_name: teamskill-skill-pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${SKILL_PG_DATABASE:-skills}
+      POSTGRES_USER: ${SKILL_PG_USER:-skills}
+      POSTGRES_PASSWORD: ${SKILL_PG_PASSWORD:-skills_dev_password}
+    ports:
+      - '${SKILL_PG_PORT:-54329}:5432'
+    volumes:
+      - skill-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'pg_isready -U ${SKILL_PG_USER:-skills} -d ${SKILL_PG_DATABASE:-skills}',
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  skill-neo4j:
+    image: neo4j:5-community
+    container_name: teamskill-skill-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: ${SKILL_NEO4J_USER:-neo4j}/${SKILL_NEO4J_PASSWORD:-skills_dev_password}
+      NEO4J_server_memory_heap_initial__size: 512M
+      NEO4J_server_memory_heap_max__size: 512M
+      NEO4J_server_memory_pagecache_size: 256M
+    ports:
+      - '${SKILL_NEO4J_HTTP_PORT:-7474}:7474'
+      - '${SKILL_NEO4J_BOLT_PORT:-7687}:7687'
+    volumes:
+      - skill-neo4j-data:/data
+      - skill-neo4j-logs:/logs
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'cypher-shell -u ${SKILL_NEO4J_USER:-neo4j} -p ${SKILL_NEO4J_PASSWORD:-skills_dev_password} "RETURN 1;" || exit 1',
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+
+volumes:
+  skill-pg-data:
+  skill-neo4j-data:
+  skill-neo4j-logs:

@@ -2,7 +2,15 @@ import { join } from 'path'
 import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { getFsImplementation } from '../../utils/fsOperations.js'
 import { logForDebugging } from '../../utils/debug.js'
-import { getSkillRegistryLocations } from './registry.js'
+import {
+  getSkillRegistryLocations,
+  readGeneratedSkillRegistry,
+} from './registry.js'
+import {
+  hasGeneratedSkillEmbeddings,
+  searchSkillVectors,
+  vectorSearchAvailable,
+} from './vectorSearch.js'
 import {
   createSkillTelemetryTraceId,
   logSkillSearchTelemetry,
@@ -21,6 +29,15 @@ type IndexedSkill = {
   departmentTags: string[]
   sceneTags: string[]
   skillPath: string
+  searchTokens: string[]
+  termFrequencies: Record<string, number>
+  documentLength: number
+}
+
+type SkillIndex = {
+  skills: IndexedSkill[]
+  averageDocumentLength: number
+  documentFrequency: Record<string, number>
 }
 
 export type LocalSkillSearchResult = {
@@ -37,7 +54,7 @@ export type LocalSkillSearchResult = {
   domain: string
   departmentTags: string[]
   sceneTags: string[]
-  retrievalSource: 'local_lexical'
+  retrievalSource: 'local_lexical' | 'local_hybrid'
 }
 
 type LocalSkillSearchOptions = {
@@ -54,6 +71,8 @@ export type SkillScoreBreakdown = {
   displayName: number
   alias: number
   lexical: number
+  bm25: number
+  vector: number
   department: number
   domain: number
   scene: number
@@ -182,7 +201,7 @@ const SCENE_HINTS: Record<string, string[]> = {
   ],
 }
 
-const indexCache = new Map<string, Promise<IndexedSkill[]>>()
+const indexCache = new Map<string, Promise<SkillIndex>>()
 
 export function clearSkillIndexCache(): void {
   indexCache.clear()
@@ -220,6 +239,44 @@ function tokenize(value: string): string[] {
         .filter(token => token.length >= 2 || /[\u4e00-\u9fff]/.test(token)),
     ),
   )
+}
+
+function buildSearchTokens(skill: {
+  name: string
+  displayName: string
+  description: string
+  aliases: string[]
+  domain: string
+  departmentTags: string[]
+  sceneTags: string[]
+}): string[] {
+  return [
+    ...tokenize(skill.name),
+    ...tokenize(skill.displayName),
+    ...tokenize(skill.description),
+    ...skill.aliases.flatMap(tokenize),
+    ...tokenize(skill.domain),
+    ...skill.departmentTags.flatMap(tokenize),
+    ...skill.sceneTags.flatMap(tokenize),
+  ]
+}
+
+function createIndexedSkill(
+  skill: Omit<IndexedSkill, 'searchTokens' | 'termFrequencies' | 'documentLength'>,
+): IndexedSkill {
+  const searchTokens = buildSearchTokens(skill)
+  const termFrequencies: Record<string, number> = {}
+
+  for (const token of searchTokens) {
+    termFrequencies[token] = (termFrequencies[token] ?? 0) + 1
+  }
+
+  return {
+    ...skill,
+    searchTokens,
+    termFrequencies,
+    documentLength: searchTokens.length,
+  }
 }
 
 function expandQueryTokens(query: string): string[] {
@@ -270,12 +327,41 @@ async function loadDepartmentTag(cwd: string): Promise<string | null> {
   }
 }
 
-async function buildSkillIndex(cwd: string): Promise<IndexedSkill[]> {
+async function buildSkillIndex(cwd: string): Promise<SkillIndex> {
   const fs = getFsImplementation()
   const indexedSkills: IndexedSkill[] = []
   const seenNames = new Set<string>()
 
   for (const location of getSkillRegistryLocations(cwd)) {
+    const generatedRegistry = await readGeneratedSkillRegistry(location.dir)
+    if (generatedRegistry && generatedRegistry.skills.length > 0) {
+      for (const skill of generatedRegistry.skills) {
+        const key = skill.name.toLowerCase()
+        if (seenNames.has(key)) {
+          continue
+        }
+
+        seenNames.add(key)
+        indexedSkills.push(
+          createIndexedSkill({
+            skillId: skill.skillId,
+            name: skill.name,
+            displayName: skill.displayName,
+            description: skill.description,
+            aliases: skill.aliases,
+            version: skill.version,
+            sourceHash: skill.sourceHash,
+            domain: skill.domain,
+            departmentTags: skill.departmentTags,
+            sceneTags: skill.sceneTags,
+            skillPath: join(location.dir, skill.skillFile),
+          }),
+        )
+      }
+
+      continue
+    }
+
     let entries
     try {
       entries = await fs.readdir(location.dir)
@@ -297,7 +383,7 @@ async function buildSkillIndex(cwd: string): Promise<IndexedSkill[]> {
           const name = toStringValue(frontmatter.name, entry.name)
           const domain = toStringValue(frontmatter.domain, 'general')
 
-          return {
+          return createIndexedSkill({
             skillId: toStringValue(frontmatter.skillId, `${domain}/${name}`),
             name,
             displayName: toStringValue(frontmatter.displayName, name),
@@ -309,7 +395,7 @@ async function buildSkillIndex(cwd: string): Promise<IndexedSkill[]> {
             departmentTags: toStringArray(frontmatter.departmentTags),
             sceneTags: toStringArray(frontmatter.sceneTags),
             skillPath,
-          } satisfies IndexedSkill
+          })
         } catch (error) {
           logForDebugging(
             `[skill-search] failed to index ${skillPath}: ${error}`,
@@ -333,10 +419,27 @@ async function buildSkillIndex(cwd: string): Promise<IndexedSkill[]> {
     }
   }
 
-  return indexedSkills
+  const documentFrequency: Record<string, number> = {}
+  for (const skill of indexedSkills) {
+    for (const token of new Set(skill.searchTokens)) {
+      documentFrequency[token] = (documentFrequency[token] ?? 0) + 1
+    }
+  }
+
+  const averageDocumentLength =
+    indexedSkills.length === 0
+      ? 0
+      : indexedSkills.reduce((sum, skill) => sum + skill.documentLength, 0) /
+        indexedSkills.length
+
+  return {
+    skills: indexedSkills,
+    averageDocumentLength,
+    documentFrequency,
+  }
 }
 
-async function getSkillIndex(cwd: string): Promise<IndexedSkill[]> {
+async function getSkillIndex(cwd: string): Promise<SkillIndex> {
   const cacheKey = getSkillRegistryLocations(cwd)
     .map(location => location.dir)
     .join('\n')
@@ -350,6 +453,38 @@ async function getSkillIndex(cwd: string): Promise<IndexedSkill[]> {
   return loadingPromise
 }
 
+function scoreSkillBm25(
+  skill: IndexedSkill,
+  queryTokens: string[],
+  totalDocuments: number,
+  averageDocumentLength: number,
+  documentFrequency: Record<string, number>,
+): number {
+  if (queryTokens.length === 0 || totalDocuments === 0 || averageDocumentLength === 0) {
+    return 0
+  }
+
+  const k1 = 1.2
+  const b = 0.75
+  let score = 0
+
+  for (const token of queryTokens) {
+    const tf = skill.termFrequencies[token] ?? 0
+    if (tf <= 0) {
+      continue
+    }
+
+    const df = documentFrequency[token] ?? 0
+    const idf = Math.log(1 + (totalDocuments - df + 0.5) / (df + 0.5))
+    const denominator =
+      tf + k1 * (1 - b + b * (skill.documentLength / averageDocumentLength))
+
+    score += idf * ((tf * (k1 + 1)) / denominator)
+  }
+
+  return score
+}
+
 function scoreSkill(
   skill: IndexedSkill,
   query: string,
@@ -357,27 +492,22 @@ function scoreSkill(
   departmentTag: string | null,
   hintedDomains: Set<string>,
   hintedScenes: Set<string>,
+  bm25Score: number,
+  vectorScore: number,
 ): { score: number; scoreBreakdown: SkillScoreBreakdown } {
   const normalizedQuery = normalizeText(query)
   const normalizedName = normalizeText(skill.name)
   const normalizedDisplayName = normalizeText(skill.displayName)
   const normalizedDescription = normalizeText(skill.description)
-  const searchableTokens = [
-    ...tokenize(skill.name),
-    ...tokenize(skill.displayName),
-    ...tokenize(skill.description),
-    ...skill.aliases.flatMap(tokenize),
-    ...tokenize(skill.domain),
-    ...skill.departmentTags.flatMap(tokenize),
-    ...skill.sceneTags.flatMap(tokenize),
-  ]
-  const searchableTokenSet = new Set(searchableTokens)
+  const searchableTokenSet = new Set(skill.searchTokens)
 
   const scoreBreakdown: SkillScoreBreakdown = {
     exactName: 0,
     displayName: 0,
     alias: 0,
     lexical: 0,
+    bm25: 0,
+    vector: 0,
     department: 0,
     domain: 0,
     scene: 0,
@@ -420,6 +550,9 @@ function scoreSkill(
       scoreBreakdown.lexical += 8
     }
   }
+
+  scoreBreakdown.bm25 += bm25Score * 18
+  scoreBreakdown.vector += vectorScore > 0 ? vectorScore * 30 : 0
 
   if (departmentTag) {
     if (skill.departmentTags.includes(departmentTag)) {
@@ -487,10 +620,11 @@ export async function localSkillSearch({
     return []
   }
 
-  const [skills, departmentTag] = await Promise.all([
+  const [skillIndex, departmentTag] = await Promise.all([
     getSkillIndex(cwd),
     loadDepartmentTag(cwd),
   ])
+  const skills = skillIndex.skills
 
   if (skills.length === 0) {
     return []
@@ -503,9 +637,25 @@ export async function localSkillSearch({
   const queryTokens = expandQueryTokens(enrichedQuery)
   const hintedDomains = collectHintMatches(enrichedQuery, DOMAIN_HINTS)
   const hintedScenes = collectHintMatches(enrichedQuery, SCENE_HINTS)
+  const vectorEnabled =
+    vectorSearchAvailable() && (await hasGeneratedSkillEmbeddings(cwd))
+  const vectorResults = vectorEnabled
+    ? await searchSkillVectors(cwd, enrichedQuery, Math.max(limit * 5, 20))
+    : []
+  const vectorScores = new Map(
+    vectorResults.map(result => [result.skillId, result.score]),
+  )
 
   const ranked = skills
     .map(skill => {
+      const bm25Score = scoreSkillBm25(
+        skill,
+        queryTokens,
+        skills.length,
+        skillIndex.averageDocumentLength,
+        skillIndex.documentFrequency,
+      )
+      const vectorScore = vectorScores.get(skill.skillId) ?? 0
       const { score, scoreBreakdown } = scoreSkill(
         skill,
         enrichedQuery,
@@ -513,14 +663,20 @@ export async function localSkillSearch({
         departmentTag,
         hintedDomains,
         hintedScenes,
+        bm25Score,
+        vectorScore,
       )
+
       return {
         ...skill,
         score,
         scoreBreakdown,
       }
     })
-    .filter(skill => skill.score >= 32)
+    .filter(
+      skill =>
+        skill.score >= 32 || (vectorScores.get(skill.skillId) ?? 0) >= 0.55,
+    )
     .sort((left, right) => {
       if (right.score !== left.score) {
         return right.score - left.score
@@ -543,7 +699,8 @@ export async function localSkillSearch({
     domain: skill.domain,
     departmentTags: skill.departmentTags,
     sceneTags: skill.sceneTags,
-    retrievalSource: 'local_lexical' as const,
+    retrievalSource:
+      skill.scoreBreakdown.vector > 0 ? ('local_hybrid' as const) : ('local_lexical' as const),
   }))
 
   if (telemetry) {
@@ -560,6 +717,8 @@ export async function localSkillSearch({
         indexSkillCount: skills.length,
         returnedSkillCount: results.length,
         queryTokens,
+        vectorEnabled,
+        vectorCandidateCount: vectorResults.length,
         hintedDomains: [...hintedDomains],
         hintedScenes: [...hintedScenes],
         registryLocations: getSkillRegistryLocations(cwd).map(location => ({

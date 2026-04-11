@@ -1,0 +1,16 @@
+{
+  "runId": "skill-retrieval-2026-04-11T09-01-00-666Z",
+  "generatedAt": "2026-04-11T09:01:00.698Z",
+  "mode": "retrieval-only",
+  "caseCount": 13,
+  "topK": 5,
+  "casesDir": "/Users/minruiqing/MyProjects/TeamSkill-ClaudeCode/evals/skill-cases",
+  "metrics": {
+    "recallAt1": 0.7692307692307693,
+    "recallAt3": 1,
+    "mrr": 0.8846153846153846,
+    "ndcgAt3": 0.81802779378177,
+    "forbiddenTop3Rate": 0
+  },
+  "failedCases": []
+}

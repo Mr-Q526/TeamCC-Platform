@@ -312,18 +312,27 @@ export async function getAnthropicClient({
     ...(isDebugToStdErr() && { logger: createStderrLogger() }),
   }
 
-  // --- HACK: Dynamic Provider Routing based on model name ---
-  if (model && model.toLowerCase().includes('minimax')) {
-    if (process.env.MINIMAX_BASE_URL) clientConfig.baseURL = process.env.MINIMAX_BASE_URL
-    if (process.env.MINIMAX_API_KEY) {
-      clientConfig.apiKey = process.env.MINIMAX_API_KEY
-      clientConfig.authToken = undefined
-    }
-  } else if (model && model.toLowerCase().includes('deepseek')) {
-    if (process.env.DEEPSEEK_BASE_URL) clientConfig.baseURL = process.env.DEEPSEEK_BASE_URL
-    if (process.env.DEEPSEEK_API_KEY) {
-      clientConfig.apiKey = process.env.DEEPSEEK_API_KEY
-      clientConfig.authToken = undefined
+  // --- Dynamic Provider Routing based on environment variables for TeamCC ---
+  if (model) {
+    const prefixes = Object.keys(process.env)
+      .filter(k => k.endsWith('_MODELS'))
+      .map(k => k.replace('_MODELS', ''))
+
+    for (const prefix of prefixes) {
+      const customModelsStr = process.env[`${prefix}_MODELS`]
+      if (!customModelsStr) continue
+
+      const modelsToMatch = customModelsStr.split(',').map(s => s.trim())
+      if (modelsToMatch.includes(model)) {
+        if (process.env[`${prefix}_BASE_URL`]) {
+          clientConfig.baseURL = process.env[`${prefix}_BASE_URL`]
+        }
+        if (process.env[`${prefix}_API_KEY`]) {
+          clientConfig.apiKey = process.env[`${prefix}_API_KEY`]
+          clientConfig.authToken = undefined
+        }
+        break
+      }
     }
   }
   // --------------------------------------------------------

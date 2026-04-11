@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Text } from '../../ink.js'
-import { useDebouncedDigitInput } from '../FeedbackSurvey/useDebouncedDigitInput.js'
+import { Box, Text } from '../ink.js'
+import { useDebouncedDigitInput } from './FeedbackSurvey/useDebouncedDigitInput.js'
 
 type Props = {
   onSelect: (rating: 1 | 2 | 3 | 4 | 5) => void

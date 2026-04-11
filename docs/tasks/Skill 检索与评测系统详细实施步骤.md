@@ -4,6 +4,38 @@
 
 ---
 
+## 当前进度（2026-04-11）
+
+已完成：
+
+- [x] `skills-flat/` 作为统一 Skill 源目录。
+- [x] `SKILL.md` 元信息字段已统一到 `skillId / displayName / description / aliases / version / sourceHash / domain / departmentTags / sceneTags`。
+- [x] 新增元信息规范化脚本：`scripts/skillMetadataAliasRefresh.ts`。
+- [x] 新增 registry 构建脚本：`scripts/buildSkillRegistry.ts`。
+- [x] 新增 runtime 可消费产物：`skills-flat/skill-registry.json`。
+- [x] `src/services/skillSearch/localSearch.ts` 优先读取 generated registry。
+- [x] `src/services/skillSearch/telemetry.ts` 优先读取 generated registry。
+- [x] 新增火山 embedding 客户端：`src/services/skillSearch/embeddings.ts`。
+- [x] 新增向量召回模块：`src/services/skillSearch/vectorSearch.ts`。
+- [x] 新增 embedding 构建脚本：`scripts/buildSkillEmbeddings.ts`。
+- [x] `localSearch` 已升级为 BM25 + 向量混合召回；无 embedding 时自动回退。
+- [x] embedding client 已兼容火山 `/api/v3/embeddings/multimodal`。
+- [x] 已实际生成 runtime 可消费产物：`skills-flat/skill-embeddings.json`。
+- [x] 已完成一次真实向量召回评测验证（非纯 BM25 回退）。
+- [x] 已建立 Docker 化 PostgreSQL（pgvector）并导入 `skill-embeddings.json`。
+- [x] 已建立 Docker 化 Neo4j，并写入少量测试 Skill mock 图数据。
+- [x] 已将 Neo4j 模型升级为面向检索/反馈的 schema v1，并补充 `Task / SkillVersion / FeedbackAggregate` 测试图数据。
+
+下一步：
+
+- [ ] 增加 AK/SK -> 临时 `ARK_API_KEY` 的辅助脚本或本地运行说明。
+- [ ] 增加 `SkillRetrievalSnapshot` 与结构化 feedback event。
+- [ ] 聚合 `qualityScore / confidence / departmentPreferenceScore`。
+- [ ] 把聚合分回灌给 reranker。
+- [ ] 把真实 Skill registry / feedback 动态边权全量写入 Neo4j，而不是仅测试数据。
+
+---
+
 ## 1. 系统角色定位与依赖关系
 
 **评测独立性原则**：此系统必须**独立运行于业务 Claude Code (CC) 之外**。CC 此时仅作为被评测的“黑盒”或“执行子进程”，评测系统是一个独立的 Backend 服务（Node.js/Python）结合自动化测试 Runner。
