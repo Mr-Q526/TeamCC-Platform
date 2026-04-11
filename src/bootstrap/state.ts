@@ -254,6 +254,9 @@ type State = {
   // logAPISuccess to tag the first post-compaction API call so we can
   // distinguish compaction-induced cache misses from TTL expiry.
   pendingPostCompaction: boolean
+  // Team identity profile parsed from .claude/identity/active.md frontmatter.
+  // Used by permission compiler, Skill selector, and context injection.
+  identityProfile: import('../utils/identity.js').IdentityProfile | null
 }
 
 // ALSO HERE - THINK THRICE BEFORE MODIFYING
@@ -420,6 +423,8 @@ function getInitialState(): State {
     lastMainRequestId: undefined,
     lastApiCompletionTimestamp: null,
     pendingPostCompaction: false,
+    // Identity profile - loaded from .claude/identity/active.md in setup
+    identityProfile: null,
   }
 
   return state
@@ -1210,6 +1215,18 @@ export function setCachedClaudeMdContent(content: string | null): void {
 
 export function getCachedClaudeMdContent(): string | null {
   return STATE.cachedClaudeMdContent
+}
+
+// --- Identity Profile accessors ---
+
+export function setIdentityProfile(
+  profile: import('../utils/identity.js').IdentityProfile | null,
+): void {
+  STATE.identityProfile = profile
+}
+
+export function getIdentityProfile(): import('../utils/identity.js').IdentityProfile | null {
+  return STATE.identityProfile
 }
 
 export function addToInMemoryErrorLog(errorInfo: {

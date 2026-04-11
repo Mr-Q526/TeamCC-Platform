@@ -2,6 +2,7 @@ import { feature } from 'bun:bundle'
 import memoize from 'lodash-es/memoize.js'
 import {
   getAdditionalDirectoriesForClaudeMd,
+  getIdentityProfile,
   setCachedClaudeMdContent,
 } from './bootstrap/state.js'
 import { getLocalISODate } from './constants/common.js'
@@ -175,14 +176,24 @@ export const getUserContext = memoize(
     // cycle through permissions/filesystem → permissions → yoloClassifier).
     setCachedClaudeMdContent(claudeMd || null)
 
+    // Build identity context if a profile is loaded
+    const identityProfile = getIdentityProfile()
+    let identityContext: string | null = null
+    if (identityProfile) {
+      const { buildIdentityContextString } = await import('./utils/identity.js')
+      identityContext = buildIdentityContextString(identityProfile)
+    }
+
     logForDiagnosticsNoPII('info', 'user_context_completed', {
       duration_ms: Date.now() - startTime,
       claudemd_length: claudeMd?.length ?? 0,
       claudemd_disabled: Boolean(shouldDisableClaudeMd),
+      has_identity: identityProfile !== null,
     })
 
     return {
       ...(claudeMd && { claudeMd }),
+      ...(identityContext && { identityContext }),
       currentDate: `Today's date is ${getLocalISODate()}.`,
     }
   },
