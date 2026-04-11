@@ -2,6 +2,8 @@ import Fastify from 'fastify'
 import fastifyJwt from '@fastify/jwt'
 import fastifyCors from '@fastify/cors'
 import { initializeDatabase } from './db/index.js'
+import { registerAuthRoutes } from './api/auth.js'
+import { registerClientRoutes } from './api/client.js'
 
 const PORT = parseInt(process.env.PORT || '3000')
 const HOST = process.env.HOST || '127.0.0.1'
@@ -27,9 +29,9 @@ async function start() {
   // Health check
   fastify.get('/health', async () => ({ status: 'ok' }))
 
-  // TODO: Register auth routes
-  // TODO: Register identity routes
-  // TODO: Register policy routes
+  // Register route groups
+  await registerAuthRoutes(fastify)
+  await registerClientRoutes(fastify)
   // TODO: Register admin routes
 
   try {
