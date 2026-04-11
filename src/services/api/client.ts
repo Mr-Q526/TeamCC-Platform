@@ -312,6 +312,16 @@ export async function getAnthropicClient({
     ...(isDebugToStdErr() && { logger: createStderrLogger() }),
   }
 
+  // --- HACK: Dynamic Provider Routing based on model name ---
+  if (model && model.toLowerCase().includes('minimax')) {
+    if (process.env.MINIMAX_BASE_URL) clientConfig.baseURL = process.env.MINIMAX_BASE_URL
+    if (process.env.MINIMAX_API_KEY) clientConfig.apiKey = process.env.MINIMAX_API_KEY
+  } else if (model && model.toLowerCase().includes('deepseek')) {
+    if (process.env.DEEPSEEK_BASE_URL) clientConfig.baseURL = process.env.DEEPSEEK_BASE_URL
+    if (process.env.DEEPSEEK_API_KEY) clientConfig.apiKey = process.env.DEEPSEEK_API_KEY
+  }
+  // --------------------------------------------------------
+
   return new Anthropic(clientConfig)
 }
 

@@ -483,6 +483,17 @@ export function getModelOptions(fastMode = false): ModelOption[] {
     }
   }
 
+  // Inject third-party native providers into the picker
+  const customProviders: ModelOption[] = [
+    { value: 'minimax2.7', label: 'Minimax 2.7', description: 'Minimax (Direct API)' },
+    { value: 'DeepSeek-V3.2', label: 'DeepSeek V3', description: 'DeepSeek (Direct API)' },
+  ]
+  for (const po of customProviders) {
+    if (!options.some(existing => existing.value === po.value)) {
+      options.push(po);
+    }
+  }
+
   // Add custom model from either the current model value or the initial one
   // if it is not already in the options.
   let customModel: ModelSetting = null
