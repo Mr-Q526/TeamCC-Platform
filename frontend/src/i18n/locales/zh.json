@@ -80,6 +80,7 @@
   "template.qa": "测试工程师",
   "template.devops": "运维工程师",
   "template.data": "数据分析师",
+  "template.nameRequired": "模板名称不能为空",
   "status.active": "活跃",
   "status.suspended": "已停用"
 }

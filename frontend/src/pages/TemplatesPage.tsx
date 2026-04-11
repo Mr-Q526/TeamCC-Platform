@@ -30,6 +30,9 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null)
+  const [editingTemplate, setEditingTemplate] = useState<Template | null>(null)
+  const [showForm, setShowForm] = useState(false)
+  const [formData, setFormData] = useState({ name: '', description: '' })
 
   useEffect(() => {
     fetchTemplates()
@@ -135,6 +138,36 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
       envOverridesJson: JSON.stringify({ DATABASE_READONLY: 'true' }),
       status: 'active',
     },
+    {
+      id: 6,
+      name: '外包',
+      description: '无任何权限',
+      version: 1,
+      rulesJson: JSON.stringify([
+        { behavior: 'deny' as const, tool: 'Read', content: '**' },
+        { behavior: 'deny' as const, tool: 'Edit', content: '**' },
+        { behavior: 'deny' as const, tool: 'Write', content: '**' },
+        { behavior: 'deny' as const, tool: 'Bash', content: '**' },
+      ]),
+      capabilitiesJson: JSON.stringify([]),
+      envOverridesJson: JSON.stringify({}),
+      status: 'active',
+    },
+    {
+      id: 7,
+      name: '运营',
+      description: '运营素材文件夹权限，对demo项目无权限',
+      version: 1,
+      rulesJson: JSON.stringify([
+        { behavior: 'allow' as const, tool: 'Read', content: '*assets/marketing/**' },
+        { behavior: 'allow' as const, tool: 'Edit', content: '*assets/marketing/**' },
+        { behavior: 'deny' as const, tool: 'Read', content: '**' },
+        { behavior: 'deny' as const, tool: 'Edit', content: '**' },
+      ]),
+      capabilitiesJson: JSON.stringify([]),
+      envOverridesJson: JSON.stringify({ DEMO_PROJECT_BLOCK: 'true' }),
+      status: 'active',
+    },
   ]
 
   const parseJson = (jsonStr: string) => {
@@ -158,11 +191,72 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
     }
   }
 
+  const handleAdd = () => {
+    setEditingTemplate(null)
+    setFormData({ name: '', description: '' })
+    setShowForm(true)
+  }
+
+  const handleEdit = (template: Template) => {
+    setEditingTemplate(template)
+    setFormData({ name: template.name, description: template.description })
+    setShowForm(true)
+  }
+
+  const handleSave = () => {
+    if (!formData.name.trim()) {
+      alert(t('template.nameRequired'))
+      return
+    }
+
+    if (editingTemplate) {
+      // 编辑现有模板
+      setTemplates(
+        templates.map((t) =>
+          t.id === editingTemplate.id
+            ? { ...t, name: formData.name, description: formData.description }
+            : t
+        )
+      )
+    } else {
+      // 新增模板
+      const newTemplate: Template = {
+        id: Math.max(...templates.map((t) => t.id), 0) + 1,
+        name: formData.name,
+        description: formData.description,
+        version: 1,
+        rulesJson: JSON.stringify([]),
+        capabilitiesJson: JSON.stringify([]),
+        envOverridesJson: JSON.stringify({}),
+        status: 'active',
+      }
+      setTemplates([...templates, newTemplate])
+    }
+
+    setShowForm(false)
+    setSelectedTemplate(null)
+  }
+
+  const handleDelete = (id: number) => {
+    if (confirm(t('template.confirmDelete'))) {
+      setTemplates(templates.filter((t) => t.id !== id))
+      setSelectedTemplate(null)
+    }
+  }
+
+  const handleCancel = () => {
+    setShowForm(false)
+    setEditingTemplate(null)
+    setFormData({ name: '', description: '' })
+  }
+
   return (
     <div className="page">
       <div className="page-header">
         <h2>{t('templates.title')}</h2>
-        <button className="btn-primary">+ {t('btn.add')}</button>
+        <button className="btn-primary" onClick={handleAdd}>
+          + {t('btn.add')}
+        </button>
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -245,8 +339,12 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
                   </div>
 
                   <div className="template-actions">
-                    <button className="btn-sm">{t('btn.edit')}</button>
-                    <button className="btn-sm danger">{t('btn.delete')}</button>
+                    <button className="btn-sm" onClick={() => handleEdit(template)}>
+                      {t('btn.edit')}
+                    </button>
+                    <button className="btn-sm danger" onClick={() => handleDelete(template.id)}>
+                      {t('btn.delete')}
+                    </button>
                   </div>
                 </div>
               )}
@@ -256,8 +354,42 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
       )}
 
       <div className="info">
-        <p>Total: {templates.length} templates</p>
+        <p>总计: {templates.length} 个模板</p>
       </div>
+
+      {showForm && (
+        <div className="modal-overlay" onClick={handleCancel}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h3>{editingTemplate ? t('btn.edit') : t('btn.add')}</h3>
+            <div className="form-group">
+              <label>模板名称</label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="输入模板名称"
+              />
+            </div>
+            <div className="form-group">
+              <label>描述</label>
+              <textarea
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                placeholder="输入模板描述"
+                rows={3}
+              />
+            </div>
+            <div className="form-actions">
+              <button className="btn-primary" onClick={handleSave}>
+                {t('btn.save')}
+              </button>
+              <button className="btn-secondary" onClick={handleCancel}>
+                {t('btn.cancel')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

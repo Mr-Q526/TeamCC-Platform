@@ -80,6 +80,7 @@
   "template.qa": "QA Engineer",
   "template.devops": "DevOps/SRE",
   "template.data": "Data Analyst",
+  "template.nameRequired": "Template name is required",
   "status.active": "Active",
   "status.suspended": "Suspended"
 }

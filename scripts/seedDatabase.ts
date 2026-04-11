@@ -201,6 +201,30 @@ async function seed() {
         capabilities: [],
         envOverrides: { DATABASE_READONLY: 'true' },
       },
+      {
+        name: '外包',
+        description: '无任何权限',
+        rules: [
+          { behavior: 'deny' as const, tool: 'Read', content: '**' },
+          { behavior: 'deny' as const, tool: 'Edit', content: '**' },
+          { behavior: 'deny' as const, tool: 'Write', content: '**' },
+          { behavior: 'deny' as const, tool: 'Bash', content: '**' },
+        ],
+        capabilities: [],
+        envOverrides: {},
+      },
+      {
+        name: '运营',
+        description: '运营素材文件夹权限，对demo项目无权限',
+        rules: [
+          { behavior: 'allow' as const, tool: 'Read', content: '*assets/marketing/**' },
+          { behavior: 'allow' as const, tool: 'Edit', content: '*assets/marketing/**' },
+          { behavior: 'deny' as const, tool: 'Read', content: '**' },
+          { behavior: 'deny' as const, tool: 'Edit', content: '**' },
+        ],
+        capabilities: [],
+        envOverrides: { DEMO_PROJECT_BLOCK: 'true' },
+      },
     ]
 
     const templateIds: Record<string, number> = {}
