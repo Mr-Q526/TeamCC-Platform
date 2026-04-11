@@ -1,0 +1,206 @@
+---
+layout: default
+title: Codex Skills Catalog
+description: Browse and install Codex CLI skills.
+---
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="top-logo">Codex Docs</span>
+    <span class="top-divider">/</span>
+    <span class="top-section">Skills Catalog</span>
+  </div>
+  <div class="topbar-center">
+    <div class="top-search">
+      <input id="searchInput" type="search" placeholder="Search skills">
+      <span class="search-hint">Ctrl K</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <a href="https://github.com/jMerta/codex-skills" class="top-link">Docs Directory</a>
+    <a href="https://github.com/jMerta/codex-skills" class="top-link">APIs</a>
+    <a href="https://github.com/jMerta/codex-skills" class="top-cta">GitHub</a>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <div>
+        <p class="brand-title">Codex Skills</p>
+        <p class="brand-subtitle">Catalog &amp; CLI helpers</p>
+      </div>
+    </div>
+    <div class="sidebar-search">
+      <label for="sidebarSearch">Search sidebar</label>
+      <input id="sidebarSearch" type="search" placeholder="Filter navigation" disabled>
+    </div>
+    <nav class="side-nav">
+      <a href="#overview">Overview</a>
+      <a href="#quickstart">Quick start</a>
+      <a href="#instructions">How it works</a>
+      <a href="#ledger">Global ledger</a>
+      <a href="#skills">Skills</a>
+      <a href="#third-party">Third-party skills</a>
+      <a href="#cli">CLI</a>
+    </nav>
+    <div class="sidebar-card">
+      <h4>Default install</h4>
+      <p>Skills install to the standard catalog unless you pass <code>--dir</code>.</p>
+      <code>~/.agents/skills/</code>
+    </div>
+    <div class="sidebar-card">
+      <h4>Latest release</h4>
+      <p id="skillsUpdated">-</p>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section id="overview" class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Codex skills catalog</p>
+        <h1>Browse, filter, and install skills in minutes.</h1>
+        <p class="lede">
+          This page lists all available skills, their purpose, and how to use them in Codex CLI.
+          Install by name or category and enable skills once to use them in your prompts.
+        </p>
+      </div>
+    </section>
+
+    <section id="quickstart" class="cta-row">
+      <div class="cta">
+        <span class="cta-label">Easiest start</span>
+        <code>npx codex-skills install-all</code>
+      </div>
+      <div class="cta">
+        <span class="cta-label">Install a category</span>
+        <code>npx codex-skills install-category development</code>
+      </div>
+      <div class="cta">
+        <span class="cta-label">Install one skill</span>
+        <code>npx codex-skills install &lt;skill-name&gt;</code>
+      </div>
+      <div class="cta">
+        <span class="cta-label">Enable skills</span>
+        <code>codex --enable skills</code>
+      </div>
+    </section>
+
+    <section id="instructions" class="instructions">
+      <h2>How to use skills</h2>
+      <ol>
+        <li>Install all skills (recommended for first-time setup) or pick a category/skill.</li>
+        <li>Enable skills in Codex: <code>codex --enable skills</code>.</li>
+        <li>Mention the skill name in your prompt to trigger it.</li>
+      </ol>
+    </section>
+
+    <section id="ledger" class="instructions">
+      <h2>Global AGENTS.MD ledger (not a skill)</h2>
+      <p>
+        Codex can use a single ledger file that applies across projects. It lives at
+        <code>~/.codex/AGENTS.MD</code> (Codex home directory).
+      </p>
+      <ol>
+        <li>Create it once with <code>npx codex-skills init-ledger</code>.</li>
+        <li>At the start of each assistant turn, open it and refresh goal, constraints, decisions, and state.</li>
+        <li>Update it when the goal, constraints, decisions, Done/Now/Next, or key tool outcomes change; keep it short and factual and mark unknowns as <code>UNCONFIRMED</code>.</li>
+        <li>Include a brief "Ledger Snapshot" in replies (Goal + Now/Next + Open Questions); show the full ledger only when it changes or when asked.</li>
+      </ol>
+    </section>
+
+    <section id="skills" class="skills-section">
+      <div class="section-header">
+        <h2>Skills</h2>
+        <p>Search by name, description, or category. Filter featured skills only.</p>
+      </div>
+
+      <section class="controls">
+        <div class="control">
+          <label for="categorySelect">Category</label>
+          <select id="categorySelect">
+            <option value="all">All categories</option>
+          </select>
+        </div>
+        <div class="control toggle">
+          <label for="featuredToggle">
+            <input id="featuredToggle" type="checkbox">
+            Featured only
+          </label>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div class="stat">
+          <span class="stat-label">Total skills</span>
+          <span class="stat-value" id="skillTotal">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Showing</span>
+          <span class="stat-value" id="skillCount">0</span>
+        </div>
+      </section>
+
+      <section class="skills">
+        <div id="skillsGrid" class="skills-grid"></div>
+        <div id="noResults" class="no-results" hidden>
+          No skills matched your filters. Try clearing search or choosing another category.
+        </div>
+      </section>
+    </section>
+
+    <section id="third-party" class="instructions">
+      <h2>Third-party skills</h2>
+      <p>
+        Some skills in this workspace are sourced from external repositories (for
+        example, <code>steipete/agent-scripts</code>). When copied, each skill
+        folder includes a <code>LICENSE</code>, an <code>ATTRIBUTION.md</code>,
+        and an Attribution section in <code>SKILL.md</code>. Related scripts live
+        in <code>agent-scripts/</code> and include their own
+        <code>LICENSE</code>/<code>ATTRIBUTION.md</code>.
+      </p>
+    </section>
+
+    <section id="cli" class="instructions">
+      <h2>CLI essentials</h2>
+      <ul>
+        <li><code>npx codex-skills list</code> — list all skills.</li>
+        <li><code>npx codex-skills install-all</code> — install everything.</li>
+        <li><code>npx codex-skills install-agent-scripts</code> — install shared agent scripts.</li>
+        <li><code>npx codex-skills install &lt;skill-name&gt;</code> — install one skill.</li>
+        <li><code>npx codex-skills install-category &lt;category&gt;</code> — install a category.</li>
+        <li><code>npx codex-skills init-ledger</code> — create a global AGENTS.MD ledger (not a skill).</li>
+        <li><code>npx codex-skills verify &lt;skill-name&gt;</code> — verify a local skill install.</li>
+        <li><code>npx codex-skills help</code> — full command reference.</li>
+      </ul>
+    </section>
+
+    <footer class="site-footer">
+      <div>
+        <h3>Need help?</h3>
+        <p>Check the README for full CLI instructions.</p>
+      </div>
+      <div class="footer-cta">
+        <a class="button" href="https://github.com/jMerta/codex-skills">View on GitHub</a>
+      </div>
+    </footer>
+  </main>
+
+  <aside class="toc">
+    <div class="toc-card">
+      <div class="toc-title">On this page</div>
+      <div id="tocList" class="toc-list"></div>
+    </div>
+    <div class="toc-card">
+      <div class="toc-title">Stats</div>
+      <div class="toc-stat">
+        <span>Total skills</span>
+        <strong id="skillTotalSide">0</strong>
+      </div>
+      <div class="toc-stat">
+        <span>Showing</span>
+        <strong id="skillCountSide">0</strong>
+      </div>
+    </div>
+  </aside>
+</div>

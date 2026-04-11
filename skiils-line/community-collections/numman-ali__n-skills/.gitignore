@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Sync temp files
+.sync-temp/
+.sync-state.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Lock files (keep package.json, but not locks)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lock

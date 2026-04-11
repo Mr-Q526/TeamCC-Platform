@@ -1,0 +1,151 @@
+# n-skills External Sources
+# ========================
+# This manifest defines external skills synced into the n-skills marketplace.
+# The GitHub Actions workflow reads this file and copies skill folders from
+# upstream repositories on a daily schedule.
+#
+# To add a skill: Submit a PR adding an entry here. See CONTRIBUTING.md.
+
+version: 1
+
+skills:
+  # ─────────────────────────────────────────────────────────────────────────
+  # zai-cli - Native skill (not synced externally)
+  # ─────────────────────────────────────────────────────────────────────────
+  # Note: zai-cli is maintained directly in this repo under skills/tools/zai-cli
+  # It's listed here for completeness but has no source.repo (native skill)
+
+  - name: zai-cli
+    description: Z.AI vision, search, reader, and GitHub exploration via MCP
+    native: true  # Maintained directly in this repo
+    target:
+      category: tools
+      path: skills/tools/zai-cli
+    author:
+      name: Numman Ali
+      github: numman-ali
+      twitter: nummanali
+    license: Apache-2.0
+    homepage: https://github.com/numman-ali/zai-cli
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # dev-browser - Browser automation (synced from SawyerHood/dev-browser)
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - name: dev-browser
+    description: Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows.
+    source:
+      repo: SawyerHood/dev-browser
+      path: skills/dev-browser      # Path within source repo
+      ref: main                     # Branch, tag, or commit SHA
+    target:
+      category: automation
+      path: skills/automation/dev-browser
+    author:
+      name: Sawyer Hood
+      github: SawyerHood
+    license: MIT
+    homepage: https://github.com/SawyerHood/dev-browser
+    verified: true                  # Manually reviewed and approved
+
+    # Sync configuration
+    sync:
+      # Files/folders to copy (relative to source.path)
+      include:
+        - SKILL.md
+        - references/
+        - scripts/
+        - src/
+        - server.sh
+        - package.json
+        - tsconfig.json
+        - vitest.config.ts
+      # Files to exclude (glob patterns)
+      exclude:
+        - node_modules/
+        - "*.lock"
+        - bun.lock
+        - tmp/
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # gastown - Multi-agent orchestrator (native skill)
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - name: gastown
+    description: Multi-agent orchestrator for Claude Code. Use when user mentions gastown, gas town, gt commands, convoys, polecats, rigs, slinging work, multi-agent coordination, beads, hooks, the witness, the mayor, the refinery, or wants to run multiple AI agents on projects simultaneously.
+    native: true
+    target:
+      category: tools
+      path: skills/tools/gastown
+    author:
+      name: Numman Ali
+      github: numman-ali
+      twitter: nummanali
+    license: Apache-2.0
+    homepage: https://github.com/steveyegge/gastown
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # orchestration - Multi-agent workflow orchestration (native skill)
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - name: orchestration
+    description: Multi-agent orchestration for complex tasks using cc-mirror tasks and TodoWrite. Use when tasks require parallel work, multiple agents, sophisticated coordination, or decomposition into parallel subtasks.
+    native: true
+    target:
+      category: workflow
+      path: skills/workflow/orchestration
+    author:
+      name: Numman Ali
+      github: numman-ali
+      twitter: nummanali
+    license: Apache-2.0
+    homepage: https://github.com/numman-ali/n-skills
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # open-source-maintainer - GitHub repo maintenance (native skill)
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - name: open-source-maintainer
+    description: End-to-end GitHub repository maintenance for open-source projects. Use when asked to triage issues, review PRs, analyze contributor activity, generate maintenance reports, or maintain a repository. Triggers include "triage", "maintain", "review PRs", "analyze issues", "repo maintenance", "what needs attention", "open source maintenance", or any request to understand and act on GitHub issues/PRs.
+    native: true
+    target:
+      category: workflow
+      path: skills/workflow/open-source-maintainer
+    author:
+      name: Numman Ali
+      github: numman-ali
+      twitter: nummanali
+    license: Apache-2.0
+    homepage: https://github.com/numman-ali/n-skills
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Schema Reference
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# skills[]:
+#   name:          Required. Unique skill identifier (lowercase, hyphens ok)
+#   description:   Required. One-line description for marketplace listings
+#
+#   native:        Optional. Set true if skill is maintained directly in n-skills
+#
+#   source:        Required for external skills
+#     repo:        GitHub owner/repo (e.g., "SawyerHood/dev-browser")
+#     path:        Path to skill folder within repo
+#     ref:         Branch, tag, or commit SHA (default: main)
+#
+#   target:        Required
+#     category:    One of: tools, development, productivity, automation, data, documentation
+#     path:        Target path in n-skills repo
+#
+#   author:        Required
+#     name:        Display name
+#     github:      GitHub username
+#     twitter:     Optional Twitter handle
+#
+#   license:       Required. SPDX identifier (MIT, Apache-2.0, etc.)
+#   homepage:      Required. Link to project homepage or repo
+#   verified:      Optional. Set true after manual review (default: false)
+#
+#   sync:          Optional. Fine-grained sync control
+#     include:     List of files/folders to copy
+#     exclude:     Glob patterns to skip

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "rknall-custom-skills",
+  "version": "0.7.1",
+  "description": "Custom Claude Code skills marketplace for architecture review, accessibility expertise, creative design generation, DevOps validation, infrastructure configuration, and GitLab stack management",
+  "owner": {
+    "name": "rknall"
+  },
+  "plugins": [
+    {
+      "name": "python-architecture-review",
+      "source": "./python-architecture-review",
+      "description": "Comprehensive design architecture review for Python backend applications, analyzing scalability, security, performance, and best practices",
+      "version": "1.0.0",
+      "category": "development"
+    },
+    {
+      "name": "ui-design-review",
+      "source": "./ui-design-review",
+      "description": "Comprehensive UI/UX design review for websites and desktop applications with extensive WCAG 2.1/2.2 accessibility analysis, usability evaluation, and visual design assessment",
+      "version": "1.0.0",
+      "category": "development"
+    },
+    {
+      "name": "docker-validation",
+      "source": "./docker-validation",
+      "description": "Comprehensive Docker and Docker Compose validation following best practices and security standards. Validates Dockerfiles, multi-stage builds, modern Compose syntax, and generates automation scripts",
+      "version": "1.0.0",
+      "category": "development"
+    },
+    {
+      "name": "web-design-builder",
+      "source": "./web-design-builder",
+      "description": "Create professional HTML5/JavaScript web designs from specifications with automatic Playwright MCP verification for accessibility and functionality testing",
+      "version": "1.0.0",
+      "category": "design"
+    },
+    {
+      "name": "svg-logo-designer",
+      "source": "./svg-logo-designer",
+      "description": "Generate professional SVG logos with multiple concepts, layouts, and variations. Creates scalable vector graphics with comprehensive usage guidelines",
+      "version": "1.0.0",
+      "category": "design"
+    },
+    {
+      "name": "stack-validator",
+      "source": "./stack-validator",
+      "description": "Validates GitLab stack projects before deployment, ensuring proper architecture patterns, directory structure, secrets management, .env configuration, and Docker best practices. Detects issues and provides actionable guidance",
+      "version": "1.0.0",
+      "category": "development"
+    },
+    {
+      "name": "secrets-manager",
+      "source": "./secrets-manager",
+      "description": "Manages Docker secrets for GitLab stack projects, ensuring secrets are never in .env or docker-compose.yml. Handles migration from environment variables, validation, auditing, and secure secret generation",
+      "version": "1.0.0",
+      "category": "development"
+    },
+    {
+      "name": "config-generator",
+      "source": "./config-generator",
+      "description": "Generates service-specific configuration files for GitLab stack projects using .env as primary config source. Creates nginx, PostgreSQL, Redis configs, meta files (CLAUDE.md, .gitignore, .dockerignore), with strict validation for secrets and paths",
+      "version": "1.0.0",
+      "category": "development"
+    },
+    {
+      "name": "newt-blueprint-generator",
+      "source": "./newt-blueprint-generator",
+      "description": "Generate and validate Pangolin Newt blueprint configurations in YAML or Docker Labels format. Creates proxy resources (HTTP/TCP/UDP), client resources, authentication settings, and access control rules",
+      "version": "1.0.0",
+      "category": "development"
+    },
+    {
+      "name": "stack-creator",
+      "source": "./stack-creator",
+      "description": "Create new GitLab stack projects with proper directory structure, git configuration (main branch, ff-only), validation hooks, and comprehensive documentation. Integrates stack-validator, secrets-manager, docker-validation, and config-generator. Complete only when all validations pass",
+      "version": "0.1.0",
+      "category": "development"
+    }
+  ]
+}

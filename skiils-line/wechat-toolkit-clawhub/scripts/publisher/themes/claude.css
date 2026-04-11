@@ -1,0 +1,146 @@
+:root {
+  --primary-color: #d97757;
+  --secondary-color: #4d4c48;
+  --text-color: #141413;
+  --muted-color: #87867f;
+  --surface-color: #faf9f5;
+  --soft-surface-color: #f5f4ed;
+  --softer-surface-color: #f0eee6;
+  --line-color: #e8e6dc;
+  --line-strong-color: #d1cfc5;
+}
+
+#wenyan {
+  font-size: 16px;
+  line-height: 1.88;
+  color: var(--text-color);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+#wenyan p,
+#wenyan ul,
+#wenyan ol {
+  margin: 1em 0;
+}
+
+#wenyan a {
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(217, 119, 87, 0.28);
+}
+
+#wenyan strong {
+  color: var(--text-color);
+}
+
+#wenyan h1,
+#wenyan h2,
+#wenyan h3,
+#wenyan h4,
+#wenyan h5,
+#wenyan h6 {
+  margin: 1.2em 0 0.9em;
+  color: var(--text-color);
+}
+
+#wenyan h1 {
+  text-align: center;
+  font-size: 1.68em;
+}
+
+#wenyan h1 span {
+  display: inline-block;
+  padding: 12px 20px;
+  border: 1px solid var(--line-color);
+  border-radius: 999px;
+  background: var(--surface-color);
+  box-shadow: 0 1px 0 rgba(20, 20, 19, 0.04);
+}
+
+#wenyan h2 {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--line-color);
+  border-radius: 999px;
+  color: var(--text-color);
+  background: var(--soft-surface-color);
+}
+
+#wenyan h3 {
+  padding-left: 10px;
+  border-left: 3px solid var(--primary-color);
+  font-size: 1.08em;
+}
+
+#wenyan blockquote {
+  margin: 1.2em 0;
+  padding: 14px 18px;
+  border: 1px solid var(--line-color);
+  border-left: 4px solid var(--primary-color);
+  border-radius: 16px;
+  background: var(--soft-surface-color);
+  color: var(--muted-color);
+}
+
+#wenyan p code,
+#wenyan li code {
+  padding: 2px 6px;
+  margin: 0 2px;
+  border-radius: 6px;
+  color: var(--secondary-color);
+  background: var(--softer-surface-color);
+  font-size: 0.86em;
+}
+
+#wenyan pre {
+  margin: 1em 0;
+  padding: 0.5em;
+  border-radius: 16px;
+  border: 1px solid var(--line-color);
+  background: var(--surface-color);
+  box-shadow: 0 8px 18px rgba(20, 20, 19, 0.04);
+}
+
+#wenyan img {
+  display: block;
+  max-width: 100%;
+  margin: 1.2em auto;
+  border-radius: 18px;
+  box-shadow: 0 12px 24px rgba(20, 20, 19, 0.05);
+}
+
+#wenyan table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.4em 0;
+  overflow: hidden;
+  border-radius: 12px;
+  table-layout: fixed;
+}
+
+#wenyan table th,
+#wenyan table td {
+  padding: 10px 12px;
+  border: 1px solid var(--line-color);
+  word-break: break-all;
+}
+
+#wenyan table th {
+  color: var(--text-color);
+  background: var(--softer-surface-color);
+}
+
+#wenyan table tr:nth-child(even) {
+  background: var(--surface-color);
+}
+
+#wenyan hr {
+  border: 0;
+  height: 1px;
+  margin: 1.8em 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(209, 207, 197, 0.95) 50%, transparent 100%);
+}
+
+#wenyan .footnote {
+  color: var(--primary-color);
+}

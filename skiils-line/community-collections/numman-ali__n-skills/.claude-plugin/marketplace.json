@@ -1,0 +1,65 @@
+{
+  "name": "n-skills",
+  "description": "Curated plugin marketplace for AI agents - works with Claude Code, Codex, and openskills",
+  "owner": {
+    "name": "Numman Ali",
+    "email": "numman.ali@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "zai-cli",
+      "description": "Z.AI vision, search, reader, and GitHub exploration via MCP",
+      "source": "./skills/tools/zai-cli",
+      "category": "tools",
+      "author": {
+        "name": "Numman Ali",
+        "github": "numman-ali"
+      }
+    },
+    {
+      "name": "gastown",
+      "description": "Multi-agent orchestrator for Claude Code. Use when user mentions gastown, gas town, gt commands, convoys, polecats, rigs, slinging work, multi-agent coordination.",
+      "source": "./skills/tools/gastown",
+      "category": "tools",
+      "author": {
+        "name": "Numman Ali",
+        "github": "numman-ali"
+      }
+    },
+    {
+      "name": "dev-browser",
+      "description": "Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows.",
+      "source": "./skills/automation/dev-browser",
+      "category": "automation",
+      "author": {
+        "name": "Sawyer Hood",
+        "github": "SawyerHood"
+      }
+    },
+    {
+      "name": "orchestration",
+      "description": "Multi-agent orchestration for complex tasks using cc-mirror tasks and TodoWrite. Use when tasks require parallel work, multiple agents, sophisticated coordination, or decomposition into parallel subtasks.",
+      "source": "./skills/workflow/orchestration",
+      "category": "workflow",
+      "author": {
+        "name": "Numman Ali",
+        "github": "numman-ali"
+      }
+    },
+    {
+      "name": "open-source-maintainer",
+      "description": "End-to-end GitHub repository maintenance for open-source projects. Use when asked to triage issues, review PRs, analyze contributor activity, generate maintenance reports, or maintain a repository.",
+      "source": "./skills/workflow/open-source-maintainer",
+      "category": "workflow",
+      "author": {
+        "name": "Numman Ali",
+        "github": "numman-ali"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.3.4",
+    "generated_at": "2026-03-20T00:26:10.969Z",
+    "skill_count": 5
+  }
+}
