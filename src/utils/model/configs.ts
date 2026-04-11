@@ -90,6 +90,20 @@ export const MINIMAX2_7_CONFIG = {
   foundry: 'minimax2.7',
 } as const satisfies ModelConfig
 
+export const DEEPSEEK_CONFIG = {
+  firstParty: 'deepseek-chat',
+  bedrock: 'deepseek-chat',
+  vertex: 'deepseek-chat',
+  foundry: 'deepseek-chat',
+} as const satisfies ModelConfig
+
+export const DOUBAO_CONFIG = {
+  firstParty: 'doubao-pro',
+  bedrock: 'doubao-pro',
+  vertex: 'doubao-pro',
+  foundry: 'doubao-pro',
+} as const satisfies ModelConfig
+
 // @[MODEL LAUNCH]: Register the new config here.
 export const ALL_MODEL_CONFIGS = {
   haiku35: CLAUDE_3_5_HAIKU_CONFIG,
@@ -104,6 +118,8 @@ export const ALL_MODEL_CONFIGS = {
   opus45: CLAUDE_OPUS_4_5_CONFIG,
   opus46: CLAUDE_OPUS_4_6_CONFIG,
   minimax27: MINIMAX2_7_CONFIG,
+  deepseek: DEEPSEEK_CONFIG,
+  doubao: DOUBAO_CONFIG,
 } as const satisfies Record<string, ModelConfig>
 
 export type ModelKey = keyof typeof ALL_MODEL_CONFIGS

@@ -264,6 +264,12 @@ export function firstPartyNameToCanonical(name: ModelName): ModelShortName {
   if (name.includes('minimax2.7')) {
     return 'minimax2.7'
   }
+  if (name.includes('deepseek-chat')) {
+    return 'deepseek-chat'
+  }
+  if (name.includes('doubao-pro')) {
+    return 'doubao-pro'
+  }
   const match = name.match(/(claude-(\d+-\d+-)?\w+)/)
   if (match && match[1]) {
     return match[1]
@@ -383,6 +389,10 @@ export function getPublicModelDisplayName(model: ModelName): string | null {
       return 'Haiku 3.5'
     case getModelStrings().minimax27:
       return 'Minimax 2.7'
+    case getModelStrings().deepseek:
+      return 'DeepSeek V3'
+    case getModelStrings().doubao:
+      return 'Doubao Pro'
     default:
       return null
   }
@@ -616,6 +626,12 @@ export function getMarketingNameForModel(modelId: string): string | undefined {
   }
   if (canonical.includes('minimax2.7')) {
     return 'Minimax 2.7'
+  }
+  if (canonical.includes('deepseek-chat')) {
+    return 'DeepSeek V3'
+  }
+  if (canonical.includes('doubao-pro')) {
+    return 'Doubao Pro'
   }
 
   return undefined
