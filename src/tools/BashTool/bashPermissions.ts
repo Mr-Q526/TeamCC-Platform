@@ -998,12 +998,15 @@ export const bashToolCheckExactMatchPermission = (
 
   // 1. Deny if exact command was denied
   if (matchingDenyRules[0] !== undefined) {
+    const denyRule = matchingDenyRules[0];
     return {
       behavior: 'deny',
-      message: `Permission to use ${BashTool.name} with command ${command} has been denied.`,
+      message: denyRule.source === 'policySettings'
+        ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的命令执行权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
+        : `Permission to use ${BashTool.name} with command ${command} has been denied.`,
       decisionReason: {
         type: 'rule',
-        rule: matchingDenyRules[0],
+        rule: denyRule,
       },
     }
   }
@@ -1081,12 +1084,15 @@ export const bashToolCheckPermission = (
 
   // 2a. Deny if command has a deny rule
   if (matchingDenyRules[0] !== undefined) {
+    const denyRule = matchingDenyRules[0];
     return {
       behavior: 'deny',
-      message: `Permission to use ${BashTool.name} with command ${command} has been denied.`,
+      message: denyRule.source === 'policySettings'
+        ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的命令执行权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
+        : `Permission to use ${BashTool.name} with command ${command} has been denied.`,
       decisionReason: {
         type: 'rule',
-        rule: matchingDenyRules[0],
+        rule: denyRule,
       },
     }
   }
@@ -1282,12 +1288,15 @@ function checkSandboxAutoAllow(
 
   // Return immediately if there's an explicit deny rule on the full command
   if (matchingDenyRules[0] !== undefined) {
+    const denyRule = matchingDenyRules[0];
     return {
       behavior: 'deny',
-      message: `Permission to use ${BashTool.name} with command ${command} has been denied.`,
+      message: denyRule.source === 'policySettings'
+        ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的命令执行权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
+        : `Permission to use ${BashTool.name} with command ${command} has been denied.`,
       decisionReason: {
         type: 'rule',
-        rule: matchingDenyRules[0],
+        rule: denyRule,
       },
     }
   }
@@ -1311,12 +1320,15 @@ function checkSandboxAutoAllow(
       )
       // Deny takes priority — return immediately
       if (subResult.matchingDenyRules[0] !== undefined) {
+        const denyRule = subResult.matchingDenyRules[0];
         return {
           behavior: 'deny',
-          message: `Permission to use ${BashTool.name} with command ${command} has been denied.`,
+          message: denyRule.source === 'policySettings'
+            ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的命令执行权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
+            : `Permission to use ${BashTool.name} with command ${command} has been denied.`,
           decisionReason: {
             type: 'rule',
-            rule: subResult.matchingDenyRules[0],
+            rule: denyRule,
           },
         }
       }

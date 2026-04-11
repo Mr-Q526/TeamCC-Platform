@@ -1012,6 +1012,15 @@ export function matchingRuleForInput(
 
       // Check if this was a /** pattern we simplified
       const withWildcard = originalPattern + '/**'
+      
+      console.log("[DEBUG matchingRuleForInput] Evaluated:", {
+        originalPattern,
+        withWildcard,
+        hasWithWildcard: patternMap.has(withWildcard),
+        hasOriginalPattern: patternMap.has(originalPattern),
+        keys: Array.from(patternMap.keys())
+      });
+
       if (patternMap.has(withWildcard)) {
         return patternMap.get(withWildcard) ?? null
       }
@@ -1091,7 +1100,9 @@ export function checkReadPermissionForTool(
     if (denyRule) {
       return {
         behavior: 'deny',
-        message: `Permission to read ${path} has been denied.`,
+        message: denyRule.source === 'policySettings'
+          ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的访问权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
+          : `Permission to read ${path} has been denied.`,
         decisionReason: {
           type: 'rule',
           rule: denyRule,
@@ -1229,7 +1240,9 @@ export function checkWritePermissionForTool<Input extends AnyObject>(
     if (denyRule) {
       return {
         behavior: 'deny',
-        message: `Permission to edit ${path} has been denied.`,
+        message: denyRule.source === 'policySettings'
+          ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的操作权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
+          : `Permission to write to ${path} has been denied.`,
         decisionReason: {
           type: 'rule',
           rule: denyRule,

@@ -160,16 +160,6 @@ export async function setup(
   // IMPORTANT: setCwd() must be called before any other code that depends on the cwd
   setCwd(cwd)
 
-  // Load team identity profile from .claude/identity/active.md (if present).
-  // Must run after setCwd() so paths resolve correctly, and before permissions/
-  // skills/context so those modules can read the identity.
-  {
-    const { loadIdentityProfile } = await import('./utils/identity.js')
-    const { setIdentityProfile } = await import('./bootstrap/state.js')
-    const profile = await loadIdentityProfile(cwd)
-    setIdentityProfile(profile)
-  }
-
   // Capture hooks configuration snapshot to avoid hidden hook modifications.
   // IMPORTANT: Must be called AFTER setCwd() so hooks are loaded from the correct directory
   const hooksStart = Date.now()

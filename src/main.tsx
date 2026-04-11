@@ -1747,6 +1747,15 @@ async function run(): Promise<CommanderCommand> {
       }
     }
 
+    // Load team identity profile before initializeToolPermissionContext so identity rules can be injected
+    {
+      const { loadIdentityProfile } = await import('./utils/identity.js');
+      const { setIdentityProfile } = await import('./bootstrap/state.js');
+      const { getCwd } = await import('./utils/cwd.js');
+      const profile = await loadIdentityProfile(getCwd());
+      setIdentityProfile(profile);
+    }
+
     // This await replaces blocking existsSync/statSync calls that were already in
     // the startup path. Wall-clock time is unchanged; we just yield to the event
     // loop during the fs I/O instead of blocking it. See #19661.

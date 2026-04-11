@@ -167,8 +167,9 @@ export const FileEditTool = buildTool({
       return {
         result: false,
         behavior: 'ask',
-        message:
-          'File is in a directory that is denied by your permission settings.',
+        message: denyRule.source === 'policySettings'
+          ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的操作权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
+          : 'File is in a directory that is denied by your permission settings.',
         errorCode: 2,
       }
     }
