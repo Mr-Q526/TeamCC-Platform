@@ -21,6 +21,8 @@ const BORDER_PADDING = 4
 const DIVIDER_WIDTH = 1
 const CONTENT_PADDING = 2
 
+export const LOGO_TITLE = 'Team-ClaudeCode By MrQ'
+
 export type LayoutMode = 'horizontal' | 'compact'
 
 export type LayoutDimensions = {
