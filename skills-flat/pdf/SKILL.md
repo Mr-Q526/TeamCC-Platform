@@ -1,16 +1,29 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: tools/pdf
 name: pdf
 displayName: PDF
-description: 'Use when tasks involve reading, creating, or reviewing PDF files where rendering and layout matter; prefer visual checks by rendering pages (Poppler) and use Python tools such as `reportlab`, `pdfplumber`, and `pypdf` for generation and extraction.'
-version: '0.1.0'
-sourceHash: 'sha256:d108cf2b36355ab37eb5962933f4d09785ec002f3105c506129320209306b9d2'
+description: Use when tasks involve reading, creating, or reviewing PDF files where rendering and layout matter; prefer visual checks by rendering pages (Poppler) and use Python tools such as `reportlab`, `pdfplumber`, and `pypdf` for generation and extraction.
+aliases:
+  - pdf
+  - tools
+  - content-generation
+  - review
+  - 代码审查
+  - code review
+  - 评审
+  - data-platform
+  - 数据
+  - data
+version: 0.1.0
+sourceHash: sha256:5b397873d0639384e68fc8c8037be1c4dab3e8b65183e4cc2f89f5b97e9213d2
 domain: tools
-departmentTags: [data-platform]
-sceneTags: [content-generation, review]
+departmentTags:
+  - data-platform
+sceneTags:
+  - content-generation
+  - review
 ---
-
 
 # PDF Skill
 

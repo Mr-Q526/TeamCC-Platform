@@ -1,14 +1,38 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: infra/observability-backend
 name: observability-backend
 displayName: Backend Observability
-description: 'Use when working on logs, metrics, traces, dashboards, alerts, and production debugging for backend systems. Focus on diagnosability, signal quality, SLOs, and incident response.'
-version: '0.1.0'
-sourceHash: 'sha256:3c43bfa26c5cdace6f1404d4ac3431e063a3db2576fcc873f380e23d2ea072b7'
+description: Use when working on logs, metrics, traces, dashboards, alerts, and production debugging for backend systems. Focus on diagnosability, signal quality, SLOs, and incident response.
+aliases:
+  - observability-backend
+  - 可观测性
+  - 日志
+  - 指标
+  - 链路追踪
+  - 告警
+  - 后端
+  - 服务端
+  - server side
+  - Backend Observability
+  - observability backend
+  - observability
+  - backend
+  - infra
+  - debug
+  - 调试
+  - 排查
+  - 定位问题
+  - incident
+  - infra-platform
+version: 0.1.0
+sourceHash: sha256:84cbc272655a25a00d2b69372d619ad3ab4a5a20063b9a38cebee8d98ce41450
 domain: infra
-departmentTags: [infra-platform]
-sceneTags: [debug, incident]
+departmentTags:
+  - infra-platform
+sceneTags:
+  - debug
+  - incident
 ---
 
 # Backend Observability

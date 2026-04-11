@@ -1,15 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: design/ppt-course-presentation
 name: ppt-course-presentation
 displayName: PPT Course Presentation
-description: '面向小组作业、读书报告和期末展示生成结构化 PPT，强调问题引入、案例讲解、团队观点和课堂讨论的节奏感。'
-version: '0.1.0'
-sourceHash: 'sha256:cdd3b4982f1e23a089a678be92b3f70e2c28472e35c531aef1a791f2b5e585ae'
+description: 面向小组作业、读书报告和期末展示生成结构化 PPT，强调问题引入、案例讲解、团队观点和课堂讨论的节奏感。
+aliases:
+  - ppt-course-presentation
+  - 课程
+  - 教学
+  - 课程页
+  - PPT Course Presentation
+  - ppt
+  - course
+  - presentation
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - content-generation
+  - growth
+version: 0.1.0
+sourceHash: sha256:62f430c76232199838442c3d0859e7781735506a7c7ee6506f31cbbd852a84d4
 domain: design
-departmentTags: [growth]
-sceneTags: [content-generation, design]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - design
 ---
+
 # 小组作业 / 期末 Pre
 
 这个子 skill 用于课程展示、读书报告和案例分析。目标不是把资料原样搬进 PPT，而是做成老师和同学都能快速理解的 5 到 7 页课堂展示：先引起注意，再讲理论背景，再讲核心案例，最后给出小组观点和讨论问题。

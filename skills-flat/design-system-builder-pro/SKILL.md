@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/design-system-builder-pro
 name: design-system-builder-pro
 displayName: Design System Builder PRO
-description: 'Use when designing design systems, token systems, UI foundations, and reusable component standards. Pro version focused on tokens, consistency, accessibility, and component governance; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:2e143dd1812e2b531a36f57c28f7587b7eb991bd4ec9d892337adafcae226660'
+description: Use when designing design systems, token systems, UI foundations, and reusable component standards. Pro version focused on tokens, consistency, accessibility, and component governance; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - design-system-builder-pro
+  - 设计
+  - UI
+  - 视觉设计
+  - 系统
+  - 设计系统
+  - 构建器
+  - 生成器
+  - builder
+  - 专业版
+  - pro
+  - Design System Builder PRO
+  - design
+  - system
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:7e8f050979cabe4e0bb470b7f55c573c7979741dd7cda682edecc64986d6e135
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Design System Builder PRO

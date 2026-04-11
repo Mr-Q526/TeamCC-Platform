@@ -1,15 +1,37 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/develop-web-game
 name: develop-web-game
 displayName: Develop Web Game
 description: 'Use when Codex is building or iterating on a web game (HTML/JS) and needs a reliable development + testing loop: implement small changes, run a Playwright-based test script with short input bursts and intentional pauses, inspect screenshots/text, and review console errors with render_game_to_text.'
-version: '0.1.0'
-sourceHash: 'sha256:4586330e97c99581f37798c179a71c62030fc20befa6de3e3ccb96d1adead9c7'
+aliases:
+  - develop-web-game
+  - Develop Web Game
+  - develop
+  - web
+  - game
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - test
+  - 测试
+  - 验证
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:19106e1253f1ed065975566d66e79227468975bc1583f3ec88254500403cf069
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design, test]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
+  - test
 ---
+
 # Develop Web Game
 
 Build games in small steps and validate every change. Treat each iteration as: implement → act → pause → observe → adjust.

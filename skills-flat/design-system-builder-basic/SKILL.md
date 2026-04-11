@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/design-system-builder-basic
 name: design-system-builder-basic
 displayName: Design System Builder Basic
-description: 'Use when designing design systems, token systems, UI foundations, and reusable component standards. Basic version focused on tokens, consistency, accessibility, and component governance; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:e824b5079552ad378cd76444b51e7b7c51e91f92b208661426bf0c7f80a5090b'
+description: Use when designing design systems, token systems, UI foundations, and reusable component standards. Basic version focused on tokens, consistency, accessibility, and component governance; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - design-system-builder-basic
+  - 设计
+  - UI
+  - 视觉设计
+  - 系统
+  - 设计系统
+  - 构建器
+  - 生成器
+  - builder
+  - 基础版
+  - basic
+  - Design System Builder Basic
+  - design
+  - system
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:fe738cd6fadafcee2f9f4ceff296a3ed09a2967b382f2089a43df46938e355d8
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Design System Builder Basic

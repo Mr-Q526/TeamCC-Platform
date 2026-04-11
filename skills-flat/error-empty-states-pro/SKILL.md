@@ -1,14 +1,40 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/error-empty-states-pro
 name: error-empty-states-pro
 displayName: Error Empty States PRO
-description: 'Use when designing 404 pages, empty states, error states, permission states, and offline states. Pro version focused on recovery, explanation, next actions, and tone; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:62d7c5cade09b012c45fe4d82a1c21decf82ea460891bc6d1edb0654b43e7a75'
+description: Use when designing 404 pages, empty states, error states, permission states, and offline states. Pro version focused on recovery, explanation, next actions, and tone; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - error-empty-states-pro
+  - 错误状态
+  - 异常状态
+  - 报错页
+  - 空状态
+  - empty state
+  - 状态
+  - UI 状态
+  - 专业版
+  - pro
+  - Error Empty States PRO
+  - error
+  - empty
+  - states
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:e71476cf4a4d684a09a5164ddce9e410cb95dbd538f3820123f03ef352666a2c
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Error Empty States PRO

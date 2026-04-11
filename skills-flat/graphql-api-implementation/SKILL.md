@@ -1,14 +1,45 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/graphql-api-implementation
 name: graphql-api-implementation
 displayName: GraphQL API Implementation
-description: 'Use when working on GraphQL schemas, resolvers, mutations, subscriptions, and dataloader patterns. Focus on schema clarity, N+1 avoidance, auth boundaries, and client ergonomics.'
-version: '0.1.0'
-sourceHash: 'sha256:cda8f8563e15c4b88c95eb25c4f43b8738b32dc34254454758854a981079bd66'
+description: Use when working on GraphQL schemas, resolvers, mutations, subscriptions, and dataloader patterns. Focus on schema clarity, N+1 avoidance, auth boundaries, and client ergonomics.
+aliases:
+  - GraphQL API
+  - resolver
+  - dataloader
+  - N+1 查询
+  - graphql-api-implementation
+  - GraphQL
+  - schema
+  - mutation
+  - API
+  - 接口
+  - 服务接口
+  - GraphQL API Implementation
+  - implementation
+  - Graph
+  - QL
+  - backend
+  - 后端
+  - 服务端
+  - server side
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - test
+  - 测试
+  - 验证
+  - backend-platform
+version: 0.1.0
+sourceHash: sha256:2db34c44acb8dfbf60e10e057b2554fdb348f7fc0864056b70b9a36d06fc1c96
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [architecture, test]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - architecture
+  - test
 ---
 
 # GraphQL API Implementation

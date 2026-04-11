@@ -1,15 +1,30 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: design/jimeng
 name: jimeng
 displayName: Jimeng
-description: 'Generate images via Jimeng (即梦) AI image generation API.'
-version: '0.1.0'
-sourceHash: 'sha256:056bd2e8962345d24155d26b6604568463de3fe6b43b3e5ced463930adec5c5e'
+description: Generate images via Jimeng (即梦) AI image generation API.
+aliases:
+  - jimeng
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - content-generation
+  - ai-platform
+  - AI
+  - 人工智能
+  - 智能助手
+version: 0.1.0
+sourceHash: sha256:ace4ba11f89a8af052dab4c00478695a0fa294671b30ef63949c2b98c9da859f
 domain: design
-departmentTags: [ai-platform]
-sceneTags: [content-generation, design]
+departmentTags:
+  - ai-platform
+sceneTags:
+  - content-generation
+  - design
 ---
+
 # Jimeng (即梦) Image Generation
 
 Use the bundled script to generate images via the Jimeng AI image generation API.

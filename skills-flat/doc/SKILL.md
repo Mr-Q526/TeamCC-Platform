@@ -1,15 +1,33 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: tools/doc
 name: doc
 displayName: Doc
-description: 'Use when the task involves reading, creating, or editing `.docx` documents, especially when formatting or layout fidelity matters; prefer `python-docx` plus the bundled `scripts/render_docx.py` for visual checks.'
-version: '0.1.0'
-sourceHash: 'sha256:0a635585817d1ac96e8e512114d08258b70f9e54ce0052078a258291ac13a8ed'
+description: Use when the task involves reading, creating, or editing `.docx` documents, especially when formatting or layout fidelity matters; prefer `python-docx` plus the bundled `scripts/render_docx.py` for visual checks.
+aliases:
+  - doc
+  - 文档
+  - 方案文档
+  - 技术文档
+  - tools
+  - content-generation
+  - review
+  - 代码审查
+  - code review
+  - 评审
+  - data-platform
+  - 数据
+  - data
+version: 0.1.0
+sourceHash: sha256:8800069bf33a5a16dc9a9b416b6aa4055542d5e33896a63ca766c74ff640eede
 domain: tools
-departmentTags: [data-platform]
-sceneTags: [content-generation, review]
+departmentTags:
+  - data-platform
+sceneTags:
+  - content-generation
+  - review
 ---
+
 # DOCX Skill
 
 ## When to use

@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/healthcare-portal-basic
 name: healthcare-portal-basic
 displayName: Healthcare Portal Basic
-description: 'Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Basic version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:25622e3c6032f3640ad4521d6d761dfae9625cf71d771ee642fd059879f49d2a'
+description: Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Basic version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - healthcare-portal-basic
+  - 医疗
+  - 健康
+  - healthcare
+  - 基础版
+  - basic
+  - Healthcare Portal Basic
+  - portal
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:198294d840e635f9696fa4ea454b5a1d648b9b37da07d0a8ade7bda6416ddb7f
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Healthcare Portal Basic

@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/healthcare-portal-pro
 name: healthcare-portal-pro
 displayName: Healthcare Portal PRO
-description: 'Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Pro version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:1bffe9b66307a4ca97bcaa9461aefaf10ecc6abd12c9c552b1c9cb65a3b0bd21'
+description: Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Pro version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - healthcare-portal-pro
+  - 医疗
+  - 健康
+  - healthcare
+  - 专业版
+  - pro
+  - Healthcare Portal PRO
+  - portal
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:b29f5c57a30fcf43472e347e6b251b1970df63518ca136b4f9e65b7bd1736952
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Healthcare Portal PRO

@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/careers-page-pro
 name: careers-page-pro
 displayName: Careers Page PRO
-description: 'Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Pro version focused on role discovery, culture proof, benefits, and application clarity; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:2e593872a55f218b460119ebe9201c791c296f7e4769470c807d9bfda951d876'
+description: Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Pro version focused on role discovery, culture proof, benefits, and application clarity; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - careers-page-pro
+  - 招聘
+  - 加入我们
+  - 职位页面
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - Careers Page PRO
+  - careers
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:b668cd4e0938029ba39fc52c4e8cd700f2822bb4ddded4a3135c636903334ff4
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Careers Page PRO

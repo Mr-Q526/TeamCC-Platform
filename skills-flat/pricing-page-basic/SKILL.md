@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/pricing-page-basic
 name: pricing-page-basic
 displayName: Pricing Page Basic
-description: 'Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Basic version focused on plan clarity, comparison, trust, and conversion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:f0efd3eb68fdf13f5e85769bce9aff1b871f4ec8577498d52d8febbe76a1aeb4'
+description: Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Basic version focused on plan clarity, comparison, trust, and conversion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - pricing-page-basic
+  - 定价
+  - 价格页
+  - pricing
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Pricing Page Basic
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:a36ae6571334aa656d9751c709373ea6f317e4499765170ab02dae94f10e3d40
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Pricing Page Basic

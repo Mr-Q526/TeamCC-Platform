@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/data-table-pro
 name: data-table-pro
 displayName: Data Table PRO
-description: 'Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Pro version focused on columns, sorting, selection, inline actions, and density; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:e81e289448388dc2ee30be7686aac5882f7b4fed729517e133a043bd097b76c6'
+description: Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Pro version focused on columns, sorting, selection, inline actions, and density; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - data-table-pro
+  - 数据
+  - data
+  - 表格
+  - 数据表格
+  - data table
+  - 专业版
+  - pro
+  - Data Table PRO
+  - table
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:9e4123448435d6cf0697f0701510f9b668eaabf0764c9cac38e796e536e14ad0
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Data Table PRO

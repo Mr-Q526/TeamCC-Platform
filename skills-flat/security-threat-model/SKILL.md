@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: security/security-threat-model
 name: security-threat-model
 displayName: Security Threat Model
-description: 'Repository-grounded threat modeling that enumerates trust boundaries, assets, attacker capabilities, abuse paths, and mitigations, and writes a concise Markdown threat model. Trigger only when the user explicitly asks to threat model a codebase or path, enumerate threats/abuse paths, or perform AppSec threat modeling. Do not trigger for general architecture summaries, code review, or non-security design work.'
-version: '0.1.0'
-sourceHash: 'sha256:1283c0dd62a8104d9edda4583569b5d8510b4ddaa45120687c999250fd96bad2'
+description: Repository-grounded threat modeling that enumerates trust boundaries, assets, attacker capabilities, abuse paths, and mitigations, and writes a concise Markdown threat model. Trigger only when the user explicitly asks to threat model a codebase or path, enumerate threats/abuse paths, or perform AppSec threat modeling. Do not trigger for general architecture summaries, code review, or non-security design work.
+aliases:
+  - security-threat-model
+  - 安全
+  - 安全审计
+  - security
+  - 威胁建模
+  - 威胁分析
+  - threat model
+  - 模型
+  - 建模
+  - Security Threat Model
+  - threat
+  - model
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - security-audit
+  - security-platform
+version: 0.1.0
+sourceHash: sha256:dadd445c81d4fcf2ca9bec0508a4492051da9aae5ea59a1281e0cbd7b415c987
 domain: security
-departmentTags: [security-platform]
-sceneTags: [architecture, security-audit]
+departmentTags:
+  - security-platform
+sceneTags:
+  - architecture
+  - security-audit
 ---
 
 # Threat Model Source Code Repo

@@ -1,15 +1,31 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: design/ppt-customer-story
 name: ppt-customer-story
 displayName: PPT Customer Story
-description: '面向客户案例、售前证明和项目成效展示生成结构化 PPT，强调客户背景、业务痛点、落地方案、结果数据和客户背书。'
-version: '0.1.0'
-sourceHash: 'sha256:5f3d276262780b12cbc66a435be430c451f000ae62923dcea90b562e659c138f'
+description: 面向客户案例、售前证明和项目成效展示生成结构化 PPT，强调客户背景、业务痛点、落地方案、结果数据和客户背书。
+aliases:
+  - ppt-customer-story
+  - PPT Customer Story
+  - ppt
+  - customer
+  - story
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - content-generation
+  - growth
+version: 0.1.0
+sourceHash: sha256:9761e20a1992fcad16568d074a0912fd8efaba48a9a72f3a7bc6e40c2099a3c5
 domain: design
-departmentTags: [growth]
-sceneTags: [content-generation, design]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - design
 ---
+
 # 客户案例介绍
 
 这个子 skill 用于客户案例、售前证明和项目成效展示。它和“项目介绍”不同，重点不是介绍我们做了什么，而是证明“某类客户在某个场景里，使用方案后获得了什么结果”。

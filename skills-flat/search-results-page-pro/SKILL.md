@@ -1,14 +1,37 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/search-results-page-pro
 name: search-results-page-pro
 displayName: Search Results Page PRO
-description: 'Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Pro version focused on query feedback, relevance, filters, and result scanning; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:07f135ae9cf29c52344d8768b0cf30d7b66954950ec6347e9121105e859f422e'
+description: Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Pro version focused on query feedback, relevance, filters, and result scanning; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - search-results-page-pro
+  - 搜索
+  - 搜索结果
+  - search results
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - Search Results Page PRO
+  - search
+  - results
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:cd0ecdd7cc7c96b1db8ca56a33f5b54b97bd97690579dccc4cd4dc85e1242f43
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Search Results Page PRO

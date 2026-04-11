@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/settings-page-basic
 name: settings-page-basic
 displayName: Settings Page Basic
-description: 'Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Basic version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:303beb5eba94aed8c512727f50abd05826658dc7c0989fe7054b888095604cc9'
+description: Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Basic version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - settings-page-basic
+  - 设置
+  - 配置页
+  - settings
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Settings Page Basic
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:ec05d218a08e32a142ad9ac088131efcbd0ace8b17d86fb7c2a9cc0e36968406
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Settings Page Basic

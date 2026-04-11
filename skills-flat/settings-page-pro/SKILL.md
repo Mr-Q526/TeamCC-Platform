@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/settings-page-pro
 name: settings-page-pro
 displayName: Settings Page PRO
-description: 'Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Pro version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:91c11abb8f21d6aa501f1c6552651c13fe8a440c8fa59055d09b2713db586b29'
+description: Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Pro version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - settings-page-pro
+  - 设置
+  - 配置页
+  - settings
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - Settings Page PRO
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:6e9996a0ecd665b06bdf1ec4d188fc556c95e7f247df0562a832fd5858a8110c
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Settings Page PRO

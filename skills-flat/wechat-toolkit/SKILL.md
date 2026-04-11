@@ -1,15 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: general/wechat-toolkit
 name: wechat-toolkit
 displayName: WeChat Toolkit
-description: '微信公众号一站式工具包 — 集成文章搜索、文章下载、AI洗稿改写、公众号发布四大功能。当用户需要搜索/下载/改写/发布微信公众号文章时使用。'
-version: '0.1.0'
-sourceHash: 'sha256:2d5502af852c384d29e1232b6e2d2e56af03fc0a576bd00a07005addd8ef4038'
+description: 微信公众号一站式工具包 — 集成文章搜索、文章下载、AI洗稿改写、公众号发布四大功能。当用户需要搜索/下载/改写/发布微信公众号文章时使用。
+aliases:
+  - wechat-toolkit
+  - 微信
+  - 公众号
+  - 微信运营
+  - WeChat Toolkit
+  - wechat
+  - toolkit
+  - We
+  - Chat
+  - general
+  - 通用
+  - content-generation
+  - release
+  - growth
+version: 0.1.0
+sourceHash: sha256:2a7e1b1249e156c7dc2311b47419647b1c161c1effa22eed43d64a75f38573cd
 domain: general
-departmentTags: [growth]
-sceneTags: [content-generation, release]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - release
 ---
+
 # 📦 微信公众号工具包 (wechat-toolkit)
 
 集成四大功能模块：**搜索 → 下载 → 洗稿 → 发布**，覆盖公众号内容创作全流程。

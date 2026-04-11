@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/contact-sales-page-pro
 name: contact-sales-page-pro
 displayName: Contact Sales Page PRO
-description: 'Use when designing contact, sales, demo request, consultation, and lead qualification pages. Pro version focused on form clarity, next-step confidence, routing, and trust; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:db094214a3659b5f4888f0399d339f0e8e2c11e6eb223493c4d810112f3bdd66'
+description: Use when designing contact, sales, demo request, consultation, and lead qualification pages. Pro version focused on form clarity, next-step confidence, routing, and trust; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - contact-sales-page-pro
+  - 联系
+  - 联系销售
+  - contact sales
+  - 销售
+  - 销售线索
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - Contact Sales Page PRO
+  - contact
+  - sales
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:1a489fa136cda84439abc6f75085a35c1d7622de981696ce7340a9f375ad9136
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Contact Sales Page PRO

@@ -1,14 +1,38 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/auth-login-page-basic
 name: auth-login-page-basic
 displayName: Auth Login Page Basic
-description: 'Use when designing login, signup, password reset, MFA, and account access pages. Basic version focused on trust, clarity, error recovery, and low-friction account access; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:fefeb9e67865760204a410fd1e94c9e5ec6cee5b7416545fdd57948fc49f7e18'
+description: Use when designing login, signup, password reset, MFA, and account access pages. Basic version focused on trust, clarity, error recovery, and low-friction account access; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - auth-login-page-basic
+  - 认证
+  - 鉴权
+  - 授权
+  - 登录态
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Auth Login Page Basic
+  - auth
+  - login
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:4b30c095e8d7225ee923576b569d8ef5ca57dfb0e5eb8e77ca3be3e0b2d6d024
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Auth Login Page Basic

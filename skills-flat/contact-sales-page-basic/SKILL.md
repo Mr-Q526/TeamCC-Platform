@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/contact-sales-page-basic
 name: contact-sales-page-basic
 displayName: Contact Sales Page Basic
-description: 'Use when designing contact, sales, demo request, consultation, and lead qualification pages. Basic version focused on form clarity, next-step confidence, routing, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:772a34547d181ec7605adc30877efdc91afef230c73a4833f8a5c3cf5ec4fd91'
+description: Use when designing contact, sales, demo request, consultation, and lead qualification pages. Basic version focused on form clarity, next-step confidence, routing, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - contact-sales-page-basic
+  - 联系
+  - 联系销售
+  - contact sales
+  - 销售
+  - 销售线索
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Contact Sales Page Basic
+  - contact
+  - sales
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:821f13138a43397af0fbf7bcc927ee3e348ddc1151993f53400f59a0289800c5
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Contact Sales Page Basic

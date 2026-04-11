@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/profile-account-page-pro
 name: profile-account-page-pro
 displayName: Profile Account Page PRO
-description: 'Use when designing profile, account center, identity, privacy, and user preference pages. Pro version focused on ownership, editability, privacy, and account state visibility; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:a567578a06aebdcc84d395b437333352156f210a2dc836ebcf0081888548f80c'
+description: Use when designing profile, account center, identity, privacy, and user preference pages. Pro version focused on ownership, editability, privacy, and account state visibility; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - profile-account-page-pro
+  - 个人资料
+  - 用户资料
+  - profile
+  - 账户
+  - 账号
+  - 个人中心
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - Profile Account Page PRO
+  - account
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:72be631671b5a9b1b618596ff350a1a22e398bd134c672b0ae69cc07ab79960d
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Profile Account Page PRO

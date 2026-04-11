@@ -19,6 +19,7 @@
     "start": "bun run ./src/bootstrap-entry.ts",
     "version": "bun run ./src/bootstrap-entry.ts --version",
     "eval:skills": "bun run ./scripts/skillRetrievalEval.ts",
+    "skills:refresh-aliases": "bun run ./scripts/skillMetadataAliasRefresh.ts",
     "dev:restore-check": "bun run ./src/dev-entry.ts"
   },
   "dependencies": {

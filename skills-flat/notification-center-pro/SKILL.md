@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/notification-center-pro
 name: notification-center-pro
 displayName: Notification Center PRO
-description: 'Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Pro version focused on priority, read state, grouping, and actionability; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:9f002be007ee7fad4531c0acde231597f3ea2898c81848ebfe7e6a69ea4d04c7'
+description: Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Pro version focused on priority, read state, grouping, and actionability; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - notification-center-pro
+  - 通知
+  - 消息中心
+  - notification
+  - 专业版
+  - pro
+  - Notification Center PRO
+  - center
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:8c662edfd4cfb64e22a1be7655581f2a5f308d705dd80d4ec1702141e26c8ac3
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Notification Center PRO

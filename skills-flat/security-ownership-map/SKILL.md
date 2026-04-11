@@ -1,15 +1,32 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: security/security-ownership-map
 name: security-ownership-map
 displayName: Security Ownership Map
 description: 'Analyze git repositories to build a security ownership topology (people-to-file), compute bus factor and sensitive-code ownership, and export CSV/JSON for graph databases and visualization. Trigger only when the user explicitly wants a security-oriented ownership or bus-factor analysis grounded in git history (for example: orphaned sensitive code, security maintainers, CODEOWNERS reality checks for risk, sensitive hotspots, or ownership clusters). Do not trigger for general maintainer lists or non-security ownership questions.'
-version: '0.1.0'
-sourceHash: 'sha256:f06c1a59247569326702c945f397af163ea96cf2ecfdf2dde280605bf89a3ec8'
+aliases:
+  - security-ownership-map
+  - 安全
+  - 安全审计
+  - security
+  - Security Ownership Map
+  - ownership
+  - map
+  - data-analysis
+  - 数据
+  - data
+  - security-audit
+  - security-platform
+version: 0.1.0
+sourceHash: sha256:dfb554bcb5ffaaf9104e493c4d098c19920cbe5166e6db378fd31ec6cbe67177
 domain: security
-departmentTags: [security-platform]
-sceneTags: [data-analysis, security-audit]
+departmentTags:
+  - security-platform
+sceneTags:
+  - data-analysis
+  - security-audit
 ---
+
 # Security Ownership Map
 
 ## Overview

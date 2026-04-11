@@ -1,15 +1,30 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: tools/spreadsheet
 name: spreadsheet
 displayName: Spreadsheet
-description: 'Use when tasks involve creating, editing, analyzing, or formatting spreadsheets (`.xlsx`, `.csv`, `.tsv`) with formula-aware workflows, cached recalculation, and visual review.'
-version: '0.1.0'
-sourceHash: 'sha256:36baea99e96c77c13d15d24f9d53cd072ccbc120e810bf4e68049edb5b0f1d65'
+description: Use when tasks involve creating, editing, analyzing, or formatting spreadsheets (`.xlsx`, `.csv`, `.tsv`) with formula-aware workflows, cached recalculation, and visual review.
+aliases:
+  - spreadsheet
+  - 表格
+  - Excel
+  - 电子表格
+  - tools
+  - content-generation
+  - data-analysis
+  - 数据
+  - data
+  - data-platform
+version: 0.1.0
+sourceHash: sha256:0a2de6c5e7666e749d6623eb5a669cb67ba117e60eb468fff58f47af7360935b
 domain: tools
-departmentTags: [data-platform]
-sceneTags: [content-generation, data-analysis]
+departmentTags:
+  - data-platform
+sceneTags:
+  - content-generation
+  - data-analysis
 ---
+
 # Spreadsheet Skill
 
 ## When to use

@@ -1,14 +1,37 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/analytics-dashboard-design
 name: analytics-dashboard-design
 displayName: Analytics Dashboard Design
-description: 'Use when the task is to design a BI dashboard, 数据大屏, analytics workspace, reporting console, KPI board, or monitoring page. Focus on question-first information hierarchy, chart choice, filter clarity, metric context, and decision-ready layout.'
-version: '0.1.0'
-sourceHash: 'sha256:d7536db894e437d186a9d9bce858aa8c7d96151782d78224d789e658b39fdbfb'
+description: Use when the task is to design a BI dashboard, 数据大屏, analytics workspace, reporting console, KPI board, or monitoring page. Focus on question-first information hierarchy, chart choice, filter clarity, metric context, and decision-ready layout.
+aliases:
+  - analytics-dashboard-design
+  - 数据分析
+  - 分析看板
+  - BI
+  - 指标看板
+  - 仪表盘
+  - 看板
+  - 控制台
+  - dashboard
+  - 设计
+  - UI
+  - 视觉设计
+  - Analytics Dashboard Design
+  - analytics
+  - design
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:bafea9da77fa0032a6e8fa494441b9a06942cb14b2fc9be44d46678158d83716
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Analytics Dashboard Design

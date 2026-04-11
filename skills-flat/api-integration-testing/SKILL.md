@@ -1,14 +1,33 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/api-integration-testing
 name: api-integration-testing
 displayName: API Integration Testing
-description: 'Use when working on API integration tests across services, databases, auth, and external dependencies. Focus on contract correctness, realistic fixtures, isolation, and deterministic assertions.'
-version: '0.1.0'
-sourceHash: 'sha256:82e4763402f9dc0fe8a3f3b6a8a3ef350368b892372a1ffd9f09cb9f970e5292'
+description: Use when working on API integration tests across services, databases, auth, and external dependencies. Focus on contract correctness, realistic fixtures, isolation, and deterministic assertions.
+aliases:
+  - api-integration-testing
+  - API
+  - 接口
+  - 服务接口
+  - 测试
+  - 测试策略
+  - testing
+  - API Integration Testing
+  - integration
+  - backend
+  - 后端
+  - 服务端
+  - server side
+  - test
+  - 验证
+  - backend-platform
+version: 0.1.0
+sourceHash: sha256:7bf16bc4af3988d4dd30e902c218e9584214e9cecbd5fe4105c444932158175e
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [test]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - test
 ---
 
 # API Integration Testing

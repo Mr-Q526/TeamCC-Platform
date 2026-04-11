@@ -14,6 +14,7 @@ type IndexedSkill = {
   name: string
   displayName: string
   description: string
+  aliases: string[]
   version: string
   sourceHash: string
   domain: string
@@ -27,6 +28,7 @@ export type LocalSkillSearchResult = {
   name: string
   displayName: string
   description: string
+  aliases: string[]
   version: string
   sourceHash: string
   score: number
@@ -50,6 +52,7 @@ type LocalSkillSearchOptions = {
 export type SkillScoreBreakdown = {
   exactName: number
   displayName: number
+  alias: number
   lexical: number
   department: number
   domain: number
@@ -299,6 +302,7 @@ async function buildSkillIndex(cwd: string): Promise<IndexedSkill[]> {
             name,
             displayName: toStringValue(frontmatter.displayName, name),
             description: toStringValue(frontmatter.description),
+            aliases: toStringArray(frontmatter.aliases),
             version: toStringValue(frontmatter.version, '0.0.0'),
             sourceHash: toStringValue(frontmatter.sourceHash),
             domain,
@@ -362,6 +366,7 @@ function scoreSkill(
     ...tokenize(skill.name),
     ...tokenize(skill.displayName),
     ...tokenize(skill.description),
+    ...skill.aliases.flatMap(tokenize),
     ...tokenize(skill.domain),
     ...skill.departmentTags.flatMap(tokenize),
     ...skill.sceneTags.flatMap(tokenize),
@@ -371,6 +376,7 @@ function scoreSkill(
   const scoreBreakdown: SkillScoreBreakdown = {
     exactName: 0,
     displayName: 0,
+    alias: 0,
     lexical: 0,
     department: 0,
     domain: 0,
@@ -384,6 +390,14 @@ function scoreSkill(
 
   if (normalizedDisplayName && normalizedQuery.includes(normalizedDisplayName)) {
     scoreBreakdown.displayName += 55
+  }
+
+  for (const alias of skill.aliases) {
+    const normalizedAlias = normalizeText(alias)
+    if (!normalizedAlias || !normalizedQuery.includes(normalizedAlias)) {
+      continue
+    }
+    scoreBreakdown.alias += normalizedAlias.length >= 4 ? 34 : 16
   }
 
   for (const token of queryTokens) {
@@ -447,6 +461,7 @@ function toTelemetryCandidate(
     skillId: skill.skillId,
     name: skill.name,
     displayName: skill.displayName,
+    aliases: skill.aliases,
     version: skill.version,
     sourceHash: skill.sourceHash,
     domain: skill.domain,
@@ -519,6 +534,7 @@ export async function localSkillSearch({
     name: skill.name,
     displayName: skill.displayName,
     description: skill.description,
+    aliases: skill.aliases,
     version: skill.version,
     sourceHash: skill.sourceHash,
     score: skill.score,

@@ -1,16 +1,28 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: ai/transcribe
 name: transcribe
 displayName: Transcribe
-description: 'Transcribe audio files to text with optional diarization and known-speaker hints. Use when a user asks to transcribe speech from audio/video, extract text from recordings, or label speakers in interviews or meetings.'
-version: '0.1.0'
-sourceHash: 'sha256:f530021da9f377362ee4214e0bc689cbb5404640d2eb88ee272d51d61f530a09'
+description: Transcribe audio files to text with optional diarization and known-speaker hints. Use when a user asks to transcribe speech from audio/video, extract text from recordings, or label speakers in interviews or meetings.
+aliases:
+  - transcribe
+  - ai
+  - 人工智能
+  - 智能助手
+  - content-generation
+  - data-analysis
+  - 数据
+  - data
+  - ai-platform
+version: 0.1.0
+sourceHash: sha256:4e33510ba683cfcce1fd74ec88a18cfc6c25f6e9e1c2df6bb11d851e4ead9abc
 domain: ai
-departmentTags: [ai-platform]
-sceneTags: [content-generation, data-analysis]
+departmentTags:
+  - ai-platform
+sceneTags:
+  - content-generation
+  - data-analysis
 ---
-
 
 # Audio Transcribe
 

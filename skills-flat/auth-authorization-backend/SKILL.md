@@ -1,14 +1,46 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/auth-authorization-backend
 name: auth-authorization-backend
 displayName: Backend Auth Authorization
-description: 'Use when working on authentication, authorization, sessions, API keys, RBAC, ABAC, and tenant boundaries. Focus on least privilege, secure defaults, session safety, and auditable permission checks.'
-version: '0.1.0'
-sourceHash: 'sha256:6d0c5fa5935044dfe46da249b1150f237daab956690dcc1fd678c4fc95c0d293'
+description: Use when working on authentication, authorization, sessions, API keys, RBAC, ABAC, and tenant boundaries. Focus on least privilege, secure defaults, session safety, and auditable permission checks.
+aliases:
+  - 后端鉴权
+  - 接口授权
+  - 租户边界
+  - 权限检查
+  - auth-authorization-backend
+  - 认证
+  - 鉴权
+  - 授权
+  - 登录态
+  - 权限
+  - RBAC
+  - ABAC
+  - 后端
+  - 服务端
+  - server side
+  - Backend Auth Authorization
+  - auth authorization backend
+  - auth
+  - authorization
+  - backend
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - security-audit
+  - 安全
+  - 安全审计
+  - security
+version: 0.1.0
+sourceHash: sha256:c4d9c9fc1cbb59b8de303065e50e8cc17551a473b7d85da7989d34de0ae46fe6
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [architecture, security-audit]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - architecture
+  - security-audit
 ---
 
 # Backend Auth Authorization

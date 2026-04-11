@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/careers-page-basic
 name: careers-page-basic
 displayName: Careers Page Basic
-description: 'Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Basic version focused on role discovery, culture proof, benefits, and application clarity; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:859535f8b46f51b627af2e3390f86ab92541196de42b4e70ad2103a143e9dfe1'
+description: Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Basic version focused on role discovery, culture proof, benefits, and application clarity; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - careers-page-basic
+  - 招聘
+  - 加入我们
+  - 职位页面
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Careers Page Basic
+  - careers
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:19ffb27453db37ad11cf46a97810fb09986bb2b1422973f73bfe3e33df775012
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Careers Page Basic

@@ -1,15 +1,33 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: security/security-best-practices
 name: security-best-practices
 displayName: Security Best Practices
-description: 'Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.'
-version: '0.1.0'
-sourceHash: 'sha256:7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f'
+description: Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.
+aliases:
+  - security-best-practices
+  - 安全
+  - 安全审计
+  - security
+  - Security Best Practices
+  - best
+  - practices
+  - review
+  - 代码审查
+  - code review
+  - 评审
+  - security-audit
+  - security-platform
+version: 0.1.0
+sourceHash: sha256:deae1d67b8e4e3b6dcdc3ee0bfd4b3e278e7347c7507e4bd272dab5a46a00dbd
 domain: security
-departmentTags: [security-platform]
-sceneTags: [review, security-audit]
+departmentTags:
+  - security-platform
+sceneTags:
+  - review
+  - security-audit
 ---
+
 # Security Best Practices
 
 ## Overview

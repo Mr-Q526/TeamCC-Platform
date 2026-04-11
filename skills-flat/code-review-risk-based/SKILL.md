@@ -1,14 +1,42 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: review/code-review-risk-based
 name: code-review-risk-based
 displayName: Risk Based Code Review
-description: 'Use when working on high-risk diffs touching auth, payments, data loss, concurrency, migrations, or public APIs. Focus on blast radius, invariants, rollback, observability, and edge cases.'
-version: '0.1.0'
-sourceHash: 'sha256:fdb6f9555ab61a55895d125c9273c1730634b978ebfc8eb95deef8ed9a62985b'
+description: Use when working on high-risk diffs touching auth, payments, data loss, concurrency, migrations, or public APIs. Focus on blast radius, invariants, rollback, observability, and edge cases.
+aliases:
+  - code-review-risk-based
+  - 代码
+  - coding
+  - 代码实现
+  - 代码审查
+  - code review
+  - 评审
+  - 风险
+  - 风险审查
+  - risk-based
+  - Risk Based Code Review
+  - code review risk based
+  - code
+  - review
+  - risk
+  - based
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - backend-platform
+  - 后端
+  - 服务端
+  - server side
+version: 0.1.0
+sourceHash: sha256:93133dfa4213cad3f63cca2336bc1cdd89fd8b023d228f6e517ef35bfbfe6734
 domain: review
-departmentTags: [backend-platform]
-sceneTags: [review, architecture]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - review
+  - architecture
 ---
 
 # Risk Based Code Review

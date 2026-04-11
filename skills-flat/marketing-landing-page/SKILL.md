@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/marketing-landing-page
 name: marketing-landing-page
 displayName: Marketing Landing Page
-description: 'Use when the task is to design a campaign page, 营销落地页, launch page, feature promotion page, webinar signup page, or lead generation page. Focus on one conversion goal, persuasive sequencing, proof, CTA rhythm, and low-friction form design.'
-version: '0.1.0'
-sourceHash: 'sha256:e617a29d211b2b19ed92d4e2145cc2e4de87670a5ad7ffcc2ddde13e08c8bf02'
+description: Use when the task is to design a campaign page, 营销落地页, launch page, feature promotion page, webinar signup page, or lead generation page. Focus on one conversion goal, persuasive sequencing, proof, CTA rhythm, and low-friction form design.
+aliases:
+  - 营销落地页
+  - 转化页
+  - 预约 demo
+  - 获客页
+  - marketing-landing-page
+  - 营销
+  - 落地页
+  - campaign page
+  - 页面
+  - page
+  - Marketing Landing Page
+  - marketing
+  - landing
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:f29a2e7e33b6fdba19ed3754bdf489967d4bfb0c88506fe6ec2b73f308a064c2
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Marketing Landing Page

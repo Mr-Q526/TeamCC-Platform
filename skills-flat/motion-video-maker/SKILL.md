@@ -1,15 +1,31 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: design/motion-video-maker
 name: motion-video-maker
 displayName: Motion Video Maker
-description: '根据文本、脚本或 Markdown 生成结构化讲解动画视频，使用 Web 页面制作和预览 AE / PR 风格的动效。必须严格根据解说文本规划合理的动画播放与切换时间，先生成预览，只有在用户明确确认后才导出 mp4。适用于知识讲解、产品介绍、口播配套动画、字幕强化、步骤演示和数据解说视频。'
-version: '0.1.0'
-sourceHash: 'sha256:98fbe0e9a45aa5460e2a4ba8fe2eac79840f2b2a4749027e713426902532356b'
+description: 根据文本、脚本或 Markdown 生成结构化讲解动画视频，使用 Web 页面制作和预览 AE / PR 风格的动效。必须严格根据解说文本规划合理的动画播放与切换时间，先生成预览，只有在用户明确确认后才导出 mp4。适用于知识讲解、产品介绍、口播配套动画、字幕强化、步骤演示和数据解说视频。
+aliases:
+  - motion-video-maker
+  - Motion Video Maker
+  - motion
+  - video
+  - maker
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - content-generation
+  - growth
+version: 0.1.0
+sourceHash: sha256:45d0918b64d41b2f6c195268b48d9261ef57adfb0327aeab645edde120b2552c
 domain: design
-departmentTags: [growth]
-sceneTags: [content-generation, design]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - design
 ---
+
 # Motion Video Maker
 
 本技能用于构建结构化讲解动画视频，而不是让 AI 直接输出一份不可维护的随意 HTML。

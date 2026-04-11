@@ -1,15 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: tools/playwright-interactive
 name: playwright-interactive
 displayName: Playwright Interactive
-description: 'Persistent browser and Electron interaction through `js_repl` for fast iterative UI debugging.'
-version: '0.1.0'
-sourceHash: 'sha256:f6c1155d923e6ae3ccc12abfef2266f119f8e9546df2ddeee1f5eb369845a0a1'
+description: Persistent browser and Electron interaction through `js_repl` for fast iterative UI debugging.
+aliases:
+  - playwright-interactive
+  - Playwright Interactive
+  - playwright
+  - interactive
+  - tools
+  - debug
+  - 调试
+  - 排查
+  - 定位问题
+  - test
+  - 测试
+  - 验证
+  - frontend-platform
+  - 前端
+  - Web 前端
+  - 页面开发
+version: 0.1.0
+sourceHash: sha256:2013245683be87839bea22892cbf86c1d49752338417b215edf2fe15b5c7352f
 domain: tools
-departmentTags: [frontend-platform]
-sceneTags: [debug, test]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - debug
+  - test
 ---
+
 # Playwright Interactive Skill
 
 Use a persistent `js_repl` Playwright session to debug local web or Electron apps, keep the same handles alive across iterations, and run functional plus visual QA without restarting the whole toolchain unless the process ownership changed.

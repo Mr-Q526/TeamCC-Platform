@@ -1,15 +1,33 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: tools/playwright
 name: playwright
 displayName: Playwright
-description: 'Use when the task requires automating a real browser from the terminal (navigation, form filling, snapshots, screenshots, data extraction, UI-flow debugging) via `playwright-cli` or the bundled wrapper script.'
-version: '0.1.0'
-sourceHash: 'sha256:0ffaabcc8e0990627c4725f18bf1c7955534a796c1c199e872909de2013ce6a8'
+description: Use when the task requires automating a real browser from the terminal (navigation, form filling, snapshots, screenshots, data extraction, UI-flow debugging) via `playwright-cli` or the bundled wrapper script.
+aliases:
+  - playwright
+  - tools
+  - debug
+  - 调试
+  - 排查
+  - 定位问题
+  - test
+  - 测试
+  - 验证
+  - frontend-platform
+  - 前端
+  - Web 前端
+  - 页面开发
+version: 0.1.0
+sourceHash: sha256:a537f13f154660eeeb0e72a93beecd165fc49409dd4b203441a711bc7d1c7e2a
 domain: tools
-departmentTags: [frontend-platform]
-sceneTags: [debug, test]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - debug
+  - test
 ---
+
 # Playwright CLI Skill
 
 Drive a real browser from the terminal using `playwright-cli`. Prefer the bundled wrapper script so the CLI works even when it is not globally installed.

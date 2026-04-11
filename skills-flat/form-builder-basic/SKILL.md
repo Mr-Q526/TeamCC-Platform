@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/form-builder-basic
 name: form-builder-basic
 displayName: Form Builder Basic
-description: 'Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Basic version focused on labels, validation, progressive disclosure, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:5466fe6ed36d740a698bb0ff43d51f7284eff0cda7eb4d06e064be0156dfff51'
+description: Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Basic version focused on labels, validation, progressive disclosure, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - form-builder-basic
+  - 表单
+  - 表单构建
+  - form
+  - 构建器
+  - 生成器
+  - builder
+  - 基础版
+  - basic
+  - Form Builder Basic
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:84a72ee973701636d8d04a6043e3b3439baae909fe2b53c4f7eb9badc3c7dbe0
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Form Builder Basic

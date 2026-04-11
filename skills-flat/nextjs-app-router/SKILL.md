@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/nextjs-app-router
 name: nextjs-app-router
 displayName: Next.js App Router
-description: 'Provides patterns and code examples for building Next.js 16+ applications with App Router architecture. Use when creating projects with App Router, implementing Server Components and Client Components ("use client"), creating Server Actions for forms, building Route Handlers (route.ts), configuring caching with "use cache" directive (cacheLife, cacheTag), setting up parallel routes (`@slot`) or intercepting routes, migrating to proxy.ts, or working with App Router file conventions (layout.tsx, page.tsx, loading.tsx, error.tsx).'
-version: '0.1.0'
-sourceHash: 'sha256:678a88fb1f32913079ad4aea88f59ab6bbe5ba503cd2730a1bb8e2cf16f30391'
+description: Provides patterns and code examples for building Next.js 16+ applications with App Router architecture. Use when creating projects with App Router, implementing Server Components and Client Components ("use client"), creating Server Actions for forms, building Route Handlers (route.ts), configuring caching with "use cache" directive (cacheLife, cacheTag), setting up parallel routes (`@slot`) or intercepting routes, migrating to proxy.ts, or working with App Router file conventions (layout.tsx, page.tsx, loading.tsx, error.tsx).
+aliases:
+  - nextjs-app-router
+  - Next.js App Router
+  - nextjs app router
+  - nextjs
+  - app
+  - router
+  - Next
+  - js
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:44735c6c2a05ffeaca65e360402f23452b752ef17ea2aaa7a7cceed18cced09a
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [architecture]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - architecture
 ---
 
 # Next.js App Router (Next.js 16+)

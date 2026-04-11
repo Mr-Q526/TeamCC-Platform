@@ -1,14 +1,29 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/frontend-skill
 name: frontend-skill
 displayName: Frontend Skill
-description: 'Use when the task asks for a visually strong landing page, website, app, prototype, demo, or game UI. This skill enforces restrained composition, image-led hierarchy, cohesive content structure, and tasteful motion while avoiding generic cards, weak branding, and UI clutter.'
-version: '0.1.0'
-sourceHash: 'sha256:d367b2d22825d74c169475507e7ff109b81c1e9c20b2de3421fb19fcfbe3329b'
+description: Use when the task asks for a visually strong landing page, website, app, prototype, demo, or game UI. This skill enforces restrained composition, image-led hierarchy, cohesive content structure, and tasteful motion while avoiding generic cards, weak branding, and UI clutter.
+aliases:
+  - frontend-skill
+  - 前端
+  - Web 前端
+  - 页面开发
+  - Frontend Skill
+  - frontend
+  - skill
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:520cd8196eb61d86358467ffdac5406b8956a6748186838639ae56c644e2b249
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Frontend Skill

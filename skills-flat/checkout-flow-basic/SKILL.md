@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/checkout-flow-basic
 name: checkout-flow-basic
 displayName: Checkout Flow Basic
-description: 'Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Basic version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:14e105a3a0b0360db1360c9ace7fe2ba5758a0a40b4c2aca32f0cce4d4197195'
+description: Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Basic version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - checkout-flow-basic
+  - 结账
+  - 支付流程
+  - 下单流程
+  - 基础版
+  - basic
+  - Checkout Flow Basic
+  - checkout
+  - flow
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:a6653535c3295ae9ef923255a1fc1fc67d8f769086288f25999310ea63489908
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Checkout Flow Basic

@@ -1,14 +1,37 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/fintech-dashboard-pro
 name: fintech-dashboard-pro
 displayName: Fintech Dashboard PRO
-description: 'Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Pro version focused on precision, compliance cues, risk visibility, and decision context; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:695f117b458d9d50b7b32e10b18366f4f65f585cac794993da4ab9b63358a4f0'
+description: Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Pro version focused on precision, compliance cues, risk visibility, and decision context; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - fintech-dashboard-pro
+  - 金融科技
+  - 金融
+  - fintech
+  - 仪表盘
+  - 看板
+  - 控制台
+  - dashboard
+  - 专业版
+  - pro
+  - Fintech Dashboard PRO
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:bbc57001525c136afa51c864148d8bb5e20192652d83723de845b20e5e5c234a
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Fintech Dashboard PRO

@@ -1,14 +1,38 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: security/dependency-supply-chain-audit
 name: dependency-supply-chain-audit
 displayName: Dependency Supply Chain Audit
-description: 'Use when working on dependency review, vulnerable packages, lockfile risk, license concerns, and supply-chain hygiene. Focus on known CVEs, typosquatting risk, lockfile integrity, and update safety.'
-version: '0.1.0'
-sourceHash: 'sha256:7250bcac1284f2b5ed3050603cc988f233c69fd84bbd90a310862b5dddbc103c'
+description: Use when working on dependency review, vulnerable packages, lockfile risk, license concerns, and supply-chain hygiene. Focus on known CVEs, typosquatting risk, lockfile integrity, and update safety.
+aliases:
+  - dependency-supply-chain-audit
+  - 依赖
+  - 依赖安全
+  - dependency
+  - 供应链
+  - 软件供应链
+  - 链路
+  - Dependency Supply Chain Audit
+  - supply
+  - chain
+  - audit
+  - security
+  - 安全
+  - 安全审计
+  - security-audit
+  - review
+  - 代码审查
+  - code review
+  - 评审
+  - security-platform
+version: 0.1.0
+sourceHash: sha256:74855dfa0a67e1c73d3a4c550b7752bb4510ab0ad972e73f561be24a9fceaf52
 domain: security
-departmentTags: [security-platform]
-sceneTags: [security-audit, review]
+departmentTags:
+  - security-platform
+sceneTags:
+  - security-audit
+  - review
 ---
 
 # Dependency Supply Chain Audit

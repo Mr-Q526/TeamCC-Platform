@@ -1,14 +1,29 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: infra/vercel-deploy
 name: vercel-deploy
 displayName: Vercel Deploy
-description: 'Deploy applications and websites to Vercel. Use when the user requests deployment actions like "deploy my app", "deploy and give me the link", "push this live", or "create a preview deployment".'
-version: '0.1.0'
-sourceHash: 'sha256:f4a6cbfbb378a320fae179a79f727a881d19677e9b3db96ed49d2dc02a74fa46'
+description: Deploy applications and websites to Vercel. Use when the user requests deployment actions like "deploy my app", "deploy and give me the link", "push this live", or "create a preview deployment".
+aliases:
+  - vercel-deploy
+  - Vercel
+  - 部署
+  - 预览环境
+  - 发布
+  - 上线
+  - Vercel Deploy
+  - deploy
+  - infra
+  - release
+  - infra-platform
+version: 0.1.0
+sourceHash: sha256:8ace7b360b7fd88d0088c9cf543357c7bf41c214ae5e725c8d52409a07f1021e
 domain: infra
-departmentTags: [infra-platform]
-sceneTags: [deploy, release]
+departmentTags:
+  - infra-platform
+sceneTags:
+  - deploy
+  - release
 ---
 
 # Vercel Deploy

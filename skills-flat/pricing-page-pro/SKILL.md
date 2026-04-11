@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/pricing-page-pro
 name: pricing-page-pro
 displayName: Pricing Page PRO
-description: 'Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Pro version focused on plan clarity, comparison, trust, and conversion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:c67b828f1c1a5787b2bbd4f02314ccf38ebad4f2f9bbc82e453157af62c8443a'
+description: Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Pro version focused on plan clarity, comparison, trust, and conversion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - pricing-page-pro
+  - 定价
+  - 价格页
+  - pricing
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - Pricing Page PRO
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:b77feb08d10bcb23de9f12445f73712d8fbde3c82381dd6a71392746e487859d
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Pricing Page PRO

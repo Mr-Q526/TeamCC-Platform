@@ -1,14 +1,38 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/data-migration-backfill
 name: data-migration-backfill
 displayName: Data Migration Backfill
-description: 'Use when working on schema migrations, data migrations, backfills, dual writes, and rollout plans. Focus on reversibility, idempotency, batching, verification, and rollback safety.'
-version: '0.1.0'
-sourceHash: 'sha256:7810b35536695e00023060a197952f952014697258cd66a733d9315c58e4482e'
+description: Use when working on schema migrations, data migrations, backfills, dual writes, and rollout plans. Focus on reversibility, idempotency, batching, verification, and rollback safety.
+aliases:
+  - data-migration-backfill
+  - 数据
+  - data
+  - 迁移
+  - 数据迁移
+  - migration
+  - 数据回填
+  - 补数据
+  - backfill
+  - Data Migration Backfill
+  - backend
+  - 后端
+  - 服务端
+  - server side
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - release
+  - backend-platform
+version: 0.1.0
+sourceHash: sha256:eadcec67071b149d9280b770b579ad88c397b551f269bd1fe89ea56e8c512332
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [architecture, release]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - architecture
+  - release
 ---
 
 # Data Migration Backfill

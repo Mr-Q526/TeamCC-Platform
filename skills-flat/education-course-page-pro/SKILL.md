@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/education-course-page-pro
 name: education-course-page-pro
 displayName: Education Course Page PRO
-description: 'Use when designing course pages, lesson players, LMS dashboards, and learning paths. Pro version focused on learning hierarchy, progress, practice, and motivation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:9a6cf00e11a8f8b9a752b19adbd849e64a4178c49c2e994da407b1aae6b6c9b7'
+description: Use when designing course pages, lesson players, LMS dashboards, and learning paths. Pro version focused on learning hierarchy, progress, practice, and motivation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - education-course-page-pro
+  - 教育
+  - 课程
+  - 学习
+  - 教学
+  - 课程页
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - Education Course Page PRO
+  - education
+  - course
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:b5e64b0046355c1b684e3a3a867c062276278fe5a663b3bcf5e6f00d5ec8caa0
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Education Course Page PRO

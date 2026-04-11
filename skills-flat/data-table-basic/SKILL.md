@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/data-table-basic
 name: data-table-basic
 displayName: Data Table Basic
-description: 'Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Basic version focused on columns, sorting, selection, inline actions, and density; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:dbd1b07abb0cf7b0f7dd614a5da79f3612bdb6f0fd14ee716a85ad28de5545e7'
+description: Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Basic version focused on columns, sorting, selection, inline actions, and density; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - data-table-basic
+  - 数据
+  - data
+  - 表格
+  - 数据表格
+  - data table
+  - 基础版
+  - basic
+  - Data Table Basic
+  - table
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:d9759dbf661b02387c4ace7c56fe0bdef7001134ba0739ec22c98a4b7e7d3d6d
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Data Table Basic

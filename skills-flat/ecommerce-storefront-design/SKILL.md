@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/ecommerce-storefront-design
 name: ecommerce-storefront-design
 displayName: Ecommerce Storefront Design
-description: 'Use when the task is to design an ecommerce storefront, 电商首页, product listing page, product detail page, shopping flow, or brand shop. Focus on product discovery, merchandising hierarchy, trust, pricing clarity, and conversion flow.'
-version: '0.1.0'
-sourceHash: 'sha256:0f4250b23cdc4cc29fde8ec767f7b7d87c2fb9eb8c147f64b1be404da093895d'
+description: Use when the task is to design an ecommerce storefront, 电商首页, product listing page, product detail page, shopping flow, or brand shop. Focus on product discovery, merchandising hierarchy, trust, pricing clarity, and conversion flow.
+aliases:
+  - ecommerce-storefront-design
+  - 电商
+  - 商城
+  - 购物
+  - 店铺首页
+  - 商城首页
+  - 商品页
+  - storefront
+  - 设计
+  - UI
+  - 视觉设计
+  - Ecommerce Storefront Design
+  - ecommerce
+  - design
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:262a61b1434fe1764c9720e9abff1c9397e4758ecc1da89841015fd278c490d1
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Ecommerce Storefront Design

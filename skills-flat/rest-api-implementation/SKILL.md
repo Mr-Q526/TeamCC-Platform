@@ -1,14 +1,43 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/rest-api-implementation
 name: rest-api-implementation
 displayName: REST API Implementation
-description: 'Use when working on REST API routes, controllers, validation, pagination, errors, and versioning. Focus on predictable resources, validation, error semantics, and compatibility.'
-version: '0.1.0'
-sourceHash: 'sha256:3943bc128aedb96bca3c443a2fb9d90eae91c2d1a8c44b7d0a9cba91395b94e5'
+description: Use when working on REST API routes, controllers, validation, pagination, errors, and versioning. Focus on predictable resources, validation, error semantics, and compatibility.
+aliases:
+  - REST 接口
+  - controller
+  - 参数校验
+  - 分页接口
+  - rest-api-implementation
+  - REST
+  - REST API
+  - 资源接口
+  - API
+  - 接口
+  - 服务接口
+  - REST API Implementation
+  - implementation
+  - backend
+  - 后端
+  - 服务端
+  - server side
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - test
+  - 测试
+  - 验证
+  - backend-platform
+version: 0.1.0
+sourceHash: sha256:269df220bec0c3d8e183e0f08592f32e636c9530828743bd31da318d2fb9781e
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [architecture, test]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - architecture
+  - test
 ---
 
 # REST API Implementation

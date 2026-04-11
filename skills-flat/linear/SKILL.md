@@ -1,15 +1,24 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: tools/linear
 name: linear
 displayName: Linear
-description: 'Manage issues, projects & team workflows in Linear. Use when the user wants to read, create or updates tickets in Linear.'
-version: '0.1.0'
-sourceHash: 'sha256:ce0f39c95b6c9190f8ea33614393cdb556b2684dd8388ded394e9cb915f42601'
+description: Manage issues, projects & team workflows in Linear. Use when the user wants to read, create or updates tickets in Linear.
+aliases:
+  - linear
+  - tools
+  - review
+  - 代码审查
+  - code review
+  - 评审
+version: 0.1.0
+sourceHash: sha256:c2f47c3a78173e4280d97eb1a47b4a1cadf3e38c85a2004e4871a550114a7da8
 domain: tools
 departmentTags: []
-sceneTags: [review]
+sceneTags:
+  - review
 ---
+
 # Linear
 
 ## Overview

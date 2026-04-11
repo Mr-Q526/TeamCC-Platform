@@ -1,14 +1,37 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/admin-dashboard-design
 name: admin-dashboard-design
 displayName: Admin Dashboard Design
-description: 'Use when the task is to design a management console, 管理后台, admin panel, operations dashboard, moderation tool, or back-office web app. Focus on operator efficiency, table-first layout, filters, bulk actions, status visibility, and low-noise product UI.'
-version: '0.1.0'
-sourceHash: 'sha256:65365f5c8d2bf1105a4c457149037e1a9cd22725318c168e6e89175aaf908470'
+description: Use when the task is to design a management console, 管理后台, admin panel, operations dashboard, moderation tool, or back-office web app. Focus on operator efficiency, table-first layout, filters, bulk actions, status visibility, and low-noise product UI.
+aliases:
+  - admin-dashboard-design
+  - 管理后台
+  - 后台管理
+  - 管理台
+  - admin panel
+  - 仪表盘
+  - 看板
+  - 控制台
+  - dashboard
+  - 设计
+  - UI
+  - 视觉设计
+  - Admin Dashboard Design
+  - admin
+  - design
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:5ae365da050ebe49ea080f128b4d48ba1d60d544ca2f99ed99a25fcac3a57b71
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Admin Dashboard Design

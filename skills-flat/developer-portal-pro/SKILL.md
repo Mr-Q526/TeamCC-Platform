@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/developer-portal-pro
 name: developer-portal-pro
 displayName: Developer Portal PRO
-description: 'Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Pro version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:287ddca5dafed262cd85aa3365a259887b801e387bc8acb10360153ebdfc1c67'
+description: Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Pro version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - developer-portal-pro
+  - 开发者
+  - 开发者门户
+  - developer portal
+  - 专业版
+  - pro
+  - Developer Portal PRO
+  - developer
+  - portal
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:befefa5e9203a3dcd264ebf02cc74530708f89231657597b38ad1bd6cfa2a332
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Developer Portal PRO

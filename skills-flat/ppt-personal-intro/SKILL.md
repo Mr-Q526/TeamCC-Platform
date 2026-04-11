@@ -1,15 +1,31 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: design/ppt-personal-intro
 name: ppt-personal-intro
 displayName: PPT Personal Intro
-description: '面向个人介绍、自我介绍、嘉宾简介和作品集场景生成结构化 PPT，强调身份定位、经历主线、代表项目和可记忆结尾。'
-version: '0.1.0'
-sourceHash: 'sha256:37e71ea3f9821714031dfb082aa135177f04fba8e0236a03bc7730f24ca15a39'
+description: 面向个人介绍、自我介绍、嘉宾简介和作品集场景生成结构化 PPT，强调身份定位、经历主线、代表项目和可记忆结尾。
+aliases:
+  - ppt-personal-intro
+  - PPT Personal Intro
+  - ppt
+  - personal
+  - intro
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - content-generation
+  - growth
+version: 0.1.0
+sourceHash: sha256:08c74c6820d35fd8df0dc2b15f276ed86cf292749a0eb2478f41f3728717a9ae
 domain: design
-departmentTags: [growth]
-sceneTags: [content-generation, design]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - design
 ---
+
 # 个人介绍
 
 这个子 skill 用于个人介绍、嘉宾介绍、求职陈述和作品集首页。重点不是把简历逐条贴进 PPT，而是用 4 到 6 页讲清楚“我是谁、为什么值得被记住、我做过什么、我想如何被合作”。

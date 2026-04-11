@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/component-library-pro
 name: component-library-pro
 displayName: Component Library PRO
-description: 'Use when designing component libraries, UI kits, reusable React components, and implementation examples. Pro version focused on API clarity, variants, states, and usage consistency; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:1332990c5df0870c8916e51bf4ed329504784a5f68200d2390afd106e606b930'
+description: Use when designing component libraries, UI kits, reusable React components, and implementation examples. Pro version focused on API clarity, variants, states, and usage consistency; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - component-library-pro
+  - 组件
+  - 组件库
+  - UI 组件
+  - 库
+  - library
+  - 专业版
+  - pro
+  - Component Library PRO
+  - component
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:6893dd7a1dff52f14e9fd328a5c7156e2a9b09aec4ca515618e3bb7f9f87ed29
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Component Library PRO

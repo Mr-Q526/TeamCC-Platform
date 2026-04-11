@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/backend-performance-profiling
 name: backend-performance-profiling
 displayName: Backend Performance Profiling
-description: 'Use when working on backend performance profiling, slow endpoint analysis, query hotspots, CPU, memory, and latency work. Focus on measurement, profiling evidence, hot path reduction, and regression guards.'
-version: '0.1.0'
-sourceHash: 'sha256:b874645a0e498f6ac80c9f48745b8de8deba5c59cc441cc4546f2cc359ef595a'
+description: Use when working on backend performance profiling, slow endpoint analysis, query hotspots, CPU, memory, and latency work. Focus on measurement, profiling evidence, hot path reduction, and regression guards.
+aliases:
+  - backend-performance-profiling
+  - 后端
+  - 服务端
+  - server side
+  - 性能
+  - 性能优化
+  - 性能分析
+  - Backend Performance Profiling
+  - backend
+  - performance
+  - profiling
+  - debug
+  - 调试
+  - 排查
+  - 定位问题
+  - backend-platform
+version: 0.1.0
+sourceHash: sha256:9b4d8b9c7a47d9b186fea138434080b028876653514da76635bb1f142b61597c
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [debug, performance]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - debug
+  - performance
 ---
 
 # Backend Performance Profiling

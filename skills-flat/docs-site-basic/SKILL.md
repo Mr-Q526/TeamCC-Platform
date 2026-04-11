@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/docs-site-basic
 name: docs-site-basic
 displayName: Docs Site Basic
-description: 'Use when designing documentation sites, knowledge bases, developer docs, and help centers. Basic version focused on findability, readable hierarchy, examples, and navigation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:bf6a35b519da2e476ce9b38b98591d145faf120b73d2090be247c8153f1fbab0'
+description: Use when designing documentation sites, knowledge bases, developer docs, and help centers. Basic version focused on findability, readable hierarchy, examples, and navigation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - docs-site-basic
+  - 文档站
+  - 文档网站
+  - documentation
+  - 基础版
+  - basic
+  - Docs Site Basic
+  - docs
+  - site
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:6efc00ac06a70bd9d98baec5d9cb4543afc9ad3773acfe2df1646fe097abcabf
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Docs Site Basic

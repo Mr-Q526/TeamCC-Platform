@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/component-library-basic
 name: component-library-basic
 displayName: Component Library Basic
-description: 'Use when designing component libraries, UI kits, reusable React components, and implementation examples. Basic version focused on API clarity, variants, states, and usage consistency; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:2a91d34686464f3a8bb4c300340c4ee9e5ed04e57761a778c9914faa34ce1d5b'
+description: Use when designing component libraries, UI kits, reusable React components, and implementation examples. Basic version focused on API clarity, variants, states, and usage consistency; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - component-library-basic
+  - 组件
+  - 组件库
+  - UI 组件
+  - 库
+  - library
+  - 基础版
+  - basic
+  - Component Library Basic
+  - component
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:9fd339ac818ad7d01373d9e881b5dd480b5b6e8461cbb52ddaefef586ff8f119
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Component Library Basic

@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: infra/stress-testing
 name: stress-testing
 displayName: Stress Testing
-description: 'Use when working on stress, soak, spike, and capacity tests for production-like systems. Focus on breaking points, degradation behavior, recovery, and resource saturation.'
-version: '0.1.0'
-sourceHash: 'sha256:7ffa72f6f400bbf9567bfd2b463e6c90f3ab3a4171ccb1168453fdd17b5a998a'
+description: Use when working on stress, soak, spike, and capacity tests for production-like systems. Focus on breaking points, degradation behavior, recovery, and resource saturation.
+aliases:
+  - stress-testing
+  - 压力测试
+  - 压测
+  - stress test
+  - 测试
+  - 测试策略
+  - testing
+  - Stress Testing
+  - stress
+  - infra
+  - performance
+  - 性能
+  - 性能优化
+  - 性能分析
+  - test
+  - 验证
+  - infra-platform
+version: 0.1.0
+sourceHash: sha256:8324b8a7608c1a607366cbfcd63593b9f860da0628bdad30ef8f642aa0e1cd66
 domain: infra
-departmentTags: [infra-platform]
-sceneTags: [performance, test]
+departmentTags:
+  - infra-platform
+sceneTags:
+  - performance
+  - test
 ---
 
 # Stress Testing

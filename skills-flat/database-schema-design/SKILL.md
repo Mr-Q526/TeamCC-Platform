@@ -1,14 +1,44 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/database-schema-design
 name: database-schema-design
 displayName: Database Schema Design
-description: 'Use when working on relational or document database schema design, indexing, constraints, and migration planning. Focus on data integrity, query shape, indexing, and future-safe migrations.'
-version: '0.1.0'
-sourceHash: 'sha256:dd7cb117dc3a2f2fed6db2c63c02818f8dce2521f057482fa6950875d0976e80'
+description: Use when working on relational or document database schema design, indexing, constraints, and migration planning. Focus on data integrity, query shape, indexing, and future-safe migrations.
+aliases:
+  - 数据库设计
+  - 表结构设计
+  - 索引设计
+  - 迁移方案
+  - database-schema-design
+  - 数据库
+  - 数据表
+  - DB
+  - 表结构
+  - schema
+  - 数据建模
+  - 索引
+  - 设计
+  - UI
+  - 视觉设计
+  - Database Schema Design
+  - database
+  - design
+  - backend
+  - 后端
+  - 服务端
+  - server side
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - backend-platform
+version: 0.1.0
+sourceHash: sha256:e4d06b7ebf7effa4855950b05206aa4cc561fe8cab2d4100a619edc7c457ee7d
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [architecture]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - architecture
 ---
 
 # Database Schema Design

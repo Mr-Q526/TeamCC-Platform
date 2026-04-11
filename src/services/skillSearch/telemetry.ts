@@ -20,6 +20,7 @@ export type SkillCandidateTelemetry = {
   skillId: string
   name: string
   displayName: string
+  aliases?: string[]
   version: string
   sourceHash: string
   domain: string
@@ -54,6 +55,7 @@ export type SkillTelemetryMetadata = {
   name: string
   displayName: string
   description: string
+  aliases: string[]
   version: string
   sourceHash: string
   domain: string
@@ -193,6 +195,7 @@ async function resolveSkillTelemetryMetadataUncached(
           name,
           displayName: toStringValue(frontmatter.displayName, name),
           description: toStringValue(frontmatter.description),
+          aliases: toStringArray(frontmatter.aliases),
           version: toStringValue(frontmatter.version, '0.0.0'),
           sourceHash: toStringValue(frontmatter.sourceHash),
           domain: toStringValue(frontmatter.domain, 'general'),

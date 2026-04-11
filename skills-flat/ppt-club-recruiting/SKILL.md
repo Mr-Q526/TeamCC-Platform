@@ -1,15 +1,31 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: design/ppt-club-recruiting
 name: ppt-club-recruiting
 displayName: PPT Club Recruiting
-description: '面向大学社团招新、活动宣讲和拉赞助路演生成高能结构化 PPT，强调大标题、强节奏、收益表达和明确报名行动。'
-version: '0.1.0'
-sourceHash: 'sha256:9756242685c362c541cedb38c4f2be825e95ef0a7bd9dbfa7ca68310fd9c8ad5'
+description: 面向大学社团招新、活动宣讲和拉赞助路演生成高能结构化 PPT，强调大标题、强节奏、收益表达和明确报名行动。
+aliases:
+  - ppt-club-recruiting
+  - PPT Club Recruiting
+  - ppt
+  - club
+  - recruiting
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - content-generation
+  - growth
+version: 0.1.0
+sourceHash: sha256:12f30637276720829d0509e7bdfa4581767d2c40038bcb3dca4cf64a4008fe6f
 domain: design
-departmentTags: [growth]
-sceneTags: [content-generation, design]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - design
 ---
+
 # 社团招新 / 活动策划路演
 
 这个子 skill 用于大学社团招新、活动预热和校内路演。重点不是写完整介绍，而是用 4 到 6 页高能页面让新生迅速记住“你们是谁、有什么亮点、加入后能得到什么、现在该怎么报名”。

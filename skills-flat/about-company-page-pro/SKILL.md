@@ -1,14 +1,40 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/about-company-page-pro
 name: about-company-page-pro
 displayName: About Company Page PRO
-description: 'Use when designing about pages, company story pages, team pages, and mission pages. Pro version focused on trust, narrative, people, values, and company proof; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:c05455a52e9f6414a72eaaf51abcddc573045502813167b4a7e51bf42eb9c867'
+description: Use when designing about pages, company story pages, team pages, and mission pages. Pro version focused on trust, narrative, people, values, and company proof; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - about-company-page-pro
+  - 关于我们
+  - 公司介绍
+  - 品牌介绍
+  - 公司
+  - 企业
+  - 品牌
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - About Company Page PRO
+  - about
+  - company
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:237e3b33333d7c99bfbce54170a9e8f3a2735cf8f50f3e865d5f1833d753587e
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # About Company Page PRO

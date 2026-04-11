@@ -1,14 +1,37 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/search-results-page-basic
 name: search-results-page-basic
 displayName: Search Results Page Basic
-description: 'Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Basic version focused on query feedback, relevance, filters, and result scanning; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:7bda52e8a2468910951dd46d2aaa3f5a31162db2c44d7dd30d723160a1f0e435'
+description: Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Basic version focused on query feedback, relevance, filters, and result scanning; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - search-results-page-basic
+  - 搜索
+  - 搜索结果
+  - search results
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Search Results Page Basic
+  - search
+  - results
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:30e9b0e4c1a49e854426ffa5e37a511b837f13fd7cda48f641a6b84e611c90b1
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Search Results Page Basic

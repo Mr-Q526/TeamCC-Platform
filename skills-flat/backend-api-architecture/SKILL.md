@@ -1,14 +1,31 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/backend-api-architecture
 name: backend-api-architecture
 displayName: Backend API Architecture
-description: 'Use when working on backend service architecture, API boundaries, module decomposition, service contracts, and data flow design. Focus on clear ownership, stable interfaces, failure isolation, and maintainability.'
-version: '0.1.0'
-sourceHash: 'sha256:0ee2c152a33aeea6f98ca54d2145b66537508d4dfa2b01f5c3cf22f0ee815f53'
+description: Use when working on backend service architecture, API boundaries, module decomposition, service contracts, and data flow design. Focus on clear ownership, stable interfaces, failure isolation, and maintainability.
+aliases:
+  - backend-api-architecture
+  - 后端
+  - 服务端
+  - server side
+  - API
+  - 接口
+  - 服务接口
+  - 架构
+  - 架构设计
+  - 模块边界
+  - Backend API Architecture
+  - backend
+  - architecture
+  - backend-platform
+version: 0.1.0
+sourceHash: sha256:2e46978fe281ed0f5da9c1dc20fa9cd700072ffc7973cbab42ed5cd71e100bed
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [architecture]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - architecture
 ---
 
 # Backend API Architecture

@@ -1,14 +1,37 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: review/unit-test-strategy
 name: unit-test-strategy
 displayName: Unit Test Strategy
-description: 'Use when working on unit test design, missing test analysis, mocks, fixtures, and behavior coverage. Focus on meaningful assertions, boundary cases, maintainability, and regression prevention.'
-version: '0.1.0'
-sourceHash: 'sha256:9df60aeea3b2da929269f9f2c7e7cf022ccd472e22c751e340c745114cbf6a2e'
+description: Use when working on unit test design, missing test analysis, mocks, fixtures, and behavior coverage. Focus on meaningful assertions, boundary cases, maintainability, and regression prevention.
+aliases:
+  - unit-test-strategy
+  - 单元测试
+  - unit test
+  - 测试
+  - 验证
+  - test
+  - 策略
+  - 方案
+  - Unit Test Strategy
+  - unit
+  - strategy
+  - review
+  - 代码审查
+  - code review
+  - 评审
+  - backend-platform
+  - 后端
+  - 服务端
+  - server side
+version: 0.1.0
+sourceHash: sha256:8e7e555605108969f98aefa51ac8504aaeda83149ee2f3b2426d584ea6bd3c59
 domain: review
-departmentTags: [backend-platform]
-sceneTags: [test, review]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - test
+  - review
 ---
 
 # Unit Test Strategy

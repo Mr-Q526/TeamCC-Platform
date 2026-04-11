@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/checkout-flow-pro
 name: checkout-flow-pro
 displayName: Checkout Flow PRO
-description: 'Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Pro version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:8cd6eb4f0609291b39c3255457fc07b9295cdb3b7a85e7c86773c0bba2983089'
+description: Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Pro version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - checkout-flow-pro
+  - 结账
+  - 支付流程
+  - 下单流程
+  - 专业版
+  - pro
+  - Checkout Flow PRO
+  - checkout
+  - flow
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:93c3723199ba7ffa59adf82b519e637c12a10e3f92388455afc6d0a56b0302d8
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Checkout Flow PRO

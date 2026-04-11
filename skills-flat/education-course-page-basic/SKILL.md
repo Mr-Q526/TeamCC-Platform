@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/education-course-page-basic
 name: education-course-page-basic
 displayName: Education Course Page Basic
-description: 'Use when designing course pages, lesson players, LMS dashboards, and learning paths. Basic version focused on learning hierarchy, progress, practice, and motivation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:035cca421adb146735eff8162ff1fa411cd5326fce8626569656bffa9e6fad14'
+description: Use when designing course pages, lesson players, LMS dashboards, and learning paths. Basic version focused on learning hierarchy, progress, practice, and motivation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - education-course-page-basic
+  - 教育
+  - 课程
+  - 学习
+  - 教学
+  - 课程页
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Education Course Page Basic
+  - education
+  - course
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:717ec58a11d432845546c41c244eaa14f3c4da976b917306bec38aac5b102ec1
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Education Course Page Basic

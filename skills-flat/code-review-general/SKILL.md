@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: review/code-review-general
 name: code-review-general
 displayName: General Code Review
-description: 'Use when working on general code review across frontend, backend, scripts, and infrastructure changes. Focus on bugs, regressions, maintainability risks, and missing tests.'
-version: '0.1.0'
-sourceHash: 'sha256:609382f2f81dce2a144c4335dd59e10c88b08c695f177e3066dfdcf87a5c8d47'
+description: Use when working on general code review across frontend, backend, scripts, and infrastructure changes. Focus on bugs, regressions, maintainability risks, and missing tests.
+aliases:
+  - code-review-general
+  - 代码
+  - coding
+  - 代码实现
+  - 代码审查
+  - code review
+  - 评审
+  - 通用
+  - general
+  - General Code Review
+  - code review general
+  - code
+  - review
+  - backend-platform
+  - 后端
+  - 服务端
+  - server side
+version: 0.1.0
+sourceHash: sha256:66afab9b81835288d1925a616d35b138e5dd7c028610dfefcabdb10b14a9b43a
 domain: review
-departmentTags: [backend-platform]
-sceneTags: [review]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - review
 ---
 
 # General Code Review

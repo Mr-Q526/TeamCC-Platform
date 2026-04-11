@@ -1,14 +1,46 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: backend/background-jobs-queues
 name: background-jobs-queues
 displayName: Background Jobs Queues
-description: 'Use when working on queues, workers, scheduled jobs, retries, idempotency, and async workflows. Focus on idempotency, retry policy, dead-letter handling, and operational visibility.'
-version: '0.1.0'
-sourceHash: 'sha256:7023d995084ad8f8c427c491c005f5744bddc1996fe536c0b64dbf4b30149d7a'
+description: Use when working on queues, workers, scheduled jobs, retries, idempotency, and async workflows. Focus on idempotency, retry policy, dead-letter handling, and operational visibility.
+aliases:
+  - 后台任务队列
+  - 异步队列
+  - 任务重试
+  - 幂等任务
+  - 死信队列
+  - background-jobs-queues
+  - 后台任务
+  - 异步任务
+  - 后台作业
+  - 任务队列
+  - 定时任务
+  - job
+  - scheduled job
+  - 队列
+  - worker
+  - 重试
+  - 幂等
+  - dead-letter queue
+  - Background Jobs Queues
+  - background
+  - jobs
+  - queues
+  - backend
+  - 后端
+  - 服务端
+  - server side
+  - architecture
+  - 架构
+version: 0.1.0
+sourceHash: sha256:4856687a2e468f2f3059758a505110e9942a705950903fedab8d6cdcc001b5db
 domain: backend
-departmentTags: [backend-platform]
-sceneTags: [architecture, debug]
+departmentTags:
+  - backend-platform
+sceneTags:
+  - architecture
+  - debug
 ---
 
 # Background Jobs Queues

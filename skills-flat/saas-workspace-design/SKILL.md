@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/saas-workspace-design
 name: saas-workspace-design
 displayName: SaaS Workspace Design
-description: 'Use when the task is to design a SaaS product UI, B2B web app, 工作台, product workspace, settings-heavy application, or multi-pane web tool. Focus on workflow clarity, navigation depth, density balance, state design, and operational efficiency.'
-version: '0.1.0'
-sourceHash: 'sha256:3b588cea23cd49823007dcad41d33eb8c2de4d7ede863c6405e3d34126907ad0'
+description: Use when the task is to design a SaaS product UI, B2B web app, 工作台, product workspace, settings-heavy application, or multi-pane web tool. Focus on workflow clarity, navigation depth, density balance, state design, and operational efficiency.
+aliases:
+  - saas-workspace-design
+  - SaaS
+  - 工作台
+  - B2B 产品
+  - 设计
+  - UI
+  - 视觉设计
+  - SaaS Workspace Design
+  - workspace
+  - design
+  - Saa
+  - S
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:84ccc87b2a7a10012fdfaaf4d5fdc3449f78bd6e4bbf90c109046076298cf47d
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # SaaS Workspace Design

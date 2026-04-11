@@ -1,14 +1,40 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/about-company-page-basic
 name: about-company-page-basic
 displayName: About Company Page Basic
-description: 'Use when designing about pages, company story pages, team pages, and mission pages. Basic version focused on trust, narrative, people, values, and company proof; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:4830f6b5e83e2481096bea12a0e3e4200648988769e9a1637fdd92354e025b74'
+description: Use when designing about pages, company story pages, team pages, and mission pages. Basic version focused on trust, narrative, people, values, and company proof; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - about-company-page-basic
+  - 关于我们
+  - 公司介绍
+  - 品牌介绍
+  - 公司
+  - 企业
+  - 品牌
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - About Company Page Basic
+  - about
+  - company
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:3f68881d65e2b0c0c3e473028a8be475a8c072886e32df1a4fafd495925a0e10
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # About Company Page Basic

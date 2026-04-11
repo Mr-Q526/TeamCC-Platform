@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/ai-chat-interface-basic
 name: ai-chat-interface-basic
 displayName: AI Chat Interface Basic
-description: 'Use when designing AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces. Basic version focused on conversation flow, tool state, citations, safety, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:b167a30ed1261f977f7b65f9fbf71e0912e36cf1e9919f545b371943b8fe012e'
+description: Use when designing AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces. Basic version focused on conversation flow, tool state, citations, safety, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - ai-chat-interface-basic
+  - AI
+  - 人工智能
+  - 智能助手
+  - 基础版
+  - basic
+  - AI Chat Interface Basic
+  - chat
+  - interface
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:398ad35b57180b9a5fb6651fd5dd9dd0f3ce2821dd4b39b616248f93062ff7be
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # AI Chat Interface Basic

@@ -1,19 +1,30 @@
 {
   "schemaVersion": "2026-04-11",
-  "pilotCount": 100,
+  "pilotCount": 102,
   "skills": [
     {
       "skillId": "ai/humanizer-zh",
       "targetDir": "skills-flat/humanizer-zh",
       "displayName": "Humanizer ZH",
       "version": "0.1.0",
-      "sourceHash": "sha256:8e2817966d80ddf8d5559430ed9e533724ee3495c2cb42a8f07308a642f7f523",
+      "sourceHash": "sha256:20a59a212136d2e8d4f3ee887475bc42cd7b202e06692727fad9d81a9d48e923",
       "domain": "ai",
       "departmentTags": [
         "ai-platform"
       ],
       "sceneTags": [
         "content-generation"
+      ],
+      "aliases": [
+        "humanizer-zh",
+        "Humanizer ZH",
+        "humanizer",
+        "zh",
+        "ai",
+        "人工智能",
+        "智能助手",
+        "content-generation",
+        "ai-platform"
       ]
     },
     {
@@ -21,7 +32,7 @@
       "targetDir": "skills-flat/transcribe",
       "displayName": "Transcribe",
       "version": "0.1.0",
-      "sourceHash": "sha256:f530021da9f377362ee4214e0bc689cbb5404640d2eb88ee272d51d61f530a09",
+      "sourceHash": "sha256:4e33510ba683cfcce1fd74ec88a18cfc6c25f6e9e1c2df6bb11d851e4ead9abc",
       "domain": "ai",
       "departmentTags": [
         "ai-platform"
@@ -29,6 +40,17 @@
       "sceneTags": [
         "content-generation",
         "data-analysis"
+      ],
+      "aliases": [
+        "transcribe",
+        "ai",
+        "人工智能",
+        "智能助手",
+        "content-generation",
+        "data-analysis",
+        "数据",
+        "data",
+        "ai-platform"
       ]
     },
     {
@@ -36,13 +58,31 @@
       "targetDir": "skills-flat/api-integration-testing",
       "displayName": "API Integration Testing",
       "version": "0.1.0",
-      "sourceHash": "sha256:82e4763402f9dc0fe8a3f3b6a8a3ef350368b892372a1ffd9f09cb9f970e5292",
+      "sourceHash": "sha256:7bf16bc4af3988d4dd30e902c218e9584214e9cecbd5fe4105c444932158175e",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
       ],
       "sceneTags": [
         "test"
+      ],
+      "aliases": [
+        "api-integration-testing",
+        "API",
+        "接口",
+        "服务接口",
+        "测试",
+        "测试策略",
+        "testing",
+        "API Integration Testing",
+        "integration",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "test",
+        "验证",
+        "backend-platform"
       ]
     },
     {
@@ -50,7 +90,7 @@
       "targetDir": "skills-flat/auth-authorization-backend",
       "displayName": "Backend Auth Authorization",
       "version": "0.1.0",
-      "sourceHash": "sha256:6d0c5fa5935044dfe46da249b1150f237daab956690dcc1fd678c4fc95c0d293",
+      "sourceHash": "sha256:c4d9c9fc1cbb59b8de303065e50e8cc17551a473b7d85da7989d34de0ae46fe6",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
@@ -58,6 +98,36 @@
       "sceneTags": [
         "architecture",
         "security-audit"
+      ],
+      "aliases": [
+        "后端鉴权",
+        "接口授权",
+        "租户边界",
+        "权限检查",
+        "auth-authorization-backend",
+        "认证",
+        "鉴权",
+        "授权",
+        "登录态",
+        "权限",
+        "RBAC",
+        "ABAC",
+        "后端",
+        "服务端",
+        "server side",
+        "Backend Auth Authorization",
+        "auth authorization backend",
+        "auth",
+        "authorization",
+        "backend",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "security-audit",
+        "安全",
+        "安全审计",
+        "security"
       ]
     },
     {
@@ -65,13 +135,29 @@
       "targetDir": "skills-flat/backend-api-architecture",
       "displayName": "Backend API Architecture",
       "version": "0.1.0",
-      "sourceHash": "sha256:0ee2c152a33aeea6f98ca54d2145b66537508d4dfa2b01f5c3cf22f0ee815f53",
+      "sourceHash": "sha256:2e46978fe281ed0f5da9c1dc20fa9cd700072ffc7973cbab42ed5cd71e100bed",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
       ],
       "sceneTags": [
         "architecture"
+      ],
+      "aliases": [
+        "backend-api-architecture",
+        "后端",
+        "服务端",
+        "server side",
+        "API",
+        "接口",
+        "服务接口",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "Backend API Architecture",
+        "backend",
+        "architecture",
+        "backend-platform"
       ]
     },
     {
@@ -79,7 +165,7 @@
       "targetDir": "skills-flat/backend-performance-profiling",
       "displayName": "Backend Performance Profiling",
       "version": "0.1.0",
-      "sourceHash": "sha256:b874645a0e498f6ac80c9f48745b8de8deba5c59cc441cc4546f2cc359ef595a",
+      "sourceHash": "sha256:9b4d8b9c7a47d9b186fea138434080b028876653514da76635bb1f142b61597c",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
@@ -87,6 +173,24 @@
       "sceneTags": [
         "debug",
         "performance"
+      ],
+      "aliases": [
+        "backend-performance-profiling",
+        "后端",
+        "服务端",
+        "server side",
+        "性能",
+        "性能优化",
+        "性能分析",
+        "Backend Performance Profiling",
+        "backend",
+        "performance",
+        "profiling",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "backend-platform"
       ]
     },
     {
@@ -94,7 +198,7 @@
       "targetDir": "skills-flat/background-jobs-queues",
       "displayName": "Background Jobs Queues",
       "version": "0.1.0",
-      "sourceHash": "sha256:7023d995084ad8f8c427c491c005f5744bddc1996fe536c0b64dbf4b30149d7a",
+      "sourceHash": "sha256:4856687a2e468f2f3059758a505110e9942a705950903fedab8d6cdcc001b5db",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
@@ -102,6 +206,36 @@
       "sceneTags": [
         "architecture",
         "debug"
+      ],
+      "aliases": [
+        "后台任务队列",
+        "异步队列",
+        "任务重试",
+        "幂等任务",
+        "死信队列",
+        "background-jobs-queues",
+        "后台任务",
+        "异步任务",
+        "后台作业",
+        "任务队列",
+        "定时任务",
+        "job",
+        "scheduled job",
+        "队列",
+        "worker",
+        "重试",
+        "幂等",
+        "dead-letter queue",
+        "Background Jobs Queues",
+        "background",
+        "jobs",
+        "queues",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构"
       ]
     },
     {
@@ -109,7 +243,7 @@
       "targetDir": "skills-flat/cache-strategy-backend",
       "displayName": "Backend Cache Strategy",
       "version": "0.1.0",
-      "sourceHash": "sha256:8e95bafceb527178109011bfc2b5f8c9b7aaf3491ed0d56f98a0de42bdb5eac0",
+      "sourceHash": "sha256:5cbfd83fb6553a716000887328ec8c75aa543d89fa1159e8bc60adea10ab0f99",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
@@ -117,6 +251,35 @@
       "sceneTags": [
         "architecture",
         "performance"
+      ],
+      "aliases": [
+        "Redis 缓存",
+        "缓存击穿",
+        "缓存雪崩",
+        "缓存失效",
+        "cache-strategy-backend",
+        "缓存",
+        "Redis",
+        "cache invalidation",
+        "策略",
+        "方案",
+        "后端",
+        "服务端",
+        "server side",
+        "Backend Cache Strategy",
+        "cache strategy backend",
+        "cache",
+        "strategy",
+        "backend",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "performance",
+        "性能",
+        "性能优化",
+        "性能分析",
+        "backend-platform"
       ]
     },
     {
@@ -124,7 +287,7 @@
       "targetDir": "skills-flat/data-migration-backfill",
       "displayName": "Data Migration Backfill",
       "version": "0.1.0",
-      "sourceHash": "sha256:7810b35536695e00023060a197952f952014697258cd66a733d9315c58e4482e",
+      "sourceHash": "sha256:eadcec67071b149d9280b770b579ad88c397b551f269bd1fe89ea56e8c512332",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
@@ -132,6 +295,28 @@
       "sceneTags": [
         "architecture",
         "release"
+      ],
+      "aliases": [
+        "data-migration-backfill",
+        "数据",
+        "data",
+        "迁移",
+        "数据迁移",
+        "migration",
+        "数据回填",
+        "补数据",
+        "backfill",
+        "Data Migration Backfill",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "release",
+        "backend-platform"
       ]
     },
     {
@@ -139,13 +324,42 @@
       "targetDir": "skills-flat/database-schema-design",
       "displayName": "Database Schema Design",
       "version": "0.1.0",
-      "sourceHash": "sha256:dd7cb117dc3a2f2fed6db2c63c02818f8dce2521f057482fa6950875d0976e80",
+      "sourceHash": "sha256:e4d06b7ebf7effa4855950b05206aa4cc561fe8cab2d4100a619edc7c457ee7d",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
       ],
       "sceneTags": [
         "architecture"
+      ],
+      "aliases": [
+        "数据库设计",
+        "表结构设计",
+        "索引设计",
+        "迁移方案",
+        "database-schema-design",
+        "数据库",
+        "数据表",
+        "DB",
+        "表结构",
+        "schema",
+        "数据建模",
+        "索引",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Database Schema Design",
+        "database",
+        "design",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "backend-platform"
       ]
     },
     {
@@ -153,7 +367,7 @@
       "targetDir": "skills-flat/graphql-api-implementation",
       "displayName": "GraphQL API Implementation",
       "version": "0.1.0",
-      "sourceHash": "sha256:cda8f8563e15c4b88c95eb25c4f43b8738b32dc34254454758854a981079bd66",
+      "sourceHash": "sha256:2db34c44acb8dfbf60e10e057b2554fdb348f7fc0864056b70b9a36d06fc1c96",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
@@ -161,6 +375,35 @@
       "sceneTags": [
         "architecture",
         "test"
+      ],
+      "aliases": [
+        "GraphQL API",
+        "resolver",
+        "dataloader",
+        "N+1 查询",
+        "graphql-api-implementation",
+        "GraphQL",
+        "schema",
+        "mutation",
+        "API",
+        "接口",
+        "服务接口",
+        "GraphQL API Implementation",
+        "implementation",
+        "Graph",
+        "QL",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "test",
+        "测试",
+        "验证",
+        "backend-platform"
       ]
     },
     {
@@ -168,7 +411,7 @@
       "targetDir": "skills-flat/rest-api-implementation",
       "displayName": "REST API Implementation",
       "version": "0.1.0",
-      "sourceHash": "sha256:3943bc128aedb96bca3c443a2fb9d90eae91c2d1a8c44b7d0a9cba91395b94e5",
+      "sourceHash": "sha256:269df220bec0c3d8e183e0f08592f32e636c9530828743bd31da318d2fb9781e",
       "domain": "backend",
       "departmentTags": [
         "backend-platform"
@@ -176,6 +419,33 @@
       "sceneTags": [
         "architecture",
         "test"
+      ],
+      "aliases": [
+        "REST 接口",
+        "controller",
+        "参数校验",
+        "分页接口",
+        "rest-api-implementation",
+        "REST",
+        "REST API",
+        "资源接口",
+        "API",
+        "接口",
+        "服务接口",
+        "REST API Implementation",
+        "implementation",
+        "backend",
+        "后端",
+        "服务端",
+        "server side",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "test",
+        "测试",
+        "验证",
+        "backend-platform"
       ]
     },
     {
@@ -183,7 +453,7 @@
       "targetDir": "skills-flat/jimeng",
       "displayName": "Jimeng",
       "version": "0.1.0",
-      "sourceHash": "sha256:056bd2e8962345d24155d26b6604568463de3fe6b43b3e5ced463930adec5c5e",
+      "sourceHash": "sha256:ace4ba11f89a8af052dab4c00478695a0fa294671b30ef63949c2b98c9da859f",
       "domain": "design",
       "departmentTags": [
         "ai-platform"
@@ -191,6 +461,18 @@
       "sceneTags": [
         "content-generation",
         "design"
+      ],
+      "aliases": [
+        "jimeng",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "ai-platform",
+        "AI",
+        "人工智能",
+        "智能助手"
       ]
     },
     {
@@ -198,7 +480,7 @@
       "targetDir": "skills-flat/motion-video-maker",
       "displayName": "Motion Video Maker",
       "version": "0.1.0",
-      "sourceHash": "sha256:98fbe0e9a45aa5460e2a4ba8fe2eac79840f2b2a4749027e713426902532356b",
+      "sourceHash": "sha256:45d0918b64d41b2f6c195268b48d9261ef57adfb0327aeab645edde120b2552c",
       "domain": "design",
       "departmentTags": [
         "growth"
@@ -206,6 +488,19 @@
       "sceneTags": [
         "content-generation",
         "design"
+      ],
+      "aliases": [
+        "motion-video-maker",
+        "Motion Video Maker",
+        "motion",
+        "video",
+        "maker",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
       ]
     },
     {
@@ -213,7 +508,7 @@
       "targetDir": "skills-flat/ppt-club-recruiting",
       "displayName": "PPT Club Recruiting",
       "version": "0.1.0",
-      "sourceHash": "sha256:9756242685c362c541cedb38c4f2be825e95ef0a7bd9dbfa7ca68310fd9c8ad5",
+      "sourceHash": "sha256:12f30637276720829d0509e7bdfa4581767d2c40038bcb3dca4cf64a4008fe6f",
       "domain": "design",
       "departmentTags": [
         "growth"
@@ -221,6 +516,19 @@
       "sceneTags": [
         "content-generation",
         "design"
+      ],
+      "aliases": [
+        "ppt-club-recruiting",
+        "PPT Club Recruiting",
+        "ppt",
+        "club",
+        "recruiting",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
       ]
     },
     {
@@ -228,7 +536,7 @@
       "targetDir": "skills-flat/ppt-course-presentation",
       "displayName": "PPT Course Presentation",
       "version": "0.1.0",
-      "sourceHash": "sha256:cdd3b4982f1e23a089a678be92b3f70e2c28472e35c531aef1a791f2b5e585ae",
+      "sourceHash": "sha256:62f430c76232199838442c3d0859e7781735506a7c7ee6506f31cbbd852a84d4",
       "domain": "design",
       "departmentTags": [
         "growth"
@@ -236,6 +544,22 @@
       "sceneTags": [
         "content-generation",
         "design"
+      ],
+      "aliases": [
+        "ppt-course-presentation",
+        "课程",
+        "教学",
+        "课程页",
+        "PPT Course Presentation",
+        "ppt",
+        "course",
+        "presentation",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
       ]
     },
     {
@@ -243,7 +567,7 @@
       "targetDir": "skills-flat/ppt-customer-story",
       "displayName": "PPT Customer Story",
       "version": "0.1.0",
-      "sourceHash": "sha256:5f3d276262780b12cbc66a435be430c451f000ae62923dcea90b562e659c138f",
+      "sourceHash": "sha256:9761e20a1992fcad16568d074a0912fd8efaba48a9a72f3a7bc6e40c2099a3c5",
       "domain": "design",
       "departmentTags": [
         "growth"
@@ -251,6 +575,19 @@
       "sceneTags": [
         "content-generation",
         "design"
+      ],
+      "aliases": [
+        "ppt-customer-story",
+        "PPT Customer Story",
+        "ppt",
+        "customer",
+        "story",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
       ]
     },
     {
@@ -258,7 +595,7 @@
       "targetDir": "skills-flat/ppt-english-lesson",
       "displayName": "PPT English Lesson",
       "version": "0.1.0",
-      "sourceHash": "sha256:23b36cdd891a04a36cbaf250f98f39ca60be7d8393a4be0b22409103b988eed3",
+      "sourceHash": "sha256:21bf0df293c99af81bcaafe6897dd4c4c74c2c8e6da2591a713df067a4e0afbe",
       "domain": "design",
       "departmentTags": [
         "growth"
@@ -266,6 +603,19 @@
       "sceneTags": [
         "content-generation",
         "design"
+      ],
+      "aliases": [
+        "ppt-english-lesson",
+        "PPT English Lesson",
+        "ppt",
+        "english",
+        "lesson",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
       ]
     },
     {
@@ -273,7 +623,7 @@
       "targetDir": "skills-flat/ppt-maker",
       "displayName": "PPT Maker",
       "version": "0.1.0",
-      "sourceHash": "sha256:a607f1d627f591c021751213239441ca2655fe5df50fcdcdb92f0aa4ce305618",
+      "sourceHash": "sha256:861d0d49725e2724350030fe50b3934ac83426e832d0a62972f18affad0ddf68",
       "domain": "design",
       "departmentTags": [
         "growth"
@@ -281,6 +631,18 @@
       "sceneTags": [
         "content-generation",
         "design"
+      ],
+      "aliases": [
+        "ppt-maker",
+        "PPT Maker",
+        "ppt",
+        "maker",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
       ]
     },
     {
@@ -288,7 +650,7 @@
       "targetDir": "skills-flat/ppt-personal-intro",
       "displayName": "PPT Personal Intro",
       "version": "0.1.0",
-      "sourceHash": "sha256:37e71ea3f9821714031dfb082aa135177f04fba8e0236a03bc7730f24ca15a39",
+      "sourceHash": "sha256:08c74c6820d35fd8df0dc2b15f276ed86cf292749a0eb2478f41f3728717a9ae",
       "domain": "design",
       "departmentTags": [
         "growth"
@@ -296,6 +658,19 @@
       "sceneTags": [
         "content-generation",
         "design"
+      ],
+      "aliases": [
+        "ppt-personal-intro",
+        "PPT Personal Intro",
+        "ppt",
+        "personal",
+        "intro",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "content-generation",
+        "growth"
       ]
     },
     {
@@ -303,13 +678,38 @@
       "targetDir": "skills-flat/about-company-page-basic",
       "displayName": "About Company Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:4830f6b5e83e2481096bea12a0e3e4200648988769e9a1637fdd92354e025b74",
+      "sourceHash": "sha256:3f68881d65e2b0c0c3e473028a8be475a8c072886e32df1a4fafd495925a0e10",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "about-company-page-basic",
+        "关于我们",
+        "公司介绍",
+        "品牌介绍",
+        "公司",
+        "企业",
+        "品牌",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "About Company Page Basic",
+        "about",
+        "company",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -317,13 +717,38 @@
       "targetDir": "skills-flat/about-company-page-pro",
       "displayName": "About Company Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:c05455a52e9f6414a72eaaf51abcddc573045502813167b4a7e51bf42eb9c867",
+      "sourceHash": "sha256:237e3b33333d7c99bfbce54170a9e8f3a2735cf8f50f3e865d5f1833d753587e",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "about-company-page-pro",
+        "关于我们",
+        "公司介绍",
+        "品牌介绍",
+        "公司",
+        "企业",
+        "品牌",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "About Company Page PRO",
+        "about",
+        "company",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -331,13 +756,35 @@
       "targetDir": "skills-flat/admin-dashboard-design",
       "displayName": "Admin Dashboard Design",
       "version": "0.1.0",
-      "sourceHash": "sha256:65365f5c8d2bf1105a4c457149037e1a9cd22725318c168e6e89175aaf908470",
+      "sourceHash": "sha256:5ae365da050ebe49ea080f128b4d48ba1d60d544ca2f99ed99a25fcac3a57b71",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "admin-dashboard-design",
+        "管理后台",
+        "后台管理",
+        "管理台",
+        "admin panel",
+        "仪表盘",
+        "看板",
+        "控制台",
+        "dashboard",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Admin Dashboard Design",
+        "admin",
+        "design",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
       ]
     },
     {
@@ -345,13 +792,33 @@
       "targetDir": "skills-flat/ai-chat-interface-basic",
       "displayName": "AI Chat Interface Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:b167a30ed1261f977f7b65f9fbf71e0912e36cf1e9919f545b371943b8fe012e",
+      "sourceHash": "sha256:398ad35b57180b9a5fb6651fd5dd9dd0f3ce2821dd4b39b616248f93062ff7be",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "ai-chat-interface-basic",
+        "AI",
+        "人工智能",
+        "智能助手",
+        "基础版",
+        "basic",
+        "AI Chat Interface Basic",
+        "chat",
+        "interface",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -359,13 +826,33 @@
       "targetDir": "skills-flat/ai-chat-interface-pro",
       "displayName": "AI Chat Interface PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:91add5834913a4676bdfbac54113b3196b75422afa0b9b21f0bb9f084fba1053",
+      "sourceHash": "sha256:4fc5048633159105d7b3532862d90d4cf61e380d3735c21be3f4c46848d27a48",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "ai-chat-interface-pro",
+        "AI",
+        "人工智能",
+        "智能助手",
+        "专业版",
+        "pro",
+        "AI Chat Interface PRO",
+        "chat",
+        "interface",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -373,13 +860,35 @@
       "targetDir": "skills-flat/analytics-dashboard-design",
       "displayName": "Analytics Dashboard Design",
       "version": "0.1.0",
-      "sourceHash": "sha256:d7536db894e437d186a9d9bce858aa8c7d96151782d78224d789e658b39fdbfb",
+      "sourceHash": "sha256:bafea9da77fa0032a6e8fa494441b9a06942cb14b2fc9be44d46678158d83716",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "analytics-dashboard-design",
+        "数据分析",
+        "分析看板",
+        "BI",
+        "指标看板",
+        "仪表盘",
+        "看板",
+        "控制台",
+        "dashboard",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Analytics Dashboard Design",
+        "analytics",
+        "design",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
       ]
     },
     {
@@ -387,13 +896,36 @@
       "targetDir": "skills-flat/auth-login-page-basic",
       "displayName": "Auth Login Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:fefeb9e67865760204a410fd1e94c9e5ec6cee5b7416545fdd57948fc49f7e18",
+      "sourceHash": "sha256:4b30c095e8d7225ee923576b569d8ef5ca57dfb0e5eb8e77ca3be3e0b2d6d024",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "auth-login-page-basic",
+        "认证",
+        "鉴权",
+        "授权",
+        "登录态",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Auth Login Page Basic",
+        "auth",
+        "login",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -401,13 +933,36 @@
       "targetDir": "skills-flat/auth-login-page-pro",
       "displayName": "Auth Login Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:a1fe3325715d2f4726365b2d800e71188dbfcd68a49fd73a0ac1441710a39cd1",
+      "sourceHash": "sha256:f1ee04f7a239c45fd181d0eb87ab4f514e2f4d66002e5871b7ea3742369c1a4f",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "auth-login-page-pro",
+        "认证",
+        "鉴权",
+        "授权",
+        "登录态",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Auth Login Page PRO",
+        "auth",
+        "login",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -415,13 +970,34 @@
       "targetDir": "skills-flat/careers-page-basic",
       "displayName": "Careers Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:859535f8b46f51b627af2e3390f86ab92541196de42b4e70ad2103a143e9dfe1",
+      "sourceHash": "sha256:19ffb27453db37ad11cf46a97810fb09986bb2b1422973f73bfe3e33df775012",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "careers-page-basic",
+        "招聘",
+        "加入我们",
+        "职位页面",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Careers Page Basic",
+        "careers",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -429,13 +1005,34 @@
       "targetDir": "skills-flat/careers-page-pro",
       "displayName": "Careers Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:2e593872a55f218b460119ebe9201c791c296f7e4769470c807d9bfda951d876",
+      "sourceHash": "sha256:b668cd4e0938029ba39fc52c4e8cd700f2822bb4ddded4a3135c636903334ff4",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "careers-page-pro",
+        "招聘",
+        "加入我们",
+        "职位页面",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Careers Page PRO",
+        "careers",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -443,13 +1040,33 @@
       "targetDir": "skills-flat/checkout-flow-basic",
       "displayName": "Checkout Flow Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:14e105a3a0b0360db1360c9ace7fe2ba5758a0a40b4c2aca32f0cce4d4197195",
+      "sourceHash": "sha256:a6653535c3295ae9ef923255a1fc1fc67d8f769086288f25999310ea63489908",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "checkout-flow-basic",
+        "结账",
+        "支付流程",
+        "下单流程",
+        "基础版",
+        "basic",
+        "Checkout Flow Basic",
+        "checkout",
+        "flow",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -457,13 +1074,33 @@
       "targetDir": "skills-flat/checkout-flow-pro",
       "displayName": "Checkout Flow PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:8cd6eb4f0609291b39c3255457fc07b9295cdb3b7a85e7c86773c0bba2983089",
+      "sourceHash": "sha256:93c3723199ba7ffa59adf82b519e637c12a10e3f92388455afc6d0a56b0302d8",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "checkout-flow-pro",
+        "结账",
+        "支付流程",
+        "下单流程",
+        "专业版",
+        "pro",
+        "Checkout Flow PRO",
+        "checkout",
+        "flow",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -471,13 +1108,34 @@
       "targetDir": "skills-flat/component-library-basic",
       "displayName": "Component Library Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:2a91d34686464f3a8bb4c300340c4ee9e5ed04e57761a778c9914faa34ce1d5b",
+      "sourceHash": "sha256:9fd339ac818ad7d01373d9e881b5dd480b5b6e8461cbb52ddaefef586ff8f119",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "component-library-basic",
+        "组件",
+        "组件库",
+        "UI 组件",
+        "库",
+        "library",
+        "基础版",
+        "basic",
+        "Component Library Basic",
+        "component",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -485,13 +1143,34 @@
       "targetDir": "skills-flat/component-library-pro",
       "displayName": "Component Library PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:1332990c5df0870c8916e51bf4ed329504784a5f68200d2390afd106e606b930",
+      "sourceHash": "sha256:6893dd7a1dff52f14e9fd328a5c7156e2a9b09aec4ca515618e3bb7f9f87ed29",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "component-library-pro",
+        "组件",
+        "组件库",
+        "UI 组件",
+        "库",
+        "library",
+        "专业版",
+        "pro",
+        "Component Library PRO",
+        "component",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -499,13 +1178,37 @@
       "targetDir": "skills-flat/contact-sales-page-basic",
       "displayName": "Contact Sales Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:772a34547d181ec7605adc30877efdc91afef230c73a4833f8a5c3cf5ec4fd91",
+      "sourceHash": "sha256:821f13138a43397af0fbf7bcc927ee3e348ddc1151993f53400f59a0289800c5",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "contact-sales-page-basic",
+        "联系",
+        "联系销售",
+        "contact sales",
+        "销售",
+        "销售线索",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Contact Sales Page Basic",
+        "contact",
+        "sales",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -513,13 +1216,37 @@
       "targetDir": "skills-flat/contact-sales-page-pro",
       "displayName": "Contact Sales Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:db094214a3659b5f4888f0399d339f0e8e2c11e6eb223493c4d810112f3bdd66",
+      "sourceHash": "sha256:1a489fa136cda84439abc6f75085a35c1d7622de981696ce7340a9f375ad9136",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "contact-sales-page-pro",
+        "联系",
+        "联系销售",
+        "contact sales",
+        "销售",
+        "销售线索",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Contact Sales Page PRO",
+        "contact",
+        "sales",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -527,13 +1254,34 @@
       "targetDir": "skills-flat/data-table-basic",
       "displayName": "Data Table Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:dbd1b07abb0cf7b0f7dd614a5da79f3612bdb6f0fd14ee716a85ad28de5545e7",
+      "sourceHash": "sha256:d9759dbf661b02387c4ace7c56fe0bdef7001134ba0739ec22c98a4b7e7d3d6d",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "data-table-basic",
+        "数据",
+        "data",
+        "表格",
+        "数据表格",
+        "data table",
+        "基础版",
+        "basic",
+        "Data Table Basic",
+        "table",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -541,13 +1289,34 @@
       "targetDir": "skills-flat/data-table-pro",
       "displayName": "Data Table PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:e81e289448388dc2ee30be7686aac5882f7b4fed729517e133a043bd097b76c6",
+      "sourceHash": "sha256:9e4123448435d6cf0697f0701510f9b668eaabf0764c9cac38e796e536e14ad0",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "data-table-pro",
+        "数据",
+        "data",
+        "表格",
+        "数据表格",
+        "data table",
+        "专业版",
+        "pro",
+        "Data Table PRO",
+        "table",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -555,13 +1324,34 @@
       "targetDir": "skills-flat/design-system-builder-basic",
       "displayName": "Design System Builder Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:e824b5079552ad378cd76444b51e7b7c51e91f92b208661426bf0c7f80a5090b",
+      "sourceHash": "sha256:fe738cd6fadafcee2f9f4ceff296a3ed09a2967b382f2089a43df46938e355d8",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "design-system-builder-basic",
+        "设计",
+        "UI",
+        "视觉设计",
+        "系统",
+        "设计系统",
+        "构建器",
+        "生成器",
+        "builder",
+        "基础版",
+        "basic",
+        "Design System Builder Basic",
+        "design",
+        "system",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
       ]
     },
     {
@@ -569,13 +1359,34 @@
       "targetDir": "skills-flat/design-system-builder-pro",
       "displayName": "Design System Builder PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:2e143dd1812e2b531a36f57c28f7587b7eb991bd4ec9d892337adafcae226660",
+      "sourceHash": "sha256:7e8f050979cabe4e0bb470b7f55c573c7979741dd7cda682edecc64986d6e135",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "design-system-builder-pro",
+        "设计",
+        "UI",
+        "视觉设计",
+        "系统",
+        "设计系统",
+        "构建器",
+        "生成器",
+        "builder",
+        "专业版",
+        "pro",
+        "Design System Builder PRO",
+        "design",
+        "system",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
       ]
     },
     {
@@ -583,7 +1394,7 @@
       "targetDir": "skills-flat/develop-web-game",
       "displayName": "Develop Web Game",
       "version": "0.1.0",
-      "sourceHash": "sha256:4586330e97c99581f37798c179a71c62030fc20befa6de3e3ccb96d1adead9c7",
+      "sourceHash": "sha256:19106e1253f1ed065975566d66e79227468975bc1583f3ec88254500403cf069",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
@@ -591,6 +1402,25 @@
       "sceneTags": [
         "design",
         "test"
+      ],
+      "aliases": [
+        "develop-web-game",
+        "Develop Web Game",
+        "develop",
+        "web",
+        "game",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "test",
+        "测试",
+        "验证",
+        "frontend-platform"
       ]
     },
     {
@@ -598,13 +1428,33 @@
       "targetDir": "skills-flat/developer-portal-basic",
       "displayName": "Developer Portal Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:d7a99f31632ea12eecce4fcbbfbbb6f412678077c42592d3b0e2075fd3104866",
+      "sourceHash": "sha256:3afef322b696a6cdd1da1114346e372994d921f802cccf0ef2a860cce1b61111",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "developer-portal-basic",
+        "开发者",
+        "开发者门户",
+        "developer portal",
+        "基础版",
+        "basic",
+        "Developer Portal Basic",
+        "developer",
+        "portal",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -612,13 +1462,33 @@
       "targetDir": "skills-flat/developer-portal-pro",
       "displayName": "Developer Portal PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:287ddca5dafed262cd85aa3365a259887b801e387bc8acb10360153ebdfc1c67",
+      "sourceHash": "sha256:befefa5e9203a3dcd264ebf02cc74530708f89231657597b38ad1bd6cfa2a332",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "developer-portal-pro",
+        "开发者",
+        "开发者门户",
+        "developer portal",
+        "专业版",
+        "pro",
+        "Developer Portal PRO",
+        "developer",
+        "portal",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -626,13 +1496,33 @@
       "targetDir": "skills-flat/docs-site-basic",
       "displayName": "Docs Site Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:bf6a35b519da2e476ce9b38b98591d145faf120b73d2090be247c8153f1fbab0",
+      "sourceHash": "sha256:6efc00ac06a70bd9d98baec5d9cb4543afc9ad3773acfe2df1646fe097abcabf",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "docs-site-basic",
+        "文档站",
+        "文档网站",
+        "documentation",
+        "基础版",
+        "basic",
+        "Docs Site Basic",
+        "docs",
+        "site",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -640,13 +1530,33 @@
       "targetDir": "skills-flat/docs-site-pro",
       "displayName": "Docs Site PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:ff0e64c0f79969d252f6933242edb9cb7a735553252792249706846c291e5acb",
+      "sourceHash": "sha256:cd2b555fb098962eba62a4db991a40de6d37c9b0293efd3d7eb059534863da0b",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "docs-site-pro",
+        "文档站",
+        "文档网站",
+        "documentation",
+        "专业版",
+        "pro",
+        "Docs Site PRO",
+        "docs",
+        "site",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -654,13 +1564,34 @@
       "targetDir": "skills-flat/ecommerce-storefront-design",
       "displayName": "Ecommerce Storefront Design",
       "version": "0.1.0",
-      "sourceHash": "sha256:0f4250b23cdc4cc29fde8ec767f7b7d87c2fb9eb8c147f64b1be404da093895d",
+      "sourceHash": "sha256:262a61b1434fe1764c9720e9abff1c9397e4758ecc1da89841015fd278c490d1",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "ecommerce-storefront-design",
+        "电商",
+        "商城",
+        "购物",
+        "店铺首页",
+        "商城首页",
+        "商品页",
+        "storefront",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Ecommerce Storefront Design",
+        "ecommerce",
+        "design",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
       ]
     },
     {
@@ -668,13 +1599,37 @@
       "targetDir": "skills-flat/education-course-page-basic",
       "displayName": "Education Course Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:035cca421adb146735eff8162ff1fa411cd5326fce8626569656bffa9e6fad14",
+      "sourceHash": "sha256:717ec58a11d432845546c41c244eaa14f3c4da976b917306bec38aac5b102ec1",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "education-course-page-basic",
+        "教育",
+        "课程",
+        "学习",
+        "教学",
+        "课程页",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Education Course Page Basic",
+        "education",
+        "course",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -682,13 +1637,37 @@
       "targetDir": "skills-flat/education-course-page-pro",
       "displayName": "Education Course Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:9a6cf00e11a8f8b9a752b19adbd849e64a4178c49c2e994da407b1aae6b6c9b7",
+      "sourceHash": "sha256:b5e64b0046355c1b684e3a3a867c062276278fe5a663b3bcf5e6f00d5ec8caa0",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "education-course-page-pro",
+        "教育",
+        "课程",
+        "学习",
+        "教学",
+        "课程页",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Education Course Page PRO",
+        "education",
+        "course",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -696,13 +1675,37 @@
       "targetDir": "skills-flat/enterprise-security-page-basic",
       "displayName": "Enterprise Security Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:4bb5eefcffb9e1f52f849f0b41cb016a2deac2e1062edc3dba889b1f0e468d99",
+      "sourceHash": "sha256:778b17123a28b4672c90cce57b97b92ca690c61292ea424bc2c6c2fa99f466c6",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "enterprise-security-page-basic",
+        "企业",
+        "企业级",
+        "B2B",
+        "安全",
+        "安全审计",
+        "security",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Enterprise Security Page Basic",
+        "enterprise",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -710,13 +1713,37 @@
       "targetDir": "skills-flat/enterprise-security-page-pro",
       "displayName": "Enterprise Security Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:6896f4af804209285d46a52bf53db8dfdb780fb6883a51a4e5be23d6fd19962f",
+      "sourceHash": "sha256:5dfc5a27751665fec7aaacda7b8bb9394c69c9dde822cc42d122735fe099ea1f",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "enterprise-security-page-pro",
+        "企业",
+        "企业级",
+        "B2B",
+        "安全",
+        "安全审计",
+        "security",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Enterprise Security Page PRO",
+        "enterprise",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -724,13 +1751,38 @@
       "targetDir": "skills-flat/error-empty-states-basic",
       "displayName": "Error Empty States Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:eb24c8d5b2fbd02d475f2dde4a36ce9034c576d0b638b91f3bd8adb87c1f083d",
+      "sourceHash": "sha256:602114a519102f67d7d7e86bbf8574366754f8b19795a8a6309f0945a4f7d443",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "error-empty-states-basic",
+        "错误状态",
+        "异常状态",
+        "报错页",
+        "空状态",
+        "empty state",
+        "状态",
+        "UI 状态",
+        "基础版",
+        "basic",
+        "Error Empty States Basic",
+        "error",
+        "empty",
+        "states",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -738,13 +1790,38 @@
       "targetDir": "skills-flat/error-empty-states-pro",
       "displayName": "Error Empty States PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:62d7c5cade09b012c45fe4d82a1c21decf82ea460891bc6d1edb0654b43e7a75",
+      "sourceHash": "sha256:e71476cf4a4d684a09a5164ddce9e410cb95dbd538f3820123f03ef352666a2c",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "error-empty-states-pro",
+        "错误状态",
+        "异常状态",
+        "报错页",
+        "空状态",
+        "empty state",
+        "状态",
+        "UI 状态",
+        "专业版",
+        "pro",
+        "Error Empty States PRO",
+        "error",
+        "empty",
+        "states",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -752,13 +1829,35 @@
       "targetDir": "skills-flat/fintech-dashboard-basic",
       "displayName": "Fintech Dashboard Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:f6018be707d772e97d04423b72d6cee5d0cc6b2862ed8e2c3641295f780800ea",
+      "sourceHash": "sha256:324257293b2ef94bcc5a05f04a10183addd1dec7787a81aa9a534059948c88ca",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "fintech-dashboard-basic",
+        "金融科技",
+        "金融",
+        "fintech",
+        "仪表盘",
+        "看板",
+        "控制台",
+        "dashboard",
+        "基础版",
+        "basic",
+        "Fintech Dashboard Basic",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -766,13 +1865,35 @@
       "targetDir": "skills-flat/fintech-dashboard-pro",
       "displayName": "Fintech Dashboard PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:695f117b458d9d50b7b32e10b18366f4f65f585cac794993da4ab9b63358a4f0",
+      "sourceHash": "sha256:bbc57001525c136afa51c864148d8bb5e20192652d83723de845b20e5e5c234a",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "fintech-dashboard-pro",
+        "金融科技",
+        "金融",
+        "fintech",
+        "仪表盘",
+        "看板",
+        "控制台",
+        "dashboard",
+        "专业版",
+        "pro",
+        "Fintech Dashboard PRO",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -780,13 +1901,34 @@
       "targetDir": "skills-flat/form-builder-basic",
       "displayName": "Form Builder Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:5466fe6ed36d740a698bb0ff43d51f7284eff0cda7eb4d06e064be0156dfff51",
+      "sourceHash": "sha256:84a72ee973701636d8d04a6043e3b3439baae909fe2b53c4f7eb9badc3c7dbe0",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "form-builder-basic",
+        "表单",
+        "表单构建",
+        "form",
+        "构建器",
+        "生成器",
+        "builder",
+        "基础版",
+        "basic",
+        "Form Builder Basic",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -794,13 +1936,34 @@
       "targetDir": "skills-flat/form-builder-pro",
       "displayName": "Form Builder PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:1d8347e4d888cfd4a143af0cf07b20a1603e6550fae907cb8f3ca79da7f61b26",
+      "sourceHash": "sha256:82ba5daa4f84a138f2df090614494b06c1d56788dc4f26cbf1f8f0e6cb7fca17",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "form-builder-pro",
+        "表单",
+        "表单构建",
+        "form",
+        "构建器",
+        "生成器",
+        "builder",
+        "专业版",
+        "pro",
+        "Form Builder PRO",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -808,13 +1971,27 @@
       "targetDir": "skills-flat/frontend-skill",
       "displayName": "Frontend Skill",
       "version": "0.1.0",
-      "sourceHash": "sha256:d367b2d22825d74c169475507e7ff109b81c1e9c20b2de3421fb19fcfbe3329b",
+      "sourceHash": "sha256:520cd8196eb61d86358467ffdac5406b8956a6748186838639ae56c644e2b249",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "frontend-skill",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "Frontend Skill",
+        "frontend",
+        "skill",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -822,13 +1999,32 @@
       "targetDir": "skills-flat/healthcare-portal-basic",
       "displayName": "Healthcare Portal Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:25622e3c6032f3640ad4521d6d761dfae9625cf71d771ee642fd059879f49d2a",
+      "sourceHash": "sha256:198294d840e635f9696fa4ea454b5a1d648b9b37da07d0a8ade7bda6416ddb7f",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "healthcare-portal-basic",
+        "医疗",
+        "健康",
+        "healthcare",
+        "基础版",
+        "basic",
+        "Healthcare Portal Basic",
+        "portal",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -836,13 +2032,32 @@
       "targetDir": "skills-flat/healthcare-portal-pro",
       "displayName": "Healthcare Portal PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:1bffe9b66307a4ca97bcaa9461aefaf10ecc6abd12c9c552b1c9cb65a3b0bd21",
+      "sourceHash": "sha256:b29f5c57a30fcf43472e347e6b251b1970df63518ca136b4f9e65b7bd1736952",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "healthcare-portal-pro",
+        "医疗",
+        "健康",
+        "healthcare",
+        "专业版",
+        "pro",
+        "Healthcare Portal PRO",
+        "portal",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -850,13 +2065,37 @@
       "targetDir": "skills-flat/marketing-landing-page",
       "displayName": "Marketing Landing Page",
       "version": "0.1.0",
-      "sourceHash": "sha256:e617a29d211b2b19ed92d4e2145cc2e4de87670a5ad7ffcc2ddde13e08c8bf02",
+      "sourceHash": "sha256:f29a2e7e33b6fdba19ed3754bdf489967d4bfb0c88506fe6ec2b73f308a064c2",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "营销落地页",
+        "转化页",
+        "预约 demo",
+        "获客页",
+        "marketing-landing-page",
+        "营销",
+        "落地页",
+        "campaign page",
+        "页面",
+        "page",
+        "Marketing Landing Page",
+        "marketing",
+        "landing",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -864,13 +2103,32 @@
       "targetDir": "skills-flat/nextjs-app-router",
       "displayName": "Next.js App Router",
       "version": "0.1.0",
-      "sourceHash": "sha256:678a88fb1f32913079ad4aea88f59ab6bbe5ba503cd2730a1bb8e2cf16f30391",
+      "sourceHash": "sha256:44735c6c2a05ffeaca65e360402f23452b752ef17ea2aaa7a7cceed18cced09a",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "architecture"
+      ],
+      "aliases": [
+        "nextjs-app-router",
+        "Next.js App Router",
+        "nextjs app router",
+        "nextjs",
+        "app",
+        "router",
+        "Next",
+        "js",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "frontend-platform"
       ]
     },
     {
@@ -878,13 +2136,32 @@
       "targetDir": "skills-flat/notification-center-basic",
       "displayName": "Notification Center Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:c2beb28156818c2e4f6d3bf06e36b4fc89fa0bf0c948bec970e9d06f4869ab4e",
+      "sourceHash": "sha256:2467137998ed0d9e12954ab9df59434cd82227bfab0b7e35d31387c05650e8e3",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "notification-center-basic",
+        "通知",
+        "消息中心",
+        "notification",
+        "基础版",
+        "basic",
+        "Notification Center Basic",
+        "center",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -892,13 +2169,32 @@
       "targetDir": "skills-flat/notification-center-pro",
       "displayName": "Notification Center PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:9f002be007ee7fad4531c0acde231597f3ea2898c81848ebfe7e6a69ea4d04c7",
+      "sourceHash": "sha256:8c662edfd4cfb64e22a1be7655581f2a5f308d705dd80d4ec1702141e26c8ac3",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "notification-center-pro",
+        "通知",
+        "消息中心",
+        "notification",
+        "专业版",
+        "pro",
+        "Notification Center PRO",
+        "center",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -906,13 +2202,32 @@
       "targetDir": "skills-flat/onboarding-flow-basic",
       "displayName": "Onboarding Flow Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:650e8d4aade2716024155edfa1b640856faa7eda2828cce97682941a58aa9705",
+      "sourceHash": "sha256:bb9c11e733f0622022a4be72887851eb2a6a3c603b63d471360cf3e27fd8dbf8",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "onboarding-flow-basic",
+        "新手引导",
+        "入门流程",
+        "onboarding",
+        "基础版",
+        "basic",
+        "Onboarding Flow Basic",
+        "flow",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -920,13 +2235,32 @@
       "targetDir": "skills-flat/onboarding-flow-pro",
       "displayName": "Onboarding Flow PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:a0313958f5f085faa003e043d9cc13dea066f580ad2b51d4c5594ee0bc997c8a",
+      "sourceHash": "sha256:2c239264a2899d43836489aff03b3b35dc6ed4ae23222922977d52b37d4f88e0",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "onboarding-flow-pro",
+        "新手引导",
+        "入门流程",
+        "onboarding",
+        "专业版",
+        "pro",
+        "Onboarding Flow PRO",
+        "flow",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -934,13 +2268,33 @@
       "targetDir": "skills-flat/pricing-page-basic",
       "displayName": "Pricing Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:f0efd3eb68fdf13f5e85769bce9aff1b871f4ec8577498d52d8febbe76a1aeb4",
+      "sourceHash": "sha256:a36ae6571334aa656d9751c709373ea6f317e4499765170ab02dae94f10e3d40",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "pricing-page-basic",
+        "定价",
+        "价格页",
+        "pricing",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Pricing Page Basic",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -948,13 +2302,33 @@
       "targetDir": "skills-flat/pricing-page-pro",
       "displayName": "Pricing Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:c67b828f1c1a5787b2bbd4f02314ccf38ebad4f2f9bbc82e453157af62c8443a",
+      "sourceHash": "sha256:b77feb08d10bcb23de9f12445f73712d8fbde3c82381dd6a71392746e487859d",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "pricing-page-pro",
+        "定价",
+        "价格页",
+        "pricing",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Pricing Page PRO",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -962,13 +2336,37 @@
       "targetDir": "skills-flat/profile-account-page-basic",
       "displayName": "Profile Account Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:a67baafc116b40b4f467b5d709f2440e66a55032290cac9997e046eb821c81d7",
+      "sourceHash": "sha256:503b5ecc0b8b30d9b50194f05ed7c114c2eebc0b9959dba641b6af170ba9986d",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "profile-account-page-basic",
+        "个人资料",
+        "用户资料",
+        "profile",
+        "账户",
+        "账号",
+        "个人中心",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Profile Account Page Basic",
+        "account",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -976,13 +2374,37 @@
       "targetDir": "skills-flat/profile-account-page-pro",
       "displayName": "Profile Account Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:a567578a06aebdcc84d395b437333352156f210a2dc836ebcf0081888548f80c",
+      "sourceHash": "sha256:72be631671b5a9b1b618596ff350a1a22e398bd134c672b0ae69cc07ab79960d",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "profile-account-page-pro",
+        "个人资料",
+        "用户资料",
+        "profile",
+        "账户",
+        "账号",
+        "个人中心",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Profile Account Page PRO",
+        "account",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -990,13 +2412,35 @@
       "targetDir": "skills-flat/responsive-navigation-basic",
       "displayName": "Responsive Navigation Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:57de8a7947bf1d6d0c9e6167364e48befe619d95bf72eb3065335b178ab701e0",
+      "sourceHash": "sha256:0d45c2a928a5cb60817eaf2e73a8d3b01a1582c9f3a53aa4f61ab5300d086466",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "responsive-navigation-basic",
+        "响应式",
+        "移动端适配",
+        "responsive",
+        "导航",
+        "响应式导航",
+        "navbar",
+        "基础版",
+        "basic",
+        "Responsive Navigation Basic",
+        "navigation",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -1004,13 +2448,35 @@
       "targetDir": "skills-flat/responsive-navigation-pro",
       "displayName": "Responsive Navigation PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:7a7d038da7d56b3f9e85c2d5f4ce950fa0b8d4f0ec4100a1668ef93987db158a",
+      "sourceHash": "sha256:416c1f2392acdda8b4cce1b7dee0aadb6e26c89dd54149b0b6195f347bf44f28",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "responsive-navigation-pro",
+        "响应式",
+        "移动端适配",
+        "responsive",
+        "导航",
+        "响应式导航",
+        "navbar",
+        "专业版",
+        "pro",
+        "Responsive Navigation PRO",
+        "navigation",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -1018,13 +2484,32 @@
       "targetDir": "skills-flat/saas-workspace-design",
       "displayName": "SaaS Workspace Design",
       "version": "0.1.0",
-      "sourceHash": "sha256:3b588cea23cd49823007dcad41d33eb8c2de4d7ede863c6405e3d34126907ad0",
+      "sourceHash": "sha256:84ccc87b2a7a10012fdfaaf4d5fdc3449f78bd6e4bbf90c109046076298cf47d",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "saas-workspace-design",
+        "SaaS",
+        "工作台",
+        "B2B 产品",
+        "设计",
+        "UI",
+        "视觉设计",
+        "SaaS Workspace Design",
+        "workspace",
+        "design",
+        "Saa",
+        "S",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
       ]
     },
     {
@@ -1032,13 +2517,35 @@
       "targetDir": "skills-flat/search-results-page-basic",
       "displayName": "Search Results Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:7bda52e8a2468910951dd46d2aaa3f5a31162db2c44d7dd30d723160a1f0e435",
+      "sourceHash": "sha256:30e9b0e4c1a49e854426ffa5e37a511b837f13fd7cda48f641a6b84e611c90b1",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "search-results-page-basic",
+        "搜索",
+        "搜索结果",
+        "search results",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Search Results Page Basic",
+        "search",
+        "results",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -1046,13 +2553,35 @@
       "targetDir": "skills-flat/search-results-page-pro",
       "displayName": "Search Results Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:07f135ae9cf29c52344d8768b0cf30d7b66954950ec6347e9121105e859f422e",
+      "sourceHash": "sha256:cd0ecdd7cc7c96b1db8ca56a33f5b54b97bd97690579dccc4cd4dc85e1242f43",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "search-results-page-pro",
+        "搜索",
+        "搜索结果",
+        "search results",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Search Results Page PRO",
+        "search",
+        "results",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -1060,13 +2589,33 @@
       "targetDir": "skills-flat/settings-page-basic",
       "displayName": "Settings Page Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:303beb5eba94aed8c512727f50abd05826658dc7c0989fe7054b888095604cc9",
+      "sourceHash": "sha256:ec05d218a08e32a142ad9ac088131efcbd0ace8b17d86fb7c2a9cc0e36968406",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "settings-page-basic",
+        "设置",
+        "配置页",
+        "settings",
+        "页面",
+        "page",
+        "基础版",
+        "basic",
+        "Settings Page Basic",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -1074,13 +2623,33 @@
       "targetDir": "skills-flat/settings-page-pro",
       "displayName": "Settings Page PRO",
       "version": "0.1.0",
-      "sourceHash": "sha256:91c11abb8f21d6aa501f1c6552651c13fe8a440c8fa59055d09b2713db586b29",
+      "sourceHash": "sha256:6e9996a0ecd665b06bdf1ec4d188fc556c95e7f247df0562a832fd5858a8110c",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "settings-page-pro",
+        "设置",
+        "配置页",
+        "settings",
+        "页面",
+        "page",
+        "专业版",
+        "pro",
+        "Settings Page PRO",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "design",
+        "设计",
+        "UI",
+        "视觉设计",
+        "frontend-platform"
       ]
     },
     {
@@ -1088,13 +2657,127 @@
       "targetDir": "skills-flat/website-homepage-design",
       "displayName": "Website Homepage Design",
       "version": "0.1.0",
-      "sourceHash": "sha256:015c250d27aa50d361649e900aa65b33a2ca1b59b54fb68976d2984d8ba7fb7f",
+      "sourceHash": "sha256:3870a8b4041802741ed872451e4b21de51c9107c4109a9938f32bc6809945608",
       "domain": "frontend",
       "departmentTags": [
         "frontend-platform"
       ],
       "sceneTags": [
         "design"
+      ],
+      "aliases": [
+        "官网首页",
+        "品牌首页",
+        "企业官网",
+        "产品官网",
+        "website-homepage-design",
+        "官网",
+        "website",
+        "首页",
+        "主页",
+        "设计",
+        "UI",
+        "视觉设计",
+        "Website Homepage Design",
+        "homepage",
+        "design",
+        "frontend",
+        "前端",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ]
+    },
+    {
+      "skillId": "general/bug-fix-debugging",
+      "targetDir": "skills-flat/bug-fix-debugging",
+      "displayName": "Bug Fix Debugging",
+      "version": "0.1.0",
+      "sourceHash": "sha256:5db2690bda9605c332ac813b9bfea3893dc856c79077ff0dddc9f8fe499a7972",
+      "domain": "general",
+      "departmentTags": [
+        "backend-platform",
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ],
+      "aliases": [
+        "修复 bug",
+        "修 bug",
+        "bug 修复",
+        "问题排查",
+        "故障定位",
+        "回归测试",
+        "bug-fix-debugging",
+        "bug",
+        "缺陷",
+        "故障",
+        "问题修复",
+        "修复",
+        "调试",
+        "bug 排查",
+        "Bug Fix Debugging",
+        "fix",
+        "debugging",
+        "general",
+        "通用",
+        "debug",
+        "排查",
+        "定位问题",
+        "test",
+        "测试",
+        "验证",
+        "backend-platform",
+        "后端",
+        "服务端"
+      ]
+    },
+    {
+      "skillId": "general/development-plan-doc",
+      "targetDir": "skills-flat/development-plan-doc",
+      "displayName": "Development Plan Document",
+      "version": "0.1.0",
+      "sourceHash": "sha256:03a6a9273050dbc187009c93ccdad0a639331436c69a06b32662b8114004f982",
+      "domain": "general",
+      "departmentTags": [
+        "backend-platform",
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "review"
+      ],
+      "aliases": [
+        "开发计划文档",
+        "技术方案",
+        "实施方案",
+        "任务拆解",
+        "开发路线图",
+        "coding plan",
+        "development-plan-doc",
+        "计划",
+        "开发计划",
+        "实施计划",
+        "文档",
+        "方案文档",
+        "技术文档",
+        "Development Plan Document",
+        "development plan doc",
+        "development",
+        "plan",
+        "doc",
+        "Document",
+        "general",
+        "通用",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "review",
+        "代码审查",
+        "code review"
       ]
     },
     {
@@ -1102,7 +2785,7 @@
       "targetDir": "skills-flat/wechat-toolkit",
       "displayName": "WeChat Toolkit",
       "version": "0.1.0",
-      "sourceHash": "sha256:2d5502af852c384d29e1232b6e2d2e56af03fc0a576bd00a07005addd8ef4038",
+      "sourceHash": "sha256:2a7e1b1249e156c7dc2311b47419647b1c161c1effa22eed43d64a75f38573cd",
       "domain": "general",
       "departmentTags": [
         "growth"
@@ -1110,6 +2793,22 @@
       "sceneTags": [
         "content-generation",
         "release"
+      ],
+      "aliases": [
+        "wechat-toolkit",
+        "微信",
+        "公众号",
+        "微信运营",
+        "WeChat Toolkit",
+        "wechat",
+        "toolkit",
+        "We",
+        "Chat",
+        "general",
+        "通用",
+        "content-generation",
+        "release",
+        "growth"
       ]
     },
     {
@@ -1117,7 +2816,7 @@
       "targetDir": "skills-flat/xiaohongshu-ops",
       "displayName": "Xiaohongshu Ops",
       "version": "0.1.0",
-      "sourceHash": "sha256:5c862e667350624dad01c16f2aad5d28bc24149c0c5f2e9a2ea23fe5f6875c18",
+      "sourceHash": "sha256:fae81011d754a981d146bb242e3a1998464d1e2468808a6092413e3a7886e597",
       "domain": "general",
       "departmentTags": [
         "growth"
@@ -1125,6 +2824,22 @@
       "sceneTags": [
         "content-generation",
         "data-analysis"
+      ],
+      "aliases": [
+        "xiaohongshu-ops",
+        "小红书",
+        "种草",
+        "内容运营",
+        "Xiaohongshu Ops",
+        "xiaohongshu",
+        "ops",
+        "general",
+        "通用",
+        "content-generation",
+        "data-analysis",
+        "数据",
+        "data",
+        "growth"
       ]
     },
     {
@@ -1132,7 +2847,7 @@
       "targetDir": "skills-flat/ci-quality-gates",
       "displayName": "CI Quality Gates",
       "version": "0.1.0",
-      "sourceHash": "sha256:bc7443d41e55fe575a1275e0b34d0272753f416da1cd75a6a4f86d787b590645",
+      "sourceHash": "sha256:d01a3ec6ccb21f179b847f4761bcdbe775947129aeebf4cce68500de0aa7e34c",
       "domain": "infra",
       "departmentTags": [
         "infra-platform"
@@ -1140,6 +2855,26 @@
       "sceneTags": [
         "release",
         "test"
+      ],
+      "aliases": [
+        "ci-quality-gates",
+        "CI",
+        "持续集成",
+        "质量门禁",
+        "质量",
+        "质量检查",
+        "quality gate",
+        "门禁",
+        "required checks",
+        "CI Quality Gates",
+        "quality",
+        "gates",
+        "infra",
+        "release",
+        "test",
+        "测试",
+        "验证",
+        "infra-platform"
       ]
     },
     {
@@ -1147,7 +2882,7 @@
       "targetDir": "skills-flat/load-testing",
       "displayName": "Load Testing",
       "version": "0.1.0",
-      "sourceHash": "sha256:6467eb49be493508c0a0dcaab298110165f45722b7d8c0f6d341ba91babdb547",
+      "sourceHash": "sha256:700d5e1c55715eb52eeba7d322ff5b208581892be4b4a35aed644fbdf47bb883",
       "domain": "infra",
       "departmentTags": [
         "infra-platform"
@@ -1155,6 +2890,25 @@
       "sceneTags": [
         "performance",
         "test"
+      ],
+      "aliases": [
+        "load-testing",
+        "负载测试",
+        "load test",
+        "压测",
+        "测试",
+        "测试策略",
+        "testing",
+        "Load Testing",
+        "load",
+        "infra",
+        "performance",
+        "性能",
+        "性能优化",
+        "性能分析",
+        "test",
+        "验证",
+        "infra-platform"
       ]
     },
     {
@@ -1162,7 +2916,7 @@
       "targetDir": "skills-flat/observability-backend",
       "displayName": "Backend Observability",
       "version": "0.1.0",
-      "sourceHash": "sha256:3c43bfa26c5cdace6f1404d4ac3431e063a3db2576fcc873f380e23d2ea072b7",
+      "sourceHash": "sha256:84cbc272655a25a00d2b69372d619ad3ab4a5a20063b9a38cebee8d98ce41450",
       "domain": "infra",
       "departmentTags": [
         "infra-platform"
@@ -1170,6 +2924,28 @@
       "sceneTags": [
         "debug",
         "incident"
+      ],
+      "aliases": [
+        "observability-backend",
+        "可观测性",
+        "日志",
+        "指标",
+        "链路追踪",
+        "告警",
+        "后端",
+        "服务端",
+        "server side",
+        "Backend Observability",
+        "observability backend",
+        "observability",
+        "backend",
+        "infra",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "incident",
+        "infra-platform"
       ]
     },
     {
@@ -1177,7 +2953,7 @@
       "targetDir": "skills-flat/stress-testing",
       "displayName": "Stress Testing",
       "version": "0.1.0",
-      "sourceHash": "sha256:7ffa72f6f400bbf9567bfd2b463e6c90f3ab3a4171ccb1168453fdd17b5a998a",
+      "sourceHash": "sha256:8324b8a7608c1a607366cbfcd63593b9f860da0628bdad30ef8f642aa0e1cd66",
       "domain": "infra",
       "departmentTags": [
         "infra-platform"
@@ -1185,6 +2961,25 @@
       "sceneTags": [
         "performance",
         "test"
+      ],
+      "aliases": [
+        "stress-testing",
+        "压力测试",
+        "压测",
+        "stress test",
+        "测试",
+        "测试策略",
+        "testing",
+        "Stress Testing",
+        "stress",
+        "infra",
+        "performance",
+        "性能",
+        "性能优化",
+        "性能分析",
+        "test",
+        "验证",
+        "infra-platform"
       ]
     },
     {
@@ -1192,7 +2987,7 @@
       "targetDir": "skills-flat/vercel-deploy",
       "displayName": "Vercel Deploy",
       "version": "0.1.0",
-      "sourceHash": "sha256:f4a6cbfbb378a320fae179a79f727a881d19677e9b3db96ed49d2dc02a74fa46",
+      "sourceHash": "sha256:8ace7b360b7fd88d0088c9cf543357c7bf41c214ae5e725c8d52409a07f1021e",
       "domain": "infra",
       "departmentTags": [
         "infra-platform"
@@ -1200,6 +2995,19 @@
       "sceneTags": [
         "deploy",
         "release"
+      ],
+      "aliases": [
+        "vercel-deploy",
+        "Vercel",
+        "部署",
+        "预览环境",
+        "发布",
+        "上线",
+        "Vercel Deploy",
+        "deploy",
+        "infra",
+        "release",
+        "infra-platform"
       ]
     },
     {
@@ -1207,13 +3015,32 @@
       "targetDir": "skills-flat/code-review-general",
       "displayName": "General Code Review",
       "version": "0.1.0",
-      "sourceHash": "sha256:609382f2f81dce2a144c4335dd59e10c88b08c695f177e3066dfdcf87a5c8d47",
+      "sourceHash": "sha256:66afab9b81835288d1925a616d35b138e5dd7c028610dfefcabdb10b14a9b43a",
       "domain": "review",
       "departmentTags": [
         "backend-platform"
       ],
       "sceneTags": [
         "review"
+      ],
+      "aliases": [
+        "code-review-general",
+        "代码",
+        "coding",
+        "代码实现",
+        "代码审查",
+        "code review",
+        "评审",
+        "通用",
+        "general",
+        "General Code Review",
+        "code review general",
+        "code",
+        "review",
+        "backend-platform",
+        "后端",
+        "服务端",
+        "server side"
       ]
     },
     {
@@ -1221,7 +3048,7 @@
       "targetDir": "skills-flat/code-review-risk-based",
       "displayName": "Risk Based Code Review",
       "version": "0.1.0",
-      "sourceHash": "sha256:fdb6f9555ab61a55895d125c9273c1730634b978ebfc8eb95deef8ed9a62985b",
+      "sourceHash": "sha256:93133dfa4213cad3f63cca2336bc1cdd89fd8b023d228f6e517ef35bfbfe6734",
       "domain": "review",
       "departmentTags": [
         "backend-platform"
@@ -1229,6 +3056,32 @@
       "sceneTags": [
         "review",
         "architecture"
+      ],
+      "aliases": [
+        "code-review-risk-based",
+        "代码",
+        "coding",
+        "代码实现",
+        "代码审查",
+        "code review",
+        "评审",
+        "风险",
+        "风险审查",
+        "risk-based",
+        "Risk Based Code Review",
+        "code review risk based",
+        "code",
+        "review",
+        "risk",
+        "based",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "backend-platform",
+        "后端",
+        "服务端",
+        "server side"
       ]
     },
     {
@@ -1236,7 +3089,7 @@
       "targetDir": "skills-flat/unit-test-strategy",
       "displayName": "Unit Test Strategy",
       "version": "0.1.0",
-      "sourceHash": "sha256:9df60aeea3b2da929269f9f2c7e7cf022ccd472e22c751e340c745114cbf6a2e",
+      "sourceHash": "sha256:8e7e555605108969f98aefa51ac8504aaeda83149ee2f3b2426d584ea6bd3c59",
       "domain": "review",
       "departmentTags": [
         "backend-platform"
@@ -1244,6 +3097,27 @@
       "sceneTags": [
         "test",
         "review"
+      ],
+      "aliases": [
+        "unit-test-strategy",
+        "单元测试",
+        "unit test",
+        "测试",
+        "验证",
+        "test",
+        "策略",
+        "方案",
+        "Unit Test Strategy",
+        "unit",
+        "strategy",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "backend-platform",
+        "后端",
+        "服务端",
+        "server side"
       ]
     },
     {
@@ -1251,7 +3125,7 @@
       "targetDir": "skills-flat/dependency-supply-chain-audit",
       "displayName": "Dependency Supply Chain Audit",
       "version": "0.1.0",
-      "sourceHash": "sha256:7250bcac1284f2b5ed3050603cc988f233c69fd84bbd90a310862b5dddbc103c",
+      "sourceHash": "sha256:74855dfa0a67e1c73d3a4c550b7752bb4510ab0ad972e73f561be24a9fceaf52",
       "domain": "security",
       "departmentTags": [
         "security-platform"
@@ -1259,6 +3133,28 @@
       "sceneTags": [
         "security-audit",
         "review"
+      ],
+      "aliases": [
+        "dependency-supply-chain-audit",
+        "依赖",
+        "依赖安全",
+        "dependency",
+        "供应链",
+        "软件供应链",
+        "链路",
+        "Dependency Supply Chain Audit",
+        "supply",
+        "chain",
+        "audit",
+        "security",
+        "安全",
+        "安全审计",
+        "security-audit",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "security-platform"
       ]
     },
     {
@@ -1266,7 +3162,7 @@
       "targetDir": "skills-flat/rate-limiting-abuse-protection",
       "displayName": "Rate Limiting Abuse Protection",
       "version": "0.1.0",
-      "sourceHash": "sha256:546e5bc8f3ed4a05aeca1780f31d147f7b285de091e26dcde9a204fce6c2e5a1",
+      "sourceHash": "sha256:6da8a8706e84977563cb4f349f48e7807a2abe98e093162127e09a49ea6b1b2c",
       "domain": "security",
       "departmentTags": [
         "security-platform"
@@ -1274,6 +3170,28 @@
       "sceneTags": [
         "architecture",
         "security-audit"
+      ],
+      "aliases": [
+        "rate-limiting-abuse-protection",
+        "限流",
+        "速率限制",
+        "rate limit",
+        "rate limiting",
+        "配额",
+        "Rate Limiting Abuse Protection",
+        "rate",
+        "limiting",
+        "abuse",
+        "protection",
+        "security",
+        "安全",
+        "安全审计",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "security-audit",
+        "security-platform"
       ]
     },
     {
@@ -1281,7 +3199,7 @@
       "targetDir": "skills-flat/security-best-practices",
       "displayName": "Security Best Practices",
       "version": "0.1.0",
-      "sourceHash": "sha256:7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "sourceHash": "sha256:deae1d67b8e4e3b6dcdc3ee0bfd4b3e278e7347c7507e4bd272dab5a46a00dbd",
       "domain": "security",
       "departmentTags": [
         "security-platform"
@@ -1289,6 +3207,21 @@
       "sceneTags": [
         "review",
         "security-audit"
+      ],
+      "aliases": [
+        "security-best-practices",
+        "安全",
+        "安全审计",
+        "security",
+        "Security Best Practices",
+        "best",
+        "practices",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "security-audit",
+        "security-platform"
       ]
     },
     {
@@ -1296,7 +3229,7 @@
       "targetDir": "skills-flat/security-ownership-map",
       "displayName": "Security Ownership Map",
       "version": "0.1.0",
-      "sourceHash": "sha256:f06c1a59247569326702c945f397af163ea96cf2ecfdf2dde280605bf89a3ec8",
+      "sourceHash": "sha256:dfb554bcb5ffaaf9104e493c4d098c19920cbe5166e6db378fd31ec6cbe67177",
       "domain": "security",
       "departmentTags": [
         "security-platform"
@@ -1304,6 +3237,20 @@
       "sceneTags": [
         "data-analysis",
         "security-audit"
+      ],
+      "aliases": [
+        "security-ownership-map",
+        "安全",
+        "安全审计",
+        "security",
+        "Security Ownership Map",
+        "ownership",
+        "map",
+        "data-analysis",
+        "数据",
+        "data",
+        "security-audit",
+        "security-platform"
       ]
     },
     {
@@ -1311,7 +3258,7 @@
       "targetDir": "skills-flat/security-threat-model",
       "displayName": "Security Threat Model",
       "version": "0.1.0",
-      "sourceHash": "sha256:1283c0dd62a8104d9edda4583569b5d8510b4ddaa45120687c999250fd96bad2",
+      "sourceHash": "sha256:dadd445c81d4fcf2ca9bec0508a4492051da9aae5ea59a1281e0cbd7b415c987",
       "domain": "security",
       "departmentTags": [
         "security-platform"
@@ -1319,6 +3266,26 @@
       "sceneTags": [
         "architecture",
         "security-audit"
+      ],
+      "aliases": [
+        "security-threat-model",
+        "安全",
+        "安全审计",
+        "security",
+        "威胁建模",
+        "威胁分析",
+        "threat model",
+        "模型",
+        "建模",
+        "Security Threat Model",
+        "threat",
+        "model",
+        "architecture",
+        "架构",
+        "架构设计",
+        "模块边界",
+        "security-audit",
+        "security-platform"
       ]
     },
     {
@@ -1326,7 +3293,7 @@
       "targetDir": "skills-flat/security-vulnerability-check",
       "displayName": "Security Vulnerability Check",
       "version": "0.1.0",
-      "sourceHash": "sha256:02082902f602da95a2078a8aebf72961443df3271876931baa6051588cc63248",
+      "sourceHash": "sha256:edb6f0801e24ddacac9b99cc0e2d2fc2389c1d1b0d928c85032d81b20d1f2f67",
       "domain": "security",
       "departmentTags": [
         "security-platform"
@@ -1334,6 +3301,24 @@
       "sceneTags": [
         "security-audit",
         "review"
+      ],
+      "aliases": [
+        "security-vulnerability-check",
+        "安全",
+        "安全审计",
+        "security",
+        "漏洞",
+        "漏洞检查",
+        "安全漏洞",
+        "Security Vulnerability Check",
+        "vulnerability",
+        "check",
+        "security-audit",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "security-platform"
       ]
     },
     {
@@ -1341,7 +3326,7 @@
       "targetDir": "skills-flat/doc",
       "displayName": "Doc",
       "version": "0.1.0",
-      "sourceHash": "sha256:0a635585817d1ac96e8e512114d08258b70f9e54ce0052078a258291ac13a8ed",
+      "sourceHash": "sha256:8800069bf33a5a16dc9a9b416b6aa4055542d5e33896a63ca766c74ff640eede",
       "domain": "tools",
       "departmentTags": [
         "data-platform"
@@ -1349,6 +3334,21 @@
       "sceneTags": [
         "content-generation",
         "review"
+      ],
+      "aliases": [
+        "doc",
+        "文档",
+        "方案文档",
+        "技术文档",
+        "tools",
+        "content-generation",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "data-platform",
+        "数据",
+        "data"
       ]
     },
     {
@@ -1356,11 +3356,19 @@
       "targetDir": "skills-flat/linear",
       "displayName": "Linear",
       "version": "0.1.0",
-      "sourceHash": "sha256:ce0f39c95b6c9190f8ea33614393cdb556b2684dd8388ded394e9cb915f42601",
+      "sourceHash": "sha256:c2f47c3a78173e4280d97eb1a47b4a1cadf3e38c85a2004e4871a550114a7da8",
       "domain": "tools",
       "departmentTags": [],
       "sceneTags": [
         "review"
+      ],
+      "aliases": [
+        "linear",
+        "tools",
+        "review",
+        "代码审查",
+        "code review",
+        "评审"
       ]
     },
     {
@@ -1368,7 +3376,7 @@
       "targetDir": "skills-flat/pdf",
       "displayName": "PDF",
       "version": "0.1.0",
-      "sourceHash": "sha256:d108cf2b36355ab37eb5962933f4d09785ec002f3105c506129320209306b9d2",
+      "sourceHash": "sha256:5b397873d0639384e68fc8c8037be1c4dab3e8b65183e4cc2f89f5b97e9213d2",
       "domain": "tools",
       "departmentTags": [
         "data-platform"
@@ -1376,6 +3384,18 @@
       "sceneTags": [
         "content-generation",
         "review"
+      ],
+      "aliases": [
+        "pdf",
+        "tools",
+        "content-generation",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "data-platform",
+        "数据",
+        "data"
       ]
     },
     {
@@ -1383,7 +3403,7 @@
       "targetDir": "skills-flat/playwright",
       "displayName": "Playwright",
       "version": "0.1.0",
-      "sourceHash": "sha256:0ffaabcc8e0990627c4725f18bf1c7955534a796c1c199e872909de2013ce6a8",
+      "sourceHash": "sha256:a537f13f154660eeeb0e72a93beecd165fc49409dd4b203441a711bc7d1c7e2a",
       "domain": "tools",
       "departmentTags": [
         "frontend-platform"
@@ -1391,6 +3411,21 @@
       "sceneTags": [
         "debug",
         "test"
+      ],
+      "aliases": [
+        "playwright",
+        "tools",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "test",
+        "测试",
+        "验证",
+        "frontend-platform",
+        "前端",
+        "Web 前端",
+        "页面开发"
       ]
     },
     {
@@ -1398,7 +3433,7 @@
       "targetDir": "skills-flat/playwright-interactive",
       "displayName": "Playwright Interactive",
       "version": "0.1.0",
-      "sourceHash": "sha256:f6c1155d923e6ae3ccc12abfef2266f119f8e9546df2ddeee1f5eb369845a0a1",
+      "sourceHash": "sha256:2013245683be87839bea22892cbf86c1d49752338417b215edf2fe15b5c7352f",
       "domain": "tools",
       "departmentTags": [
         "frontend-platform"
@@ -1406,6 +3441,24 @@
       "sceneTags": [
         "debug",
         "test"
+      ],
+      "aliases": [
+        "playwright-interactive",
+        "Playwright Interactive",
+        "playwright",
+        "interactive",
+        "tools",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "test",
+        "测试",
+        "验证",
+        "frontend-platform",
+        "前端",
+        "Web 前端",
+        "页面开发"
       ]
     },
     {
@@ -1413,7 +3466,7 @@
       "targetDir": "skills-flat/screenshot",
       "displayName": "Screenshot",
       "version": "0.1.0",
-      "sourceHash": "sha256:081935a6a163277537d46365f49d6b4a3cb40b4748347e7e88759c5927fa8cf5",
+      "sourceHash": "sha256:0a975ac18be83090be3a0f48745f354269b0e18a015cc97cf65ad417602a3c13",
       "domain": "tools",
       "departmentTags": [
         "frontend-platform"
@@ -1421,6 +3474,24 @@
       "sceneTags": [
         "debug",
         "review"
+      ],
+      "aliases": [
+        "screenshot",
+        "截图",
+        "截屏",
+        "tools",
+        "debug",
+        "调试",
+        "排查",
+        "定位问题",
+        "review",
+        "代码审查",
+        "code review",
+        "评审",
+        "frontend-platform",
+        "前端",
+        "Web 前端",
+        "页面开发"
       ]
     },
     {
@@ -1428,7 +3499,7 @@
       "targetDir": "skills-flat/spreadsheet",
       "displayName": "Spreadsheet",
       "version": "0.1.0",
-      "sourceHash": "sha256:36baea99e96c77c13d15d24f9d53cd072ccbc120e810bf4e68049edb5b0f1d65",
+      "sourceHash": "sha256:0a2de6c5e7666e749d6623eb5a669cb67ba117e60eb468fff58f47af7360935b",
       "domain": "tools",
       "departmentTags": [
         "data-platform"
@@ -1436,6 +3507,18 @@
       "sceneTags": [
         "content-generation",
         "data-analysis"
+      ],
+      "aliases": [
+        "spreadsheet",
+        "表格",
+        "Excel",
+        "电子表格",
+        "tools",
+        "content-generation",
+        "data-analysis",
+        "数据",
+        "data",
+        "data-platform"
       ]
     }
   ]

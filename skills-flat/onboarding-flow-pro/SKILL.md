@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/onboarding-flow-pro
 name: onboarding-flow-pro
 displayName: Onboarding Flow PRO
-description: 'Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Pro version focused on progress, motivation, task sequencing, and activation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:a0313958f5f085faa003e043d9cc13dea066f580ad2b51d4c5594ee0bc997c8a'
+description: Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Pro version focused on progress, motivation, task sequencing, and activation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - onboarding-flow-pro
+  - 新手引导
+  - 入门流程
+  - onboarding
+  - 专业版
+  - pro
+  - Onboarding Flow PRO
+  - flow
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:2c239264a2899d43836489aff03b3b35dc6ed4ae23222922977d52b37d4f88e0
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Onboarding Flow PRO

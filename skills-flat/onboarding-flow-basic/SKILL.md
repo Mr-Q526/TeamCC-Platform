@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/onboarding-flow-basic
 name: onboarding-flow-basic
 displayName: Onboarding Flow Basic
-description: 'Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Basic version focused on progress, motivation, task sequencing, and activation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:650e8d4aade2716024155edfa1b640856faa7eda2828cce97682941a58aa9705'
+description: Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Basic version focused on progress, motivation, task sequencing, and activation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - onboarding-flow-basic
+  - 新手引导
+  - 入门流程
+  - onboarding
+  - 基础版
+  - basic
+  - Onboarding Flow Basic
+  - flow
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:bb9c11e733f0622022a4be72887851eb2a6a3c603b63d471360cf3e27fd8dbf8
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Onboarding Flow Basic

@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: infra/load-testing
 name: load-testing
 displayName: Load Testing
-description: 'Use when working on load tests for APIs, web services, queues, and critical user flows. Focus on realistic traffic models, throughput, latency percentiles, and bottleneck evidence.'
-version: '0.1.0'
-sourceHash: 'sha256:6467eb49be493508c0a0dcaab298110165f45722b7d8c0f6d341ba91babdb547'
+description: Use when working on load tests for APIs, web services, queues, and critical user flows. Focus on realistic traffic models, throughput, latency percentiles, and bottleneck evidence.
+aliases:
+  - load-testing
+  - 负载测试
+  - load test
+  - 压测
+  - 测试
+  - 测试策略
+  - testing
+  - Load Testing
+  - load
+  - infra
+  - performance
+  - 性能
+  - 性能优化
+  - 性能分析
+  - test
+  - 验证
+  - infra-platform
+version: 0.1.0
+sourceHash: sha256:700d5e1c55715eb52eeba7d322ff5b208581892be4b4a35aed644fbdf47bb883
 domain: infra
-departmentTags: [infra-platform]
-sceneTags: [performance, test]
+departmentTags:
+  - infra-platform
+sceneTags:
+  - performance
+  - test
 ---
 
 # Load Testing

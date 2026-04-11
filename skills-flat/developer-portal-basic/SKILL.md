@@ -1,14 +1,35 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/developer-portal-basic
 name: developer-portal-basic
 displayName: Developer Portal Basic
-description: 'Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Basic version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:d7a99f31632ea12eecce4fcbbfbbb6f412678077c42592d3b0e2075fd3104866'
+description: Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Basic version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - developer-portal-basic
+  - 开发者
+  - 开发者门户
+  - developer portal
+  - 基础版
+  - basic
+  - Developer Portal Basic
+  - developer
+  - portal
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:3afef322b696a6cdd1da1114346e372994d921f802cccf0ef2a860cce1b61111
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Developer Portal Basic

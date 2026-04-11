@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/profile-account-page-basic
 name: profile-account-page-basic
 displayName: Profile Account Page Basic
-description: 'Use when designing profile, account center, identity, privacy, and user preference pages. Basic version focused on ownership, editability, privacy, and account state visibility; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:a67baafc116b40b4f467b5d709f2440e66a55032290cac9997e046eb821c81d7'
+description: Use when designing profile, account center, identity, privacy, and user preference pages. Basic version focused on ownership, editability, privacy, and account state visibility; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - profile-account-page-basic
+  - 个人资料
+  - 用户资料
+  - profile
+  - 账户
+  - 账号
+  - 个人中心
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Profile Account Page Basic
+  - account
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:503b5ecc0b8b30d9b50194f05ed7c114c2eebc0b9959dba641b6af170ba9986d
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Profile Account Page Basic

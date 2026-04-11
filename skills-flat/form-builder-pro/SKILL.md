@@ -1,14 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/form-builder-pro
 name: form-builder-pro
 displayName: Form Builder PRO
-description: 'Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Pro version focused on labels, validation, progressive disclosure, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:1d8347e4d888cfd4a143af0cf07b20a1603e6550fae907cb8f3ca79da7f61b26'
+description: Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Pro version focused on labels, validation, progressive disclosure, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - form-builder-pro
+  - 表单
+  - 表单构建
+  - form
+  - 构建器
+  - 生成器
+  - builder
+  - 专业版
+  - pro
+  - Form Builder PRO
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:82ba5daa4f84a138f2df090614494b06c1d56788dc4f26cbf1f8f0e6cb7fca17
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Form Builder PRO

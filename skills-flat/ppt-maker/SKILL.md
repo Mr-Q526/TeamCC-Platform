@@ -1,15 +1,30 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: design/ppt-maker
 name: ppt-maker
 displayName: PPT Maker
-description: '根据一句话主题、Markdown 或已有文稿生成结构化 PPT，并支持自然语言修改页面与组件后导出为可编辑 PPT。适用于需要生成大纲、创建逐页布局、维护 deck.json、渲染 HTML 预览和导出 .pptx 的场景。'
-version: '0.1.0'
-sourceHash: 'sha256:a607f1d627f591c021751213239441ca2655fe5df50fcdcdb92f0aa4ce305618'
+description: 根据一句话主题、Markdown 或已有文稿生成结构化 PPT，并支持自然语言修改页面与组件后导出为可编辑 PPT。适用于需要生成大纲、创建逐页布局、维护 deck.json、渲染 HTML 预览和导出 .pptx 的场景。
+aliases:
+  - ppt-maker
+  - PPT Maker
+  - ppt
+  - maker
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - content-generation
+  - growth
+version: 0.1.0
+sourceHash: sha256:861d0d49725e2724350030fe50b3934ac83426e832d0a62972f18affad0ddf68
 domain: design
-departmentTags: [growth]
-sceneTags: [content-generation, design]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - design
 ---
+
 # PPT Maker
 
 本技能用于构建和编辑结构化 PPT，而不是将任意 HTML 强行转换成 PowerPoint。

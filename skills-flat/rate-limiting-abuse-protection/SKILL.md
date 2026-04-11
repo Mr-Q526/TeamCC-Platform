@@ -1,14 +1,38 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: security/rate-limiting-abuse-protection
 name: rate-limiting-abuse-protection
 displayName: Rate Limiting Abuse Protection
-description: 'Use when working on rate limiting, abuse prevention, anti-scraping, quota, and API protection design. Focus on fairness, tenant isolation, bypass resistance, and operational controls.'
-version: '0.1.0'
-sourceHash: 'sha256:546e5bc8f3ed4a05aeca1780f31d147f7b285de091e26dcde9a204fce6c2e5a1'
+description: Use when working on rate limiting, abuse prevention, anti-scraping, quota, and API protection design. Focus on fairness, tenant isolation, bypass resistance, and operational controls.
+aliases:
+  - rate-limiting-abuse-protection
+  - 限流
+  - 速率限制
+  - rate limit
+  - rate limiting
+  - 配额
+  - Rate Limiting Abuse Protection
+  - rate
+  - limiting
+  - abuse
+  - protection
+  - security
+  - 安全
+  - 安全审计
+  - architecture
+  - 架构
+  - 架构设计
+  - 模块边界
+  - security-audit
+  - security-platform
+version: 0.1.0
+sourceHash: sha256:6da8a8706e84977563cb4f349f48e7807a2abe98e093162127e09a49ea6b1b2c
 domain: security
-departmentTags: [security-platform]
-sceneTags: [architecture, security-audit]
+departmentTags:
+  - security-platform
+sceneTags:
+  - architecture
+  - security-audit
 ---
 
 # Rate Limiting Abuse Protection

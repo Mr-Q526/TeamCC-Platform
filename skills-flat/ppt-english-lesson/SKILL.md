@@ -1,15 +1,31 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: design/ppt-english-lesson
 name: ppt-english-lesson
 displayName: PPT English Lesson
-description: '面向英语课堂教学场景生成结构化课件，覆盖导入、课文讲解、词汇、句型、练习和总结等教学环节，并强调课堂节奏与投屏可读性。'
-version: '0.1.0'
-sourceHash: 'sha256:23b36cdd891a04a36cbaf250f98f39ca60be7d8393a4be0b22409103b988eed3'
+description: 面向英语课堂教学场景生成结构化课件，覆盖导入、课文讲解、词汇、句型、练习和总结等教学环节，并强调课堂节奏与投屏可读性。
+aliases:
+  - ppt-english-lesson
+  - PPT English Lesson
+  - ppt
+  - english
+  - lesson
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - content-generation
+  - growth
+version: 0.1.0
+sourceHash: sha256:21bf0df293c99af81bcaafe6897dd4c4c74c2c8e6da2591a713df067a4e0afbe
 domain: design
-departmentTags: [growth]
-sceneTags: [content-generation, design]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - design
 ---
+
 # 英语课堂讲解
 
 这个子 skill 用于英语课堂课件制作。目标不是生成一份普通展示文稿，而是做一份能直接拿去上课的教学型 PPT：节奏清晰、英文内容醒目、练习有互动，整套结构围绕一节课的教学流程展开。

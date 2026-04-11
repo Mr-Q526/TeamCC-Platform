@@ -1,14 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/notification-center-basic
 name: notification-center-basic
 displayName: Notification Center Basic
-description: 'Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Basic version focused on priority, read state, grouping, and actionability; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:c2beb28156818c2e4f6d3bf06e36b4fc89fa0bf0c948bec970e9d06f4869ab4e'
+description: Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Basic version focused on priority, read state, grouping, and actionability; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - notification-center-basic
+  - 通知
+  - 消息中心
+  - notification
+  - 基础版
+  - basic
+  - Notification Center Basic
+  - center
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:2467137998ed0d9e12954ab9df59434cd82227bfab0b7e35d31387c05650e8e3
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Notification Center Basic

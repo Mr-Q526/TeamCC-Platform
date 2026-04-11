@@ -218,6 +218,7 @@ async function buildSkillDiscoveryAttachments(
         skillId: result.skillId,
         name: result.name,
         displayName: result.displayName,
+        aliases: result.aliases,
         version: result.version,
         sourceHash: result.sourceHash,
         domain: result.domain,

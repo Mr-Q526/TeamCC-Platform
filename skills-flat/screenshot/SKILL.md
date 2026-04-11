@@ -1,15 +1,36 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: tools/screenshot
 name: screenshot
 displayName: Screenshot
-description: 'Use when the user explicitly asks for a desktop or system screenshot (full screen, specific app or window, or a pixel region), or when tool-specific capture capabilities are unavailable and an OS-level capture is needed.'
-version: '0.1.0'
-sourceHash: 'sha256:081935a6a163277537d46365f49d6b4a3cb40b4748347e7e88759c5927fa8cf5'
+description: Use when the user explicitly asks for a desktop or system screenshot (full screen, specific app or window, or a pixel region), or when tool-specific capture capabilities are unavailable and an OS-level capture is needed.
+aliases:
+  - screenshot
+  - 截图
+  - 截屏
+  - tools
+  - debug
+  - 调试
+  - 排查
+  - 定位问题
+  - review
+  - 代码审查
+  - code review
+  - 评审
+  - frontend-platform
+  - 前端
+  - Web 前端
+  - 页面开发
+version: 0.1.0
+sourceHash: sha256:0a975ac18be83090be3a0f48745f354269b0e18a015cc97cf65ad417602a3c13
 domain: tools
-departmentTags: [frontend-platform]
-sceneTags: [debug, review]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - debug
+  - review
 ---
+
 # Screenshot Capture
 
 Follow these save-location rules every time:

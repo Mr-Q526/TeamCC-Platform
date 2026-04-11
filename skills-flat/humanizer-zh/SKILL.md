@@ -1,15 +1,28 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: ai/humanizer-zh
 name: humanizer-zh
 displayName: Humanizer ZH
 description: 'Removes AI-style writing traces to make text sound naturally written by a real author, primarily in Chinese-language contexts. '
-version: '0.1.0'
-sourceHash: 'sha256:8e2817966d80ddf8d5559430ed9e533724ee3495c2cb42a8f07308a642f7f523'
+aliases:
+  - humanizer-zh
+  - Humanizer ZH
+  - humanizer
+  - zh
+  - ai
+  - 人工智能
+  - 智能助手
+  - content-generation
+  - ai-platform
+version: 0.1.0
+sourceHash: sha256:20a59a212136d2e8d4f3ee887475bc42cd7b202e06692727fad9d81a9d48e923
 domain: ai
-departmentTags: [ai-platform]
-sceneTags: [content-generation]
+departmentTags:
+  - ai-platform
+sceneTags:
+  - content-generation
 ---
+
 # 去除 AI 写作特征，表达自然化
 
 你是一名专业文本编辑，任务是把文本改写得像真人自然写成，而不是 AI 输出。

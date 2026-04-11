@@ -1,14 +1,40 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/error-empty-states-basic
 name: error-empty-states-basic
 displayName: Error Empty States Basic
-description: 'Use when designing 404 pages, empty states, error states, permission states, and offline states. Basic version focused on recovery, explanation, next actions, and tone; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:eb24c8d5b2fbd02d475f2dde4a36ce9034c576d0b638b91f3bd8adb87c1f083d'
+description: Use when designing 404 pages, empty states, error states, permission states, and offline states. Basic version focused on recovery, explanation, next actions, and tone; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - error-empty-states-basic
+  - 错误状态
+  - 异常状态
+  - 报错页
+  - 空状态
+  - empty state
+  - 状态
+  - UI 状态
+  - 基础版
+  - basic
+  - Error Empty States Basic
+  - error
+  - empty
+  - states
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:602114a519102f67d7d7e86bbf8574366754f8b19795a8a6309f0945a4f7d443
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Error Empty States Basic

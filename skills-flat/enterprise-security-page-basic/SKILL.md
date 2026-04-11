@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/enterprise-security-page-basic
 name: enterprise-security-page-basic
 displayName: Enterprise Security Page Basic
-description: 'Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Basic version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:4bb5eefcffb9e1f52f849f0b41cb016a2deac2e1062edc3dba889b1f0e468d99'
+description: Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Basic version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - enterprise-security-page-basic
+  - 企业
+  - 企业级
+  - B2B
+  - 安全
+  - 安全审计
+  - security
+  - 页面
+  - page
+  - 基础版
+  - basic
+  - Enterprise Security Page Basic
+  - enterprise
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:778b17123a28b4672c90cce57b97b92ca690c61292ea424bc2c6c2fa99f466c6
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Enterprise Security Page Basic

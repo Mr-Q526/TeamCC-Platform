@@ -1,14 +1,37 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/fintech-dashboard-basic
 name: fintech-dashboard-basic
 displayName: Fintech Dashboard Basic
-description: 'Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Basic version focused on precision, compliance cues, risk visibility, and decision context; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.'
-version: '0.1.0'
-sourceHash: 'sha256:f6018be707d772e97d04423b72d6cee5d0cc6b2862ed8e2c3641295f780800ea'
+description: Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Basic version focused on precision, compliance cues, risk visibility, and decision context; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
+aliases:
+  - fintech-dashboard-basic
+  - 金融科技
+  - 金融
+  - fintech
+  - 仪表盘
+  - 看板
+  - 控制台
+  - dashboard
+  - 基础版
+  - basic
+  - Fintech Dashboard Basic
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:324257293b2ef94bcc5a05f04a10183addd1dec7787a81aa9a534059948c88ca
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Fintech Dashboard Basic

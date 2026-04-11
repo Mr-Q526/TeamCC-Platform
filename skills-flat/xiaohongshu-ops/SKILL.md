@@ -1,15 +1,34 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: general/xiaohongshu-ops
 name: xiaohongshu-ops
 displayName: Xiaohongshu Ops
-description: 'End-to-end Xiaohongshu operations including positioning, topic research, content production, publish execution, and post-incident recovery. Reusable across verticals with templates and a concrete 陪你看剧 case preset.'
-version: '0.1.0'
-sourceHash: 'sha256:5c862e667350624dad01c16f2aad5d28bc24149c0c5f2e9a2ea23fe5f6875c18'
+description: End-to-end Xiaohongshu operations including positioning, topic research, content production, publish execution, and post-incident recovery. Reusable across verticals with templates and a concrete 陪你看剧 case preset.
+aliases:
+  - xiaohongshu-ops
+  - 小红书
+  - 种草
+  - 内容运营
+  - Xiaohongshu Ops
+  - xiaohongshu
+  - ops
+  - general
+  - 通用
+  - content-generation
+  - data-analysis
+  - 数据
+  - data
+  - growth
+version: 0.1.0
+sourceHash: sha256:fae81011d754a981d146bb242e3a1998464d1e2468808a6092413e3a7886e597
 domain: general
-departmentTags: [growth]
-sceneTags: [content-generation, data-analysis]
+departmentTags:
+  - growth
+sceneTags:
+  - content-generation
+  - data-analysis
 ---
+
 # Openclaw 小红书运营技能（通用版）
 
 目标：构建可复用的“小红书运营”流程，让任何账号类型都能复用同一套动作框架。

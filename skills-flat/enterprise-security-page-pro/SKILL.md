@@ -1,14 +1,39 @@
 ---
-schemaVersion: '2026-04-11'
+schemaVersion: 2026-04-11
 skillId: frontend/enterprise-security-page-pro
 name: enterprise-security-page-pro
 displayName: Enterprise Security Page PRO
-description: 'Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Pro version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.'
-version: '0.1.0'
-sourceHash: 'sha256:6896f4af804209285d46a52bf53db8dfdb780fb6883a51a4e5be23d6fd19962f'
+description: Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Pro version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
+aliases:
+  - enterprise-security-page-pro
+  - 企业
+  - 企业级
+  - B2B
+  - 安全
+  - 安全审计
+  - security
+  - 页面
+  - page
+  - 专业版
+  - pro
+  - Enterprise Security Page PRO
+  - enterprise
+  - frontend
+  - 前端
+  - Web 前端
+  - 页面开发
+  - design
+  - 设计
+  - UI
+  - 视觉设计
+  - frontend-platform
+version: 0.1.0
+sourceHash: sha256:5dfc5a27751665fec7aaacda7b8bb9394c69c9dde822cc42d122735fe099ea1f
 domain: frontend
-departmentTags: [frontend-platform]
-sceneTags: [design]
+departmentTags:
+  - frontend-platform
+sceneTags:
+  - design
 ---
 
 # Enterprise Security Page PRO
