@@ -4,7 +4,7 @@ import { users, apiTokens } from '../db/schema.js'
 import { eq } from 'drizzle-orm'
 import crypto from 'crypto'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret'
+export const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production'
 const SALT_ROUNDS = 10
 
 export interface LoginRequest {
@@ -63,6 +63,7 @@ export async function authenticateUser(
 
 /**
  * Generate JWT access token
+ * Note: fastify-jwt expects payload to have standard claims
  */
 export function generateAccessToken(userId: number, username: string): string {
   const now = Math.floor(Date.now() / 1000)
@@ -71,13 +72,14 @@ export function generateAccessToken(userId: number, username: string): string {
 
   const header = { alg: 'HS256', typ: 'JWT' }
   const payload = {
+    sub: String(userId), // Standard JWT claim for subject
     userId,
     username,
     iat: now,
     exp,
   }
 
-  // Simple JWT encoding (for production, use a proper JWT library)
+  // Simple JWT encoding
   const encoded = Buffer.from(JSON.stringify(header)).toString('base64url') +
     '.' +
     Buffer.from(JSON.stringify(payload)).toString('base64url')
