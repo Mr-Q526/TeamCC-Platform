@@ -1,36 +1,20 @@
 {
   "schemaVersion": "2026-04-11",
-  "pilotCount": 6,
+  "pilotCount": 26,
   "skills": [
     {
-      "skillId": "security/security-threat-model",
-      "targetDir": "skills-flat/security-threat-model",
-      "displayName": "Security Threat Model",
+      "skillId": "ai/humanizer-zh",
+      "targetDir": "skills-flat/humanizer-zh",
+      "displayName": "Humanizer ZH",
       "version": "0.1.0",
-      "sourceHash": "sha256:1283c0dd62a8104d9edda4583569b5d8510b4ddaa45120687c999250fd96bad2",
-      "domain": "security",
-      "departmentTags": ["security-platform"],
-      "sceneTags": ["architecture", "security-audit"]
-    },
-    {
-      "skillId": "tools/pdf",
-      "targetDir": "skills-flat/pdf",
-      "displayName": "PDF",
-      "version": "0.1.0",
-      "sourceHash": "sha256:d108cf2b36355ab37eb5962933f4d09785ec002f3105c506129320209306b9d2",
-      "domain": "tools",
-      "departmentTags": ["data-platform"],
-      "sceneTags": ["content-generation", "review"]
-    },
-    {
-      "skillId": "infra/vercel-deploy",
-      "targetDir": "skills-flat/vercel-deploy",
-      "displayName": "Vercel Deploy",
-      "version": "0.1.0",
-      "sourceHash": "sha256:f4a6cbfbb378a320fae179a79f727a881d19677e9b3db96ed49d2dc02a74fa46",
-      "domain": "infra",
-      "departmentTags": ["infra-platform"],
-      "sceneTags": ["deploy", "release"]
+      "sourceHash": "sha256:8e2817966d80ddf8d5559430ed9e533724ee3495c2cb42a8f07308a642f7f523",
+      "domain": "ai",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation"
+      ]
     },
     {
       "skillId": "ai/transcribe",
@@ -39,18 +23,148 @@
       "version": "0.1.0",
       "sourceHash": "sha256:f530021da9f377362ee4214e0bc689cbb5404640d2eb88ee272d51d61f530a09",
       "domain": "ai",
-      "departmentTags": ["ai-platform"],
-      "sceneTags": ["content-generation", "data-analysis"]
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ]
     },
     {
-      "skillId": "frontend/nextjs-app-router",
-      "targetDir": "skills-flat/nextjs-app-router",
-      "displayName": "Next.js App Router",
+      "skillId": "design/jimeng",
+      "targetDir": "skills-flat/jimeng",
+      "displayName": "Jimeng",
       "version": "0.1.0",
-      "sourceHash": "sha256:678a88fb1f32913079ad4aea88f59ab6bbe5ba503cd2730a1bb8e2cf16f30391",
+      "sourceHash": "sha256:056bd2e8962345d24155d26b6604568463de3fe6b43b3e5ced463930adec5c5e",
+      "domain": "design",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ]
+    },
+    {
+      "skillId": "design/motion-video-maker",
+      "targetDir": "skills-flat/motion-video-maker",
+      "displayName": "Motion Video Maker",
+      "version": "0.1.0",
+      "sourceHash": "sha256:98fbe0e9a45aa5460e2a4ba8fe2eac79840f2b2a4749027e713426902532356b",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ]
+    },
+    {
+      "skillId": "design/ppt-club-recruiting",
+      "targetDir": "skills-flat/ppt-club-recruiting",
+      "displayName": "PPT Club Recruiting",
+      "version": "0.1.0",
+      "sourceHash": "sha256:9756242685c362c541cedb38c4f2be825e95ef0a7bd9dbfa7ca68310fd9c8ad5",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ]
+    },
+    {
+      "skillId": "design/ppt-course-presentation",
+      "targetDir": "skills-flat/ppt-course-presentation",
+      "displayName": "PPT Course Presentation",
+      "version": "0.1.0",
+      "sourceHash": "sha256:cdd3b4982f1e23a089a678be92b3f70e2c28472e35c531aef1a791f2b5e585ae",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ]
+    },
+    {
+      "skillId": "design/ppt-customer-story",
+      "targetDir": "skills-flat/ppt-customer-story",
+      "displayName": "PPT Customer Story",
+      "version": "0.1.0",
+      "sourceHash": "sha256:5f3d276262780b12cbc66a435be430c451f000ae62923dcea90b562e659c138f",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ]
+    },
+    {
+      "skillId": "design/ppt-english-lesson",
+      "targetDir": "skills-flat/ppt-english-lesson",
+      "displayName": "PPT English Lesson",
+      "version": "0.1.0",
+      "sourceHash": "sha256:23b36cdd891a04a36cbaf250f98f39ca60be7d8393a4be0b22409103b988eed3",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ]
+    },
+    {
+      "skillId": "design/ppt-maker",
+      "targetDir": "skills-flat/ppt-maker",
+      "displayName": "PPT Maker",
+      "version": "0.1.0",
+      "sourceHash": "sha256:a607f1d627f591c021751213239441ca2655fe5df50fcdcdb92f0aa4ce305618",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ]
+    },
+    {
+      "skillId": "design/ppt-personal-intro",
+      "targetDir": "skills-flat/ppt-personal-intro",
+      "displayName": "PPT Personal Intro",
+      "version": "0.1.0",
+      "sourceHash": "sha256:37e71ea3f9821714031dfb082aa135177f04fba8e0236a03bc7730f24ca15a39",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/develop-web-game",
+      "targetDir": "skills-flat/develop-web-game",
+      "displayName": "Develop Web Game",
+      "version": "0.1.0",
+      "sourceHash": "sha256:4586330e97c99581f37798c179a71c62030fc20befa6de3e3ccb96d1adead9c7",
       "domain": "frontend",
-      "departmentTags": ["frontend-platform"],
-      "sceneTags": ["architecture"]
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design",
+        "test"
+      ]
     },
     {
       "skillId": "frontend/frontend-skill",
@@ -59,8 +173,218 @@
       "version": "0.1.0",
       "sourceHash": "sha256:d367b2d22825d74c169475507e7ff109b81c1e9c20b2de3421fb19fcfbe3329b",
       "domain": "frontend",
-      "departmentTags": ["frontend-platform"],
-      "sceneTags": ["design"]
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ]
+    },
+    {
+      "skillId": "frontend/nextjs-app-router",
+      "targetDir": "skills-flat/nextjs-app-router",
+      "displayName": "Next.js App Router",
+      "version": "0.1.0",
+      "sourceHash": "sha256:678a88fb1f32913079ad4aea88f59ab6bbe5ba503cd2730a1bb8e2cf16f30391",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ]
+    },
+    {
+      "skillId": "general/wechat-toolkit",
+      "targetDir": "skills-flat/wechat-toolkit",
+      "displayName": "WeChat Toolkit",
+      "version": "0.1.0",
+      "sourceHash": "sha256:2d5502af852c384d29e1232b6e2d2e56af03fc0a576bd00a07005addd8ef4038",
+      "domain": "general",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "release"
+      ]
+    },
+    {
+      "skillId": "general/xiaohongshu-ops",
+      "targetDir": "skills-flat/xiaohongshu-ops",
+      "displayName": "Xiaohongshu Ops",
+      "version": "0.1.0",
+      "sourceHash": "sha256:5c862e667350624dad01c16f2aad5d28bc24149c0c5f2e9a2ea23fe5f6875c18",
+      "domain": "general",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ]
+    },
+    {
+      "skillId": "infra/vercel-deploy",
+      "targetDir": "skills-flat/vercel-deploy",
+      "displayName": "Vercel Deploy",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f4a6cbfbb378a320fae179a79f727a881d19677e9b3db96ed49d2dc02a74fa46",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "deploy",
+        "release"
+      ]
+    },
+    {
+      "skillId": "security/security-best-practices",
+      "targetDir": "skills-flat/security-best-practices",
+      "displayName": "Security Best Practices",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "review",
+        "security-audit"
+      ]
+    },
+    {
+      "skillId": "security/security-ownership-map",
+      "targetDir": "skills-flat/security-ownership-map",
+      "displayName": "Security Ownership Map",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f06c1a59247569326702c945f397af163ea96cf2ecfdf2dde280605bf89a3ec8",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "data-analysis",
+        "security-audit"
+      ]
+    },
+    {
+      "skillId": "security/security-threat-model",
+      "targetDir": "skills-flat/security-threat-model",
+      "displayName": "Security Threat Model",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1283c0dd62a8104d9edda4583569b5d8510b4ddaa45120687c999250fd96bad2",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
+      ]
+    },
+    {
+      "skillId": "tools/doc",
+      "targetDir": "skills-flat/doc",
+      "displayName": "Doc",
+      "version": "0.1.0",
+      "sourceHash": "sha256:0a635585817d1ac96e8e512114d08258b70f9e54ce0052078a258291ac13a8ed",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "review"
+      ]
+    },
+    {
+      "skillId": "tools/linear",
+      "targetDir": "skills-flat/linear",
+      "displayName": "Linear",
+      "version": "0.1.0",
+      "sourceHash": "sha256:ce0f39c95b6c9190f8ea33614393cdb556b2684dd8388ded394e9cb915f42601",
+      "domain": "tools",
+      "departmentTags": [],
+      "sceneTags": [
+        "review"
+      ]
+    },
+    {
+      "skillId": "tools/pdf",
+      "targetDir": "skills-flat/pdf",
+      "displayName": "PDF",
+      "version": "0.1.0",
+      "sourceHash": "sha256:d108cf2b36355ab37eb5962933f4d09785ec002f3105c506129320209306b9d2",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "review"
+      ]
+    },
+    {
+      "skillId": "tools/playwright",
+      "targetDir": "skills-flat/playwright",
+      "displayName": "Playwright",
+      "version": "0.1.0",
+      "sourceHash": "sha256:0ffaabcc8e0990627c4725f18bf1c7955534a796c1c199e872909de2013ce6a8",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ]
+    },
+    {
+      "skillId": "tools/playwright-interactive",
+      "targetDir": "skills-flat/playwright-interactive",
+      "displayName": "Playwright Interactive",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f6c1155d923e6ae3ccc12abfef2266f119f8e9546df2ddeee1f5eb369845a0a1",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ]
+    },
+    {
+      "skillId": "tools/screenshot",
+      "targetDir": "skills-flat/screenshot",
+      "displayName": "Screenshot",
+      "version": "0.1.0",
+      "sourceHash": "sha256:081935a6a163277537d46365f49d6b4a3cb40b4748347e7e88759c5927fa8cf5",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "review"
+      ]
+    },
+    {
+      "skillId": "tools/spreadsheet",
+      "targetDir": "skills-flat/spreadsheet",
+      "displayName": "Spreadsheet",
+      "version": "0.1.0",
+      "sourceHash": "sha256:36baea99e96c77c13d15d24f9d53cd072ccbc120e810bf4e68049edb5b0f1d65",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ]
     }
   ]
 }
