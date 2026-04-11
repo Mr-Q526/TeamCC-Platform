@@ -1749,10 +1749,44 @@ async function run(): Promise<CommanderCommand> {
 
     // Load team identity profile before initializeToolPermissionContext so identity rules can be injected
     {
-      const { loadIdentityProfile } = await import('./utils/identity.js');
+      const { loadIdentityProfile, loadLocalIdentityProfile, envelopeToProfile } = await import('./utils/identity.js');
       const { setIdentityProfile } = await import('./bootstrap/state.js');
       const { getCwd } = await import('./utils/cwd.js');
-      const profile = await loadIdentityProfile(getCwd());
+      const { loadTeamCCConfig, fetchIdentityFromTeamCC, cacheIdentity, loadCachedIdentity, isCacheValid } = await import('./bootstrap/teamccAuth.js');
+      const { logForDebugging } = await import('./utils/debug.js');
+
+      const cwd = getCwd();
+      let profile = null;
+
+      // Try to load from TeamCC Admin (with cache and fallback support)
+      try {
+        const config = await loadTeamCCConfig(cwd);
+        if (config?.accessToken) {
+          try {
+            // Try to fetch fresh identity from remote
+            const envelope = await fetchIdentityFromTeamCC(config);
+            profile = envelopeToProfile(envelope);
+            await cacheIdentity(cwd, envelope);
+            logForDebugging('[main] Loaded identity from TeamCC Admin');
+          } catch (remoteError) {
+            // Fallback to cache if remote fails
+            logForDebugging(`[main] Failed to fetch from TeamCC Admin: ${(remoteError as Error).message}`, { level: 'warn' });
+            const cached = await loadCachedIdentity(cwd);
+            if (cached && isCacheValid(cached)) {
+              profile = envelopeToProfile(cached);
+              logForDebugging('[main] Using cached identity from TeamCC Admin');
+            }
+          }
+        }
+      } catch (e) {
+        logForDebugging(`[main] Error loading TeamCC config: ${(e as Error).message}`, { level: 'debug' });
+      }
+
+      // Fallback to local file if remote not available
+      if (!profile) {
+        profile = await loadIdentityProfile(cwd);
+      }
+
       setIdentityProfile(profile);
     }
 

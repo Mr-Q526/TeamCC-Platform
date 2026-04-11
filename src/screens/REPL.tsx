@@ -65,6 +65,8 @@ import { useAssistantHistory } from '../hooks/useAssistantHistory.js';
 import type { SSHSession } from '../ssh/createSSHSession.js';
 import { SkillImprovementSurvey } from '../components/SkillImprovementSurvey.js';
 import { useSkillImprovementSurvey } from '../hooks/useSkillImprovementSurvey.js';
+import { SkillFeedbackSurvey } from '../components/SkillFeedbackSurvey.js';
+import { useSkillFeedbackSurvey } from '../hooks/useSkillFeedbackSurvey.js';
 import { useMoreRight } from '../moreright/useMoreRight.js';
 import { SpinnerWithVerb, BriefIdleStatus, type SpinnerMode } from '../components/Spinner.js';
 import { getSystemPrompt } from '../constants/prompts.js';
@@ -1722,6 +1724,7 @@ export function REPL({
   const hasActivePrompt = toolUseConfirmQueue.length > 0 || promptQueue.length > 0 || sandboxPermissionRequestQueue.length > 0 || elicitation.queue.length > 0 || workerSandboxPermissions.queue.length > 0;
   const feedbackSurveyOriginal = useFeedbackSurvey(messages, isLoading, submitCount, 'session', hasActivePrompt);
   const skillImprovementSurvey = useSkillImprovementSurvey(setMessages);
+  const skillFeedbackSurvey = useSkillFeedbackSurvey(isLoading, hasActivePrompt);
   const showIssueFlagBanner = useIssueFlagBanner(messages, submitCount);
 
   // Wrap feedback survey handler to trigger auto-run /issue
@@ -3182,6 +3185,9 @@ export function REPL({
     // Re-pin scroll to bottom on submit so the user always sees the new
     // exchange (matches OpenCode's auto-scroll behavior).
     repinScroll();
+
+    // Intercept profanity for implicit negative skill feedback
+    skillFeedbackSurvey.interceptProfanity(input);
 
     // Resume loop mode if paused
     if (feature('PROACTIVE') || feature('KAIROS')) {
@@ -4953,6 +4959,7 @@ export function REPL({
                       {frustrationDetection.state !== 'closed' && <FeedbackSurvey state={frustrationDetection.state} lastResponse={null} handleSelect={() => {}} handleTranscriptSelect={frustrationDetection.handleTranscriptSelect} inputValue={inputValue} setInputValue={setInputValue} />}
                       {/* Skill improvement survey - appears when improvements detected (ant-only) */}
                       {"external" === 'ant' && skillImprovementSurvey.suggestion && <SkillImprovementSurvey isOpen={skillImprovementSurvey.isOpen} skillName={skillImprovementSurvey.suggestion.skillName} updates={skillImprovementSurvey.suggestion.updates} handleSelect={skillImprovementSurvey.handleSelect} inputValue={inputValue} setInputValue={setInputValue} />}
+                      {skillFeedbackSurvey.pendingSkill && <SkillFeedbackSurvey onSelect={skillFeedbackSurvey.submitFeedback} inputValue={skillFeedbackSurvey.inputValue} setInputValue={skillFeedbackSurvey.setInputValue} />}
                       {showIssueFlagBanner && <IssueFlagBanner />}
                       <InjectedSkillsPanel messages={messages} />
                       <PromptInput debug={debug} ideSelection={ideSelection} hasSuppressedDialogs={!!hasSuppressedDialogs} isLocalJSXCommandActive={isShowingLocalJSXCommand} getToolUseContext={getToolUseContext} toolPermissionContext={toolPermissionContext} setToolPermissionContext={setToolPermissionContext} apiKeyStatus={apiKeyStatus} commands={commands} agents={agentDefinitions.activeAgents} isLoading={isLoading} onExit={handleExit} verbose={verbose} messages={messages} onAutoUpdaterResult={setAutoUpdaterResult} autoUpdaterResult={autoUpdaterResult} input={inputValue} onInputChange={setInputValue} mode={inputMode} onModeChange={setInputMode} stashedPrompt={stashedPrompt} setStashedPrompt={setStashedPrompt} submitCount={submitCount} onShowMessageSelector={handleShowMessageSelector} onMessageActionsEnter={

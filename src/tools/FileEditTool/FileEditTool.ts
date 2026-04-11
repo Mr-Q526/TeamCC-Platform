@@ -1,5 +1,6 @@
 import { dirname, isAbsolute, sep } from 'path'
 import { logEvent } from 'src/services/analytics/index.js'
+import { logPermissionDecision } from '../../utils/permissions/audit.js'
 import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
 import { diagnosticTracker } from '../../services/diagnosticTracking.js'
 import { clearDeliveredDiagnosticsForFile } from '../../services/lsp/LSPDiagnosticRegistry.js'
@@ -164,6 +165,9 @@ export const FileEditTool = buildTool({
       'deny',
     )
     if (denyRule !== null) {
+      if (denyRule.source === 'policySettings') {
+        logPermissionDecision('FileEdit', 'deny', denyRule.source, fullFilePath, denyRule.ruleValue.ruleContent || '*')
+      }
       return {
         result: false,
         behavior: 'ask',

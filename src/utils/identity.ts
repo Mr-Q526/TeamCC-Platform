@@ -12,6 +12,7 @@ import { parseFrontmatter } from './frontmatterParser.js'
 import { getFsImplementation } from './fsOperations.js'
 import { logForDebugging } from './debug.js'
 import { logForDiagnosticsNoPII } from './diagLogs.js'
+import type { IdentityEnvelope } from '../bootstrap/teamccAuth.js'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -169,6 +170,73 @@ export async function loadIdentityProfile(
   } catch {
     // File does not exist or is unreadable — identity is optional in V1
     logForDebugging(`[identity] No active identity file at ${identityPath}`)
+    return null
+  }
+}
+
+/**
+ * Converts a TeamCC Admin IdentityEnvelope to an IdentityProfile
+ */
+export function envelopeToProfile(
+  envelope: IdentityEnvelope,
+  projectId?: number,
+): IdentityProfile {
+  const subject = envelope.subject
+  return {
+    userId: subject.userId,
+    orgId: null, // Will be populated from context if needed
+    departmentId: subject.departmentId,
+    teamId: subject.teamId,
+    roleId: subject.roleId,
+    levelId: subject.levelId,
+    projectId: projectId ?? subject.defaultProjectId ?? 1,
+  }
+}
+
+/**
+ * Loads identity from local file with fallback support
+ */
+export async function loadLocalIdentityProfile(
+  cwd: string,
+): Promise<IdentityProfile | null> {
+  const identityPath = join(cwd, '.claude', 'identity', 'active.md')
+
+  try {
+    const raw = await getFsImplementation().readFile(identityPath, {
+      encoding: 'utf-8',
+    })
+    const { frontmatter } = parseFrontmatter(raw, identityPath)
+
+    const userId = Number(frontmatter.user_id)
+    const projectId = frontmatter.project_id !== undefined ? Number(frontmatter.project_id) : 1000
+    const departmentId = Number(frontmatter.department_id)
+    const teamId = Number(frontmatter.team_id)
+    const roleId = Number(frontmatter.role_id)
+    const levelId = Number(frontmatter.level_id)
+
+    if (
+      [userId, departmentId, teamId, roleId, levelId].some(
+        (v) => isNaN(v) || v <= 0,
+      )
+    ) {
+      return null
+    }
+
+    const orgId = frontmatter.org_id ? Number(frontmatter.org_id) : null
+
+    const profile: IdentityProfile = {
+      userId,
+      orgId,
+      departmentId,
+      teamId,
+      roleId,
+      levelId,
+      projectId,
+    }
+
+    logForDebugging(`[identity] Loaded local identity from ${identityPath}`)
+    return profile
+  } catch {
     return null
   }
 }

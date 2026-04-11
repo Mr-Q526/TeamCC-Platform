@@ -22,6 +22,7 @@ import {
   getFsImplementation,
   getPathsForPermissionCheck,
 } from '../fsOperations.js'
+import { logPermissionDecision } from './audit.js'
 import {
   containsPathTraversal,
   expandPath,
@@ -1098,6 +1099,9 @@ export function checkReadPermissionForTool(
       'deny',
     )
     if (denyRule) {
+      if (denyRule.source === 'policySettings') {
+        logPermissionDecision('FileRead', 'deny', denyRule.source, String(pathToCheck), denyRule.ruleValue.ruleContent || '*')
+      }
       return {
         behavior: 'deny',
         message: denyRule.source === 'policySettings'
@@ -1238,6 +1242,9 @@ export function checkWritePermissionForTool<Input extends AnyObject>(
       'deny',
     )
     if (denyRule) {
+      if (denyRule.source === 'policySettings') {
+        logPermissionDecision('FileWrite', 'deny', denyRule.source, String(pathToCheck), denyRule.ruleValue.ruleContent || '*')
+      }
       return {
         behavior: 'deny',
         message: denyRule.source === 'policySettings'

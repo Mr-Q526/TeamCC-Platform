@@ -9,6 +9,7 @@ import {
 import type { ToolPermissionContext, ToolUseContext } from '../../Tool.js'
 import type { PendingClassifierCheck } from '../../types/permissions.js'
 import { count } from '../../utils/array.js'
+import { logPermissionDecision } from '../../utils/permissions/audit.js'
 import {
   checkSemantics,
   nodeTypeId,
@@ -999,6 +1000,9 @@ export const bashToolCheckExactMatchPermission = (
   // 1. Deny if exact command was denied
   if (matchingDenyRules[0] !== undefined) {
     const denyRule = matchingDenyRules[0];
+    if (denyRule.source === 'policySettings') {
+      logPermissionDecision('Bash', 'deny', denyRule.source, String(command), denyRule.ruleValue.ruleContent || '*')
+    }
     return {
       behavior: 'deny',
       message: denyRule.source === 'policySettings'
@@ -1085,6 +1089,9 @@ export const bashToolCheckPermission = (
   // 2a. Deny if command has a deny rule
   if (matchingDenyRules[0] !== undefined) {
     const denyRule = matchingDenyRules[0];
+    if (denyRule.source === 'policySettings') {
+      logPermissionDecision('Bash', 'deny', denyRule.source, String(command), denyRule.ruleValue.ruleContent || '*')
+    }
     return {
       behavior: 'deny',
       message: denyRule.source === 'policySettings'
@@ -1289,6 +1296,9 @@ function checkSandboxAutoAllow(
   // Return immediately if there's an explicit deny rule on the full command
   if (matchingDenyRules[0] !== undefined) {
     const denyRule = matchingDenyRules[0];
+    if (denyRule.source === 'policySettings') {
+      logPermissionDecision('Bash', 'deny', denyRule.source, String(command), denyRule.ruleValue.ruleContent || '*')
+    }
     return {
       behavior: 'deny',
       message: denyRule.source === 'policySettings'
@@ -1321,6 +1331,9 @@ function checkSandboxAutoAllow(
       // Deny takes priority — return immediately
       if (subResult.matchingDenyRules[0] !== undefined) {
         const denyRule = subResult.matchingDenyRules[0];
+        if (denyRule.source === 'policySettings') {
+          logPermissionDecision('Bash', 'deny', denyRule.source, String(sub), denyRule.ruleValue.ruleContent || '*')
+        }
         return {
           behavior: 'deny',
           message: denyRule.source === 'policySettings'

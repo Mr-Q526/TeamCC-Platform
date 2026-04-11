@@ -88,12 +88,12 @@ export class StreamingToolExecutor {
             content: [
               {
                 type: 'tool_result',
-                content: `<tool_use_error>Error: No such tool available: ${block.name}</tool_use_error>`,
+                content: `<tool_use_error>Error: No such tool available: ${block.name}\n【权限拦截提示：模型目前无法找到该工具，这可能是因为在公司管理平台上没有给当前员工（您）配置该工具的权限，导致其在运行时被系统隐藏。】</tool_use_error>`,
                 is_error: true,
                 tool_use_id: block.id,
               },
             ],
-            toolUseResult: `Error: No such tool available: ${block.name}`,
+            toolUseResult: `Error: No such tool available: ${block.name}\n【权限拦截提示：模型目前无法找到该工具，这可能是因为在公司管理平台上没有给当前员工（您）配置该工具的权限，导致其在运行时被系统隐藏。】`,
             sourceToolAssistantUUID: assistantMessage.uuid,
           }),
         ],
