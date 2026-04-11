@@ -34,14 +34,14 @@ async function seed() {
     await db
       .insert(departments)
       .values([
-        { id: 101, name: 'frontend', description: 'Frontend Development' },
-        { id: 102, name: 'backend', description: 'Backend Development' },
-        { id: 103, name: 'qa', description: 'Quality Assurance' },
-        { id: 104, name: 'sre', description: 'Site Reliability Engineering' },
-        { id: 105, name: 'data', description: 'Data & Analytics' },
-        { id: 106, name: 'mobile', description: 'Mobile Development' },
-        { id: 107, name: 'product', description: 'Product Management' },
-        { id: 108, name: 'operations', description: 'Operations' },
+        { id: 101, name: 'frontend', description: '前端开发部' },
+        { id: 102, name: 'backend', description: '后端开发部' },
+        { id: 103, name: 'qa', description: '测试部' },
+        { id: 104, name: 'sre', description: '可靠性工程部' },
+        { id: 105, name: 'data', description: '数据部' },
+        { id: 106, name: 'mobile', description: '移动开发部' },
+        { id: 107, name: 'product', description: '产品部' },
+        { id: 108, name: 'operations', description: '运营部' },
       ])
       .onConflictDoNothing()
 
@@ -51,10 +51,10 @@ async function seed() {
     await db
       .insert(roles)
       .values([
-        { id: 201, name: 'frontend-developer', description: 'Frontend Developer' },
-        { id: 202, name: 'java-developer', description: 'Backend Developer' },
-        { id: 203, name: 'test-automation', description: 'QA Engineer' },
-        { id: 204, name: 'devops-sre', description: 'DevOps/SRE' },
+        { id: 201, name: 'frontend-developer', description: '前端开发工程师' },
+        { id: 202, name: 'java-developer', description: '后端开发工程师' },
+        { id: 203, name: 'test-automation', description: '测试工程师' },
+        { id: 204, name: 'devops-sre', description: '运维工程师' },
       ])
       .onConflictDoNothing()
 
@@ -64,11 +64,11 @@ async function seed() {
     await db
       .insert(levels)
       .values([
-        { id: 301, name: 'p3', description: 'P3 - Junior' },
-        { id: 302, name: 'p4', description: 'P4 - Intermediate' },
-        { id: 303, name: 'p5', description: 'P5 - Senior' },
-        { id: 304, name: 'p6', description: 'P6 - Staff' },
-        { id: 305, name: 'p7', description: 'P7 - Principal' },
+        { id: 301, name: 'p3', description: 'P3 - 初级' },
+        { id: 302, name: 'p4', description: 'P4 - 中级' },
+        { id: 303, name: 'p5', description: 'P5 - 高级' },
+        { id: 304, name: 'p6', description: 'P6 - 资深' },
+        { id: 305, name: 'p7', description: 'P7 - 首席' },
       ])
       .onConflictDoNothing()
 
@@ -78,15 +78,15 @@ async function seed() {
     await db
       .insert(teams)
       .values([
-        { id: 1011, name: 'commerce-web', description: 'E-commerce Web Team' },
-        { id: 1012, name: 'growth-mobile', description: 'Growth Mobile Team' },
-        { id: 1013, name: 'admin-portal', description: 'Admin Portal Team' },
-        { id: 1021, name: 'payment-infra', description: 'Payment Infrastructure' },
-        { id: 1022, name: 'order-service', description: 'Order Service Team' },
-        { id: 1051, name: 'data-platform', description: 'Data Platform Team' },
-        { id: 1052, name: 'algorithm', description: 'Algorithm Team' },
-        { id: 1071, name: 'product-growth', description: 'Product Growth' },
-        { id: 1072, name: 'product-platform', description: 'Product Platform' },
+        { id: 1011, name: 'commerce-web', description: '商城Web团队' },
+        { id: 1012, name: 'growth-mobile', description: '增长移动团队' },
+        { id: 1013, name: 'admin-portal', description: '管理后台团队' },
+        { id: 1021, name: 'payment-infra', description: '支付基础设施' },
+        { id: 1022, name: 'order-service', description: '订单服务团队' },
+        { id: 1051, name: 'data-platform', description: '数据平台团队' },
+        { id: 1052, name: 'algorithm', description: '算法团队' },
+        { id: 1071, name: 'product-growth', description: '产品增长团队' },
+        { id: 1072, name: 'product-platform', description: '产品平台团队' },
       ])
       .onConflictDoNothing()
 
@@ -97,9 +97,9 @@ async function seed() {
       .insert(projects)
       .values([
         { id: 1, name: 'TeamSkill ClaudeCode', code: 'teamcc' },
-        { id: 7, name: 'Commerce Platform', code: 'commerce' },
-        { id: 14, name: 'Payment System', code: 'payment' },
-        { id: 21, name: 'Data Analytics', code: 'analytics' },
+        { id: 7, name: '商城平台', code: 'commerce' },
+        { id: 14, name: '支付系统', code: 'payment' },
+        { id: 21, name: '数据分析', code: 'analytics' },
       ])
       .onConflictDoNothing()
 
@@ -143,8 +143,8 @@ async function seed() {
     // Seed permission templates
     const templatesData = [
       {
-        name: 'Frontend Developer',
-        description: 'Standard permissions for frontend developers',
+        name: '前端开发',
+        description: '前端开发人员标准权限',
         rules: [
           { behavior: 'deny' as const, tool: 'Read', content: '*src/server/**' },
           { behavior: 'deny' as const, tool: 'Edit', content: '*src/server/**' },
@@ -155,8 +155,8 @@ async function seed() {
         envOverrides: { BACKEND_DIR: 'src/server/', FRONTEND_DIR: 'src/client/' },
       },
       {
-        name: 'Backend Developer',
-        description: 'Standard permissions for backend developers',
+        name: '后端开发',
+        description: '后端开发人员标准权限',
         rules: [
           { behavior: 'allow' as const, tool: 'Read', content: '*src/server/**' },
           { behavior: 'allow' as const, tool: 'Edit', content: '*src/server/**' },
@@ -167,8 +167,8 @@ async function seed() {
         envOverrides: { BACKEND_DIR: 'src/server/', DATABASE_HOST: 'db.internal' },
       },
       {
-        name: 'QA Engineer',
-        description: 'Read-only access for testing',
+        name: '测试工程师',
+        description: '测试人员只读权限',
         rules: [
           { behavior: 'allow' as const, tool: 'Read', content: '**' },
           { behavior: 'deny' as const, tool: 'Edit', content: '**' },
@@ -179,8 +179,8 @@ async function seed() {
         envOverrides: { TEST_ENV: 'true' },
       },
       {
-        name: 'DevOps/SRE',
-        description: 'Infrastructure and deployment access',
+        name: '运维工程师',
+        description: '基础设施和部署权限',
         rules: [
           { behavior: 'allow' as const, tool: 'Read', content: '**' },
           { behavior: 'allow' as const, tool: 'Edit', content: '*infra/**' },
@@ -191,8 +191,8 @@ async function seed() {
         envOverrides: { CLUSTER: 'prod', NAMESPACE: 'default' },
       },
       {
-        name: 'Data Analyst',
-        description: 'Data access and analysis',
+        name: '数据分析师',
+        description: '数据访问和分析权限',
         rules: [
           { behavior: 'allow' as const, tool: 'Read', content: '*data/**' },
           { behavior: 'allow' as const, tool: 'Read', content: '*analytics/**' },

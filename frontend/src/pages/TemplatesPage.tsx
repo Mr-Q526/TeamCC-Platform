@@ -162,7 +162,7 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
     <div className="page">
       <div className="page-header">
         <h2>{t('templates.title')}</h2>
-        <button className="btn-primary">+ {t('templates.title')}</button>
+        <button className="btn-primary">+ {t('btn.add')}</button>
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -245,8 +245,8 @@ export default function TemplatesPage({ accessToken }: TemplatesPageProps) {
                   </div>
 
                   <div className="template-actions">
-                    <button className="btn-sm">Edit</button>
-                    <button className="btn-sm danger">Delete</button>
+                    <button className="btn-sm">{t('btn.edit')}</button>
+                    <button className="btn-sm danger">{t('btn.delete')}</button>
                   </div>
                 </div>
               )}

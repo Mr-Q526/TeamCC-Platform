@@ -20,22 +20,22 @@ interface UsersPageProps {
 }
 
 const DEPT_MAP: Record<number, string> = {
-  101: 'Frontend', 102: 'Backend', 103: 'QA', 104: 'SRE',
-  105: 'Data', 106: 'Mobile', 107: 'Product', 108: 'Operations',
+  101: 'dept.frontend', 102: 'dept.backend', 103: 'dept.qa', 104: 'dept.sre',
+  105: 'dept.data', 106: 'dept.mobile', 107: 'dept.product', 108: 'dept.operations',
 }
 
 const TEAM_MAP: Record<number, string> = {
-  1011: 'Commerce Web', 1012: 'Growth Mobile', 1013: 'Admin Portal',
-  1021: 'Payment Infra', 1022: 'Order Service', 1051: 'Data Platform',
-  1052: 'Algorithm', 1071: 'Product Growth', 1072: 'Product Platform',
+  1011: 'team.commerce-web', 1012: 'team.growth-mobile', 1013: 'team.admin-portal',
+  1021: 'team.payment-infra', 1022: 'team.order-service', 1051: 'team.data-platform',
+  1052: 'team.algorithm', 1071: 'team.product-growth', 1072: 'team.product-platform',
 }
 
 const ROLE_MAP: Record<number, string> = {
-  201: 'Frontend Dev', 202: 'Backend Dev', 203: 'QA Engineer', 204: 'DevOps/SRE',
+  201: 'role.frontend-developer', 202: 'role.backend-developer', 203: 'role.qa-engineer', 204: 'role.devops-sre',
 }
 
 const LEVEL_MAP: Record<number, string> = {
-  301: 'P3', 302: 'P4', 303: 'P5', 304: 'P6', 305: 'P7',
+  301: 'level.p3', 302: 'level.p4', 303: 'level.p5', 304: 'level.p6', 305: 'level.p7',
 }
 
 export default function UsersPage({ accessToken }: UsersPageProps) {
@@ -91,7 +91,7 @@ export default function UsersPage({ accessToken }: UsersPageProps) {
     <div className="page">
       <div className="page-header">
         <h2>{t('users.title')}</h2>
-        <button className="btn-primary">+ {t('users.title')}</button>
+        <button className="btn-primary">+ {t('btn.add')}</button>
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -120,16 +120,16 @@ export default function UsersPage({ accessToken }: UsersPageProps) {
                   <td>{user.id}</td>
                   <td className="username">{user.username}</td>
                   <td>{user.email}</td>
-                  <td>{DEPT_MAP[user.departmentId] || 'Unknown'}</td>
-                  <td>{TEAM_MAP[user.teamId] || 'Unknown'}</td>
-                  <td>{ROLE_MAP[user.roleId] || 'Unknown'}</td>
-                  <td className="level">{LEVEL_MAP[user.levelId] || 'Unknown'}</td>
+                  <td>{t(DEPT_MAP[user.departmentId] || 'dept.frontend')}</td>
+                  <td>{t(TEAM_MAP[user.teamId] || 'team.commerce-web')}</td>
+                  <td>{t(ROLE_MAP[user.roleId] || 'role.frontend-developer')}</td>
+                  <td className="level">{t(LEVEL_MAP[user.levelId] || 'level.p4')}</td>
                   <td>
-                    <span className={`status ${user.status}`}>{user.status}</span>
+                    <span className={`status ${user.status}`}>{t(`status.${user.status}`)}</span>
                   </td>
                   <td className="action">
-                    <button className="btn-sm">Edit</button>
-                    <button className="btn-sm danger">Delete</button>
+                    <button className="btn-sm">{t('btn.edit')}</button>
+                    <button className="btn-sm danger">{t('btn.delete')}</button>
                   </td>
                 </tr>
               ))}
