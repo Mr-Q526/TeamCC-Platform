@@ -1,29 +1,79 @@
 {
   "schemaVersion": "2026-04-11",
-  "pilotCount": 102,
+  "pilotCount": 106,
   "skills": [
     {
-      "skillId": "ai/humanizer-zh",
-      "targetDir": "skills-flat/humanizer-zh",
-      "displayName": "Humanizer ZH",
+      "skillId": "ai/humanizer-zh-basic",
+      "targetDir": "skills-flat/humanizer-zh-basic",
+      "displayName": "Humanizer ZH Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:20a59a212136d2e8d4f3ee887475bc42cd7b202e06692727fad9d81a9d48e923",
+      "sourceHash": "sha256:90351fbab4200a774d8377879c7f044f438d8d398b2e01752fe8095e1e303592",
       "domain": "ai",
       "departmentTags": [
         "ai-platform"
       ],
       "sceneTags": [
-        "content-generation"
+        "content-generation",
+        "writing"
       ],
       "aliases": [
-        "humanizer-zh",
-        "Humanizer ZH",
+        "humanizer-zh-basic",
+        "Humanizer ZH Basic",
+        "去AI味",
+        "去AI味道",
+        "去除AI痕迹",
+        "中文润色",
+        "文章改写",
+        "basic humanizer",
+        "control skill",
+        "baseline skill",
+        "ai",
+        "content-generation",
+        "基础版",
+        "basic",
         "humanizer",
         "zh",
-        "ai",
         "人工智能",
         "智能助手",
+        "writing",
+        "ai-platform"
+      ]
+    },
+    {
+      "skillId": "ai/humanizer-zh-pro",
+      "targetDir": "skills-flat/humanizer-zh-pro",
+      "displayName": "Humanizer ZH PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:9500d9fa2bbf63807d3a48bda1dfce8e886ab1029a44f86e568b66fcdbf83c54",
+      "domain": "ai",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
         "content-generation",
+        "writing"
+      ],
+      "aliases": [
+        "humanizer-zh-pro",
+        "Humanizer ZH PRO",
+        "去AI味",
+        "去AI味道",
+        "去除AI痕迹",
+        "中文润色",
+        "文章改写",
+        "真人写作",
+        "自然表达",
+        "humanizer",
+        "Chinese writing",
+        "article rewriting",
+        "ai",
+        "content-generation",
+        "专业版",
+        "pro",
+        "zh",
+        "人工智能",
+        "智能助手",
+        "writing",
         "ai-platform"
       ]
     },
@@ -2689,6 +2739,91 @@
       ]
     },
     {
+      "skillId": "frontend/website-homepage-design-basic",
+      "targetDir": "skills-flat/website-homepage-design-basic",
+      "displayName": "Website Homepage Design Basic",
+      "version": "0.1.0",
+      "sourceHash": "sha256:fe68397b268429972a119c351f45472fd3dce2caaf345f6047ea181aa9b8a92f",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design",
+        "homepage"
+      ],
+      "aliases": [
+        "website-homepage-design-basic",
+        "Website Homepage Design Basic",
+        "官网首页",
+        "首页",
+        "品牌首页",
+        "企业官网",
+        "产品官网",
+        "homepage",
+        "website",
+        "basic homepage",
+        "control skill",
+        "baseline skill",
+        "frontend",
+        "前端",
+        "UI",
+        "官网",
+        "主页",
+        "设计",
+        "视觉设计",
+        "基础版",
+        "basic",
+        "design",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ]
+    },
+    {
+      "skillId": "frontend/website-homepage-design-pro",
+      "targetDir": "skills-flat/website-homepage-design-pro",
+      "displayName": "Website Homepage Design PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:bef7757ba41ed2bbb44b9675acd16397ed1ed03002a34673ee56776a641be2f2",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design",
+        "homepage"
+      ],
+      "aliases": [
+        "website-homepage-design-pro",
+        "Website Homepage Design PRO",
+        "官网首页",
+        "高端官网",
+        "品牌首页",
+        "企业官网",
+        "产品官网",
+        "首页设计",
+        "homepage",
+        "website",
+        "landing",
+        "premium homepage",
+        "frontend",
+        "前端",
+        "UI",
+        "视觉设计",
+        "官网",
+        "首页",
+        "主页",
+        "设计",
+        "专业版",
+        "pro",
+        "design",
+        "Web 前端",
+        "页面开发",
+        "frontend-platform"
+      ]
+    },
+    {
       "skillId": "general/bug-fix-debugging",
       "targetDir": "skills-flat/bug-fix-debugging",
       "displayName": "Bug Fix Debugging",
@@ -2735,11 +2870,11 @@
       ]
     },
     {
-      "skillId": "general/development-plan-doc",
-      "targetDir": "skills-flat/development-plan-doc",
-      "displayName": "Development Plan Document",
+      "skillId": "general/development-plan-doc-basic",
+      "targetDir": "skills-flat/development-plan-doc-basic",
+      "displayName": "Development Plan Document Basic",
       "version": "0.1.0",
-      "sourceHash": "sha256:03a6a9273050dbc187009c93ccdad0a639331436c69a06b32662b8114004f982",
+      "sourceHash": "sha256:717e95f65fb0d99f205fcc4a86a6c5645a0f8e12c1add811492dcd5db1ab857d",
       "domain": "general",
       "departmentTags": [
         "backend-platform",
@@ -2747,37 +2882,84 @@
       ],
       "sceneTags": [
         "architecture",
-        "review"
+        "planning"
       ],
       "aliases": [
+        "development-plan-doc-basic",
+        "Development Plan Document Basic",
         "开发计划文档",
+        "功能开发规划",
         "技术方案",
         "实施方案",
+        "简单计划",
         "任务拆解",
-        "开发路线图",
+        "basic plan",
+        "control skill",
+        "baseline skill",
         "coding plan",
-        "development-plan-doc",
+        "implementation plan",
+        "plan",
+        "doc",
         "计划",
         "开发计划",
         "实施计划",
         "文档",
         "方案文档",
         "技术文档",
-        "Development Plan Document",
-        "development plan doc",
+        "基础版",
+        "basic",
+        "development plan doc basic",
         "development",
-        "plan",
-        "doc",
         "Document",
         "general",
-        "通用",
+        "通用"
+      ]
+    },
+    {
+      "skillId": "general/development-plan-doc-pro",
+      "targetDir": "skills-flat/development-plan-doc-pro",
+      "displayName": "Development Plan Document PRO",
+      "version": "0.1.0",
+      "sourceHash": "sha256:ed1d41750511f941c42a890949c7e32c12ef1213c1d8060c318a47bb35a409bb",
+      "domain": "general",
+      "departmentTags": [
+        "backend-platform",
+        "frontend-platform"
+      ],
+      "sceneTags": [
         "architecture",
-        "架构",
-        "架构设计",
-        "模块边界",
-        "review",
-        "代码审查",
-        "code review"
+        "planning",
+        "review"
+      ],
+      "aliases": [
+        "development-plan-doc-pro",
+        "Development Plan Document PRO",
+        "开发计划文档",
+        "功能开发规划",
+        "技术方案",
+        "实施方案",
+        "详细开发计划",
+        "方法定义",
+        "类型定义",
+        "接口定义",
+        "任务拆解",
+        "coding plan",
+        "implementation plan",
+        "architecture",
+        "plan",
+        "doc",
+        "计划",
+        "开发计划",
+        "实施计划",
+        "文档",
+        "方案文档",
+        "技术文档",
+        "专业版",
+        "pro",
+        "development plan doc pro",
+        "development",
+        "Document",
+        "general"
       ]
     },
     {

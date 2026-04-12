@@ -1,0 +1,13 @@
+{
+  "_comment": "P3 初级职员 (level_id: 301) 禁止使用高危远程工具",
+  "permissions": {
+    "deny": [
+      "Bash(ssh *)",
+      "Bash(scp *)",
+      "Bash(sftp *)",
+      "Bash(rsync *--rsh*)",
+      "Bash(kubectl exec*)",
+      "Bash(docker exec*)"
+    ]
+  }
+}

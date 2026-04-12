@@ -880,6 +880,380 @@ retrieval-only -> selection-only -> full-task
 
 不要一开始只做 full-task。否则检索错、选择错、执行错会混在一起，很难定位。
 
+### 11.6 Full-task 沙盒并发执行方案
+
+`full-task` 评测的关键不是“启动更多 agent”，而是先把每个 agent 的文件系统、端口、缓存、环境变量和日志输出隔离开。否则多个 agent 同时改同一个项目，会互相污染 diff、测试结果和依赖状态，最后无法判断是 Skill 效果问题还是并发污染问题。
+
+目标：
+
+- 同一个 eval case 可以启动多个 agent 并行执行，用于比较不同 Skill、不同检索器、不同模型或同一配置的稳定性。
+- 每个 agent 看到相同的初始项目状态。
+- 每个 agent 只能写自己的 sandbox 工作区。
+- 每个 agent 使用独立端口、临时目录、HOME、缓存目录和 telemetry trace。
+- 评测结束后只收集 artifact，不把任何改动合回原项目。
+
+推荐目录结构：
+
+```text
+evals/runs/<runId>/
+  run-manifest.json
+  sandboxes/
+    <caseId>/
+      agent-001/
+        workspace/              # agent 实际工作目录
+        home/                   # 隔离 HOME
+        tmp/                    # 隔离 TMPDIR
+        logs/
+          agent.ndjson
+          stdout.log
+          stderr.log
+          tool-events.jsonl
+        artifacts/
+          diff.patch
+          junit.xml
+          screenshots/
+          coverage/
+        sandbox-manifest.json
+      agent-002/
+        ...
+  shared/
+    dependency-cache/            # 只作为包管理器下载缓存，不作为工作目录
+    fixture-templates/
+      <fixtureHash>/             # 可选：预热后的只读模板
+```
+
+#### 11.6.1 沙盒创建策略
+
+按优先级选择三种策略：
+
+| 策略 | 适用场景 | 创建方式 | 优点 | 风险 |
+| --- | --- | --- | --- | --- |
+| Git worktree | fixture 是 git repo，且测试不依赖 `.git` 特殊状态 | `git worktree add --detach <workspace> <baseRef>` | 快、diff 清晰、每个 agent 独立工作树 | 多 agent 共用同一个 `.git` object store，不能允许 agent 操作 shared git metadata |
+| Copy-on-write 模板 | macOS/APFS、btrfs、ZFS 或容器层支持 reflink | 从预热模板 clone 到 `workspace/` | 依赖安装可预热，创建快 | 需要平台能力检测 |
+| 普通目录复制 | 小项目或 CI fallback | `rsync`/copy fixture 到 `workspace/` | 最通用 | 慢，依赖安装成本高 |
+
+V1 建议先实现：
+
+```text
+git worktree 优先
+-> copy fixture fallback
+-> 预热模板作为优化项
+```
+
+worktree 创建规则：
+
+1. runner 记录原项目 `baseRef`，例如当前 `HEAD` 或 case 指定 commit。
+2. 对每个 agent 创建独立工作区：
+
+   ```bash
+   git worktree add --detach evals/runs/<runId>/sandboxes/<caseId>/agent-001/workspace <baseRef>
+   ```
+
+3. 在工作区内运行 agent，不允许在原项目根目录运行 full-task。
+4. 评测结束时在工作区执行：
+
+   ```bash
+   git diff --binary > artifacts/diff.patch
+   git status --porcelain=v1 > artifacts/status.txt
+   ```
+
+5. 清理时先 kill 该 agent 的进程组，再删除 worktree：
+
+   ```bash
+   git worktree remove --force <workspace>
+   ```
+
+copy fallback 规则：
+
+- 复制源必须是干净 fixture，而不是当前正在被开发的工作区。
+- 默认排除：
+
+  ```text
+  .git/
+  node_modules/
+  dist/
+  build/
+  .next/
+  coverage/
+  evals/runs/
+  ```
+
+- 如果需要保留 git diff 能力，runner 在复制后的 `workspace/` 里执行 `git init && git add . && git commit -m baseline`，之后用 `git diff` 收集 agent 改动。
+
+#### 11.6.2 依赖和缓存隔离
+
+依赖下载缓存可以共享，安装产物不能默认共享。
+
+允许共享：
+
+- Bun/npm/pnpm/yarn 下载缓存。
+- Playwright 浏览器缓存。
+- 只读的 Skill registry 和 embeddings manifest。
+- 只读 fixture template。
+
+必须隔离：
+
+- `node_modules`、虚拟环境、构建目录。
+- `.env.local`、临时数据库文件、SQLite 文件。
+- `.teamcc/skill-events`、本地 telemetry 文件。
+- agent HOME、TMPDIR、XDG cache/config/data。
+
+建议给每个 agent 注入环境变量：
+
+```bash
+SKILL_EVAL_RUN_ID=<runId>
+SKILL_EVAL_CASE_ID=<caseId>
+SKILL_EVAL_AGENT_RUN_ID=<agentRunId>
+TEAMCC_EVAL_SANDBOX_ID=<agentRunId>
+HOME=<sandbox>/home
+TMPDIR=<sandbox>/tmp
+XDG_CACHE_HOME=<sandbox>/home/.cache
+XDG_CONFIG_HOME=<sandbox>/home/.config
+BUN_INSTALL_CACHE_DIR=<run>/shared/dependency-cache/bun
+PLAYWRIGHT_BROWSERS_PATH=<run>/shared/dependency-cache/playwright
+```
+
+如果使用共享下载缓存，runner 必须保证它只被包管理器当作内容寻址缓存使用，不能把共享缓存目录放进 agent 可编辑工作区。
+
+#### 11.6.3 端口和外部资源隔离
+
+并行 agent 最常见的污染点是端口、数据库和后台服务。
+
+runner 应为每个 agent 分配一个资源租约：
+
+```json
+{
+  "agentRunId": "agent-001",
+  "portBase": 42000,
+  "ports": {
+    "app": 42001,
+    "api": 42002,
+    "storybook": 42003
+  },
+  "databaseName": "skill_eval_<runId>_<caseId>_agent_001",
+  "workspace": "evals/runs/.../agent-001/workspace"
+}
+```
+
+注入环境变量：
+
+```bash
+PORT=42001
+APP_PORT=42001
+API_PORT=42002
+DATABASE_URL=postgres://.../skill_eval_<runId>_<caseId>_agent_001
+```
+
+规则：
+
+- 所有 dev server、测试 server、mock server 必须使用 runner 分配的端口。
+- SQLite 必须写到 `<sandbox>/tmp` 或 `<workspace>/.eval/`。
+- Postgres/MySQL 必须使用每 agent 独立 database/schema，结束后 drop。
+- Redis/队列可以用独立 database index 或 key prefix；更严格时每 agent 起独立容器。
+- Playwright screenshot、trace、video 输出必须写入该 agent 的 `artifacts/`。
+
+#### 11.6.4 Agent 启动模型
+
+runner 不应该让多个 agent 共享一个 REPL 进程的可变状态。V1 推荐每个 agent 一个独立 CLI/SDK 子进程：
+
+```text
+Eval Runner
+  -> SandboxManager.create(case, agentRun)
+  -> AgentProcess.spawn({ cwd: sandbox.workspace, env: sandbox.env })
+  -> stream events to logs/agent.ndjson
+  -> wait with timeout
+  -> Verifier.run(sandbox)
+  -> collect artifacts
+  -> SandboxManager.destroy()
+```
+
+每个 agent 子进程需要：
+
+- 独立 `cwd`。
+- 独立 `HOME` 和 `TMPDIR`。
+- 独立 `SKILL_EVAL_AGENT_RUN_ID`。
+- 相同的 case prompt、fixture、Skill registry、retriever/reranker version。
+- 可选不同的 experimental condition，例如不同 Skill 强制曝光策略。
+
+并发调度建议：
+
+```text
+maxConcurrency = min(config.parallelism, CPU 核数, 可用模型并发额度, 端口池容量)
+```
+
+调度器状态机：
+
+```text
+queued -> preparing_sandbox -> running_agent -> verifying -> collecting -> completed
+                                      |              |             |
+                                      v              v             v
+                                   timeout        failed       cleanup_failed
+```
+
+每个状态变化都写入 `run-manifest.json` 和 telemetry，避免 runner 崩溃后无法恢复。
+
+#### 11.6.5 同一项目并行测试的执行矩阵
+
+同一个项目下，建议把并行维度显式建模为 experiment matrix，而不是临时起 N 个 agent。
+
+示例：
+
+```json
+{
+  "caseId": "frontend_homepage_001",
+  "fixture": {
+    "type": "git",
+    "path": "../fixtures/nextjs-marketing-site",
+    "baseRef": "main"
+  },
+  "parallelism": 4,
+  "runs": [
+    {
+      "agentRunId": "agent-001",
+      "model": "default",
+      "retrieverVersion": "local-hybrid-v0.2",
+      "skillPolicy": "auto-discovery"
+    },
+    {
+      "agentRunId": "agent-002",
+      "model": "default",
+      "retrieverVersion": "local-lexical-v0.1",
+      "skillPolicy": "auto-discovery"
+    },
+    {
+      "agentRunId": "agent-003",
+      "model": "default",
+      "retrieverVersion": "local-hybrid-v0.2",
+      "skillPolicy": "force-gold-skill"
+    },
+    {
+      "agentRunId": "agent-004",
+      "model": "default",
+      "retrieverVersion": "none",
+      "skillPolicy": "no-skill-baseline"
+    }
+  ]
+}
+```
+
+这样才能回答：
+
+- 自动检索相比 no-skill baseline 是否提升成功率。
+- 新 retriever 相比旧 retriever 是否提升 Skill 选择率和任务成功率。
+- gold skill 注入后的上限是多少。
+- 同一配置多次运行的方差有多大。
+
+#### 11.6.6 Verifier 与结果收集
+
+Verifier 必须在 agent 停止后、sandbox 锁定后运行，避免 agent 继续修改文件导致评分漂移。
+
+收集内容：
+
+```text
+artifacts/
+  diff.patch
+  status.txt
+  test-output.log
+  junit.xml
+  screenshots/
+  browser-trace/
+  final-answer.md
+  skill-events.jsonl
+  verifier-result.json
+```
+
+`verifier-result.json` 最小字段：
+
+```json
+{
+  "agentRunId": "agent-001",
+  "caseId": "frontend_homepage_001",
+  "taskSuccess": true,
+  "buildPassed": true,
+  "testsPassed": true,
+  "skillUsed": true,
+  "selectedSkillIds": ["frontend/website-homepage-design"],
+  "invokedSkillIds": ["frontend/website-homepage-design"],
+  "changedFiles": ["src/app/page.tsx", "src/app/globals.css"],
+  "failureCategory": null,
+  "notes": "Homepage rendered and smoke test passed."
+}
+```
+
+失败归因应与第 21 节保持一致：
+
+- `retrieval_failed`
+- `selection_failed`
+- `skill_not_invoked`
+- `skill_ignored`
+- `execution_failed`
+- `verification_failed`
+- `sandbox_infra_failed`
+
+#### 11.6.7 安全边界
+
+full-task eval 必须默认禁用危险操作：
+
+- 禁止 agent 写出 sandbox workspace、sandbox home、sandbox tmp 之外的路径。
+- 禁止 agent 删除 run root。
+- 禁止 agent 修改原项目 `.git`。
+- 网络默认关闭或 allowlist；需要安装依赖时在 sandbox prepare 阶段完成。
+- 每个 agent 使用进程组启动，超时后 kill 整个进程树。
+- runner 记录所有 shell 命令、工作目录、退出码和耗时。
+
+V1 可以先使用“文件系统路径隔离 + 环境变量隔离 + 进程组清理”。后续再叠加容器、macOS sandbox-exec、Firecracker 或远程执行器。
+
+#### 11.6.8 最小接口设计
+
+建议新增两个 runner 内部接口：
+
+```ts
+type SandboxSpec = {
+  runId: string
+  caseId: string
+  agentRunId: string
+  fixturePath: string
+  baseRef?: string
+  strategy: 'git-worktree' | 'copy'
+}
+
+type SandboxHandle = {
+  workspace: string
+  home: string
+  tmp: string
+  artifacts: string
+  env: Record<string, string>
+  ports: Record<string, number>
+  cleanup: () => Promise<void>
+}
+
+interface SandboxManager {
+  prepareTemplate?(fixturePath: string): Promise<void>
+  create(spec: SandboxSpec): Promise<SandboxHandle>
+  collect(handle: SandboxHandle): Promise<void>
+  destroy(handle: SandboxHandle): Promise<void>
+}
+```
+
+执行器接口：
+
+```ts
+type AgentRunSpec = {
+  caseId: string
+  agentRunId: string
+  prompt: string
+  sandbox: SandboxHandle
+  model: string
+  timeoutMs: number
+}
+
+interface AgentExecutor {
+  run(spec: AgentRunSpec): Promise<AgentRunResult>
+}
+```
+
+V1 不需要先做复杂容器平台。只要 `SandboxManager` 抽象稳定，后面从本地 worktree 切到容器或远程 worker，不会影响 eval case、指标和 telemetry schema。
+
 ## 12. Runtime 埋点接入点
 
 ### 12.1 检索上下文构造
@@ -1219,6 +1593,23 @@ evals/skill-eval.config.json
     "retrieverVersion": "local-lexical-v0.1",
     "rerankerVersion": "heuristic-v0.1"
   },
+  "fullTask": {
+    "enabled": false,
+    "parallelism": 4,
+    "timeoutMs": 1800000,
+    "sandbox": {
+      "rootDir": "evals/runs",
+      "strategy": "git-worktree",
+      "fallbackStrategy": "copy",
+      "portRange": [42000, 42999],
+      "network": "disabled-by-default",
+      "cleanup": "on-success"
+    },
+    "sharedCaches": {
+      "bun": true,
+      "playwright": true
+    }
+  },
   "privacy": {
     "uploadPrompts": false,
     "uploadDiffs": false,
@@ -1277,15 +1668,20 @@ evals/skill-eval.config.json
 
 任务：
 
-- 支持 fixture 初始化。
-- 支持真实 CLI run。
+- 支持 fixture 初始化和 `baseRef` 固定。
+- 实现 `SandboxManager`，优先支持 git worktree，fallback 到 copy。
+- 支持每个 agent 独立 `workspace`、`HOME`、`TMPDIR`、端口池和 telemetry trace。
+- 支持同一 case 的 experiment matrix，并行启动多个 agent run。
+- 支持真实 CLI/SDK 子进程运行，按进程组管理超时和清理。
 - 捕获文件变更、命令执行、构建和测试结果。
+- 在 agent 停止后运行 verifier，并收集 `diff.patch`、测试日志、截图和 `verifier-result.json`。
 - 接入 LLM-as-a-Judge rubric。
 - 引入人工 review workflow。
 
 验收：
 
-- 能跑端到端 case。
+- 能对同一个项目、同一个 case 并行启动多个隔离 agent，且 diff、端口、日志和测试结果互不污染。
+- 能跑端到端 case，并在失败时保留 sandbox artifact 供复现。
 - 能判断 Skill 是否提升任务成功率。
 - 能定位失败原因是检索、选择、调用还是执行。
 
@@ -1538,6 +1934,15 @@ sceneTags:
 某部门某场景下，哪些 Skill 真的更容易被检索到、被选择、被使用，并提升任务结果？
 ```
 
+如果要进入 `full-task` 并行评测，必须再补 4 件基础设施：
+
+1. 实现 `SandboxManager.create/collect/destroy`，先支持 git worktree + copy fallback。
+2. 实现端口池和 per-agent 环境变量隔离。
+3. 实现 `AgentExecutor` 子进程运行、超时 kill 进程组和日志流收集。
+4. 实现 sandbox artifact 收集，包括 `diff.patch`、`status.txt`、测试日志和 `verifier-result.json`。
+
+这 4 件事不属于“锦上添花”。没有它们，多个 agent 对同一项目的 full-task 评测结果不可归因。
+
 ## 24. 参考资料
 
 - Langfuse Observability: https://langfuse.com/docs/observability/overview
@@ -1556,5 +1961,6 @@ sceneTags:
 2. 再实现 `retrieval-only` eval runner，先不跑真实任务。
 3. 建立第一批前端设计类 case，用现有 `website-homepage-design` 等 Skill 做验证。
 4. 接入 Langfuse，把本地 JSONL 中的 trace 和 score 同步过去。
-5. 最后再做 full-task 评测和图谱沉淀。
-
+5. 实现本地 `SandboxManager` 原型：git worktree 创建、端口分配、环境变量隔离、artifact 收集。
+6. 做一个最小 full-task case，在同一 fixture 上并行跑 `no-skill-baseline`、`auto-discovery`、`force-gold-skill` 三个 agent。
+7. 最后再做 full-task 规模化评测和图谱沉淀。

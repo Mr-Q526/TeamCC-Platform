@@ -1,0 +1,10 @@
+interface:
+  display_name: "Development Plan Document Basic"
+  short_description: "Create a simple development plan outline"
+  icon_small: "./assets/development-plan-doc-basic-small.svg"
+  icon_large: "./assets/development-plan-doc-basic.svg"
+  brand_color: "#64748B"
+  default_prompt: "Use $development-plan-doc-basic to create a concise implementation outline with goal, steps, files, validation, and risks."
+
+policy:
+  allow_implicit_invocation: true

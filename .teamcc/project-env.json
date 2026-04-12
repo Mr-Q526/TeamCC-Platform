@@ -1,0 +1,6 @@
+{
+  "_comment": "项目目录结构映射表，供身份策略引擎做变量插值。\n{{VAR}} 格式的占位符会被动态替换为此文件中对应的值。",
+  "BACKEND_DIR": "src/services/",
+  "FRONTEND_DIR": "src/web/",
+  "INFRA_DIR": "infra/"
+}

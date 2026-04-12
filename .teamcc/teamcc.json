@@ -1,0 +1,7 @@
+{
+  "apiBase": "http://127.0.0.1:3000",
+  "username": "admin",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidXNlcklkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzc1ODk4MzczLCJleHAiOjE3NzU4OTkyNzN9.hpZ7oC4otR8ZZm5Avb9a-eMMSNgSxz0hMnaVt8U1BCI",
+  "refreshToken": "cc7a7e6faa3adbc9b9139ec5974305cd2a54a42e9f8076c3d3860b15c3a323f2",
+  "tokenExpiry": 1775899273709
+}

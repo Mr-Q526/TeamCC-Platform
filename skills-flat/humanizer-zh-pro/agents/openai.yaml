@@ -1,0 +1,10 @@
+interface:
+  display_name: "Humanizer ZH PRO"
+  short_description: "Rewrite Chinese articles into natural human prose"
+  icon_small: "./assets/humanizer-zh-pro-small.svg"
+  icon_large: "./assets/humanizer-zh-pro.svg"
+  brand_color: "#B45309"
+  default_prompt: "Use $humanizer-zh-pro to remove AI-style writing traces from Chinese prose while preserving meaning, facts, author voice, rhythm, and information density."
+
+policy:
+  allow_implicit_invocation: true

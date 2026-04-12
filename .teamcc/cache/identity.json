@@ -1,0 +1,15 @@
+{
+  "schema": "teamskill.identity/v1",
+  "issuedAt": "2026-04-11T12:26:13.910Z",
+  "expiresAt": "2026-04-11T13:26:13.910Z",
+  "subject": {
+    "userId": 1,
+    "username": "admin",
+    "orgId": null,
+    "departmentId": 101,
+    "teamId": 1011,
+    "roleId": 201,
+    "levelId": 304,
+    "defaultProjectId": 1
+  }
+}

@@ -1,128 +1,196 @@
-import { useState, useEffect } from 'react'
-import { getInvokedSkillsForAgent, getSessionId } from '../bootstrap/state.js'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  getInvokedSkillsForAgent,
+  getSessionId,
+  type InvokedSkillInfo,
+} from '../bootstrap/state.js'
 import { logEvent } from '../services/analytics/index.js'
 import { randomUUID } from 'crypto'
 
 export type SkillInfo = {
+  skillName: string
   skillId: string
   version: string
   sourceHash: string
+  invokedAt: number
 }
-
-// Global set to prevent asking multiple times for same skill in same session
-const surveyedSkills = new Set<string>()
 
 // Simple list of profanity triggers for implicit negative feedback
 const PROFANITY_RATES = [/垃圾/, /蠢/, /废/, /智障/, /傻逼/, /md/, /没用/]
+
+const explicitRatingToScore: Record<1 | 2 | 3 | 4, 5 | 4 | 3 | 1> = {
+  1: 5,
+  2: 4,
+  3: 3,
+  4: 1,
+}
+
+function getMainThreadSkills(): InvokedSkillInfo[] {
+  return [...getInvokedSkillsForAgent(null).values()]
+}
+
+function getLatestInvokedAt(): number {
+  return Math.max(0, ...getMainThreadSkills().map(skill => skill.invokedAt))
+}
+
+function toSkillInfo(skill: InvokedSkillInfo): SkillInfo {
+  return {
+    skillName: skill.skillName,
+    skillId: skill.skillName,
+    version: 'unknown',
+    sourceHash: 'unknown',
+    invokedAt: skill.invokedAt,
+  }
+}
+
+function feedbackKey(skill: SkillInfo): string {
+  return `${skill.skillName}:${skill.invokedAt}`
+}
 
 export function useSkillFeedbackSurvey(
   isLoading: boolean,
   hasActivePrompt: boolean,
 ) {
   const [pendingSkill, setPendingSkill] = useState<SkillInfo | null>(null)
-  const [inputValue, setInputValue] = useState('')
+  const [feedbackQueue, setFeedbackQueue] = useState<SkillInfo[]>([])
   const sessionId = getSessionId()
+  const pendingSkillRef = useRef<SkillInfo | null>(null)
+  const wasTaskActiveRef = useRef(false)
+  const lastQueuedInvocationAtRef = useRef(getLatestInvokedAt())
+  const queuedKeysRef = useRef(new Set<string>())
 
-  // Track the most recent skill invoked for profanity interception
-  const [lastInvokedSkill, setLastInvokedSkill] = useState<SkillInfo | null>(null)
-
-  // Determine if there is a pending skill feedback needed
   useEffect(() => {
-    if (isLoading || hasActivePrompt) return
+    pendingSkillRef.current = pendingSkill
+  }, [pendingSkill])
 
-    const invokedSkills = getInvokedSkillsForAgent(null)
-    if (invokedSkills && invokedSkills.length > 0) {
-      // Pick the latest invoked skill (or any that hasn't been surveyed)
-      for (const skillName of [...invokedSkills].reverse()) {
-        const uniqueKey = `${sessionId}-${skillName}`
-        if (!surveyedSkills.has(uniqueKey)) {
-          // Identify skill metadata (mocked here, ideally pulled from Command resolution)
-          const skillObj = {
-            skillId: skillName,
-            version: 'unknown',
-            sourceHash: 'unknown',
-          }
-          setPendingSkill(skillObj)
-          setLastInvokedSkill(skillObj)
-          return
-        }
+  // A completed task is the transition from loading back to an idle prompt.
+  // Queue every main-thread skill invoked during that task.
+  useEffect(() => {
+    if (isLoading) {
+      wasTaskActiveRef.current = true
+      return
+    }
+
+    if (hasActivePrompt || !wasTaskActiveRef.current) {
+      return
+    }
+
+    wasTaskActiveRef.current = false
+    const lastQueuedInvocationAt = lastQueuedInvocationAtRef.current
+    const completedTaskSkills = getMainThreadSkills()
+      .filter(skill => skill.invokedAt > lastQueuedInvocationAt)
+      .sort((a, b) => a.invokedAt - b.invokedAt)
+      .map(toSkillInfo)
+
+    if (completedTaskSkills.length === 0) {
+      return
+    }
+
+    lastQueuedInvocationAtRef.current = Math.max(
+      lastQueuedInvocationAt,
+      ...completedTaskSkills.map(skill => skill.invokedAt),
+    )
+
+    setFeedbackQueue(prev => {
+      const knownKeys = new Set([
+        ...queuedKeysRef.current,
+        ...prev.map(feedbackKey),
+      ])
+      if (pendingSkillRef.current) {
+        knownKeys.add(feedbackKey(pendingSkillRef.current))
       }
+
+      const additions = completedTaskSkills.filter(skill => {
+        const key = feedbackKey(skill)
+        if (knownKeys.has(key)) {
+          return false
+        }
+        queuedKeysRef.current.add(key)
+        return true
+      })
+
+      return additions.length > 0 ? [...prev, ...additions] : prev
+    })
+  }, [isLoading, hasActivePrompt])
+
+  useEffect(() => {
+    if (isLoading || hasActivePrompt || pendingSkill || feedbackQueue.length === 0) {
+      return
     }
-  }, [isLoading, hasActivePrompt, sessionId])
 
-  const submitFeedback = (rating: 1 | 2 | 3 | 4 | 5, sentiment?: 'positive' | 'negative' | 'neutral') => {
-    if (!pendingSkill) return
-    
-    const uniqueKey = `${sessionId}-${pendingSkill.skillId}`
-    surveyedSkills.add(uniqueKey)
+    const [nextSkill, ...remaining] = feedbackQueue
+    setPendingSkill(nextSkill)
+    setFeedbackQueue(remaining)
+  }, [feedbackQueue, hasActivePrompt, isLoading, pendingSkill])
 
-    if (rating === 5 && !sentiment) {
-      // Provide an implicit skip log
+  const recordFeedback = useCallback(
+    (
+      skill: SkillInfo,
+      feedbackKind: 'explicit-rating' | 'explicit-comment' | 'implicit-skip',
+      rating?: number,
+      sentiment?: 'positive' | 'negative' | 'neutral',
+    ) => {
       logEvent('tengu_skill_execution_feedback' as any, {
         eventType: 'skill.feedback.recorded',
         eventId: randomUUID(),
         taskId: sessionId,
-        skillName: pendingSkill.skillId,
-        skillId: pendingSkill.skillId,
-        version: pendingSkill.version,
-        sourceHash: pendingSkill.sourceHash,
+        skillName: skill.skillName,
+        skillId: skill.skillId,
+        version: skill.version,
+        sourceHash: skill.sourceHash,
         feedbackSource: 'user',
-        feedbackKind: 'implicit-skip'
+        feedbackKind,
+        ...(rating !== undefined && { rating }),
+        ...(sentiment && { sentiment }),
       })
-    } else {
-      // standard explicit rating or implicit comment injection
-      logEvent('tengu_skill_execution_feedback' as any, {
-        eventType: 'skill.feedback.recorded',
-        eventId: randomUUID(),
-        taskId: sessionId,
-        skillName: pendingSkill.skillId,
-        skillId: pendingSkill.skillId,
-        version: pendingSkill.version,
-        sourceHash: pendingSkill.sourceHash,
-        feedbackSource: 'user',
-        feedbackKind: sentiment ? 'explicit-comment' : 'explicit-rating',
-        rating: rating,
-        sentiment: sentiment,
-      })
-    }
-    
-    setPendingSkill(null)
-    setInputValue('')
-  }
+    },
+    [sessionId],
+  )
+
+  const submitFeedback = useCallback(
+    (
+      rating: 1 | 2 | 3 | 4 | 5,
+      sentiment?: 'positive' | 'negative' | 'neutral',
+    ) => {
+      if (!pendingSkill) return
+
+      if (rating === 5 && !sentiment) {
+        recordFeedback(pendingSkill, 'implicit-skip')
+      } else {
+        recordFeedback(
+          pendingSkill,
+          sentiment ? 'explicit-comment' : 'explicit-rating',
+          rating === 5 ? undefined : explicitRatingToScore[rating],
+          sentiment,
+        )
+      }
+
+      setPendingSkill(null)
+    },
+    [pendingSkill, recordFeedback],
+  )
 
   // Exposed hook function to intercept prompts and submit negative feedback
-  const interceptProfanity = (text: string): boolean => {
-    if (!lastInvokedSkill) return false
-    
-    const isProfane = PROFANITY_RATES.some(regex => regex.test(text))
-    if (isProfane) {
-      const uniqueKey = `${sessionId}-${lastInvokedSkill.skillId}`
-      surveyedSkills.add(uniqueKey)
-      
-      logEvent('tengu_skill_execution_feedback' as any, {
-        eventType: 'skill.feedback.recorded',
-        eventId: randomUUID(),
-        taskId: sessionId,
-        skillName: lastInvokedSkill.skillId,
-        skillId: lastInvokedSkill.skillId,
-        version: lastInvokedSkill.version,
-        sourceHash: lastInvokedSkill.sourceHash,
-        feedbackSource: 'user',
-        feedbackKind: 'explicit-comment',
-        rating: 1, // lowest according to our mapped logic or -1 underlying
-        sentiment: 'negative',
-      })
+  const interceptProfanity = useCallback(
+    (text: string): boolean => {
+      const skill = pendingSkillRef.current
+      if (!skill) return false
+
+      const isProfane = PROFANITY_RATES.some(regex => regex.test(text))
+      if (!isProfane) {
+        return false
+      }
+
+      recordFeedback(skill, 'explicit-comment', 1, 'negative')
       setPendingSkill(null)
       return true
-    }
-    return false
-  }
+    },
+    [recordFeedback],
+  )
 
   return {
     pendingSkill,
     submitFeedback,
-    inputValue,
-    setInputValue,
     interceptProfanity
   }
 }

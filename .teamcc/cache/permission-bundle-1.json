@@ -1,0 +1,14 @@
+{
+  "bundleId": "b_1775910907429_1_1",
+  "projectId": 1,
+  "subjectRef": {
+    "userId": 1,
+    "projectId": 1
+  },
+  "rules": [],
+  "capabilities": [],
+  "envOverrides": {},
+  "schema": "teamskill.permissions/v1",
+  "issuedAt": "2026-04-11T12:35:07.429Z",
+  "expiresAt": "2026-04-12T12:35:07.429Z"
+}

@@ -1,0 +1,12 @@
+{
+  "_comment": "前端部门 (department_id: 101) 禁止操作后端代码目录",
+  "permissions": {
+    "deny": [
+      "Read(*{{BACKEND_DIR}}**)",
+      "Edit(*{{BACKEND_DIR}}**)",
+      "Write(*{{BACKEND_DIR}}**)",
+      "Glob(*{{BACKEND_DIR}}**)",
+      "Bash(*{{BACKEND_DIR}}*)"
+    ]
+  }
+}
