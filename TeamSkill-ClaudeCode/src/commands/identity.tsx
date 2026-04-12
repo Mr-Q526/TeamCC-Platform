@@ -36,15 +36,15 @@ const call: LocalCommandCall = async (args, _context) => {
     const parts = [
       `Session State: ${sessionState}`,
       `User ID: ${profile.userId}`,
-      `Department: ${mapDepartment(profile.departmentId)}`,
-      `Team: ${mapTeam(profile.teamId)}`,
-      `Role: ${mapRole(profile.roleId)}`,
-      `Level: ${mapLevel(profile.levelId)}`,
+      `Department: ${mapDepartment(profile.departmentId, profile.departmentLabel)}`,
+      `Team: ${mapTeam(profile.teamId, profile.teamLabel)}`,
+      `Role: ${mapRole(profile.roleId, profile.roleLabel)}`,
+      `Level: ${mapLevel(profile.levelId, profile.levelLabel)}`,
       `Project ID: ${profile.projectId}`,
     ]
 
     if (profile.orgId !== null) {
-      parts.unshift(`Org: ${mapOrg(profile.orgId)}`)
+      parts.unshift(`Org: ${mapOrg(profile.orgId, profile.orgLabel)}`)
     }
 
     if (sessionState === 'authenticated_restricted') {

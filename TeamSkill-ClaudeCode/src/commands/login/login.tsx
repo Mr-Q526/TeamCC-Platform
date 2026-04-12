@@ -42,7 +42,10 @@ export async function call(
 
           applyTeamCCSessionToRuntime(context, session)
           void reportAuditLog(process.cwd(), 'login', {
-            userId: session.identityProfile?.userId ?? 0,
+            status: session.status,
+            warning: session.warning,
+            failureReason: session.failureReason,
+            projectId: session.identityProfile?.projectId,
           })
           resetCostState()
           void refreshRemoteManagedSettings()

@@ -80,14 +80,14 @@ export type SkillScoreBreakdown = {
   penalty: number
 }
 
-const DEPARTMENT_ID_TO_TAG: Record<number, string> = {
-  101: 'frontend-platform',
-  102: 'backend-platform',
-  104: 'infra-platform',
-  105: 'data-platform',
-  107: 'growth',
-  108: 'growth',
-  111: 'security-platform',
+function normalizeDepartmentTag(label: string | undefined): string | null {
+  const normalized = label
+    ?.trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, '-')
+    .replace(/^-+|-+$/g, '')
+
+  return normalized || null
 }
 
 const QUERY_EXPANSIONS: Record<string, string[]> = {
@@ -316,7 +316,7 @@ async function loadDepartmentTag(_cwd: string): Promise<string | null> {
     return null
   }
 
-  return DEPARTMENT_ID_TO_TAG[profile.departmentId] ?? null
+  return normalizeDepartmentTag(profile.departmentLabel)
 }
 
 async function buildSkillIndex(cwd: string): Promise<SkillIndex> {

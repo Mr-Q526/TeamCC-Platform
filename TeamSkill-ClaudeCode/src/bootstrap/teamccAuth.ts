@@ -45,6 +45,23 @@ export type IdentityEnvelope = {
     roleId: number
     levelId: number
     defaultProjectId: number
+    orgLabel?: string | null
+    departmentLabel?: string
+    teamLabel?: string
+    roleLabel?: string
+    levelLabel?: string
+    orgName?: string | null
+    departmentName?: string
+    teamName?: string
+    roleName?: string
+    levelName?: string
+  }
+  labels?: {
+    org?: string | null
+    department?: string
+    team?: string
+    role?: string
+    level?: string
   }
   timestamp?: string
   expiry?: string

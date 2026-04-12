@@ -2,6 +2,7 @@ import * as React from 'react'
 import type { LocalJSXCommandOnDone } from '../../types/command.js'
 import { Text } from '../../ink.js'
 import type { LocalJSXCommandContext } from '../../commands.js'
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
 import { clearTeamCCRuntimeState } from '../../bootstrap/teamccRuntime.js'
 import { gracefulShutdownSync } from '../../utils/gracefulShutdown.js'
 import { logoutFromTeamCC } from '../../bootstrap/teamccAuth.js'
@@ -10,6 +11,13 @@ import { getTeamCCProjectCacheDir } from '../../utils/teamccPaths.js'
 export async function performLogout({
   clearOnboarding: _clearOnboarding = false,
 } = {}): Promise<void> {
+  await reportAuditLog(
+    process.cwd(),
+    'logout',
+    { reason: 'user_initiated_logout' },
+    { refreshToken: false },
+  )
+
   // 1. Wipe TeamCC config
   await logoutFromTeamCC(process.cwd())
 
