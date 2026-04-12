@@ -322,7 +322,7 @@ async function logStartupTelemetry(): Promise<void> {
   });
 
   // TeamCC Audit Hook: Boot Event
-  reportAuditLog(process.cwd(), 'boot', 'session', {
+  reportAuditLog(process.cwd(), 'boot', {
     hasTrust: checkHasTrustDialogAccepted(),
     nodeVersion: process.version,
     ...getCertEnvVarTelemetry()
@@ -814,6 +814,7 @@ export async function main() {
   {
     const rawCliArgs = process.argv.slice(2);
     if (rawCliArgs.length === 1 && rawCliArgs[0] === 'login') {
+      process.env.TEAMCC_LOGIN_ENTRYPOINT = '1';
       process.argv = [process.argv[0]!, process.argv[1]!, '/login'];
     }
   }

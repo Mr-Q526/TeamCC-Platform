@@ -15,6 +15,7 @@ import { refreshGrowthBookAfterAuthChange } from '../../services/analytics/growt
 import { refreshPolicyLimits } from '../../services/policyLimits/index.js'
 import { refreshRemoteManagedSettings } from '../../services/remoteManagedSettings/index.js'
 import type { LocalJSXCommandOnDone } from '../../types/command.js'
+import { gracefulShutdownSync } from '../../utils/gracefulShutdown.js'
 import { stripSignatureBlocks } from '../../utils/messages.js'
 import {
   checkAndDisableAutoModeIfNeeded,
@@ -81,12 +82,19 @@ export async function call(
           }
 
           await applySuccessfulTeamCCLogin(context, session)
+          delete process.env.TEAMCC_LOGIN_ENTRYPOINT
         }
         const successMessage =
           success && session?.status === 'authenticated_restricted'
             ? '已成功登录 TeamCC，但当前项目权限未加载，处于 restricted mode'
             : '已成功登录 TeamCC'
         onDone(success ? successMessage : '登录已取消')
+
+        if (!success && process.env.TEAMCC_LOGIN_ENTRYPOINT === '1') {
+          setTimeout(() => {
+            gracefulShutdownSync(1, 'login_cancelled')
+          }, 200)
+        }
       }}
     />
   )
