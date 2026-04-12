@@ -39,10 +39,6 @@ interface DictEntry {
   name: string
 }
 
-interface Dicts {
-  projects: DictEntry[]
-}
-
 interface AssignmentsPageProps {
   accessToken: string
   onDataChange?: () => void

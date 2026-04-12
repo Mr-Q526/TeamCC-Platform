@@ -61,9 +61,13 @@ import { recordSkillUsage } from '../../utils/suggestions/skillUsageTracking.js'
 import { createAgentId } from '../../utils/uuid.js'
 import { runAgent } from '../AgentTool/runAgent.js'
 import {
-  logSkillSearchTelemetry,
-  resolveSkillTelemetryMetadata,
-  type SkillTelemetryEventName,
+  buildSkillFactEvent,
+  createSkillFactAttribution,
+  logSkillFactEvent,
+  resolveDiscoveredSkillAttribution,
+  resolveSkillTelemetryMetadataWithError,
+  type SkillFactAttribution,
+  type SkillTelemetryMetadata,
 } from '../../services/skillSearch/telemetry.js'
 import {
   getToolUseIDFromParentMessage,
@@ -98,38 +102,86 @@ async function getAllCommands(context: ToolUseContext): Promise<Command[]> {
   return uniqBy([...localCommands, ...mcpSkills], 'name')
 }
 
+type SkillToolFactKind =
+  | 'skill_selected'
+  | 'skill_invoked'
+  | 'skill_completed'
+  | 'skill_failed'
+
+type ResolvedSkillToolFactContext = {
+  cwd: string
+  metadata: SkillTelemetryMetadata | null
+  resolutionError: string | null
+  attribution: SkillFactAttribution
+}
+
+async function resolveSkillToolFactContext(
+  commandName: string,
+  context: ToolUseContext,
+): Promise<ResolvedSkillToolFactContext> {
+  const cwd = getProjectRoot()
+  const { metadata, resolutionError } =
+    await resolveSkillTelemetryMetadataWithError(cwd, commandName)
+  const attribution =
+    resolveDiscoveredSkillAttribution(
+      context.discoveredSkillAttributions,
+      commandName,
+    ) ?? createSkillFactAttribution(getSessionId())
+
+  return {
+    cwd,
+    metadata,
+    resolutionError,
+    attribution,
+  }
+}
+
 async function logSkillToolTelemetry(
-  eventName: SkillTelemetryEventName,
+  factKind: SkillToolFactKind,
   commandName: string,
   context: ToolUseContext,
   command: Command | undefined,
+  factContext: ResolvedSkillToolFactContext,
   payload: Record<string, unknown> = {},
 ): Promise<void> {
-  const cwd = getProjectRoot()
-  const metadata = await resolveSkillTelemetryMetadata(cwd, commandName)
-
-  await logSkillSearchTelemetry({
-    eventName,
-    cwd,
-    skillId: metadata?.skillId,
-    skillName: metadata?.name ?? commandName,
-    skillVersion: metadata?.version,
-    sourceHash: metadata?.sourceHash,
-    selectedBy:
-      eventName === 'skill_selected'
-        ? (payload.selectedBy as 'model' | 'user' | 'system' | 'eval_oracle')
-        : undefined,
-    payload: {
-      commandName,
-      commandSource: command?.type === 'prompt' ? command.source : undefined,
-      loadedFrom: command?.loadedFrom,
-      kind: command?.kind,
-      agentId: context.agentId ?? null,
-      agentType: context.agentType ?? null,
-      wasDiscovered: context.discoveredSkillNames?.has(commandName) ?? false,
-      ...payload,
-    },
-  })
+  await logSkillFactEvent(
+    buildSkillFactEvent({
+      factKind,
+      source: 'model',
+      cwd: factContext.cwd,
+      taskId: factContext.attribution.taskId,
+      traceId: factContext.attribution.traceId,
+      retrievalRoundId: factContext.attribution.retrievalRoundId,
+      metadata: factContext.metadata,
+      skillName: commandName,
+      retrieval: {
+        selectedBy:
+          (payload.selectedBy as 'user' | 'model' | 'system' | 'eval_runner') ??
+          'model',
+      },
+      outcome:
+        factKind === 'skill_completed'
+          ? { success: true }
+          : factKind === 'skill_failed'
+            ? {
+                success: false,
+                failureReason:
+                  typeof payload.error === 'string' ? payload.error : null,
+              }
+            : null,
+      payload: {
+        commandName,
+        commandSource: command?.type === 'prompt' ? command.source : undefined,
+        loadedFrom: command?.loadedFrom,
+        kind: command?.kind,
+        agentId: context.agentId ?? null,
+        agentType: context.agentType ?? null,
+        wasDiscovered: context.discoveredSkillNames?.has(commandName) ?? false,
+        ...payload,
+      },
+      resolutionError: factContext.resolutionError,
+    }),
+  )
 }
 
 // Re-export Progress from centralized types to break import cycles
@@ -653,20 +705,35 @@ export const SkillTool: Tool<InputSchema, Output, Progress> = buildTool({
 
     const commands = await getAllCommands(context)
     const command = findCommand(commandName, commands)
+    const factContext = await resolveSkillToolFactContext(commandName, context)
 
-    await logSkillToolTelemetry('skill_selected', commandName, context, command, {
-      selectedBy: 'model',
-      selectionSource: 'skill_tool',
-    })
+    await logSkillToolTelemetry(
+      'skill_selected',
+      commandName,
+      context,
+      command,
+      factContext,
+      {
+        selectedBy: 'model',
+        selectionSource: 'skill_tool',
+      },
+    )
 
     // Track skill usage for ranking
     recordSkillUsage(commandName)
 
     // Check if skill should run as a forked sub-agent
     if (command?.type === 'prompt' && command.context === 'fork') {
-      await logSkillToolTelemetry('skill_invoked', commandName, context, command, {
-        executionContext: 'fork',
-      })
+      await logSkillToolTelemetry(
+        'skill_invoked',
+        commandName,
+        context,
+        command,
+        factContext,
+        {
+          executionContext: 'fork',
+        },
+      )
       try {
         const result = await executeForkedSkill(
           command,
@@ -682,6 +749,7 @@ export const SkillTool: Tool<InputSchema, Output, Progress> = buildTool({
           commandName,
           context,
           command,
+          factContext,
           {
             executionContext: 'fork',
             status: result.data.status,
@@ -689,10 +757,17 @@ export const SkillTool: Tool<InputSchema, Output, Progress> = buildTool({
         )
         return result
       } catch (error) {
-        await logSkillToolTelemetry('skill_failed', commandName, context, command, {
-          executionContext: 'fork',
-          error: error instanceof Error ? error.message : String(error),
-        })
+        await logSkillToolTelemetry(
+          'skill_failed',
+          commandName,
+          context,
+          command,
+          factContext,
+          {
+            executionContext: 'fork',
+            error: error instanceof Error ? error.message : String(error),
+          },
+        )
         throw error
       }
     }
@@ -708,20 +783,36 @@ export const SkillTool: Tool<InputSchema, Output, Progress> = buildTool({
         args || '', // Pass args if provided
         commands,
         context,
+        [],
+        factContext.attribution,
       )
     } catch (error) {
-      await logSkillToolTelemetry('skill_failed', commandName, context, command, {
-        executionContext: 'inline',
-        error: error instanceof Error ? error.message : String(error),
-      })
+      await logSkillToolTelemetry(
+        'skill_failed',
+        commandName,
+        context,
+        command,
+        factContext,
+        {
+          executionContext: 'inline',
+          error: error instanceof Error ? error.message : String(error),
+        },
+      )
       throw error
     }
 
     if (!processedCommand.shouldQuery) {
-      await logSkillToolTelemetry('skill_failed', commandName, context, command, {
-        executionContext: 'inline',
-        error: 'Command processing failed',
-      })
+      await logSkillToolTelemetry(
+        'skill_failed',
+        commandName,
+        context,
+        command,
+        factContext,
+        {
+          executionContext: 'inline',
+          error: 'Command processing failed',
+        },
+      )
       throw new Error('Command processing failed')
     }
 
@@ -837,17 +928,31 @@ export const SkillTool: Tool<InputSchema, Output, Progress> = buildTool({
       `SkillTool returning ${newMessages.length} newMessages for skill ${commandName}`,
     )
 
-    await logSkillToolTelemetry('skill_invoked', commandName, context, command, {
-      executionContext: 'inline',
-      allowedTools,
-      model,
-    })
-    await logSkillToolTelemetry('skill_completed', commandName, context, command, {
-      executionContext: 'inline',
-      allowedTools,
-      model,
-      status: 'inline',
-    })
+    await logSkillToolTelemetry(
+      'skill_invoked',
+      commandName,
+      context,
+      command,
+      factContext,
+      {
+        executionContext: 'inline',
+        allowedTools,
+        model,
+      },
+    )
+    await logSkillToolTelemetry(
+      'skill_completed',
+      commandName,
+      context,
+      command,
+      factContext,
+      {
+        executionContext: 'inline',
+        allowedTools,
+        model,
+        status: 'inline',
+      },
+    )
 
     // Note: addInvokedSkill and registerSkillHooks are called inside
     // processPromptSlashCommand (via getMessagesForPromptSlashCommand), so

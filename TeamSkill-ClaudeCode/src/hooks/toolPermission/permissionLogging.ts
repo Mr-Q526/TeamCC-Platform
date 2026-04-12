@@ -6,12 +6,14 @@ import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
 } from 'src/services/analytics/index.js'
+import { reportAuditLog } from 'src/bootstrap/teamccAudit.js'
 import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata.js'
 import { getCodeEditToolDecisionCounter } from '../../bootstrap/state.js'
 import type { Tool as ToolType, ToolUseContext } from '../../Tool.js'
 import { getLanguageName } from '../../utils/cliHighlight.js'
 import { SandboxManager } from '../../utils/sandbox/sandbox-adapter.js'
 import { logOTelEvent } from '../../utils/telemetry/events.js'
+import type { PermissionDecisionReason } from '../../types/permissions.js'
 import type {
   PermissionApprovalSource,
   PermissionRejectionSource,
@@ -103,6 +105,53 @@ function baseMetadata(
   }
 }
 
+function getAuditTarget(tool: ToolType, input: unknown): string | undefined {
+  if (!input) return undefined
+
+  const parseResult = tool.inputSchema.safeParse(input)
+  if (!parseResult.success) return undefined
+
+  if (tool.getPath) {
+    try {
+      return tool.getPath(parseResult.data)
+    } catch {
+      return undefined
+    }
+  }
+
+  if ('command' in parseResult.data && typeof parseResult.data.command === 'string') {
+    return parseResult.data.command
+  }
+
+  return undefined
+}
+
+function getRuleMetadata(decisionReason: PermissionDecisionReason | undefined): {
+  ruleSource?: string
+  rulePattern?: string
+} {
+  if (decisionReason?.type === 'rule') {
+    return {
+      ruleSource: decisionReason.rule.source,
+      rulePattern: decisionReason.rule.ruleValue.ruleContent || '*',
+    }
+  }
+
+  if (decisionReason?.type === 'hook') {
+    return {
+      ruleSource: decisionReason.hookSource || decisionReason.hookName,
+    }
+  }
+
+  if (decisionReason?.type === 'mode') {
+    return {
+      ruleSource: decisionReason.mode,
+    }
+  }
+
+  return {}
+}
+
 // Emits a distinct analytics event name per approval source for funnel analysis
 function logApprovalEvent(
   tool: ToolType,
@@ -182,6 +231,7 @@ function logPermissionDecision(
   ctx: PermissionLogContext,
   args: PermissionDecisionArgs,
   permissionPromptStartTimeMs?: number,
+  decisionReason?: PermissionDecisionReason,
 ): void {
   const { tool, input, toolUseContext, messageId, toolUseID } = ctx
   const { decision, source } = args
@@ -209,6 +259,8 @@ function logPermissionDecision(
   }
 
   const sourceString = source === 'config' ? 'config' : sourceToString(source)
+  const target = getAuditTarget(tool, input)
+  const { ruleSource, rulePattern } = getRuleMetadata(decisionReason)
 
   // Track code editing tool metrics
   if (isCodeEditingTool(tool.name)) {
@@ -232,7 +284,39 @@ function logPermissionDecision(
     source: sourceString,
     tool_name: sanitizeToolNameForAnalytics(tool.name),
   })
+
+  void reportAuditLog(
+    process.cwd(),
+    args.decision === 'accept' ? 'permission_allow' : 'permission_deny',
+    'tool',
+    {
+      toolName: tool.name,
+      decision: args.decision === 'accept' ? 'allow' : 'deny',
+      ruleSource: ruleSource ?? sourceString,
+      rulePattern,
+      target,
+      waitingForUserPermissionMs: waiting_for_user_permission_ms,
+    },
+  )
 }
 
-export { isCodeEditingTool, buildCodeEditToolAttributes, logPermissionDecision }
+function logPermissionAsk(
+  ctx: PermissionLogContext,
+  decisionReason: PermissionDecisionReason | undefined,
+  inputOverride?: unknown,
+): void {
+  const input = inputOverride ?? ctx.input
+  const target = getAuditTarget(ctx.tool, input)
+  const { ruleSource, rulePattern } = getRuleMetadata(decisionReason)
+
+  void reportAuditLog(process.cwd(), 'permission_ask', 'tool', {
+    toolName: ctx.tool.name,
+    decision: 'ask',
+    ruleSource: ruleSource ?? 'interactive_prompt',
+    rulePattern,
+    target,
+  })
+}
+
+export { isCodeEditingTool, buildCodeEditToolAttributes, logPermissionDecision, logPermissionAsk }
 export type { PermissionLogContext, PermissionDecisionArgs }

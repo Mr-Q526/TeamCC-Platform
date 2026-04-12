@@ -30,6 +30,22 @@ npm run db:migrate
 npm run db:studio
 ```
 
+### Docker Development
+
+Admin stack can now run fully in Docker:
+
+```bash
+docker compose up -d --build
+```
+
+This starts:
+
+- `teamcc-admin-db` on `localhost:5432`
+- `teamcc-admin-api` on `http://127.0.0.1:3000`
+- `teamcc-admin-web` on `http://127.0.0.1:5173`
+
+The API container automatically runs `db:push` and `seed` before starting in development mode.
+
 ### Build & Production
 
 ```bash

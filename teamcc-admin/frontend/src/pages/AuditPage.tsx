@@ -21,6 +21,18 @@ interface AuditPageProps {
 }
 
 const PAGE_SIZE = 20
+type AuditSeverity = 'info' | 'warning' | 'critical'
+type ParsedAuditDetails = Record<string, unknown> & {
+  severity?: AuditSeverity
+  toolName?: string
+  target?: string
+  rulePattern?: string
+  decision?: string
+  command?: string
+  commandType?: string
+  exitCode?: number
+  reason?: string
+}
 
 export default function AuditPage({ accessToken }: AuditPageProps) {
   const { i18n } = useTranslation()
@@ -87,16 +99,46 @@ export default function AuditPage({ accessToken }: AuditPageProps) {
         create: '创建', update: '更新', delete: '删除', login: '登录', logout: '登出',
         boot: '客户端启动', bash_command: '终端命令', file_write: '文件写入',
         command_execution_error: '命令错误', tool_access: '工具访问', policy_violation: '策略违反',
+        permission_allow: '已放行工具使用',
+        permission_ask: '触发权限确认',
+        permission_deny: '尝试使用被禁止的工具',
+        exit: '会话退出',
       }
     : {
         create: 'Create', update: 'Update', delete: 'Delete', login: 'Login', logout: 'Logout',
         boot: 'Boot', bash_command: 'Bash Command', file_write: 'File Write',
         command_execution_error: 'Command Error', tool_access: 'Tool Access', policy_violation: 'Policy Violation',
+        permission_allow: 'Tool Allowed',
+        permission_ask: 'Permission Prompted',
+        permission_deny: 'Blocked Tool Attempt',
+        exit: 'Session Exit',
       }
 
   const targetLabels = isZh
-    ? { user: '员工', template: '模板', assignment: '授权', cli_event: 'CLI 事件' }
-    : { user: 'User', template: 'Template', assignment: 'Assignment', cli_event: 'CLI Event' }
+    ? {
+        user: '员工',
+        template: '模板',
+        assignment: '授权',
+        cli_event: 'CLI 事件',
+        department_policy: '部门策略',
+        session: '会话',
+        command: '命令',
+        file: '文件',
+        tool: '工具',
+        policy: '策略',
+      }
+    : {
+        user: 'User',
+        template: 'Template',
+        assignment: 'Assignment',
+        cli_event: 'CLI Event',
+        department_policy: 'Department Policy',
+        session: 'Session',
+        command: 'Command',
+        file: 'File',
+        tool: 'Tool',
+        policy: 'Policy',
+      }
 
   const [logs, setLogs] = useState<AuditLog[]>([])
   const [total, setTotal] = useState(0)
@@ -181,19 +223,104 @@ export default function AuditPage({ accessToken }: AuditPageProps) {
     }
   }
 
-  const getSeverity = (log: AuditLog): 'info' | 'warning' | 'critical' => {
+  const parseAfterDetails = (log: AuditLog): ParsedAuditDetails => {
     try {
-      const details = log.afterJson ? JSON.parse(log.afterJson) : {}
-      return details.severity || 'info'
+      return (log.afterJson ? JSON.parse(log.afterJson) : {}) as ParsedAuditDetails
     } catch {
-      return 'info'
+      return {}
+    }
+  }
+
+  const getSeverity = (log: AuditLog): AuditSeverity => {
+    const details = parseAfterDetails(log)
+    if (log.action === 'policy_violation') return 'critical'
+    if (log.action === 'tool_permission_decision') {
+      if (details.decision === 'deny') {
+        return ['Edit', 'Write', 'Bash', 'WebFetch', 'WebSearch', 'NotebookEdit'].includes(String(details.toolName || ''))
+          ? 'critical'
+          : 'warning'
+      }
+      if (details.decision === 'ask') return 'warning'
+    }
+    return details.severity || 'info'
+  }
+
+  const getActionLabel = (log: AuditLog, details: ParsedAuditDetails) => {
+    if (log.action === 'tool_permission_decision') {
+      if (details.decision === 'allow') return actionLabels.permission_allow
+      if (details.decision === 'ask') return actionLabels.permission_ask
+      if (details.decision === 'deny') return actionLabels.permission_deny
+    }
+
+    return actionLabels[log.action as keyof typeof actionLabels] ?? log.action
+  }
+
+  const getTargetLabel = (log: AuditLog) =>
+    targetLabels[log.targetType as keyof typeof targetLabels] ?? log.targetType ?? '—'
+
+  const getTargetMeta = (log: AuditLog, details: ParsedAuditDetails) => {
+    if (log.targetType === 'tool') return String(details.toolName || details.target || '—')
+    if (log.targetType === 'command') return String(details.commandType || details.command || '—')
+    if (log.targetType === 'file') return String(details.target || '—')
+    if (log.targetType === 'policy') return String(details.rulePattern || details.policy || '—')
+    if (log.targetType === 'session') return String(details.sessionId || '—')
+    return log.targetId ? `#${log.targetId}` : '—'
+  }
+
+  const getDetailSummary = (log: AuditLog, details: ParsedAuditDetails) => {
+    switch (log.action) {
+      case 'permission_allow':
+        return isZh
+          ? `${details.toolName || 'Tool'} 已自动放行`
+          : `${details.toolName || 'Tool'} was allowed`
+      case 'permission_ask':
+        return isZh
+          ? `${details.toolName || 'Tool'} 触发权限确认`
+          : `${details.toolName || 'Tool'} required confirmation`
+      case 'permission_deny':
+        return isZh
+          ? `${details.toolName || 'Tool'} 命中规则 ${details.rulePattern || '—'}`
+          : `${details.toolName || 'Tool'} matched ${details.rulePattern || '—'}`
+      case 'command_execution_error':
+        return String(details.reason || details.error || details.command || '—')
+      case 'bash_command':
+        return isZh
+          ? `${details.commandType || 'command'} · 退出码 ${details.exitCode ?? '—'}`
+          : `${details.commandType || 'command'} · exit ${details.exitCode ?? '—'}`
+      case 'file_write':
+        return String(details.target || details.path || '—')
+      case 'policy_violation':
+        return String(details.reason || details.policy || details.tool || '—')
+      case 'exit':
+        return isZh
+          ? `退出原因：${details.reason || 'other'}`
+          : `Exit reason: ${details.reason || 'other'}`
+      case 'tool_permission_decision':
+        if (details.decision === 'deny') {
+          return isZh
+            ? `${details.toolName || 'Tool'} 命中规则 ${details.rulePattern || '—'}`
+            : `${details.toolName || 'Tool'} matched ${details.rulePattern || '—'}`
+        }
+        if (details.decision === 'ask') {
+          return isZh
+            ? `${details.toolName || 'Tool'} 触发权限确认`
+            : `${details.toolName || 'Tool'} required confirmation`
+        }
+        if (details.decision === 'allow') {
+          return isZh
+            ? `${details.toolName || 'Tool'} 已自动放行`
+            : `${details.toolName || 'Tool'} was allowed`
+        }
+        return '—'
+      default:
+        return '—'
     }
   }
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE))
   const currentPage = Math.floor(offset / PAGE_SIZE) + 1
   const accessCount = logs.filter((log) =>
-    log.action === 'login' || log.action === 'logout' || log.action === 'boot',
+    log.action === 'login' || log.action === 'logout' || log.action === 'boot' || log.action === 'exit',
   ).length
   const changeCount = logs.filter((log) =>
     log.action === 'create' || log.action === 'update' || log.action === 'delete' ||
@@ -201,7 +328,11 @@ export default function AuditPage({ accessToken }: AuditPageProps) {
     log.action === 'command_execution_error' || log.action === 'tool_access',
   ).length
   const violationCount = logs.filter((log) =>
-    log.action === 'policy_violation',
+    log.action === 'policy_violation' ||
+    (log.action === 'permission_deny' && getSeverity(log) === 'critical') ||
+    (log.action === 'tool_permission_decision' &&
+      parseAfterDetails(log).decision === 'deny' &&
+      getSeverity(log) === 'critical'),
   ).length
 
   return (
@@ -291,10 +422,16 @@ export default function AuditPage({ accessToken }: AuditPageProps) {
               <tbody>
                 {filteredLogs.map((log) => {
                   const { before, after } = parseChange(log.beforeJson, log.afterJson)
+                  const details = parseAfterDetails(log)
                   const isExpanded = expandedId === log.id
                   const severity = getSeverity(log)
-                  const isCritical = severity === 'critical' || log.action === 'policy_violation'
-                  const rowStyle = isCritical ? { backgroundColor: 'rgba(211, 47, 47, 0.05)', borderLeft: '3px solid #d32f2f' } : {}
+                  const isCritical = severity === 'critical'
+                  const isWarning = severity === 'warning'
+                  const rowStyle = isCritical
+                    ? { backgroundColor: 'rgba(211, 47, 47, 0.05)', borderLeft: '3px solid #d32f2f' }
+                    : isWarning
+                      ? { backgroundColor: 'rgba(217, 138, 44, 0.08)', borderLeft: '3px solid #d97706' }
+                      : {}
 
                   return (
                     <Fragment key={log.id}>
@@ -314,18 +451,20 @@ export default function AuditPage({ accessToken }: AuditPageProps) {
                         </td>
                         <td>
                           <span className={`action-badge tone-${log.action}${isCritical ? ' tone-critical' : ''}`}>
-                            {actionLabels[log.action as keyof typeof actionLabels] ?? log.action}
+                            {getActionLabel(log, details)}
                           </span>
                         </td>
                         <td>
                           <div className="stack-sm">
                             <strong>
-                              {targetLabels[log.targetType as keyof typeof targetLabels] ?? log.targetType ?? '—'}
+                              {getTargetLabel(log)}
                             </strong>
-                            <span className="soft">{log.targetId ? `#${log.targetId}` : '—'}</span>
+                            <span className="soft">{getTargetMeta(log, details)}</span>
                           </div>
                         </td>
                         <td>
+                          <div className="stack-sm audit-detail-cell">
+                            <span className="audit-summary">{getDetailSummary(log, details)}</span>
                           {(before || after) ? (
                             <button
                               className="button button-secondary button-sm"
@@ -336,6 +475,7 @@ export default function AuditPage({ accessToken }: AuditPageProps) {
                           ) : (
                             <span className="soft">—</span>
                           )}
+                          </div>
                         </td>
                       </tr>
 

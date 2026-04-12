@@ -46,6 +46,8 @@ function useCanUseTool(setToolUseConfirmQueue, setToolPermissionContext) {
           ctx.logDecision({
             decision: "accept",
             source: "config"
+          }, {
+            decisionReason: result.decisionReason
           });
           resolve(ctx.buildAllow(result.updatedInput ?? input, {
             decisionReason: result.decisionReason
@@ -73,7 +75,7 @@ function useCanUseTool(setToolUseConfirmQueue, setToolPermissionContext) {
               }, {
                 decision: "reject",
                 source: "config"
-              });
+              }, undefined, result.decisionReason);
               if (feature("TRANSCRIPT_CLASSIFIER") && result.decisionReason?.type === "classifier" && result.decisionReason.classifier === "auto-mode") {
                 recordAutoModeDenial({
                   toolName: tool.name,

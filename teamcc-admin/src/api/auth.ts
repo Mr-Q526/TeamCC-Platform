@@ -3,6 +3,7 @@ import {
   authenticateUser,
   generateAccessToken,
   generateRefreshToken,
+  requireActiveUserById,
   verifyRefreshToken,
   revokeRefreshToken,
 } from '../services/auth.js'
@@ -59,22 +60,7 @@ export async function registerAuthRoutes(fastify: FastifyInstance) {
 
       try {
         const userId = await verifyRefreshToken(refreshToken)
-        const user = await Promise.resolve(userId) // Fetch user to get username
-          .then(async (id) => {
-            const { users } = await import('../db/schema.js')
-            const { eq } = await import('drizzle-orm')
-            const { db } = await import('../db/index.js')
-            return db
-              .select()
-              .from(users)
-              .where(eq(users.id, id))
-              .limit(1)
-              .then((rows) => rows[0])
-          })
-
-        if (!user) {
-          throw new Error('User not found')
-        }
+        const user = await requireActiveUserById(userId)
 
         const accessToken = generateAccessToken(user.id, user.username)
 

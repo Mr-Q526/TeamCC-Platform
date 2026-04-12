@@ -1,6 +1,10 @@
 import type { FastifyInstance } from 'fastify'
-import { buildIdentityEnvelope, buildPermissionBundle } from '../services/policy.js'
-import { JWT_SECRET } from '../services/auth.js'
+import {
+  buildIdentityEnvelope,
+  buildPermissionBundle,
+  getDefaultProjectIdForUser,
+} from '../services/policy.js'
+import { JWT_SECRET, requireActiveUserById } from '../services/auth.js'
 import crypto from 'crypto'
 
 /**
@@ -44,6 +48,8 @@ async function verifyToken(request: any) {
       throw new Error('Token expired')
     }
 
+    await requireActiveUserById(decoded.userId)
+
     return decoded.userId
   } catch (error) {
     throw new Error('Invalid token: ' + (error as any).message)
@@ -79,7 +85,7 @@ export async function registerClientRoutes(fastify: FastifyInstance) {
         const userId = await verifyToken(request)
         const projectId = request.query.projectId
           ? parseInt(request.query.projectId)
-          : 1 // Default to project 1
+          : await getDefaultProjectIdForUser(userId)
 
         if (isNaN(projectId)) {
           return reply.status(400).send({ error: 'Invalid projectId' })

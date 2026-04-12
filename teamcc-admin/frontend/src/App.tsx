@@ -38,6 +38,18 @@ function App() {
     localStorage.removeItem('refreshToken')
   }
 
+  useEffect(() => {
+    const handleAuthInvalid = () => {
+      setAccessToken(null)
+      setRefreshToken(null)
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
+    }
+
+    window.addEventListener('teamcc-auth-invalid', handleAuthInvalid)
+    return () => window.removeEventListener('teamcc-auth-invalid', handleAuthInvalid)
+  }, [])
+
   if (!accessToken) {
     return <LoginPage onLogin={handleLogin} />
   }

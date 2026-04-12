@@ -262,13 +262,6 @@ export default function TemplatesPage({ accessToken, onDataChange }: TemplatesPa
     templates.find((template) => template.id === selectedTemplateId) ??
     null
 
-  const activeCount = templates.filter((template) => template.status === 'active').length
-  const archivedCount = templates.filter((template) => template.status === 'archived').length
-  const totalRuleCount = templates.reduce(
-    (sum, template) => sum + parseJson<PermissionRule[]>(template.rulesJson, []).length,
-    0,
-  )
-
   const openAdd = () => {
     setEditTemplate(null)
     setForm({ ...EMPTY_FORM })

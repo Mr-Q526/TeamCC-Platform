@@ -115,6 +115,7 @@ function createPermissionContext(
       opts?: {
         input?: Record<string, unknown>
         permissionPromptStartTimeMs?: number
+        decisionReason?: PermissionDecisionReason
       },
     ) {
       logPermissionDecision(
@@ -127,6 +128,7 @@ function createPermissionContext(
         },
         args,
         opts?.permissionPromptStartTimeMs,
+        opts?.decisionReason,
       )
     },
     logCancelled() {
@@ -203,6 +205,7 @@ function createPermissionContext(
               { tool, input, toolUseContext, messageId, toolUseID },
               { decision: 'accept', source: { type: 'classifier' } },
               undefined,
+              classifierDecision,
             )
             return {
               behavior: 'allow' as const,
@@ -240,7 +243,14 @@ function createPermissionContext(
           } else if (decision.behavior === 'deny') {
             this.logDecision(
               { decision: 'reject', source: { type: 'hook' } },
-              { permissionPromptStartTimeMs },
+              {
+                permissionPromptStartTimeMs,
+                decisionReason: {
+                  type: 'hook',
+                  hookName: 'PermissionRequest',
+                  reason: decision.message,
+                },
+              },
             )
             if (decision.interrupt) {
               logForDebugging(
@@ -303,7 +313,11 @@ function createPermissionContext(
           decision: 'accept',
           source: { type: 'user', permanent: acceptedPermanentUpdates },
         },
-        { input: updatedInput, permissionPromptStartTimeMs },
+        {
+          input: updatedInput,
+          permissionPromptStartTimeMs,
+          decisionReason,
+        },
       )
       const userModified = tool.inputsEquivalent
         ? !tool.inputsEquivalent(input, updatedInput)
@@ -328,7 +342,11 @@ function createPermissionContext(
           decision: 'accept',
           source: { type: 'hook', permanent: acceptedPermanentUpdates },
         },
-        { input: finalInput, permissionPromptStartTimeMs },
+        {
+          input: finalInput,
+          permissionPromptStartTimeMs,
+          decisionReason: { type: 'hook', hookName: 'PermissionRequest' },
+        },
       )
       return this.buildAllow(finalInput, {
         decisionReason: { type: 'hook', hookName: 'PermissionRequest' },
