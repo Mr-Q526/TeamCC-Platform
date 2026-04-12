@@ -10,7 +10,8 @@
 
 .neo4j-intro-card,
 .neo4j-meta-card,
-.neo4j-browser-card {
+.neo4j-browser-card,
+.neo4j-skill-card {
   padding: 24px;
 }
 
@@ -87,6 +88,12 @@
   gap: 18px;
 }
 
+.neo4j-skill-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
 .neo4j-browser-head {
   display: flex;
   justify-content: space-between;
@@ -94,23 +101,64 @@
   gap: 16px;
 }
 
-.neo4j-frame-shell {
-  overflow: hidden;
+.neo4j-link-shell {
+  padding: 20px;
   border: 1px solid var(--border);
   border-radius: 18px;
-  background: #0f172a;
-  min-height: 720px;
+  background: linear-gradient(180deg, #f8fbff, #f3f7fd);
 }
 
-.neo4j-frame {
-  width: 100%;
-  min-height: 720px;
-  border: 0;
-  background: #0f172a;
+.neo4j-link-code {
+  display: block;
+  color: var(--text-strong);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.neo4j-inline-note {
+  padding: 12px 14px;
+  border: 1px solid rgba(30, 103, 232, 0.15);
+  border-radius: 14px;
+  background: rgba(30, 103, 232, 0.05);
+  color: var(--text);
+}
+
+.neo4j-capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.neo4j-capability-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-strong);
+}
+
+.neo4j-capability-item strong {
+  color: var(--text-strong);
+}
+
+.neo4j-capability-item code {
+  color: var(--text-muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.neo4j-capability-item p {
+  margin: 0;
 }
 
 @media (max-width: 1024px) {
   .neo4j-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .neo4j-capability-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -118,16 +166,12 @@
 @media (max-width: 760px) {
   .neo4j-intro-card,
   .neo4j-meta-card,
-  .neo4j-browser-card {
+  .neo4j-browser-card,
+  .neo4j-skill-card {
     padding: 22px 20px;
   }
 
   .neo4j-browser-head {
     flex-direction: column;
-  }
-
-  .neo4j-frame-shell,
-  .neo4j-frame {
-    min-height: 560px;
   }
 }
