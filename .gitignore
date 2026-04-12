@@ -11,3 +11,4 @@ coverage
 .env.docker
 *.log
 .DS_Store
+.worktrees/

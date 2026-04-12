@@ -57,30 +57,25 @@ GitHub 首页如果提示 `Compare & pull request`，直接忽略。`history/*` 
 
 ### 2.3 开发分支
 
-开发分支统一使用：
+当前统一使用这 4 条开发分支：
 
 ```text
-Agent/<task-name>
+teamcc
+admin
+wt-eval-runner
+skill-graph
 ```
 
-建议命名：
+各自职责：
 
 ```text
-Agent/admin-auth
-Agent/eval-runner
-Agent/platform-docker
-Agent/skill-feedback
+teamcc         对原本的 TeamSkill-ClaudeCode / CC 本体进行改造
+admin          处理 teamcc-admin 管理平台相关功能
+wt-eval-runner 推进 TeamCC / Skill 测评系统
+skill-graph    推进 Skill 知识图谱相关开发
 ```
 
-目录职责：
-
-```text
-Agent/admin-*     主要修改 teamcc-admin/
-Agent/eval-*      主要修改 TeamSkill-ClaudeCode/
-Agent/platform-*  主要修改根目录、compose、scripts、跨项目配置
-```
-
-如果一个任务必须跨多个项目修改，需要在 PR 或任务说明中明确写出修改范围。
+如果一个任务必须跨多个目录修改，需要在 PR 或任务说明中明确写出修改范围。
 
 ## 3. Worktree 开发方式
 
@@ -100,13 +95,14 @@ git fetch origin
 git switch main
 git pull
 
-git worktree add ../wt-my-task -b Agent/my-task main
+mkdir -p .worktrees
+git worktree add .worktrees/<worktree-name> -b <branch-name> main
 ```
 
 进入 worktree 开发：
 
 ```bash
-cd /Users/minruiqing/MyProjects/wt-my-task
+cd /Users/minruiqing/MyProjects/teamcc-platform/.worktrees/<worktree-name>
 ```
 
 查看已有 worktree：
@@ -118,9 +114,10 @@ git worktree list
 当前已创建的 worktree：
 
 ```text
-/Users/minruiqing/MyProjects/wt-admin-auth       Agent/admin-auth
-/Users/minruiqing/MyProjects/wt-eval-runner      Agent/eval-runner
-/Users/minruiqing/MyProjects/wt-platform-docker  Agent/platform-docker
+/Users/minruiqing/MyProjects/teamcc-platform/.worktrees/admin        admin
+/Users/minruiqing/MyProjects/teamcc-platform/.worktrees/eval-runner  wt-eval-runner
+/Users/minruiqing/MyProjects/teamcc-platform/.worktrees/teamcc       teamcc
+/Users/minruiqing/MyProjects/teamcc-platform/.worktrees/skill-graph  skill-graph
 ```
 
 ### 3.1 为什么要同步 main
@@ -130,7 +127,7 @@ worktree 分支不是 `main` 的实时镜像。创建后它会停在创建时的
 开始开发前建议同步：
 
 ```bash
-cd /Users/minruiqing/MyProjects/wt-my-task
+cd /Users/minruiqing/MyProjects/teamcc-platform/.worktrees/<worktree-name>
 git fetch origin
 git merge origin/main
 ```
@@ -145,10 +142,10 @@ git merge origin/main
 git status
 git add <changed-files>
 git commit -m "Short imperative summary"
-git push -u origin Agent/my-task
+git push -u origin <branch-name>
 ```
 
-然后在 GitHub 上从 `Agent/my-task` 向 `main` 提 PR。
+然后在 GitHub 上从对应开发分支向 `main` 提 PR。
 
 ### 3.3 清理 worktree
 
@@ -156,8 +153,8 @@ git push -u origin Agent/my-task
 
 ```bash
 cd /Users/minruiqing/MyProjects/teamcc-platform
-git worktree remove ../wt-my-task
-git branch -d Agent/my-task
+git worktree remove .worktrees/<worktree-name>
+git branch -d <branch-name>
 ```
 
 ## 4. 本地启动
@@ -404,13 +401,14 @@ cd /Users/minruiqing/MyProjects/teamcc-platform
 git fetch origin
 git switch main
 git pull
-git worktree add ../wt-feature-x -b Agent/feature-x main
+mkdir -p .worktrees
+git worktree add .worktrees/<worktree-name> -b <branch-name> main
 
-cd ../wt-feature-x
+cd .worktrees/<worktree-name>
 # 修改代码
 git add <files>
 git commit -m "Implement feature x"
-git push -u origin Agent/feature-x
+git push -u origin <branch-name>
 ```
 
 平台集成验证：
@@ -435,6 +433,6 @@ bun run version
 
 ```text
 history/* 只查历史，不合并
-Agent/*   开发完成后提 PR 到 main
+teamcc / admin / wt-eval-runner / skill-graph 开发完成后提 PR 到 main
 main      保持可启动、可联调
 ```
