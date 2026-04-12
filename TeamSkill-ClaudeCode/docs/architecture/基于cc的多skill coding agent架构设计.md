@@ -1,5 +1,7 @@
 # 基于 Claude Code 的多 Skill Coding Agent PRD
 
+> 2026-04-12 更新：本文是早期 PRD。文中大量 `Identity MD`、活动身份文件和 `CLAUDE.local.md -> @identity-file` 的方案已废弃。当前现行口径为 TeamCC Admin 统一下发身份与权限；下文未逐段清理的相关表述仅保留历史背景。
+
 > 目标：基于 Claude Code 已有的 Skill、Agent、Permission、Sandbox、Hook、MCP 和多 agent 协作能力，构建适合团队使用的多 Skill Coding Agent，而不是从零重写一套新的 agent runtime。
 
 ---
@@ -197,19 +199,17 @@ Claude Code runtime 和评测系统必须解耦建设：
 
 用于存储当前身份信息的 markdown 文件，是 V1 的核心输入形式。
 
-建议采用两层设计：
+按当前口径，身份不再通过本地文件切换，而是通过 TeamCC 登录态与后台下发的项目授权建立。
 
-1. 用户可维护多个身份文件，例如：
-   - `.claude/identities/frontend-engineer.md`
-   - `.claude/identities/reviewer.md`
-   - `.claude/identities/release-owner.md`
-2. 会话只读取一个活动身份文件，例如：
-   - `.claude/identity/active.md`
-   - 或 `CLAUDE.local.md` 中通过 `@.claude/identity/active.md` 引入
+运行时应只依赖：
 
-切换身份时，用户只需替换活动 md 文件或修改 import 指向。
+1. TeamCC `IdentityEnvelope`
+2. TeamCC `PermissionBundle`
+3. 本地缓存作为远端失败时的回退
 
-Identity MD 应同时包含：
+此处提到的 `Identity MD` 更适合作为早期设计名词，而不是继续推进的实施方案。
+
+身份输入应同时包含：
 
 - 结构化 frontmatter：供策略编译和 Skill 过滤使用
 - 自然语言正文：供模型理解“这个身份的职责、目标、禁区、偏好”
@@ -332,12 +332,9 @@ V1 允许使用项目目录中的 md 文件作为活动身份输入。
     release-owner.md
 ```
 
-为了兼容当前 Claude Code 的上下文注入方式，V1 推荐两种落地方式：
+按当前收敛方案，V1 不再保留本地活动身份文件兼容路径。
 
-- 兼容方案：`CLAUDE.local.md` 只保留一行 `@.claude/identity/active.md`
-- 目标方案：改造 Claude Code，使其原生读取 `.claude/identity/active.md`
-
-系统需要能够从该 md 中提取：
+系统需要能够从 TeamCC 身份中提取：
 
 - 用户所在部门和团队
 - 角色类型
@@ -714,8 +711,8 @@ V3 再考虑以下能力：
 
 ### 11.1 身份切换与会话初始化
 
-1. 解析活动身份文件，优先读取 `.claude/identity/active.md`，兼容 `CLAUDE.local.md` 的 import 方案。
-2. 将 frontmatter 编译为 `UserProfile`。
+1. 建立 TeamCC 登录态并获取身份。
+2. 将远端身份编译为 `UserProfile`。
 3. 加载团队策略和项目策略。
 4. 编译得到有效权限规则。
 5. 加载当前项目可见的 Skill 集合。
@@ -926,11 +923,11 @@ policy_bundle: growth-web-default
 建议改造点：
 
 - `src/utils/claudemd.ts`
-  - 新增 `.claude/identity/active.md` 的发现和加载逻辑。
-  - 或在 V1 先沿用 `CLAUDE.local.md -> @identity-file` 的兼容方案。
+  - 不再新增活动身份文件的发现逻辑。
+  - 历史上的 `CLAUDE.local.md -> @identity-file` 方案不再推进。
 - `src/context.ts`
-  - 在 `getUserContext()` 中加入身份 md 的解析结果。
-  - 将身份正文作为上下文注入，将结构化字段缓存为运行时 profile。
+  - 在 `getUserContext()` 中加入 TeamCC 身份摘要。
+  - 将远端身份结构化字段缓存为运行时 profile。
 - `src/utils/attachments.ts`
   - 把身份文件也作为可审计的指令附件进行追踪。
 

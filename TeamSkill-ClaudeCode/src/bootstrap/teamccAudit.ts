@@ -4,8 +4,8 @@
  * Provides non-blocking telemetry to the TeamCC Admin backend for sensitive operations.
  */
 import { logForDebugging } from '../utils/debug.js'
-import { loadTeamCCConfig, getValidAccessToken } from './teamccAuth.js'
-import { loadLocalIdentityProfile } from '../utils/identity.js'
+import { loadTeamCCConfig, getPersistedValidAccessToken } from './teamccAuth.js'
+import { getIdentityProfile } from './state.js'
 
 export type AuditEventType = 'boot' | 'login' | 'bash_command' | 'file_write'
 
@@ -18,14 +18,14 @@ export async function reportAuditLog(
     const config = await loadTeamCCConfig(cwd)
     if (!config || !config.apiBase) return
 
-    // Attempt to enrich with identity info
-    const identity = await loadLocalIdentityProfile(cwd)
+    // Enrich with current runtime identity only.
+    const identity = getIdentityProfile()
     
     // Attempt to grab token securely
     let token = config.accessToken
     if (token) {
       try {
-        const validTokenObj = await getValidAccessToken(config)
+        const validTokenObj = await getPersistedValidAccessToken(cwd, config)
         token = validTokenObj.token
       } catch {
         // Token might be expired and refresh failed, keep best-effort token
@@ -39,7 +39,6 @@ export async function reportAuditLog(
       eventType,
       details: payload,
     }
-    console.log("PAYLOAD USER ID:", auditData.userId, "IDENTITY:", identity);
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -72,4 +71,3 @@ export async function reportAuditLog(
     logForDebugging(`[teamcc-audit] Internal error during audit reporting: ${(error as Error).message}`, { level: 'error' })
   }
 }
-

@@ -27,9 +27,7 @@ import {
 } from './PermissionMode.js'
 import { applyPermissionRulesToPermissionContext } from './permissions.js'
 import { loadAllPermissionRulesFromDisk } from './permissionsLoader.js'
-import { getTeamCCPermissionRules } from './teamccLoader.js'
-import { loadTeamCCConfig } from '../../bootstrap/teamccAuth.js'
-import { getIdentityProfile } from '../../bootstrap/state.js'
+import type { TeamCCBootstrapResult } from '../../bootstrap/teamccSession.js'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const autoModeStateModule = feature('TRANSCRIPT_CLASSIFIER')
@@ -54,7 +52,11 @@ import {
 import { AGENT_TOOL_NAME } from '../../tools/AgentTool/constants.js'
 import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
 /* eslint-enable @typescript-eslint/no-require-imports */
+import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants.js'
+import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt.js'
+import { NOTEBOOK_EDIT_TOOL_NAME } from '../../tools/NotebookEditTool/constants.js'
 import { POWERSHELL_TOOL_NAME } from '../../tools/PowerShellTool/toolName.js'
+import { REMOTE_TRIGGER_TOOL_NAME } from '../../tools/RemoteTriggerTool/prompt.js'
 import { getToolsForDefaultPreset, parseToolPreset } from '../../tools.js'
 import {
   getFsImplementation,
@@ -993,23 +995,6 @@ export async function initializeToolPermissionContext({
     rulesFromDisk,
   )
 
-  // Inject TeamCC Admin PBAC permission bundle.
-  // These are merged AFTER disk rules so they always win — deny is absolute.
-  const identityProfile = getIdentityProfile()
-  const cwd = getCwd()
-  if (identityProfile) {
-    const config = await loadTeamCCConfig(cwd)
-    const projectId = identityProfile.projectId ?? 1
-    
-    const teamccRules = await getTeamCCPermissionRules(cwd, config, projectId)
-    if (teamccRules.length > 0) {
-      toolPermissionContext = applyPermissionRulesToPermissionContext(
-        toolPermissionContext,
-        teamccRules,
-      )
-    }
-  }
-
   // Add directories from settings and --add-dir
   const allAdditionalDirectories = [
     ...(settings.permissions?.additionalDirectories || []),
@@ -1050,6 +1035,102 @@ export async function initializeToolPermissionContext({
     dangerousPermissions,
     overlyBroadBashPermissions,
   }
+}
+
+const TEAMCC_RESTRICTED_RULES: PermissionRule[] = [
+  {
+    source: 'teamccAdmin',
+    ruleBehavior: 'deny',
+    ruleValue: { toolName: BASH_TOOL_NAME },
+  },
+  {
+    source: 'teamccAdmin',
+    ruleBehavior: 'deny',
+    ruleValue: { toolName: POWERSHELL_TOOL_NAME },
+  },
+  {
+    source: 'teamccAdmin',
+    ruleBehavior: 'deny',
+    ruleValue: { toolName: FILE_EDIT_TOOL_NAME },
+  },
+  {
+    source: 'teamccAdmin',
+    ruleBehavior: 'deny',
+    ruleValue: { toolName: FILE_WRITE_TOOL_NAME },
+  },
+  {
+    source: 'teamccAdmin',
+    ruleBehavior: 'deny',
+    ruleValue: { toolName: NOTEBOOK_EDIT_TOOL_NAME },
+  },
+  {
+    source: 'teamccAdmin',
+    ruleBehavior: 'deny',
+    ruleValue: { toolName: AGENT_TOOL_NAME },
+  },
+  {
+    source: 'teamccAdmin',
+    ruleBehavior: 'deny',
+    ruleValue: { toolName: REMOTE_TRIGGER_TOOL_NAME },
+  },
+]
+
+function replaceTeamCCRules(
+  context: ToolPermissionContext,
+  rules: PermissionRule[],
+): ToolPermissionContext {
+  const nextAllowRules: ToolPermissionRulesBySource = {
+    ...(context.alwaysAllowRules as ToolPermissionRulesBySource),
+    teamccAdmin: [] as string[],
+  }
+  const nextDenyRules: ToolPermissionRulesBySource = {
+    ...(context.alwaysDenyRules as ToolPermissionRulesBySource),
+    teamccAdmin: [] as string[],
+  }
+  const nextAskRules: ToolPermissionRulesBySource = {
+    ...(context.alwaysAskRules as ToolPermissionRulesBySource),
+    teamccAdmin: [] as string[],
+  }
+
+  for (const rule of rules) {
+    const ruleString = permissionRuleValueToString(rule.ruleValue)
+
+    if (rule.ruleBehavior === 'allow') {
+      nextAllowRules.teamccAdmin = [...(nextAllowRules.teamccAdmin ?? []), ruleString]
+    } else if (rule.ruleBehavior === 'deny') {
+      nextDenyRules.teamccAdmin = [...(nextDenyRules.teamccAdmin ?? []), ruleString]
+    } else {
+      nextAskRules.teamccAdmin = [...(nextAskRules.teamccAdmin ?? []), ruleString]
+    }
+  }
+
+  return {
+    ...context,
+    alwaysAllowRules: nextAllowRules,
+    alwaysDenyRules: nextDenyRules,
+    alwaysAskRules: nextAskRules,
+  }
+}
+
+export function clearTeamCCRulesFromPermissionContext(
+  context: ToolPermissionContext,
+): ToolPermissionContext {
+  return replaceTeamCCRules(context, [])
+}
+
+export function applyTeamCCSessionToPermissionContext(
+  context: ToolPermissionContext,
+  session: Pick<TeamCCBootstrapResult, 'status' | 'permissionRules'>,
+): ToolPermissionContext {
+  if (session.status === 'authenticated_scoped') {
+    return replaceTeamCCRules(context, session.permissionRules)
+  }
+
+  if (session.status === 'authenticated_restricted') {
+    return replaceTeamCCRules(context, TEAMCC_RESTRICTED_RULES)
+  }
+
+  return clearTeamCCRulesFromPermissionContext(context)
 }
 
 export type AutoModeGateCheckResult = {

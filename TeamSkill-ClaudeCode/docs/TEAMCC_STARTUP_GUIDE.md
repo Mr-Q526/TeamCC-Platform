@@ -1,379 +1,211 @@
-# TeamCC 集成启动指南
+# TeamCC 企业版启动指南
 
-## 问题修复
+**更新时间**: 2026-04-12
 
-**问题**: Claude Code 启动时卡住，一直停留在启动状态  
-**原因**: 尝试连接到 TeamCC Admin 但没有超时，导致启动阻塞  
-**解决**: 已添加 5 秒超时和智能跳过逻辑
+## 适用范围
 
----
+本文描述当前收敛后的启动方式：
 
-## 启动步骤
-
-### 方式 1: 快速启动（推荐新手）
-
-**不需要 TeamCC Admin 运行：**
-
-```bash
-# 方式 A: 直接启动（使用本地身份文件）
-teamcc /path/to/your/project
-
-# 或者使用 npm
-npm run dev
-
-# 或者使用 bun
-bun run ./src/bootstrap-entry.ts /path/to/your/project
-```
-
-**预期**：立即启动，无需等待
+- `TeamCC Admin` 是企业版的唯一身份与权限源。
+- 已取消 `.claude/identity/active.md` 方案。
+- 未接入 TeamCC 时，CLI 只能作为本地恢复或调试工具使用，不具备企业身份与权限能力。
 
 ---
 
-### 方式 2: 集成 TeamCC Admin（需要认证）
+## 推荐启动方式
 
-**Step 1: 启动 TeamCC Admin**
+### 方式 1: 交互式登录
+
+适合本地开发和日常使用。
+
+#### Step 1: 启动 TeamCC Admin
 
 ```bash
-# 终端 1
 cd /Users/minruiqing/MyProjects/teamcc-admin
 npm run dev
-
-# 输出：
-# → listening on http://localhost:3000
 ```
 
-**Step 2: 获取有效的 Token**
+默认地址：
 
 ```bash
-# 向 TeamCC Admin 认证
-curl -X POST http://localhost:3000/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"password123"}'
-
-# 复制返回的 accessToken
-# 示例: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+http://localhost:3000
 ```
 
-**Step 3: 使用 Token 启动 Claude Code**
+#### Step 2: 启动 Claude Code
 
 ```bash
-# 终端 2
-cd /Users/minruiqing/MyProjects/TeamSkill-ClaudeCode
-
-# 使用环境变量（推荐）
-TEAMCC_ADMIN_URL=http://localhost:3000 \
-TEAMCC_ACCESS_TOKEN=<your-token-here> \
-teamcc /path/to/your/project
-
-# 或者创建 .claude/teamcc.json（见下文）
-teamcc /path/to/your/project
+cd /Users/minruiqing/MyProjects/teamcc-platform/worktrees/teamcc/TeamSkill-ClaudeCode
+bun run dev
 ```
 
-**预期**：立即启动，从 TeamCC Admin 获取身份
+#### Step 3: 在 REPL 中登录
+
+```text
+/login
+```
+
+登录成功后可检查：
+
+```text
+/auth status
+/identity
+/permissions
+```
 
 ---
 
-## 配置方式
+### 方式 2: 使用预置 token 启动
 
-### 方式 A: 环境变量（临时，推荐开发）
+适合联调、CI 或本地免交互调试。
 
 ```bash
 TEAMCC_ADMIN_URL=http://localhost:3000 \
-TEAMCC_ACCESS_TOKEN=eyJhbGc... \
-teamcc /your/project
+TEAMCC_ACCESS_TOKEN=<your-access-token> \
+TEAMCC_REFRESH_TOKEN=<optional-refresh-token> \
+bun run dev
 ```
 
-### 方式 B: 项目配置文件 (`.claude/teamcc.json`)
-
-在项目根目录创建：
+也可以写入项目配置：
 
 ```json
 {
   "apiBase": "http://localhost:3000",
   "username": "admin",
   "accessToken": "eyJhbGc...",
-  "refreshToken": "c1dd8d..."
+  "refreshToken": "c1dd8d...",
+  "tokenExpiry": 1775896537000
 }
 ```
 
-然后启动：
+文件位置：
 
-```bash
-teamcc /your/project
-```
-
-### 方式 C: 本地身份文件 (`.claude/identity/active.md`)
-
-如果没有 TeamCC Admin，编辑：
-
-```yaml
----
-user_id: 100
-org_id: 10
-department_id: 102
-team_id: 1022
-role_id: 202
-level_id: 303
----
-```
-
-然后启动：
-
-```bash
-teamcc /your/project
+```text
+.claude/teamcc.json
 ```
 
 ---
 
-## 故障排除
+### 方式 3: 无 TeamCC 的恢复/调试模式
 
-### Q: 启动仍然卡住
+如果既没有环境变量，也没有 TeamCC 配置，CLI 仍可启动，但它不具备以下能力：
 
-**A**: 
-1. 确认 TeamCC Admin 没有在运行（如果没有 token）
-2. 检查网络连接
-3. 尝试使用本地身份文件而不是远程认证
+- 企业身份注入
+- TeamCC 权限包下发
+- 企业版 Skill 可见性边界
 
-```bash
-# 确保没有 .claude/teamcc.json 或环境变量
-rm .claude/teamcc.json
-unset TEAMCC_ADMIN_URL TEAMCC_ACCESS_TOKEN
+这个模式只应用于：
 
-# 创建本地身份文件
-mkdir -p .claude/identity
-cat > .claude/identity/active.md <<'EOF'
----
-user_id: 1
-department_id: 102
-team_id: 1022
-role_id: 202
-level_id: 303
----
-EOF
-
-# 启动
-teamcc /your/project
-```
-
-### Q: 显示 "Failed to fetch from TeamCC Admin"
-
-**A**: 
-- TeamCC Admin 可能没有运行
-- Token 可能已过期
-- 网络连接问题
-
-```bash
-# 检查 TeamCC Admin 是否运行
-curl -s http://localhost:3000/health
-
-# 如果不返回，需要先启动
-cd /Users/minruiqing/MyProjects/teamcc-admin
-npm run dev
-```
-
-### Q: 显示 "No identity configured"
-
-**A**: 
-- 这是正常的，如果既没有 TeamCC Admin 也没有本地身份文件
-- 创建 `.claude/identity/active.md` 或配置 TeamCC
-
-### Q: 网络超时
-
-**A**: 
-- 3-5 秒超时是设计的行为
-- 启动时会自动跳过不可用的 TeamCC Admin
-- 可以安全地忽略超时警告
+- 源码恢复和跑通 CLI
+- 调试不依赖企业身份的功能
+- 离线查看代码与非企业命令
 
 ---
 
-## 完整示例工作流
+## 启动流程
 
-### 场景 1: 仅使用本地配置（最简单）
-
-```bash
-# 1. 创建项目目录
-mkdir -p ~/my-project
-cd ~/my-project
-
-# 2. 创建本地身份
-mkdir -p .claude/identity
-cat > .claude/identity/active.md <<'EOF'
----
-user_id: 100
-department_id: 102
-team_id: 1022
-role_id: 202
-level_id: 303
----
-EOF
-
-# 3. 启动 Claude Code
-teamcc ~/my-project
-
-# 4. 验证
-/identity
-# 输出: User ID: 100, Department: backend, ...
-```
-
-### 场景 2: 与 TeamCC Admin 集成（完整）
-
-```bash
-# 终端 1: 启动 TeamCC Admin
-cd /Users/minruiqing/MyProjects/teamcc-admin
-npm run dev
-
-# 终端 2: 获取 Token
-TOKEN=$(curl -s -X POST http://localhost:3000/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"password123"}' | \
-  grep -o '"accessToken":"[^"]*' | cut -d'"' -f4)
-
-echo "Token: $TOKEN"
-
-# 终端 3: 启动 Claude Code
-cd /Users/minruiqing/MyProjects/TeamSkill-ClaudeCode
-TEAMCC_ADMIN_URL=http://localhost:3000 \
-TEAMCC_ACCESS_TOKEN=$TOKEN \
-teamcc ~/my-project
-
-# 4. 验证
-/identity
-# 输出: 来自 TeamCC Admin 的身份信息
-```
-
----
-
-## 超时行为详解
-
-### 启动流程图
-
-```
+```text
 Claude Code 启动
   │
-  ├─ 检查 .claude/teamcc.json 或 env 变量
-  │  ├─ 有 accessToken? 
-  │  │  ├─ 是 → 尝试从 TeamCC Admin 获取身份 (5秒超时)
-  │  │  │    ├─ 成功 → 缓存并继续
-  │  │  │    ├─ 超时 → 日志警告，继续
-  │  │  │    └─ 失败 → 使用本地缓存
-  │  │  │
-  │  │  └─ 否 → 跳过 TeamCC
-  │  │
-  │  └─ 无配置 → 跳过 TeamCC
+  ├─ 读取 .claude/teamcc.json / ~/.teamcc/config.json / env
   │
-  ├─ 尝试加载 .claude/cache/identity.json
-  │  ├─ 有效 → 使用缓存
-  │  └─ 无效/过期 → 继续
+  ├─ 有 TeamCC 配置?
+  │  ├─ 否 → 进入本地恢复/调试模式
+  │  └─ 是
   │
-  ├─ 尝试加载 .claude/identity/active.md
-  │  ├─ 存在 → 使用本地文件
-  │  └─ 不存在 → 无身份
+  ├─ 有 accessToken?
+  │  ├─ 否 → 企业路径下提示先登录
+  │  └─ 是
   │
-  └─ 启动完成（总耗时 < 5 秒）
-```
-
-### 日志示例
-
-```
-[main] Loaded identity from TeamCC Admin
-# → 成功从远程加载
-
-[main] Using cached identity from TeamCC Admin
-# → 远程超时，使用本地缓存
-
-[main] Failed to fetch from TeamCC Admin: <timeout error>
-# → 超时但有本地文件，继续
-
-[main] Skipping TeamCC: No token configured
-# → 正常跳过，使用本地配置
+  ├─ GET /identity/me
+  │  ├─ 成功 → 缓存 identity
+  │  └─ 失败 → 尝试 identity cache
+  │
+  ├─ GET /policy/bundle?projectId=...
+  │  ├─ 成功 → 缓存 permission bundle
+  │  └─ 失败 → 尝试 permission bundle cache
+  │
+  └─ 初始化 ToolPermissionContext
 ```
 
 ---
 
-## 最佳实践
+## 常见问题
 
-### 开发环境
+### Q: 启动后提示没有身份
 
-1. **使用本地身份文件**（最快）
-   ```bash
-   # 创建一次，然后忘记它
-   mkdir -p .claude/identity
-   cat > .claude/identity/active.md <<EOF
-   ---
-   user_id: 100
-   department_id: 102
-   team_id: 1022
-   role_id: 202
-   level_id: 303
-   ---
-   EOF
-   ```
+这通常意味着：
 
-2. **如果需要 TeamCC，使用环境变量**
-   ```bash
-   # 不要提交到 git
-   TEAMCC_ADMIN_URL=http://localhost:3000 \
-   TEAMCC_ACCESS_TOKEN=$TOKEN \
-   teamcc ~/my-project
-   ```
+- 还没有登录 TeamCC
+- TeamCC 不可达且本地没有有效缓存
+- 当前就是无 TeamCC 的恢复/调试模式
 
-### 生产环境
+排查顺序：
 
-1. **总是配置 TeamCC Admin URL + Token**
-2. **使用 CI/CD 变量存储 Token**
-3. **启用审计日志**
-
----
-
-## 相关命令
-
-```bash
-# 查看当前身份
+```text
+/auth status
+/login
 /identity
-
-# 启用详细日志
-DEBUG=*teamcc*,*identity* teamcc /your/project
-
-# 清除缓存
-rm -rf .claude/cache
-
-# 清除 Token
-rm .claude/teamcc.json
-
-# 测试 TeamCC Admin 连接
-curl http://localhost:3000/health
-
-# 获取新 Token
-curl -X POST http://localhost:3000/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"password123"}'
 ```
 
+### Q: 提示 token 失效或需要重新登录
+
+说明本地 `accessToken` 已过期且刷新失败。处理方式：
+
+```text
+/logout
+/login
+```
+
+如果是环境变量注入方式，直接换新 token 后重启。
+
+### Q: TeamCC 服务不可达时还能不能启动
+
+可以，前提是之前已经成功拉取过缓存。
+
+缓存文件：
+
+```text
+.claude/cache/identity.json
+.claude/cache/permission-bundle-<projectId>.json
+```
+
+如果没有缓存，则企业身份与权限无法建立。
+
+### Q: 现在还能不能用 `.claude/identity/active.md`
+
+不能。该方案已经取消，不再作为企业版入口。
+
 ---
 
-## 常见问题解答
+## 推荐验证清单
 
-**Q: 每次启动都要输入 Token?**  
-A: 不需要。Token 会被缓存在 `.claude/teamcc.json` 中，使用 `refreshToken` 自动刷新。
+### 初次接入
 
-**Q: 可以同时运行多个项目吗?**  
-A: 可以。每个项目目录有独立的 `.claude/` 配置，不会相互干扰。
+1. 启动 `teamcc-admin`
+2. 启动 Claude Code
+3. 执行 `/login`
+4. 执行 `/auth status`
+5. 执行 `/identity`
+6. 打开 `/permissions`
 
-**Q: 为什么需要 5 秒超时?**  
-A: 防止启动卡住。如果 TeamCC Admin 不可用，5 秒后自动降级到本地配置。
+### 离线回退
 
-**Q: Token 过期了怎么办?**  
-A: 会自动使用 refreshToken 获取新的 accessToken。如果 refreshToken 也过期了，重新运行 `/login`。
+1. 联机登录一次
+2. 停掉 `teamcc-admin`
+3. 重新启动 Claude Code
+4. 检查是否命中缓存
 
-**Q: 离线可以使用吗?**  
-A: 可以。如果有本地身份文件或缓存，完全可以离线工作。
+### 权限验证
+
+1. 在 TeamCC Admin 调整项目权限模板
+2. 重启或刷新权限
+3. 用 `/permissions` 或实际工具调用验证结果
 
 ---
 
-## 更新日志
+## 相关文档
 
-**2026-04-11**: 
-- ✅ 修复启动卡住问题
-- ✅ 添加 5 秒超时机制
-- ✅ 改进错误处理和日志
-- ✅ 支持优雅降级
+- `docs/TEAMCC_AUTHENTICATION_GUIDE.md`
+- `docs/TEAMCC_INTEGRATION_STATUS.md`
+- `docs/architecture/20260411-teamcc-admin-integration.md`
+- `docs/architecture/20260411-teamcc-integration-testing.md`

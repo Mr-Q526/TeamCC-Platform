@@ -119,7 +119,7 @@ import { getModelDeprecationWarning } from './utils/model/deprecation.js';
 import { getDefaultMainLoopModel, getUserSpecifiedModelSetting, normalizeModelStringForAPI, parseUserSpecifiedModel } from './utils/model/model.js';
 import { ensureModelStringsInitialized } from './utils/model/modelStrings.js';
 import { PERMISSION_MODES } from './utils/permissions/PermissionMode.js';
-import { checkAndDisableBypassPermissions, getAutoModeEnabledStateIfCached, initializeToolPermissionContext, initialPermissionModeFromCLI, isDefaultPermissionModeAuto, parseToolListFromCLI, removeDangerousPermissions, stripDangerousPermissionsForAutoMode, verifyAutoModeGateAccess } from './utils/permissions/permissionSetup.js';
+import { applyTeamCCSessionToPermissionContext, checkAndDisableBypassPermissions, getAutoModeEnabledStateIfCached, initializeToolPermissionContext, initialPermissionModeFromCLI, isDefaultPermissionModeAuto, parseToolListFromCLI, removeDangerousPermissions, stripDangerousPermissionsForAutoMode, verifyAutoModeGateAccess } from './utils/permissions/permissionSetup.js';
 import { cleanupOrphanedPluginVersionsInBackground } from './utils/plugins/cacheUtils.js';
 import { initializeVersionedPlugins } from './utils/plugins/installedPluginsManager.js';
 import { getManagedPluginNames } from './utils/plugins/managedPlugins.js';
@@ -205,6 +205,7 @@ import { checkOutTeleportedSessionBranch, processMessagesForTeleportResume, tele
 import { shouldEnableThinkingByDefault, type ThinkingConfig } from './utils/thinking.js';
 import { initUser, resetUserCache } from './utils/user.js';
 import { getTmuxInstallInstructions, isTmuxAvailable, parsePRReference } from './utils/worktree.js';
+import type { TeamCCBootstrapResult } from './bootstrap/teamccSession.js';
 
 // eslint-disable-next-line custom-rules/no-top-level-side-effects
 profileCheckpoint('main_tsx_imports_loaded');
@@ -1755,86 +1756,49 @@ async function run(): Promise<CommanderCommand> {
       }
     }
 
-    // Load team identity profile before initializeToolPermissionContext so identity rules can be injected
+    let teamccSession: TeamCCBootstrapResult = {
+      status: 'unauthenticated',
+      identityProfile: null,
+      permissionRules: [],
+      failureReason: null,
+      warning: null
+    };
+
+    // Establish TeamCC enterprise session before initializing the runtime.
     {
-      const { loadIdentityProfile, loadLocalIdentityProfile, envelopeToProfile } = await import('./utils/identity.js');
-      const { setIdentityProfile } = await import('./bootstrap/state.js');
+      const { setIdentityProfile, setTeamCCSessionState } = await import('./bootstrap/state.js');
       const { getCwd } = await import('./utils/cwd.js');
-      const { loadTeamCCConfig, fetchIdentityFromTeamCC, cacheIdentity, loadCachedIdentity, isCacheValid } = await import('./bootstrap/teamccAuth.js');
+      const { bootstrapTeamCCSession, getTeamCCLoginRequiredMessage, isTeamCCAuthEntrypoint } = await import('./bootstrap/teamccSession.js');
       const { logForDebugging } = await import('./utils/debug.js');
-
       const cwd = getCwd();
-      let profile = null;
 
-      // Try to load from TeamCC Admin (with cache and fallback support)
       try {
-        const config = await loadTeamCCConfig(cwd);
+        teamccSession = await bootstrapTeamCCSession(cwd);
+        setIdentityProfile(teamccSession.identityProfile);
+        setTeamCCSessionState(teamccSession.status, teamccSession.failureReason);
 
-        if (config?.apiBase) {
-          // Mode 1: TeamCC is configured. Identity MUST come from TeamCC.
-          if (!config.accessToken) {
-            // Only hard block if they are trying to start the agent. Allow `/auth login` passes.
-            const isAuthCommand = process.argv.includes('auth') || process.argv.includes('login') || process.argv.includes('logout');
-            if (!isAuthCommand) {
-              console.error('\n❌ TeamCC is enabled but no login token found.');
-              console.error('Please run: `bun run dev auth` to login.');
-              process.exit(1);
-            }
-          }
+        if (teamccSession.status === 'unauthenticated' && !isTeamCCAuthEntrypoint()) {
+          console.error(`\n${getTeamCCLoginRequiredMessage(teamccSession.failureReason)}`);
+          process.exit(1);
+        }
 
-          try {
-            // Try to fetch fresh identity from remote with timeout
-            const envelope = await fetchIdentityFromTeamCC(config);
-            profile = envelopeToProfile(envelope);
-            await cacheIdentity(cwd, envelope);
-            logForDebugging('[main] ✅ Loaded identity from TeamCC Admin');
-
-            // Auto-refresh permissions when logged in
-            try {
-              const { loadAndMergeAllPermissionRules } = await import('./utils/permissions/teamccIntegration.js');
-              const merged = await loadAndMergeAllPermissionRules(profile.projectId || 1);
-              logForDebugging(`[main] ✅ Updated permissions: ${merged.length} rules loaded`);
-            } catch (permError) {
-              const msg = permError instanceof Error ? permError.message : String(permError);
-              logForDebugging(`[main] Warning: Failed to refresh permissions: ${msg}`, { level: 'warn' });
-            }
-          } catch (remoteError) {
-            const errorMsg = remoteError instanceof Error ? remoteError.message : String(remoteError);
-            logForDebugging(`[main] Failed to fetch from TeamCC Admin: ${errorMsg}`, { level: 'debug' });
-
-            // If it's explicitly auth-related (e.g. 401, refresh failed), we MUST re-login
-            if (errorMsg.includes('401') || errorMsg.includes('refresh failed')) {
-              const isAuthCommand = process.argv.includes('auth') || process.argv.includes('login') || process.argv.includes('logout');
-              if (!isAuthCommand) {
-                console.error(`\n❌ TeamCC Authentication failed (token expired or unauthorized).`);
-                console.error('Please run: `bun run dev auth` again.');
-                process.exit(1);
-              }
-            }
-
-            // Fallback to cache if remote fails (e.g., disconnected, timed out)
-            const cached = await loadCachedIdentity(cwd);
-            if (cached && isCacheValid(cached)) {
-              profile = envelopeToProfile(cached);
-              logForDebugging('[main] ⚠️  Using cached identity from TeamCC Admin');
-            } else {
-              const isAuthCommand = process.argv.includes('auth') || process.argv.includes('login') || process.argv.includes('logout');
-              if (!isAuthCommand) {
-                console.error('\n❌ Could not verify identity from TeamCC Admin and no valid cache exists.');
-                process.exit(1);
-              }
-            }
-          }
-        } else {
-          // Mode 2: No TeamCC configured. Fallback to local file.
-          profile = await loadIdentityProfile(cwd);
+        if (teamccSession.status === 'authenticated_scoped') {
+          logForDebugging('[main] ✅ TeamCC identity and permission bundle loaded');
+        } else if (teamccSession.status === 'authenticated_restricted') {
+          logForDebugging(`[main] ⚠️ TeamCC restricted mode: ${teamccSession.failureReason ?? 'permission bundle unavailable'}`, {
+            level: 'warn'
+          });
         }
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);
-        logForDebugging(`[main] Error during identity setup: ${msg}`, { level: 'error' });
+        logForDebugging(`[main] Error during TeamCC session bootstrap: ${msg}`, { level: 'error' });
+        setIdentityProfile(null);
+        setTeamCCSessionState('unauthenticated', msg);
+        if (!process.argv.includes('auth') && !process.argv.includes('login') && !process.argv.includes('logout')) {
+          console.error(`\n❌ TeamCC 启动鉴权失败。\n原因: ${msg}\n请先使用 TeamCC 登录入口（login/auth）完成认证。`);
+          process.exit(1);
+        }
       }
-
-      setIdentityProfile(profile);
     }
 
     // This await replaces blocking existsSync/statSync calls that were already in
@@ -1854,6 +1818,10 @@ async function run(): Promise<CommanderCommand> {
       dangerousPermissions,
       overlyBroadBashPermissions
     } = initResult;
+    toolPermissionContext = applyTeamCCSessionToPermissionContext(toolPermissionContext, teamccSession);
+    if (teamccSession.warning) {
+      warnings.push(`Warning: ${teamccSession.warning}`);
+    }
 
     // Handle overly broad shell allow rules for ant users (Bash(*), PowerShell(*))
     if ("external" === 'ant' && overlyBroadBashPermissions.length > 0) {

@@ -111,6 +111,7 @@ const PERMISSION_RULE_SOURCES = [
   'cliArg',
   'command',
   'session',
+  'teamccAdmin',
 ] as const satisfies readonly PermissionRuleSource[]
 
 export function permissionRuleSourceDisplayString(

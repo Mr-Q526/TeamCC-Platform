@@ -1,7 +1,7 @@
 import { join } from 'path'
+import { getIdentityProfile } from '../../bootstrap/state.js'
 import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { getFsImplementation } from '../../utils/fsOperations.js'
-import { getTeamCCIdentityPath } from '../../utils/teamccPaths.js'
 import { logForDebugging } from '../../utils/debug.js'
 import {
   getSkillRegistryLocations,
@@ -310,22 +310,13 @@ function collectHintMatches(
   return matches
 }
 
-async function loadDepartmentTag(cwd: string): Promise<string | null> {
-  const identityPath = getTeamCCIdentityPath(cwd)
-
-  try {
-    const raw = await getFsImplementation().readFile(identityPath, {
-      encoding: 'utf-8',
-    })
-    const { frontmatter } = parseFrontmatter(raw, identityPath)
-    const departmentId = Number(frontmatter.department_id)
-    if (!Number.isFinite(departmentId)) {
-      return null
-    }
-    return DEPARTMENT_ID_TO_TAG[departmentId] ?? null
-  } catch {
+async function loadDepartmentTag(_cwd: string): Promise<string | null> {
+  const profile = getIdentityProfile()
+  if (!profile) {
     return null
   }
+
+  return DEPARTMENT_ID_TO_TAG[profile.departmentId] ?? null
 }
 
 async function buildSkillIndex(cwd: string): Promise<SkillIndex> {

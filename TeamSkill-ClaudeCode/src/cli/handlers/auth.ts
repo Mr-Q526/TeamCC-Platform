@@ -53,7 +53,7 @@ export async function authLogin({
     const { config } = await loginToTeamCC(username, password, adminUrl)
     await saveTeamCCConfig(process.cwd(), config)
 
-    const identity = await fetchIdentityFromTeamCC(config)
+    const identity = await fetchIdentityFromTeamCC(process.cwd(), config)
     await cacheIdentity(process.cwd(), identity)
 
     process.stdout.write('Login successful.\n')

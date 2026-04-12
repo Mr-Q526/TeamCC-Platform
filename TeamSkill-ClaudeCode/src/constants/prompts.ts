@@ -674,13 +674,17 @@ export async function computeSimpleEnvInfo(
   const cwd = getCwd()
   const isWorktree = getCurrentWorktreeSession() !== null
 
-  const { getIdentityProfile } = await import('../bootstrap/state.js')
+  const { getIdentityProfile, getTeamCCSessionState } = await import('../bootstrap/state.js')
   const { mapDepartment, mapRole, mapLevel, mapTeam } = await import('../utils/identity.js')
   const profile = getIdentityProfile()
+  const teamccSessionState = getTeamCCSessionState()
 
   let identityItem: string | null = null
   if (profile) {
     identityItem = `Your Active Identity / Context: Department: ${mapDepartment(profile.departmentId)}, Team: ${mapTeam(profile.teamId)}, Role: ${mapRole(profile.roleId)}, Level: ${mapLevel(profile.levelId)}. You are strictly serving in the above organizational role. Do not offer to perform tasks outside your domain.`
+    if (teamccSessionState === 'authenticated_restricted') {
+      identityItem += ' TeamCC restricted mode is active: your identity is verified, but project permissions were not loaded.'
+    }
   }
 
   const envItems = [
