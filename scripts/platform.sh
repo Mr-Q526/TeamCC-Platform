@@ -4,8 +4,9 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ADMIN_DIR="$ROOT_DIR/teamcc-admin"
 TEAMSKILL_DIR="$ROOT_DIR/TeamSkill-ClaudeCode"
+SKILL_GRAPH_DIR="$ROOT_DIR/skill-graph"
 ADMIN_COMPOSE_FILE="$ADMIN_DIR/docker-compose.yml"
-SKILL_COMPOSE_FILE="$TEAMSKILL_DIR/docker-compose.skill-data.yml"
+SKILL_COMPOSE_FILE="$SKILL_GRAPH_DIR/docker-compose.skill-data.yml"
 
 usage() {
   cat <<'EOF'
