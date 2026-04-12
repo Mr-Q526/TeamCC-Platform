@@ -1,0 +1,13 @@
+node_modules
+dist
+build
+coverage
+.next
+.turbo
+.cache
+.teamcc
+.env
+.env.local
+.env.docker
+*.log
+.DS_Store

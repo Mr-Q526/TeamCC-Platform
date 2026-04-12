@@ -1,0 +1,10 @@
+interface:
+  display_name: "CI Quality Gates"
+  short_description: "Guidance for ci quality gates"
+  icon_small: "./assets/ci-quality-gates-small.svg"
+  icon_large: "./assets/ci-quality-gates.svg"
+  brand_color: "#475569"
+  default_prompt: "Use $ci-quality-gates to handle CI pipelines, required checks, coverage gates, lint gates, and release validation workflows with emphasis on fast feedback, required checks, reproducibility, and safe release criteria."
+
+policy:
+  allow_implicit_invocation: true

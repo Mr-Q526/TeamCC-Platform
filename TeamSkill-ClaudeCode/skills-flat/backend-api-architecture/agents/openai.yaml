@@ -1,0 +1,10 @@
+interface:
+  display_name: "Backend API Architecture"
+  short_description: "Guidance for backend api architecture"
+  icon_small: "./assets/backend-api-architecture-small.svg"
+  icon_large: "./assets/backend-api-architecture.svg"
+  brand_color: "#0F172A"
+  default_prompt: "Use $backend-api-architecture to handle backend service architecture, API boundaries, module decomposition, service contracts, and data flow design with emphasis on clear ownership, stable interfaces, failure isolation, and maintainability."
+
+policy:
+  allow_implicit_invocation: true

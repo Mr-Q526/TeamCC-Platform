@@ -1,0 +1,10 @@
+interface:
+  display_name: "Onboarding Flow Basic"
+  short_description: "Basic guidance for onboarding flow UI"
+  icon_small: "./assets/onboarding-flow-basic-small.svg"
+  icon_large: "./assets/onboarding-flow-basic.svg"
+  brand_color: "#64748B"
+  default_prompt: "Use $onboarding-flow-basic to design product onboarding, setup wizards, first-run flows, and activation experiences with progress, motivation, task sequencing, and activation."
+
+policy:
+  allow_implicit_invocation: true

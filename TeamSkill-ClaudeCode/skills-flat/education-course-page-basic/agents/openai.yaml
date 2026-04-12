@@ -1,0 +1,10 @@
+interface:
+  display_name: "Education Course Page Basic"
+  short_description: "Basic guidance for education course page UI"
+  icon_small: "./assets/education-course-page-basic-small.svg"
+  icon_large: "./assets/education-course-page-basic.svg"
+  brand_color: "#9333EA"
+  default_prompt: "Use $education-course-page-basic to design course pages, lesson players, LMS dashboards, and learning paths with learning hierarchy, progress, practice, and motivation."
+
+policy:
+  allow_implicit_invocation: true

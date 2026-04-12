@@ -1,0 +1,10 @@
+interface:
+  display_name: "Data Table Basic"
+  short_description: "Basic guidance for data table UI"
+  icon_small: "./assets/data-table-basic-small.svg"
+  icon_large: "./assets/data-table-basic.svg"
+  brand_color: "#C026D3"
+  default_prompt: "Use $data-table-basic to design data tables, grids, admin lists, bulk editing, and dense record management with columns, sorting, selection, inline actions, and density."
+
+policy:
+  allow_implicit_invocation: true

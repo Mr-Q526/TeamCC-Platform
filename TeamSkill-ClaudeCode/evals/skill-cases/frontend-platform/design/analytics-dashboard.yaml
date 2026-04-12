@@ -1,0 +1,17 @@
+caseId: frontend_analytics_dashboard_001
+caseVersion: 0.1.0
+department: frontend-platform
+scene: design
+domain: frontend
+input:
+  userQuery: 设计一个数据分析看板，展示转化率、留存、渠道趋势和筛选器
+  businessContext: 面向增长团队的 BI dashboard，需要围绕业务问题组织图表和指标解释。
+expected:
+  skillIds:
+    - frontend/analytics-dashboard-design
+  acceptableSkillIds:
+    - frontend/admin-dashboard-design
+    - frontend/frontend-skill
+  forbiddenSkillIds:
+    - frontend/ecommerce-storefront-design
+    - backend/cache-strategy-backend

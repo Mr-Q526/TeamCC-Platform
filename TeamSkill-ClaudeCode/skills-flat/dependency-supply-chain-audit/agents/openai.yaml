@@ -1,0 +1,10 @@
+interface:
+  display_name: "Dependency Supply Chain Audit"
+  short_description: "Guidance for dependency supply chain audit"
+  icon_small: "./assets/dependency-supply-chain-audit-small.svg"
+  icon_large: "./assets/dependency-supply-chain-audit.svg"
+  brand_color: "#92400E"
+  default_prompt: "Use $dependency-supply-chain-audit to handle dependency review, vulnerable packages, lockfile risk, license concerns, and supply-chain hygiene with emphasis on known CVEs, typosquatting risk, lockfile integrity, and update safety."
+
+policy:
+  allow_implicit_invocation: true

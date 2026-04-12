@@ -1,0 +1,10 @@
+interface:
+  display_name: "Pricing Page PRO"
+  short_description: "Pro guidance for pricing page UI"
+  icon_small: "./assets/pricing-page-pro-small.svg"
+  icon_large: "./assets/pricing-page-pro.svg"
+  brand_color: "#0F766E"
+  default_prompt: "Use $pricing-page-pro to design pricing, plans, billing comparison, quote request, and package selection pages with plan clarity, comparison, trust, and conversion."
+
+policy:
+  allow_implicit_invocation: true

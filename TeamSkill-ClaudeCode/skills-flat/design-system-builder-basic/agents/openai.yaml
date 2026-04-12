@@ -1,0 +1,10 @@
+interface:
+  display_name: "Design System Builder Basic"
+  short_description: "Basic guidance for design system builder UI"
+  icon_small: "./assets/design-system-builder-basic-small.svg"
+  icon_large: "./assets/design-system-builder-basic.svg"
+  brand_color: "#4338CA"
+  default_prompt: "Use $design-system-builder-basic to design design systems, token systems, UI foundations, and reusable component standards with tokens, consistency, accessibility, and component governance."
+
+policy:
+  allow_implicit_invocation: true

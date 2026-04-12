@@ -1,0 +1,10 @@
+interface:
+  display_name: "Humanizer ZH Basic"
+  short_description: "Lightly reduce obvious AI writing traces"
+  icon_small: "./assets/humanizer-zh-basic-small.svg"
+  icon_large: "./assets/humanizer-zh-basic.svg"
+  brand_color: "#78716C"
+  default_prompt: "Use $humanizer-zh-basic to lightly rewrite Chinese text by shortening sentences and removing obvious AI cliches."
+
+policy:
+  allow_implicit_invocation: true

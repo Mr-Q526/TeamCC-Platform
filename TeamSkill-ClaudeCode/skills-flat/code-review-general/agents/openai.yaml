@@ -1,0 +1,10 @@
+interface:
+  display_name: "General Code Review"
+  short_description: "Guidance for general code review"
+  icon_small: "./assets/code-review-general-small.svg"
+  icon_large: "./assets/code-review-general.svg"
+  brand_color: "#4B5563"
+  default_prompt: "Use $code-review-general to handle general code review across frontend, backend, scripts, and infrastructure changes with emphasis on bugs, regressions, maintainability risks, and missing tests."
+
+policy:
+  allow_implicit_invocation: true

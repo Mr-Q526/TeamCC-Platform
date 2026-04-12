@@ -1,0 +1,10 @@
+interface:
+  display_name: "Search Results Page Basic"
+  short_description: "Basic guidance for search results page UI"
+  icon_small: "./assets/search-results-page-basic-small.svg"
+  icon_large: "./assets/search-results-page-basic.svg"
+  brand_color: "#0369A1"
+  default_prompt: "Use $search-results-page-basic to design search results, filtering, sorting, faceted navigation, and discovery pages with query feedback, relevance, filters, and result scanning."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Developer Portal PRO"
+  short_description: "Pro guidance for developer portal UI"
+  icon_small: "./assets/developer-portal-pro-small.svg"
+  icon_large: "./assets/developer-portal-pro.svg"
+  brand_color: "#0F766E"
+  default_prompt: "Use $developer-portal-pro to design API portals, SDK docs, developer onboarding, keys, logs, and integration pages with quickstart clarity, examples, credentials, and operational feedback."
+
+policy:
+  allow_implicit_invocation: true

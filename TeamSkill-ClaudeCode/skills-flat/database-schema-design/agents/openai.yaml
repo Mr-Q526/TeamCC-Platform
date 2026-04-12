@@ -1,0 +1,10 @@
+interface:
+  display_name: "Database Schema Design"
+  short_description: "Guidance for database schema design"
+  icon_small: "./assets/database-schema-design-small.svg"
+  icon_large: "./assets/database-schema-design.svg"
+  brand_color: "#7C2D12"
+  default_prompt: "Use $database-schema-design to handle relational or document database schema design, indexing, constraints, and migration planning with emphasis on data integrity, query shape, indexing, and future-safe migrations."
+
+policy:
+  allow_implicit_invocation: true

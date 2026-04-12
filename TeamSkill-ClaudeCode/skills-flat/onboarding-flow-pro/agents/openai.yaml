@@ -1,0 +1,10 @@
+interface:
+  display_name: "Onboarding Flow PRO"
+  short_description: "Pro guidance for onboarding flow UI"
+  icon_small: "./assets/onboarding-flow-pro-small.svg"
+  icon_large: "./assets/onboarding-flow-pro.svg"
+  brand_color: "#64748B"
+  default_prompt: "Use $onboarding-flow-pro to design product onboarding, setup wizards, first-run flows, and activation experiences with progress, motivation, task sequencing, and activation."
+
+policy:
+  allow_implicit_invocation: true

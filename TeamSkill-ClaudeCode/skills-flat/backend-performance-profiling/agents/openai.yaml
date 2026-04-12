@@ -1,0 +1,10 @@
+interface:
+  display_name: "Backend Performance Profiling"
+  short_description: "Guidance for backend performance profiling"
+  icon_small: "./assets/backend-performance-profiling-small.svg"
+  icon_large: "./assets/backend-performance-profiling.svg"
+  brand_color: "#15803D"
+  default_prompt: "Use $backend-performance-profiling to handle backend performance profiling, slow endpoint analysis, query hotspots, CPU, memory, and latency work with emphasis on measurement, profiling evidence, hot path reduction, and regression guards."
+
+policy:
+  allow_implicit_invocation: true

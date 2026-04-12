@@ -1,0 +1,10 @@
+interface:
+  display_name: "GraphQL API Implementation"
+  short_description: "Guidance for graphql api implementation"
+  icon_small: "./assets/graphql-api-implementation-small.svg"
+  icon_large: "./assets/graphql-api-implementation.svg"
+  brand_color: "#0F766E"
+  default_prompt: "Use $graphql-api-implementation to handle GraphQL schemas, resolvers, mutations, subscriptions, and dataloader patterns with emphasis on schema clarity, N+1 avoidance, auth boundaries, and client ergonomics."
+
+policy:
+  allow_implicit_invocation: true

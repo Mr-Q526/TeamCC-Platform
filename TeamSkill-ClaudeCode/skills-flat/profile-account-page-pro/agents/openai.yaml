@@ -1,0 +1,10 @@
+interface:
+  display_name: "Profile Account Page PRO"
+  short_description: "Pro guidance for profile account page UI"
+  icon_small: "./assets/profile-account-page-pro-small.svg"
+  icon_large: "./assets/profile-account-page-pro.svg"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $profile-account-page-pro to design profile, account center, identity, privacy, and user preference pages with ownership, editability, privacy, and account state visibility."
+
+policy:
+  allow_implicit_invocation: true

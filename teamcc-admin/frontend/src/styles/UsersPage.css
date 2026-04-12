@@ -1,0 +1,138 @@
+.users-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.users-filter {
+  min-width: 170px;
+}
+
+.users-table-card {
+  border-right: 1px solid var(--border);
+}
+
+.users-empty {
+  margin: 20px;
+}
+
+.users-table thead th {
+  padding: 11px 12px;
+}
+
+.users-table td {
+  padding: 12px 12px;
+}
+
+.users-table tbody tr {
+  cursor: pointer;
+}
+
+.users-table tbody tr.users-row-selected {
+  background: rgba(30, 103, 232, 0.07);
+}
+
+.user-cell,
+.org-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-cell strong,
+.org-cell strong {
+  color: var(--text-strong);
+}
+
+.user-cell span,
+.org-cell span {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.level-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #9b6117;
+  background: rgba(217, 138, 44, 0.14);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.user-inspector {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.inspector-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.inspector-header h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: -0.04em;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.detail-card {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-card span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.detail-card strong {
+  color: var(--text-strong);
+}
+
+.effective-permissions-sandbox {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .users-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inspector-header {
+    flex-direction: column;
+  }
+}

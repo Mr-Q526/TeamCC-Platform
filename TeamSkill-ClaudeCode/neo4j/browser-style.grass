@@ -1,0 +1,119 @@
+node.Skill {
+  caption: '{displayNameZh}';
+}
+
+node.SkillVersion {
+  caption: '{captionZh}';
+}
+
+node.Concept {
+  caption: '{nameZh}';
+}
+
+node.Scene {
+  caption: '{nameZh}';
+}
+
+node.Department {
+  caption: '{nameZh}';
+}
+
+node.Project {
+  caption: '{nameZh}';
+}
+
+node.Task {
+  caption: '{titleZh}';
+}
+
+node.FeedbackAggregate {
+  caption: '{captionZh}';
+}
+
+relationship.ALIASES_SKILL {
+  caption: '{labelZh}';
+}
+
+relationship.HAS_VERSION {
+  caption: '{labelZh}';
+}
+
+relationship.UPGRADES {
+  caption: '{labelZh}';
+}
+
+relationship.MATCHES_CONCEPT {
+  caption: '{labelZh}';
+}
+
+relationship.APPLIES_TO_SCENE {
+  caption: '{labelZh}';
+}
+
+relationship.PREFERS_SKILL {
+  caption: '{labelZh}';
+}
+
+relationship.SUCCESSFUL_WITH {
+  caption: '{labelZh}';
+}
+
+relationship.SUCCEEDS_WITH {
+  caption: '{labelZh}';
+}
+
+relationship.RELATED_TO {
+  caption: '{labelZh}';
+}
+
+relationship.BELONGS_TO_DEPARTMENT {
+  caption: '{labelZh}';
+}
+
+relationship.IN_PROJECT {
+  caption: '{labelZh}';
+}
+
+relationship.PRIMARY_SCENE {
+  caption: '{labelZh}';
+}
+
+relationship.REQUESTS_CONCEPT {
+  caption: '{labelZh}';
+}
+
+relationship.SELECTED {
+  caption: '{labelZh}';
+}
+
+relationship.INVOKED {
+  caption: '{labelZh}';
+}
+
+relationship.SUCCEEDED_WITH {
+  caption: '{labelZh}';
+}
+
+relationship.FAILED_WITH {
+  caption: '{labelZh}';
+}
+
+relationship.FOR_SKILL {
+  caption: '{labelZh}';
+}
+
+relationship.FOR_VERSION {
+  caption: '{labelZh}';
+}
+
+relationship.IN_DEPARTMENT {
+  caption: '{labelZh}';
+}
+
+relationship.IN_SCENE {
+  caption: '{labelZh}';
+}
+
+relationship.IN_PROJECT {
+  caption: '{labelZh}';
+}

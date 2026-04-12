@@ -1,0 +1,10 @@
+interface:
+  display_name: "Responsive Navigation Basic"
+  short_description: "Basic guidance for responsive navigation UI"
+  icon_small: "./assets/responsive-navigation-basic-small.svg"
+  icon_large: "./assets/responsive-navigation-basic.svg"
+  brand_color: "#DC2626"
+  default_prompt: "Use $responsive-navigation-basic to design navbars, sidebars, mega menus, mobile drawers, tabs, and information architecture with orientation, hierarchy, responsive behavior, and wayfinding."
+
+policy:
+  allow_implicit_invocation: true

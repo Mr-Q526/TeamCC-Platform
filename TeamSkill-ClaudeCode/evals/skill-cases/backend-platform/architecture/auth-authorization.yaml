@@ -1,0 +1,17 @@
+caseId: backend_auth_authorization_001
+caseVersion: 0.1.0
+department: backend-platform
+scene: security-audit
+domain: backend
+input:
+  userQuery: 给后端接口加认证和授权，支持 session、API key、RBAC 和租户边界
+  businessContext: 权限敏感的后端能力，需要最小权限、安全默认值和可审计检查。
+expected:
+  skillIds:
+    - backend/auth-authorization-backend
+  acceptableSkillIds:
+    - security/rate-limiting-abuse-protection
+    - backend/backend-api-architecture
+  forbiddenSkillIds:
+    - frontend/auth-login-page-basic
+    - frontend/auth-login-page-pro

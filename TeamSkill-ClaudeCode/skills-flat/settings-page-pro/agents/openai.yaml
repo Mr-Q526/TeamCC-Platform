@@ -1,0 +1,10 @@
+interface:
+  display_name: "Settings Page PRO"
+  short_description: "Pro guidance for settings page UI"
+  icon_small: "./assets/settings-page-pro-small.svg"
+  icon_large: "./assets/settings-page-pro.svg"
+  brand_color: "#16A34A"
+  default_prompt: "Use $settings-page-pro to design settings, preferences, billing settings, integrations, and admin configuration pages with grouping, consequence clarity, defaults, and safe changes."
+
+policy:
+  allow_implicit_invocation: true

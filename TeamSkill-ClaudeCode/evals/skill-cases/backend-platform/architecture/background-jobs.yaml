@@ -1,0 +1,16 @@
+caseId: backend_background_jobs_001
+caseVersion: 0.1.0
+department: backend-platform
+scene: architecture
+domain: backend
+input:
+  userQuery: 设计后台任务队列，包含 worker、定时任务、重试、幂等和死信队列
+  businessContext: 异步工作流设计，需要可恢复、可观测、避免重复执行。
+expected:
+  skillIds:
+    - backend/background-jobs-queues
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+  forbiddenSkillIds:
+    - frontend/onboarding-flow-basic
+    - frontend/marketing-landing-page

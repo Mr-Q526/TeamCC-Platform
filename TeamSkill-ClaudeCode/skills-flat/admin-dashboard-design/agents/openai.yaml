@@ -1,0 +1,10 @@
+interface:
+  display_name: "Admin Dashboard Design"
+  short_description: "Design management consoles and admin back-office pages"
+  icon_small: "./assets/admin-dashboard-small.svg"
+  icon_large: "./assets/admin-dashboard.svg"
+  brand_color: "#334155"
+  default_prompt: "Use $admin-dashboard-design to design a management console or admin dashboard with clear filters, table-first workflows, visible status, and efficient operator actions."
+
+policy:
+  allow_implicit_invocation: true

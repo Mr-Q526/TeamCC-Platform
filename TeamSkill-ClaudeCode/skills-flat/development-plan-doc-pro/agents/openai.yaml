@@ -1,0 +1,10 @@
+interface:
+  display_name: "Development Plan Document PRO"
+  short_description: "Research first, then write detailed engineering plans"
+  icon_small: "./assets/development-plan-doc-pro-small.svg"
+  icon_large: "./assets/development-plan-doc-pro.svg"
+  brand_color: "#2563EB"
+  default_prompt: "Use $development-plan-doc-pro to investigate the repository first, then produce a detailed implementation plan down to modules, functions, types, validation, risks, and rollout."
+
+policy:
+  allow_implicit_invocation: true

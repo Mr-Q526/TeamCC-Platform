@@ -1,0 +1,10 @@
+interface:
+  display_name: "Enterprise Security Page PRO"
+  short_description: "Pro guidance for enterprise security page UI"
+  icon_small: "./assets/enterprise-security-page-pro-small.svg"
+  icon_large: "./assets/enterprise-security-page-pro.svg"
+  brand_color: "#EA580C"
+  default_prompt: "Use $enterprise-security-page-pro to design security, compliance, trust center, SOC2, privacy, and enterprise assurance pages with credibility, evidence, policy clarity, and buyer confidence."
+
+policy:
+  allow_implicit_invocation: true

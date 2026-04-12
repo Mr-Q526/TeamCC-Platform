@@ -1,0 +1,10 @@
+interface:
+  display_name: "Auth Login Page PRO"
+  short_description: "Pro guidance for auth login page UI"
+  icon_small: "./assets/auth-login-page-pro-small.svg"
+  icon_large: "./assets/auth-login-page-pro.svg"
+  brand_color: "#1D4ED8"
+  default_prompt: "Use $auth-login-page-pro to design login, signup, password reset, MFA, and account access pages with trust, clarity, error recovery, and low-friction account access."
+
+policy:
+  allow_implicit_invocation: true

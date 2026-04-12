@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.db
+*.sqlite
+.env
+.env.local
+.DS_Store
+*.log
+npm-debug.log*
+.vscode/
+.idea/
+*.swp
+*.swo
+.turbo/
+.next/
+coverage/

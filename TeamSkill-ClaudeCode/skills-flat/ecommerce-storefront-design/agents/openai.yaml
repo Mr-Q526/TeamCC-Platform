@@ -1,0 +1,10 @@
+interface:
+  display_name: "Ecommerce Storefront Design"
+  short_description: "Design ecommerce homepages, listing pages, and PDPs"
+  icon_small: "./assets/ecommerce-storefront-small.svg"
+  icon_large: "./assets/ecommerce-storefront.svg"
+  brand_color: "#BE123C"
+  default_prompt: "Use $ecommerce-storefront-design to design an ecommerce storefront or product page with strong product imagery, clear pricing, visible trust signals, and a low-friction buying flow."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,17 @@
+caseId: frontend_homepage_001
+caseVersion: 0.1.0
+department: frontend-platform
+scene: design
+domain: frontend
+input:
+  userQuery: 帮我给这个项目做一个前端官网首页
+  businessContext: 品牌展示型官网首页，需要 hero、价值主张、信任背书和 CTA。
+expected:
+  skillIds:
+    - frontend/website-homepage-design
+  acceptableSkillIds:
+    - frontend/marketing-landing-page
+    - frontend/frontend-skill
+  forbiddenSkillIds:
+    - security/security-best-practices
+    - frontend/admin-dashboard-design

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Backend Cache Strategy"
+  short_description: "Guidance for backend cache strategy"
+  icon_small: "./assets/cache-strategy-backend-small.svg"
+  icon_large: "./assets/cache-strategy-backend.svg"
+  brand_color: "#047857"
+  default_prompt: "Use $cache-strategy-backend to handle server-side caching, Redis, CDN coordination, invalidation, and freshness rules with emphasis on correctness, invalidation, stampede control, and latency reduction."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Checkout Flow Basic"
+  short_description: "Basic guidance for checkout flow UI"
+  icon_small: "./assets/checkout-flow-basic-small.svg"
+  icon_large: "./assets/checkout-flow-basic.svg"
+  brand_color: "#DB2777"
+  default_prompt: "Use $checkout-flow-basic to design checkout, cart, payment, address, shipping, and order confirmation flows with payment confidence, friction reduction, error recovery, and completion."
+
+policy:
+  allow_implicit_invocation: true

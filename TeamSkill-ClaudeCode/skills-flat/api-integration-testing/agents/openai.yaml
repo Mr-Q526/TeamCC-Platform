@@ -1,0 +1,10 @@
+interface:
+  display_name: "API Integration Testing"
+  short_description: "Guidance for api integration testing"
+  icon_small: "./assets/api-integration-testing-small.svg"
+  icon_large: "./assets/api-integration-testing.svg"
+  brand_color: "#4338CA"
+  default_prompt: "Use $api-integration-testing to handle API integration tests across services, databases, auth, and external dependencies with emphasis on contract correctness, realistic fixtures, isolation, and deterministic assertions."
+
+policy:
+  allow_implicit_invocation: true

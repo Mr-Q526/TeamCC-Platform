@@ -1,0 +1,10 @@
+interface:
+  display_name: "Healthcare Portal Basic"
+  short_description: "Basic guidance for healthcare portal UI"
+  icon_small: "./assets/healthcare-portal-basic-small.svg"
+  icon_large: "./assets/healthcare-portal-basic.svg"
+  brand_color: "#4F46E5"
+  default_prompt: "Use $healthcare-portal-basic to design patient portals, provider dashboards, scheduling, records, and care coordination pages with clarity, privacy, accessibility, and sensitive task support."
+
+policy:
+  allow_implicit_invocation: true

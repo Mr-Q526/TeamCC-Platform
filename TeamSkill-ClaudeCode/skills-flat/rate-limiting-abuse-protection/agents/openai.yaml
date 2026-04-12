@@ -1,0 +1,10 @@
+interface:
+  display_name: "Rate Limiting Abuse Protection"
+  short_description: "Guidance for rate limiting abuse protection"
+  icon_small: "./assets/rate-limiting-abuse-protection-small.svg"
+  icon_large: "./assets/rate-limiting-abuse-protection.svg"
+  brand_color: "#C2410C"
+  default_prompt: "Use $rate-limiting-abuse-protection to handle rate limiting, abuse prevention, anti-scraping, quota, and API protection design with emphasis on fairness, tenant isolation, bypass resistance, and operational controls."
+
+policy:
+  allow_implicit_invocation: true

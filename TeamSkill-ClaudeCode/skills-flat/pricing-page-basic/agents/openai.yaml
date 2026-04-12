@@ -1,0 +1,10 @@
+interface:
+  display_name: "Pricing Page Basic"
+  short_description: "Basic guidance for pricing page UI"
+  icon_small: "./assets/pricing-page-basic-small.svg"
+  icon_large: "./assets/pricing-page-basic.svg"
+  brand_color: "#0F766E"
+  default_prompt: "Use $pricing-page-basic to design pricing, plans, billing comparison, quote request, and package selection pages with plan clarity, comparison, trust, and conversion."
+
+policy:
+  allow_implicit_invocation: true

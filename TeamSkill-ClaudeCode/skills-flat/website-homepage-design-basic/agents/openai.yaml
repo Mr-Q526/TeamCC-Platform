@@ -1,0 +1,10 @@
+interface:
+  display_name: "Website Homepage Design Basic"
+  short_description: "Create a simple baseline homepage outline"
+  icon_small: "./assets/website-homepage-design-basic-small.svg"
+  icon_large: "./assets/website-homepage-design-basic.svg"
+  brand_color: "#64748B"
+  default_prompt: "Use $website-homepage-design-basic to create a simple homepage outline with hero, features, proof, CTA, and footer."
+
+policy:
+  allow_implicit_invocation: true

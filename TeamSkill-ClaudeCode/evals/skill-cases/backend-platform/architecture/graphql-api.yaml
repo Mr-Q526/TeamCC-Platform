@@ -1,0 +1,16 @@
+caseId: backend_graphql_api_001
+caseVersion: 0.1.0
+department: backend-platform
+scene: architecture
+domain: backend
+input:
+  userQuery: 实现 GraphQL API，设计 schema、resolver、mutation、subscription，并避免 N+1 查询
+  businessContext: GraphQL 后端接口实现，重点是 schema 清晰、dataloader、鉴权边界和客户端体验。
+expected:
+  skillIds:
+    - backend/graphql-api-implementation
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+  forbiddenSkillIds:
+    - frontend/docs-site-basic
+    - frontend/admin-dashboard-design

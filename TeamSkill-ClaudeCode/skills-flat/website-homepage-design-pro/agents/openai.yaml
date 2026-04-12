@@ -1,0 +1,10 @@
+interface:
+  display_name: "Website Homepage Design PRO"
+  short_description: "Design premium, differentiated website homepages"
+  icon_small: "./assets/website-homepage-design-pro-small.svg"
+  icon_large: "./assets/website-homepage-design-pro.svg"
+  brand_color: "#0F766E"
+  default_prompt: "Use $website-homepage-design-pro to design a premium homepage with strong positioning, narrative section flow, visual direction, proof, conversion paths, and implementation-ready details."
+
+policy:
+  allow_implicit_invocation: true

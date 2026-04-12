@@ -1,0 +1,16 @@
+caseId: backend_api_architecture_001
+caseVersion: 0.1.0
+department: backend-platform
+scene: architecture
+domain: backend
+input:
+  userQuery: 帮我拆分后端服务模块，设计 API 边界、服务契约、数据流和失败隔离
+  businessContext: 后端架构设计任务，重点是模块所有权、接口稳定性和可维护性。
+expected:
+  skillIds:
+    - backend/backend-api-architecture
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/design-system-builder-basic
+    - frontend/marketing-landing-page
