@@ -1,5 +1,27 @@
 export const API_BASE = 'http://localhost:3000'
 
+class ApiError extends Error {
+  status: number
+
+  constructor(message: string, status: number) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+  }
+}
+
+function notifyAuthInvalid(status: number) {
+  if (status === 401 && typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('teamcc-auth-invalid'))
+  }
+}
+
+async function throwApiError(response: Response, fallback: string): Promise<never> {
+  notifyAuthInvalid(response.status)
+  const body = await response.json().catch(() => ({}))
+  throw new ApiError(body.error || body.message || fallback, response.status)
+}
+
 async function apiFetch(url: string, token: string, options?: RequestInit) {
   const res = await fetch(url, {
     ...options,
@@ -10,8 +32,7 @@ async function apiFetch(url: string, token: string, options?: RequestInit) {
     },
   })
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}))
-    throw new Error(body.error || `HTTP ${res.status}`)
+    await throwApiError(res, `HTTP ${res.status}`)
   }
   return res.json()
 }
@@ -58,7 +79,7 @@ export async function getIdentity(accessToken: string) {
   })
 
   if (!response.ok) {
-    throw new Error('Failed to fetch identity')
+    await throwApiError(response, 'Failed to fetch identity')
   }
 
   return response.json()
