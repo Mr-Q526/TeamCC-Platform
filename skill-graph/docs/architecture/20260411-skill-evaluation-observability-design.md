@@ -995,7 +995,7 @@ copy fallback 规则：
 
 - `node_modules`、虚拟环境、构建目录。
 - `.env.local`、临时数据库文件、SQLite 文件。
-- `.teamcc/skill-events`、本地 telemetry 文件。
+- `skill-graph/data/events/`、本地 graph facts 文件。
 - agent HOME、TMPDIR、XDG cache/config/data。
 
 建议给每个 agent 注入环境变量：

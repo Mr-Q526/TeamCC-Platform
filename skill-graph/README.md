@@ -8,6 +8,8 @@
 
 - `skills-flat/`
   Skill 数据目录、`skill-registry.json`、`skill-embeddings.json`
+- `data/`
+  graph facts、后续聚合结果和图谱中间产物
 - `neo4j/`
   Neo4j Browser 样式和后续图数据库资产
 - `scripts/`
@@ -24,7 +26,7 @@
 也就是说，当前边界已经变成：
 
 ```text
-skill-graph/           # Skill 数据、graph 资产、seed/eval/registry/embedding
+skill-graph/           # Skill 数据、graph 资产、facts/seed/eval/registry/embedding
 TeamSkill-ClaudeCode/  # runtime 检索、调用、UI，消费 skill-graph 的产物
 ```
 
