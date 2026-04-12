@@ -41,11 +41,17 @@ function parseTargetSampleCount(argv: string[]): number | undefined {
   return Number.isFinite(envValue) && envValue > 0 ? envValue : undefined
 }
 
+function hasFlag(argv: string[], flag: string): boolean {
+  return argv.includes(flag)
+}
+
 async function main(): Promise<void> {
   const argv = process.argv.slice(2)
   const manifest = await buildAndWriteSkillFactAggregates({
     windowDays: parseWindowDays(argv),
     targetSampleCount: parseTargetSampleCount(argv),
+    writePg: !hasFlag(argv, '--json-only'),
+    writeJson: !hasFlag(argv, '--pg-only'),
   })
 
   console.log(

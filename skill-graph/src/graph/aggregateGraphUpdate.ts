@@ -11,6 +11,10 @@ import type {
   SkillFeedbackAggregate,
   SkillFeedbackAggregateManifest,
 } from '../aggregates/skillFactAggregates.js'
+import {
+  readSkillFeedbackAggregateManifestFromPg,
+  type SkillFeedbackAggregateQueryFilter,
+} from '../aggregates/storage.js'
 
 export type SkillGraphAggregateNode = {
   aggregateKey: string
@@ -419,15 +423,35 @@ export async function buildAndWriteSkillAggregateGraphUpdate(
   return manifest
 }
 
+export async function buildAndWriteSkillAggregateGraphUpdateFromPg(
+  filter: SkillFeedbackAggregateQueryFilter = {},
+  outputFile = GRAPH_OUTPUT_FILE,
+): Promise<SkillAggregateGraphUpdateManifest> {
+  const aggregateManifest = await readSkillFeedbackAggregateManifestFromPg(filter)
+  const registry = await readGeneratedSkillRegistry(getSkillGraphSkillsDir(PROJECT_ROOT))
+  const manifest = buildSkillAggregateGraphUpdate(aggregateManifest, registry)
+  await mkdir(dirname(outputFile), { recursive: true })
+  await writeFile(outputFile, `${JSON.stringify(manifest, null, 2)}\n`, 'utf-8')
+  return manifest
+}
+
 export function buildSkillAggregateGraphCypher(
   manifest: SkillAggregateGraphUpdateManifest,
 ): string {
+  const aggregateKeys = manifest.feedbackAggregates.map(aggregate =>
+    cypherLiteral(aggregate.aggregateKey),
+  )
   const statements: string[] = [
     'CREATE CONSTRAINT skill_id_v1 IF NOT EXISTS FOR (s:Skill) REQUIRE s.skillId IS UNIQUE;',
     'CREATE CONSTRAINT skill_version_key_v1 IF NOT EXISTS FOR (sv:SkillVersion) REQUIRE sv.versionKey IS UNIQUE;',
     'CREATE CONSTRAINT scene_id_v1 IF NOT EXISTS FOR (sc:Scene) REQUIRE sc.sceneId IS UNIQUE;',
     'CREATE CONSTRAINT department_id_v1 IF NOT EXISTS FOR (d:Department) REQUIRE d.departmentId IS UNIQUE;',
     'CREATE CONSTRAINT feedback_aggregate_key_v1 IF NOT EXISTS FOR (fa:FeedbackAggregate) REQUIRE fa.aggregateKey IS UNIQUE;',
+    `
+MATCH (fa:FeedbackAggregate {window: ${cypherLiteral(manifest.aggregateWindow)}})
+WHERE NOT fa.aggregateKey IN [${aggregateKeys.join(', ')}]
+DETACH DELETE fa;
+`,
   ]
 
   for (const skill of manifest.skillUpdates) {

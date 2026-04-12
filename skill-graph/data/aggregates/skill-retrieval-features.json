@@ -1,8 +1,8 @@
 {
   "schemaVersion": "2026-04-12",
-  "generatedAt": "2026-04-12T12:18:53.557Z",
+  "generatedAt": "2026-04-12T13:46:02.343Z",
   "registryVersion": "sha256:bab9e98dae7e8630c548522e9f5fbd06895d6fa58e8046f3027b633c3d6ea070",
-  "aggregateGeneratedAt": "2026-04-12T12:17:34.311Z",
+  "aggregateGeneratedAt": "2026-04-12T13:45:59.766Z",
   "window": "30d",
   "itemCount": 106,
   "items": [
@@ -43,10 +43,47 @@
         "content-generation",
         "writing"
       ],
-      "global": null,
-      "versions": [],
-      "departments": {},
-      "scenes": {}
+      "global": {
+        "score": 1,
+        "confidence": 0.528634,
+        "sampleCount": 4,
+        "invocationCount": 4,
+        "successRate": 1,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:9500d9fa2bbf63807d3a48bda1dfce8e886ab1029a44f86e568b66fcdbf83c54",
+          "versionKey": "ai/humanizer-zh-pro@0.1.0#sha256:9500d",
+          "qualityScore": 1,
+          "confidence": 0.528634,
+          "sampleCount": 4,
+          "invocationCount": 4,
+          "successRate": 1,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      ],
+      "departments": {
+        "ai-platform": {
+          "score": 1,
+          "confidence": 0.528634,
+          "sampleCount": 4,
+          "invocationCount": 4,
+          "successRate": 1,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      },
+      "scenes": {
+        "content-generation": {
+          "score": 1,
+          "confidence": 0.528634,
+          "sampleCount": 4,
+          "invocationCount": 4,
+          "successRate": 1,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      }
     },
     {
       "skillId": "ai/transcribe",
@@ -418,10 +455,47 @@
         "content-generation",
         "design"
       ],
-      "global": null,
-      "versions": [],
-      "departments": {},
-      "scenes": {}
+      "global": {
+        "score": 1,
+        "confidence": 0.528634,
+        "sampleCount": 4,
+        "invocationCount": 4,
+        "successRate": 1,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:861d0d49725e2724350030fe50b3934ac83426e832d0a62972f18affad0ddf68",
+          "versionKey": "design/ppt-maker@0.1.0#sha256:861d0",
+          "qualityScore": 1,
+          "confidence": 0.528634,
+          "sampleCount": 4,
+          "invocationCount": 4,
+          "successRate": 1,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      ],
+      "departments": {
+        "growth": {
+          "score": 1,
+          "confidence": 0.528634,
+          "sampleCount": 4,
+          "invocationCount": 4,
+          "successRate": 1,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      },
+      "scenes": {
+        "content-generation": {
+          "score": 1,
+          "confidence": 0.528634,
+          "sampleCount": 4,
+          "invocationCount": 4,
+          "successRate": 1,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      }
     },
     {
       "skillId": "design/ppt-personal-intro",
@@ -500,74 +574,74 @@
         "design"
       ],
       "global": {
-        "score": 0.695346,
+        "score": 0.695141,
         "confidence": 0.528634,
         "sampleCount": 4,
         "invocationCount": 2,
         "successRate": 1,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:5ae365da050ebe49ea080f128b4d48ba1d60d544ca2f99ed99a25fcac3a57b71",
           "versionKey": "frontend/admin-dashboard-design@0.1.0#sha256:5ae36",
-          "qualityScore": 0.199891,
+          "qualityScore": 0.199686,
           "confidence": 0.360849,
           "sampleCount": 2,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         },
         {
           "version": "2.2.0-pro",
           "sourceHash": "sha256:aggregate-dept",
           "versionKey": "frontend/admin-dashboard-design@2.2.0-pro#sha256:aggre",
-          "qualityScore": 0.899428,
+          "qualityScore": 0.899224,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 1,
           "successRate": 1,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         },
         {
           "version": "2.2.0-pro",
           "sourceHash": "sha256:smoke",
           "versionKey": "frontend/admin-dashboard-design@2.2.0-pro#sha256:smoke",
-          "qualityScore": 0.799401,
+          "qualityScore": 0.799196,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 1,
           "successRate": 1,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {
         "frontend-platform": {
-          "score": 0.899428,
+          "score": 0.899224,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 1,
           "successRate": 1,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       },
       "scenes": {
         "admin-console": {
-          "score": 0.899428,
+          "score": 0.899224,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 1,
           "successRate": 1,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         },
         "design": {
-          "score": 0.199891,
+          "score": 0.199686,
           "confidence": 0.360849,
           "sampleCount": 2,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },
@@ -686,10 +760,38 @@
       "sceneTags": [
         "design"
       ],
-      "global": null,
-      "versions": [],
+      "global": {
+        "score": 0.199938,
+        "confidence": 0.22767,
+        "sampleCount": 1,
+        "invocationCount": 0,
+        "successRate": 0,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:19ffb27453db37ad11cf46a97810fb09986bb2b1422973f73bfe3e33df775012",
+          "versionKey": "frontend/careers-page-basic@0.1.0#sha256:19ffb",
+          "qualityScore": 0.199938,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      ],
       "departments": {},
-      "scenes": {}
+      "scenes": {
+        "design": {
+          "score": 0.199938,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      }
     },
     {
       "skillId": "frontend/careers-page-pro",
@@ -766,10 +868,38 @@
       "sceneTags": [
         "design"
       ],
-      "global": null,
-      "versions": [],
+      "global": {
+        "score": 0.199938,
+        "confidence": 0.22767,
+        "sampleCount": 1,
+        "invocationCount": 0,
+        "successRate": 0,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:9fd339ac818ad7d01373d9e881b5dd480b5b6e8461cbb52ddaefef586ff8f119",
+          "versionKey": "frontend/component-library-basic@0.1.0#sha256:9fd33",
+          "qualityScore": 0.199938,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      ],
       "departments": {},
-      "scenes": {}
+      "scenes": {
+        "design": {
+          "score": 0.199938,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      }
     },
     {
       "skillId": "frontend/component-library-pro",
@@ -786,10 +916,38 @@
       "sceneTags": [
         "design"
       ],
-      "global": null,
-      "versions": [],
+      "global": {
+        "score": 0.199938,
+        "confidence": 0.22767,
+        "sampleCount": 1,
+        "invocationCount": 0,
+        "successRate": 0,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:6893dd7a1dff52f14e9fd328a5c7156e2a9b09aec4ca515618e3bb7f9f87ed29",
+          "versionKey": "frontend/component-library-pro@0.1.0#sha256:6893d",
+          "qualityScore": 0.199938,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      ],
       "departments": {},
-      "scenes": {}
+      "scenes": {
+        "design": {
+          "score": 0.199938,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      }
     },
     {
       "skillId": "frontend/contact-sales-page-basic",
@@ -887,35 +1045,35 @@
         "design"
       ],
       "global": {
-        "score": 0.1994,
-        "confidence": 0.22767,
-        "sampleCount": 1,
+        "score": 0.199945,
+        "confidence": 0.360849,
+        "sampleCount": 2,
         "invocationCount": 0,
         "successRate": 0,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:fe738cd6fadafcee2f9f4ceff296a3ed09a2967b382f2089a43df46938e355d8",
           "versionKey": "frontend/design-system-builder-basic@0.1.0#sha256:fe738",
-          "qualityScore": 0.1994,
-          "confidence": 0.22767,
-          "sampleCount": 1,
+          "qualityScore": 0.199945,
+          "confidence": 0.360849,
+          "sampleCount": 2,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {},
       "scenes": {
         "design": {
-          "score": 0.1994,
-          "confidence": 0.22767,
-          "sampleCount": 1,
+          "score": 0.199945,
+          "confidence": 0.360849,
+          "sampleCount": 2,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },
@@ -935,35 +1093,35 @@
         "design"
       ],
       "global": {
-        "score": 0.1994,
-        "confidence": 0.22767,
-        "sampleCount": 1,
+        "score": 0.199945,
+        "confidence": 0.360849,
+        "sampleCount": 2,
         "invocationCount": 0,
         "successRate": 0,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:7e8f050979cabe4e0bb470b7f55c573c7979741dd7cda682edecc64986d6e135",
           "versionKey": "frontend/design-system-builder-pro@0.1.0#sha256:7e8f0",
-          "qualityScore": 0.1994,
-          "confidence": 0.22767,
-          "sampleCount": 1,
+          "qualityScore": 0.199945,
+          "confidence": 0.360849,
+          "sampleCount": 2,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {},
       "scenes": {
         "design": {
-          "score": 0.1994,
-          "confidence": 0.22767,
-          "sampleCount": 1,
+          "score": 0.199945,
+          "confidence": 0.360849,
+          "sampleCount": 2,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },
@@ -1283,10 +1441,38 @@
       "sceneTags": [
         "design"
       ],
-      "global": null,
-      "versions": [],
+      "global": {
+        "score": 0.199945,
+        "confidence": 0.22767,
+        "sampleCount": 1,
+        "invocationCount": 0,
+        "successRate": 0,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:82ba5daa4f84a138f2df090614494b06c1d56788dc4f26cbf1f8f0e6cb7fca17",
+          "versionKey": "frontend/form-builder-pro@0.1.0#sha256:82ba5",
+          "qualityScore": 0.199945,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      ],
       "departments": {},
-      "scenes": {}
+      "scenes": {
+        "design": {
+          "score": 0.199945,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      }
     },
     {
       "skillId": "frontend/frontend-skill",
@@ -1303,10 +1489,38 @@
       "sceneTags": [
         "design"
       ],
-      "global": null,
-      "versions": [],
+      "global": {
+        "score": 0.19994,
+        "confidence": 0.22767,
+        "sampleCount": 1,
+        "invocationCount": 0,
+        "successRate": 0,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:520cd8196eb61d86358467ffdac5406b8956a6748186838639ae56c644e2b249",
+          "versionKey": "frontend/frontend-skill@0.1.0#sha256:520cd",
+          "qualityScore": 0.19994,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      ],
       "departments": {},
-      "scenes": {}
+      "scenes": {
+        "design": {
+          "score": 0.19994,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      }
     },
     {
       "skillId": "frontend/healthcare-portal-basic",
@@ -1664,35 +1878,35 @@
         "design"
       ],
       "global": {
-        "score": 0.199891,
+        "score": 0.199686,
         "confidence": 0.22767,
         "sampleCount": 1,
         "invocationCount": 0,
         "successRate": 0,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:ec05d218a08e32a142ad9ac088131efcbd0ace8b17d86fb7c2a9cc0e36968406",
           "versionKey": "frontend/settings-page-basic@0.1.0#sha256:ec05d",
-          "qualityScore": 0.199891,
+          "qualityScore": 0.199686,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {},
       "scenes": {
         "design": {
-          "score": 0.199891,
+          "score": 0.199686,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },
@@ -1712,35 +1926,35 @@
         "design"
       ],
       "global": {
-        "score": 0.199891,
+        "score": 0.199686,
         "confidence": 0.22767,
         "sampleCount": 1,
         "invocationCount": 0,
         "successRate": 0,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:6e9996a0ecd665b06bdf1ec4d188fc556c95e7f247df0562a832fd5858a8110c",
           "versionKey": "frontend/settings-page-pro@0.1.0#sha256:6e999",
-          "qualityScore": 0.199891,
+          "qualityScore": 0.199686,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {},
       "scenes": {
         "design": {
-          "score": 0.199891,
+          "score": 0.199686,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },
@@ -1759,10 +1973,38 @@
       "sceneTags": [
         "design"
       ],
-      "global": null,
-      "versions": [],
+      "global": {
+        "score": 0.199945,
+        "confidence": 0.22767,
+        "sampleCount": 1,
+        "invocationCount": 0,
+        "successRate": 0,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:3870a8b4041802741ed872451e4b21de51c9107c4109a9938f32bc6809945608",
+          "versionKey": "frontend/website-homepage-design@0.1.0#sha256:3870a",
+          "qualityScore": 0.199945,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      ],
       "departments": {},
-      "scenes": {}
+      "scenes": {
+        "design": {
+          "score": 0.199945,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        }
+      }
     },
     {
       "skillId": "frontend/website-homepage-design-basic",
@@ -1781,44 +2023,52 @@
         "homepage"
       ],
       "global": {
-        "score": 0.4,
-        "confidence": 0.22767,
-        "sampleCount": 1,
-        "invocationCount": 1,
-        "successRate": 0,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "score": 0.524949,
+        "confidence": 0.360849,
+        "sampleCount": 2,
+        "invocationCount": 2,
+        "successRate": 0.5,
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:fe68397b268429972a119c351f45472fd3dce2caaf345f6047ea181aa9b8a92f",
           "versionKey": "frontend/website-homepage-design-basic@0.1.0#sha256:fe683",
-          "qualityScore": 0.4,
-          "confidence": 0.22767,
-          "sampleCount": 1,
-          "invocationCount": 1,
-          "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "qualityScore": 0.524949,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 2,
+          "successRate": 0.5,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {
         "frontend-platform": {
-          "score": 0.4,
+          "score": 0.399801,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 1,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       },
       "scenes": {
+        "design": {
+          "score": 0.199945,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        },
         "homepage": {
-          "score": 0.4,
+          "score": 0.399801,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 1,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },
@@ -1839,44 +2089,52 @@
         "homepage"
       ],
       "global": {
-        "score": 1,
-        "confidence": 0.22767,
-        "sampleCount": 1,
-        "invocationCount": 1,
+        "score": 0.9125,
+        "confidence": 0.639151,
+        "sampleCount": 6,
+        "invocationCount": 6,
         "successRate": 1,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:bef7757ba41ed2bbb44b9675acd16397ed1ed03002a34673ee56776a641be2f2",
           "versionKey": "frontend/website-homepage-design-pro@0.1.0#sha256:bef77",
-          "qualityScore": 1,
-          "confidence": 0.22767,
-          "sampleCount": 1,
-          "invocationCount": 1,
+          "qualityScore": 0.9125,
+          "confidence": 0.639151,
+          "sampleCount": 6,
+          "invocationCount": 6,
           "successRate": 1,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {
         "frontend-platform": {
           "score": 1,
-          "confidence": 0.22767,
-          "sampleCount": 1,
-          "invocationCount": 1,
+          "confidence": 0.588519,
+          "sampleCount": 5,
+          "invocationCount": 5,
           "successRate": 1,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       },
       "scenes": {
-        "homepage": {
-          "score": 1,
+        "design": {
+          "score": 0.199945,
           "confidence": 0.22767,
           "sampleCount": 1,
-          "invocationCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "updatedAt": "2026-04-12T13:45:59.766Z"
+        },
+        "homepage": {
+          "score": 1,
+          "confidence": 0.588519,
+          "sampleCount": 5,
+          "invocationCount": 5,
           "successRate": 1,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },
@@ -2359,35 +2617,35 @@
         "test"
       ],
       "global": {
-        "score": 0.199889,
+        "score": 0.199684,
         "confidence": 0.22767,
         "sampleCount": 1,
         "invocationCount": 0,
         "successRate": 0,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:a537f13f154660eeeb0e72a93beecd165fc49409dd4b203441a711bc7d1c7e2a",
           "versionKey": "tools/playwright@0.1.0#sha256:a537f",
-          "qualityScore": 0.199889,
+          "qualityScore": 0.199684,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {},
       "scenes": {
         "debug": {
-          "score": 0.199889,
+          "score": 0.199684,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },
@@ -2408,35 +2666,35 @@
         "test"
       ],
       "global": {
-        "score": 0.199889,
+        "score": 0.199684,
         "confidence": 0.22767,
         "sampleCount": 1,
         "invocationCount": 0,
         "successRate": 0,
-        "updatedAt": "2026-04-12T12:17:34.311Z"
+        "updatedAt": "2026-04-12T13:45:59.766Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:2013245683be87839bea22892cbf86c1d49752338417b215edf2fe15b5c7352f",
           "versionKey": "tools/playwright-interactive@0.1.0#sha256:20132",
-          "qualityScore": 0.199889,
+          "qualityScore": 0.199684,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       ],
       "departments": {},
       "scenes": {
         "debug": {
-          "score": 0.199889,
+          "score": 0.199684,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
           "successRate": 0,
-          "updatedAt": "2026-04-12T12:17:34.311Z"
+          "updatedAt": "2026-04-12T13:45:59.766Z"
         }
       }
     },

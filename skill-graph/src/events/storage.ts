@@ -1,4 +1,4 @@
-import { Pool, type PoolConfig, type QueryConfig } from 'pg'
+import { Pool, type PoolConfig, type QueryConfig, type QueryResultRow } from 'pg'
 import {
   createSkillFactEvent,
   type SkillFactEvent,
@@ -268,6 +268,21 @@ function getPool(): Pool {
   poolKey = nextPoolKey
   ensureTablePromise = null
   return pool
+}
+
+export function getSkillFactPgPool(): Pool {
+  return getPool()
+}
+
+export async function querySkillFactPg<T extends QueryResultRow = QueryResultRow>(
+  query: QueryConfig | string,
+  values?: unknown[],
+) {
+  if (typeof query === 'string') {
+    return getPool().query<T>(query, values)
+  }
+
+  return getPool().query<T>(query)
 }
 
 export async function closeSkillFactPgPool(): Promise<void> {
