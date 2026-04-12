@@ -1,8 +1,92 @@
-import * as React from 'react';
-import type { LocalJSXCommandContext } from '../../commands.js';
-import { SkillsMenu } from '../../components/skills/SkillsMenu.js';
-import type { LocalJSXCommandOnDone } from '../../types/command.js';
-export async function call(onDone: LocalJSXCommandOnDone, context: LocalJSXCommandContext): Promise<React.ReactNode> {
-  return <SkillsMenu onExit={onDone} commands={context.options.commands} />;
+import * as React from 'react'
+import { getSessionId } from '../../bootstrap/state.js'
+import { SkillsMenu } from '../../components/skills/SkillsMenu.js'
+import { retrieveSkills } from '../../services/skillSearch/provider.js'
+import {
+  buildSkillSearchQueryContext,
+  createSkillDiscoveryAttachment,
+  rememberSkillDiscoveryResults,
+} from '../../services/skillSearch/prefetch.js'
+import { createSkillSearchSignal } from '../../services/skillSearch/signals.js'
+import {
+  createSkillFactAttribution,
+  createSkillTelemetryTraceId,
+} from '../../services/skillSearch/telemetry.js'
+import type { LocalJSXCommandContext } from '../../commands.js'
+import type { LocalJSXCommandOnDone } from '../../types/command.js'
+import { createAttachmentMessage } from '../../utils/attachments.js'
+
+function formatSkillSearchResults(
+  query: string,
+  response: Awaited<ReturnType<typeof retrieveSkills>>,
+): string {
+  if (response.candidates.length === 0) {
+    return `没有找到和“${query}”相关的技能。`
+  }
+
+  const lines = response.candidates.map(candidate => {
+    const score = candidate.finalScore.toFixed(2)
+    return `  ${candidate.rank}. ${candidate.name} · ${score} · ${candidate.retrievalSource}`
+  })
+
+  return [
+    `已检索到 ${response.candidates.length} 个相关技能：`,
+    '',
+    ...lines,
+    '',
+    '已将这些候选注入当前会话，可直接使用 /<skill-name> 调用。',
+  ].join('\n')
 }
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJSZWFjdCIsIkxvY2FsSlNYQ29tbWFuZENvbnRleHQiLCJTa2lsbHNNZW51IiwiTG9jYWxKU1hDb21tYW5kT25Eb25lIiwiY2FsbCIsIm9uRG9uZSIsImNvbnRleHQiLCJQcm9taXNlIiwiUmVhY3ROb2RlIiwib3B0aW9ucyIsImNvbW1hbmRzIl0sInNvdXJjZXMiOlsic2tpbGxzLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCB0eXBlIHsgTG9jYWxKU1hDb21tYW5kQ29udGV4dCB9IGZyb20gJy4uLy4uL2NvbW1hbmRzLmpzJ1xuaW1wb3J0IHsgU2tpbGxzTWVudSB9IGZyb20gJy4uLy4uL2NvbXBvbmVudHMvc2tpbGxzL1NraWxsc01lbnUuanMnXG5pbXBvcnQgdHlwZSB7IExvY2FsSlNYQ29tbWFuZE9uRG9uZSB9IGZyb20gJy4uLy4uL3R5cGVzL2NvbW1hbmQuanMnXG5cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBjYWxsKFxuICBvbkRvbmU6IExvY2FsSlNYQ29tbWFuZE9uRG9uZSxcbiAgY29udGV4dDogTG9jYWxKU1hDb21tYW5kQ29udGV4dCxcbik6IFByb21pc2U8UmVhY3QuUmVhY3ROb2RlPiB7XG4gIHJldHVybiA8U2tpbGxzTWVudSBvbkV4aXQ9e29uRG9uZX0gY29tbWFuZHM9e2NvbnRleHQub3B0aW9ucy5jb21tYW5kc30gLz5cbn1cbiJdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxLQUFLQSxLQUFLLE1BQU0sT0FBTztBQUM5QixjQUFjQyxzQkFBc0IsUUFBUSxtQkFBbUI7QUFDL0QsU0FBU0MsVUFBVSxRQUFRLHVDQUF1QztBQUNsRSxjQUFjQyxxQkFBcUIsUUFBUSx3QkFBd0I7QUFFbkUsT0FBTyxlQUFlQyxJQUFJQSxDQUN4QkMsTUFBTSxFQUFFRixxQkFBcUIsRUFDN0JHLE9BQU8sRUFBRUwsc0JBQXNCLENBQ2hDLEVBQUVNLE9BQU8sQ0FBQ1AsS0FBSyxDQUFDUSxTQUFTLENBQUMsQ0FBQztFQUMxQixPQUFPLENBQUMsVUFBVSxDQUFDLE1BQU0sQ0FBQyxDQUFDSCxNQUFNLENBQUMsQ0FBQyxRQUFRLENBQUMsQ0FBQ0MsT0FBTyxDQUFDRyxPQUFPLENBQUNDLFFBQVEsQ0FBQyxHQUFHO0FBQzNFIiwiaWdub3JlTGlzdCI6W119
+
+export async function call(
+  onDone: LocalJSXCommandOnDone,
+  context: LocalJSXCommandContext,
+  args?: string,
+): Promise<React.ReactNode> {
+  const trimmedArgs = args?.trim() ?? ''
+  if (!trimmedArgs) {
+    return <SkillsMenu onExit={onDone} commands={context.options.commands} />
+  }
+
+  const [subcommand, ...rest] = trimmedArgs.split(/\s+/)
+  if (subcommand !== 'search') {
+    onDone('Usage:\n  /skills\n  /skills search <query>', {
+      display: 'system',
+    })
+    return null
+  }
+
+  const query = rest.join(' ').trim()
+  if (!query) {
+    onDone('Usage:\n  /skills search <query>', { display: 'system' })
+    return null
+  }
+
+  const traceId = createSkillTelemetryTraceId()
+  const attribution = createSkillFactAttribution(getSessionId(), traceId, traceId)
+  const response = await retrieveSkills({
+    queryText: query,
+    queryContext: buildSkillSearchQueryContext(context.messages),
+    limit: 3,
+    traceId: attribution.traceId,
+    taskId: attribution.taskId,
+    retrievalRoundId: attribution.retrievalRoundId,
+    telemetry: true,
+  })
+
+  if (response.candidates.length > 0) {
+    rememberSkillDiscoveryResults(response.candidates, context, attribution)
+    context.setMessages(prev => [
+      ...prev,
+      createAttachmentMessage(
+        createSkillDiscoveryAttachment(
+          response,
+          createSkillSearchSignal(true),
+        ),
+      ),
+    ])
+  }
+
+  onDone(formatSkillSearchResults(query, response), { display: 'system' })
+  return null
+}

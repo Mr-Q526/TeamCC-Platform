@@ -52,6 +52,7 @@
     "@opentelemetry/sdk-metrics": "*",
     "@opentelemetry/sdk-trace-base": "*",
     "@opentelemetry/semantic-conventions": "*",
+    "@teamcc/skill-graph": "file:../skill-graph",
     "ajv": "*",
     "asciichart": "*",
     "auto-bind": "*",

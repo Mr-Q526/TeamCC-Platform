@@ -17,7 +17,7 @@ import {
   createSkillTelemetryTraceId,
   rememberDiscoveredSkillAttribution,
 } from './telemetry.js'
-import { retrieveSkills } from './retrieve.js'
+import { retrieveSkills, type SkillRetrievalResponse } from './provider.js'
 
 export type SkillDiscoveryPrefetchHandle = {
   promise: Promise<Attachment[]>
@@ -132,7 +132,7 @@ function collectMessageContextHints(messages: Message[]): string[] {
   return [...hints]
 }
 
-function buildQueryContext(messages: Message[]): string {
+export function buildSkillSearchQueryContext(messages: Message[]): string {
   const projectRoot = getProjectRoot()
   const projectLeaf = basename(projectRoot)
   const projectParent = basename(dirname(projectRoot))
@@ -156,6 +156,88 @@ function buildQueryContext(messages: Message[]): string {
   return [...contextTokens].join(' ')
 }
 
+function selectUndiscoveredResults(
+  response: SkillRetrievalResponse,
+  toolUseContext: ToolUseContext,
+) {
+  const alreadyDiscovered = new Set(toolUseContext.discoveredSkillNames ?? [])
+  const alreadyDiscoveredIds = new Set(
+    [...(toolUseContext.discoveredSkillAttributions?.values() ?? [])]
+      .map(item => item.skillId)
+      .filter((value): value is string => Boolean(value)),
+  )
+  const alreadyInvoked = new Set(
+    [...getInvokedSkillsForAgent(toolUseContext.agentId ?? null).values()].map(
+      skill => skill.skillId ?? skill.skillName,
+    ),
+  )
+
+  return response.candidates.filter(result => {
+    return (
+      !alreadyDiscovered.has(result.name) &&
+      !alreadyDiscoveredIds.has(result.skillId) &&
+      !alreadyInvoked.has(result.skillId)
+    )
+  })
+}
+
+export function rememberSkillDiscoveryResults(
+  results: SkillRetrievalResponse['candidates'],
+  toolUseContext: ToolUseContext,
+  attribution: ReturnType<typeof createSkillFactAttribution>,
+): void {
+  for (const result of results) {
+    toolUseContext.discoveredSkillNames?.add(result.name)
+    rememberDiscoveredSkillAttribution(
+      toolUseContext.discoveredSkillAttributions,
+      {
+        skillId: result.skillId,
+        name: result.name,
+        displayName: result.displayName,
+        aliases: [],
+      },
+      attribution,
+      {
+        version: result.version,
+        sourceHash: result.sourceHash,
+        description: result.description,
+        domain: result.domain,
+        departmentTags: result.departmentTags,
+        sceneTags: result.sceneTags,
+        retrievalSource: result.retrievalSource,
+        rank: result.rank,
+        finalScore: result.finalScore,
+      },
+    )
+  }
+}
+
+export function createSkillDiscoveryAttachment(
+  response: SkillRetrievalResponse,
+  signal: DiscoverySignal,
+  results = response.candidates,
+): Attachment {
+  return {
+    type: 'skill_discovery',
+    skills: results.map(result => ({
+      skillId: result.skillId,
+      name: result.name,
+      displayName: result.displayName,
+      description: result.description,
+      version: result.version,
+      sourceHash: result.sourceHash,
+      rank: result.rank,
+      retrievalSource: result.retrievalSource,
+      finalScore: result.finalScore,
+      finalScoreBreakdown: result.finalScoreBreakdown,
+    })),
+    signal,
+    source: 'native',
+    retrievalMode: response.retrievalMode,
+    dataVersions: response.dataVersions,
+  }
+}
+
 async function buildSkillDiscoveryAttachments(
   query: string,
   messages: Message[],
@@ -173,9 +255,8 @@ async function buildSkillDiscoveryAttachments(
 
   const traceId = createSkillTelemetryTraceId()
   const attribution = createSkillFactAttribution(getSessionId(), traceId, traceId)
-  const queryContext = buildQueryContext(messages)
+  const queryContext = buildSkillSearchQueryContext(messages)
   const response = await retrieveSkills({
-    cwd: getProjectRoot(),
     queryText: trimmedQuery,
     limit: 3,
     queryContext,
@@ -184,82 +265,15 @@ async function buildSkillDiscoveryAttachments(
     retrievalRoundId: attribution.retrievalRoundId,
     telemetry: true,
   })
-  const results = response.candidates
-
-  if (results.length === 0) {
-    return []
-  }
-
-  const alreadyDiscovered = new Set(toolUseContext.discoveredSkillNames ?? [])
-  const alreadyDiscoveredIds = new Set(
-    [...(toolUseContext.discoveredSkillAttributions?.values() ?? [])]
-      .map(item => item.skillId)
-      .filter((value): value is string => Boolean(value)),
-  )
-  const alreadyInvoked = new Set(
-    [...getInvokedSkillsForAgent(toolUseContext.agentId ?? null).values()].map(
-      skill => skill.skillId ?? skill.skillName,
-    ),
-  )
-
-  const newResults = results.filter(result => {
-    return (
-      !alreadyDiscovered.has(result.name) &&
-      !alreadyDiscoveredIds.has(result.skillId) &&
-      !alreadyInvoked.has(result.skillId)
-    )
-  })
+  const newResults = selectUndiscoveredResults(response, toolUseContext)
 
   if (newResults.length === 0) {
     return []
   }
 
-  for (const result of newResults) {
-    toolUseContext.discoveredSkillNames?.add(result.name)
-    rememberDiscoveredSkillAttribution(
-      toolUseContext.discoveredSkillAttributions,
-      {
-        skillId: result.skillId,
-        name: result.name,
-        displayName: result.displayName,
-        aliases: result.aliases,
-      },
-      attribution,
-      {
-        version: result.version,
-        sourceHash: result.sourceHash,
-        description: result.description,
-        domain: result.domain,
-        departmentTags: result.departmentTags,
-        sceneTags: result.sceneTags,
-        retrievalSource: result.retrievalSource,
-        rank: result.rank,
-        finalScore: result.finalScore,
-      },
-    )
-  }
+  rememberSkillDiscoveryResults(newResults, toolUseContext, attribution)
 
-  return [
-    {
-      type: 'skill_discovery',
-      skills: newResults.map(result => ({
-        skillId: result.skillId,
-        name: result.name,
-        displayName: result.displayName,
-        description: result.description,
-        version: result.version,
-        sourceHash: result.sourceHash,
-        rank: result.rank,
-        retrievalSource: result.retrievalSource,
-        finalScore: result.finalScore,
-        scoreBreakdown: result.finalScoreBreakdown,
-      })),
-      signal,
-      source: 'native',
-      retrievalMode: response.retrievalMode,
-      dataVersions: response.dataVersions,
-    },
-  ]
+  return [createSkillDiscoveryAttachment(response, signal, newResults)]
 }
 
 export async function getTurnZeroSkillDiscovery(
