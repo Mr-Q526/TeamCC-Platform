@@ -118,3 +118,9 @@ export async function readGeneratedSkillRegistry(
     return null
   }
 }
+
+export async function readSkillRegistry(
+  projectRoot = process.cwd(),
+): Promise<SkillRegistryManifest | null> {
+  return readGeneratedSkillRegistry(getSkillGraphSkillsDir(projectRoot))
+}
