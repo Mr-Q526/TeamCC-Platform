@@ -1,11 +1,14 @@
 import * as React from 'react'
+import type { LocalJSXCommandOnDone } from '../../types/command.js'
 import { Text } from '../../ink.js'
+import type { LocalJSXCommandContext } from '../../commands.js'
+import { clearTeamCCRuntimeState } from '../../bootstrap/teamccRuntime.js'
 import { gracefulShutdownSync } from '../../utils/gracefulShutdown.js'
 import { logoutFromTeamCC } from '../../bootstrap/teamccAuth.js'
 import { getTeamCCProjectCacheDir } from '../../utils/teamccPaths.js'
 
 export async function performLogout({
-  clearOnboarding = false,
+  clearOnboarding: _clearOnboarding = false,
 } = {}): Promise<void> {
   // 1. Wipe TeamCC config
   await logoutFromTeamCC(process.cwd())
@@ -22,7 +25,7 @@ export async function performLogout({
         await fs.unlink(path.join(cacheDir, file))
       }
     }
-  } catch (e) {
+  } catch {
     // Ignore if cache dir doesn't exist or other io error
   }
 }
@@ -32,8 +35,12 @@ export async function clearAuthRelatedCaches(): Promise<void> {
   // No-op for TeamCC
 }
 
-export async function call(): Promise<React.ReactNode> {
+export async function call(
+  _onDone: LocalJSXCommandOnDone,
+  context: LocalJSXCommandContext,
+): Promise<React.ReactNode> {
   await performLogout()
+  clearTeamCCRuntimeState(context)
 
   const message = <Text>已成功登出 TeamCC 账号。</Text>
 

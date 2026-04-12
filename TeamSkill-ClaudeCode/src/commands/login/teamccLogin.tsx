@@ -4,15 +4,17 @@ import TextInput from '../../components/TextInput.js'
 import {
   loginToTeamCC,
   saveTeamCCConfig,
-  fetchIdentityFromTeamCC,
-  cacheIdentity,
 } from '../../bootstrap/teamccAuth.js'
-import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
+import type { TeamCCBootstrapResult } from '../../bootstrap/teamccSession.js'
+import { bootstrapTeamCCSession } from '../../bootstrap/teamccSession.js'
 
 export function TeamCCLogin({
   onDone,
 }: {
-  onDone: (success: boolean) => void
+  onDone: (result: {
+    success: boolean
+    session?: TeamCCBootstrapResult
+  }) => void
 }) {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -23,9 +25,9 @@ export function TeamCCLogin({
   )
   const [error, setError] = React.useState('')
 
-  useInput((input, key) => {
+  useInput((_input, key) => {
     if (key.escape) {
-      onDone(false)
+      onDone({ success: false })
     }
   })
 
@@ -46,15 +48,13 @@ export function TeamCCLogin({
       const { config } = await loginToTeamCC(username, val, adminUrl)
       // 2. Save config locally
       await saveTeamCCConfig(process.cwd(), config)
-      // 3. Fetch Identity Payload based on new token
-      const identity = await fetchIdentityFromTeamCC(config)
-      // 4. Cache it for offline capabilities
-      await cacheIdentity(process.cwd(), identity)
-      
-      // 5. Fire Audit Log
-      reportAuditLog(process.cwd(), 'login', { username: identity.subject.username })
+      // 3. Bootstrap current runtime session from the newly issued login
+      const session = await bootstrapTeamCCSession(process.cwd())
+      if (session.status === 'unauthenticated' || !session.identityProfile) {
+        throw new Error(session.failureReason ?? '登录后未能完成 TeamCC 身份鉴权')
+      }
 
-      onDone(true)
+      onDone({ success: true, session })
     } catch (err) {
       setError((err as Error).message || '登录失败，请检查用户名和密码')
       setStep('username')
@@ -84,6 +84,7 @@ export function TeamCCLogin({
             onSubmit={handleUsernameSubmit}
             cursorOffset={usernameCursor}
             onChangeCursorOffset={setUsernameCursor}
+            columns={process.stdout.columns ?? 80}
             focus={true}
             showCursor={true}
           />
@@ -98,6 +99,7 @@ export function TeamCCLogin({
             onSubmit={handlePasswordSubmit}
             cursorOffset={passwordCursor}
             onChangeCursorOffset={setPasswordCursor}
+            columns={process.stdout.columns ?? 80}
             focus={true}
             mask="*"
             showCursor={true}

@@ -1,6 +1,8 @@
 import { feature } from 'bun:bundle'
 import * as React from 'react'
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
 import { resetCostState } from '../../bootstrap/state.js'
+import { applyTeamCCSessionToRuntime } from '../../bootstrap/teamccRuntime.js'
 import {
   clearTrustedDeviceToken,
   enrollTrustedDevice,
@@ -29,10 +31,19 @@ export async function call(
 ): Promise<React.ReactNode> {
   return (
     <Login
-      onDone={async success => {
+      onDone={async ({ success, session }) => {
         context.onChangeAPIKey()
         context.setMessages(stripSignatureBlocks)
         if (success) {
+          if (!session) {
+            onDone('登录失败：缺少 TeamCC 会话结果')
+            return
+          }
+
+          applyTeamCCSessionToRuntime(context, session)
+          void reportAuditLog(process.cwd(), 'login', {
+            userId: session.identityProfile?.userId ?? 0,
+          })
           resetCostState()
           void refreshRemoteManagedSettings()
           void refreshPolicyLimits()
@@ -61,7 +72,11 @@ export async function call(
             authVersion: prev.authVersion + 1,
           }))
         }
-        onDone(success ? '已成功登录 TeamCC' : '登录已取消')
+        const successMessage =
+          success && session?.status === 'authenticated_restricted'
+            ? '已成功登录 TeamCC，但当前项目权限未加载，处于 restricted mode'
+            : '已成功登录 TeamCC'
+        onDone(success ? successMessage : '登录已取消')
       }}
     />
   )
@@ -81,13 +96,16 @@ function exitGuide(exitState: any) {
 }
 
 export function Login(props: {
-  onDone: (success: boolean) => void
+  onDone: (result: {
+    success: boolean
+    session?: import('../../bootstrap/teamccSession.js').TeamCCBootstrapResult
+  }) => void
   startingMessage?: string
 }): React.ReactNode {
   return (
     <Dialog
       title="TeamCC Login"
-      onCancel={() => props.onDone(false)}
+      onCancel={() => props.onDone({ success: false })}
       color="permission"
       inputGuide={exitGuide}
       isCancelActive={false}

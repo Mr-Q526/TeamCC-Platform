@@ -1,18 +1,14 @@
 /**
  * Identity Profile loader and ID-to-label mapping cache.
  *
- * Reads `.claude/identity/active.md` (YAML frontmatter only), parses the
- * numeric ID fields into a typed IdentityProfile, and provides a cached
- * mapping layer that converts IDs to human-readable labels for Skill
- * retrieval and model context injection.
+ * Converts verified TeamCC identity payloads into runtime IdentityProfile
+ * objects and exposes cached label mappings for Skill retrieval and model
+ * context injection.
  */
 
-import { join } from 'path'
-import { getFsImplementation } from './fsOperations.js'
 import { logForDebugging } from './debug.js'
 import { logForDiagnosticsNoPII } from './diagLogs.js'
 import type { IdentityEnvelope } from '../bootstrap/teamccAuth.js'
-import { getTeamCCIdentityPath } from './teamccPaths.js'
 import { loadCachedIdentity } from '../bootstrap/teamccAuth.js'
 
 // ---------------------------------------------------------------------------
@@ -164,7 +160,7 @@ export function envelopeToProfile(
 }
 
 /**
- * Loads identity from local cache with fallback support
+ * Backwards-compatible alias for cached TeamCC identity loading.
  */
 export async function loadLocalIdentityProfile(
   cwd: string,

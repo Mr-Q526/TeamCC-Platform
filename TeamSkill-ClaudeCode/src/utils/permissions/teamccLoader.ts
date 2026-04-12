@@ -7,8 +7,9 @@
 
 import type { PermissionBehavior, PermissionRule } from '../../types/permissions.js'
 import type { TeamCCConfig } from '../../bootstrap/teamccAuth.js'
-import { getValidAccessToken } from '../../bootstrap/teamccAuth.js'
+import { getPersistedValidAccessToken } from '../../bootstrap/teamccAuth.js'
 import { logForDebugging } from '../debug.js'
+import { getTeamCCProjectCacheDir } from '../teamccPaths.js'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -56,7 +57,7 @@ export type RuleWithSource = PermissionRule & {
 // Caching
 // ---------------------------------------------------------------------------
 
-const CACHE_DIR_PATH = (cwd: string) => `${cwd}/.claude/cache`
+const CACHE_DIR_PATH = (cwd: string) => getTeamCCProjectCacheDir(cwd)
 
 function getBundleProjectId(
   bundle: PermissionBundle,
@@ -119,16 +120,21 @@ async function loadCachedPermissionBundle(
  * Fetch permission bundle from teamcc-admin /policy/bundle endpoint
  */
 export async function fetchPermissionBundleFromTeamCC(
+  cwd: string,
   config: TeamCCConfig,
   projectId: number,
+  options?: { throwOnFailure?: boolean },
 ): Promise<PermissionBundle | null> {
   if (!config.accessToken) {
+    if (options?.throwOnFailure) {
+      throw new Error('No access token available. Run /login first.')
+    }
     logForDebugging('[teamcc-loader] No access token, skipping remote fetch')
     return null
   }
 
   try {
-    const { token } = await getValidAccessToken(config)
+    const { token } = await getPersistedValidAccessToken(cwd, config)
 
     const url = new URL(`${config.apiBase}/policy/bundle`)
     url.searchParams.set('projectId', String(projectId))
@@ -138,10 +144,14 @@ export async function fetchPermissionBundleFromTeamCC(
     })
 
     if (!response.ok) {
+      const message = `Failed to fetch permission bundle: ${response.status}`
       logForDebugging(
-        `[teamcc-loader] Failed to fetch permission bundle: ${response.status}`,
+        `[teamcc-loader] ${message}`,
         { level: 'warn' },
       )
+      if (options?.throwOnFailure) {
+        throw new Error(message)
+      }
       return null
     }
 
@@ -168,6 +178,9 @@ export async function fetchPermissionBundleFromTeamCC(
     )
     return bundle
   } catch (e) {
+    if (options?.throwOnFailure) {
+      throw e
+    }
     logForDebugging(
       `[teamcc-loader] Error fetching permission bundle: ${(e as Error).message}`,
       { level: 'warn' },
@@ -253,7 +266,7 @@ export async function loadPermissionBundleWithFallback(
   // Try to fetch from remote
   if (config?.accessToken) {
     try {
-      bundle = await fetchPermissionBundleFromTeamCC(config, projectId)
+      bundle = await fetchPermissionBundleFromTeamCC(cwd, config, projectId)
       if (bundle) {
         // Cache it for offline use
         await cachePermissionBundle(cwd, projectId, bundle)
