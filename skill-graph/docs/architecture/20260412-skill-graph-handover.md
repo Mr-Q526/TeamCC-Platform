@@ -190,7 +190,7 @@ skill-graph/
 当前事实：
 
 - 检索、曝光、选择、调用、完成、失败等事件类型已经定义
-- `telemetry.ts` 默认可写本地 JSONL：`.claude/skill-events/events.jsonl`
+- `telemetry.ts` 当前默认把 graph facts 写到 `skill-graph/data/events/events.jsonl`
 - `SkillTool` 在选中、调用、完成、失败时会尝试记录 skill telemetry
 - UI 已有简单 feedback survey
 

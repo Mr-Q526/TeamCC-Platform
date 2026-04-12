@@ -12,6 +12,7 @@ import TemplatesPage from './TemplatesPage'
 import AuditPage from './AuditPage'
 import PoliciesPage from './PoliciesPage'
 import AssignmentsPage from './AssignmentsPage'
+import Neo4jPage from './Neo4jPage'
 import '../styles/Dashboard.css'
 
 interface DashboardProps {
@@ -19,7 +20,7 @@ interface DashboardProps {
   onLogout: () => void
 }
 
-type ViewKey = 'home' | 'users' | 'assignments' | 'templates' | 'audit' | 'policies'
+type ViewKey = 'home' | 'users' | 'assignments' | 'templates' | 'audit' | 'policies' | 'neo4j'
 
 interface RecentActivity {
   id: number
@@ -129,6 +130,11 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
             title: '部门策略',
             description: '为各部门配置基础访问控制规则（部门级 Deny 规则）。',
           },
+          neo4j: {
+            eyebrow: 'Graph Browser',
+            title: 'Neo4j 图谱',
+            description: '在管理后台里直接打开本地 Neo4j Browser，查看 Skill、版本和效果关系。',
+          },
         },
         hero: {
           kicker: 'Policy Control Center',
@@ -164,6 +170,7 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
           templates: '规则、能力与环境变量',
           audit: '全链路变更轨迹',
           policies: '部门级访问控制规则',
+          neo4j: '本地图谱浏览入口',
         },
         quickCards: {
           users: '批量查看组织成员、身份状态和授权详情。',
@@ -240,6 +247,11 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
             title: 'Department Policies',
             description: 'Configure baseline access control rules for each department (department-level deny rules).',
           },
+          neo4j: {
+            eyebrow: 'Graph Browser',
+            title: 'Neo4j Graph',
+            description: 'Open the local Neo4j Browser inside admin to inspect Skill, version, and effect relationships.',
+          },
         },
         hero: {
           kicker: 'Policy Control Center',
@@ -275,6 +287,7 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
           templates: 'Rules, capabilities, and env overrides',
           audit: 'Full change trail',
           policies: 'Department-level access control',
+          neo4j: 'Local graph browser entry',
         },
         quickCards: {
           users: 'Review org members, account states, and assignment details.',
@@ -492,12 +505,13 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
         policy: 'Policy',
       }
 
-  const navItems: Array<{ key: ViewKey; icon: 'dashboard' | 'users' | 'templates' | 'audit' | 'shield' | 'spark'; label: string }> = [
+  const navItems: Array<{ key: ViewKey; icon: 'dashboard' | 'users' | 'templates' | 'audit' | 'shield' | 'spark' | 'graph'; label: string }> = [
     { key: 'home', icon: 'dashboard', label: t('nav.dashboard') },
     { key: 'users', icon: 'users', label: t('nav.users') },
     { key: 'assignments', icon: 'spark', label: isZh ? '项目授权' : 'Assignments' },
     { key: 'templates', icon: 'templates', label: t('nav.templates') },
     { key: 'policies', icon: 'shield', label: isZh ? '部门策略' : 'Policies' },
+    { key: 'neo4j', icon: 'graph', label: isZh ? 'Neo4j 图谱' : 'Neo4j Graph' },
     { key: 'audit', icon: 'audit', label: t('nav.audit') },
   ]
 
@@ -786,10 +800,12 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
             {currentPage === 'policies' && (
               <PoliciesPage accessToken={accessToken} onDataChange={loadOverview} />
             )}
+            {currentPage === 'neo4j' && (
+              <Neo4jPage browserUrl={import.meta.env.VITE_NEO4J_BROWSER_URL} />
+            )}
             {currentPage === 'audit' && <AuditPage accessToken={accessToken} />}
           </main>
         </div>
-      </div>
 
       {helpOpen ? (
         <div className="help-modal-backdrop" role="presentation" onClick={() => setHelpOpen(false)}>

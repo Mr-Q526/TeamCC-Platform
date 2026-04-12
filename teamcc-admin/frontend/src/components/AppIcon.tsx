@@ -7,6 +7,7 @@ type IconName =
   | 'audit'
   | 'close'
   | 'dashboard'
+  | 'graph'
   | 'globe'
   | 'logout'
   | 'plus'
@@ -59,6 +60,18 @@ const icons: Record<IconName, ReactNode> = {
       <rect x="13" y="4.5" width="6.5" height="10.5" rx="1.5" />
       <rect x="4.5" y="13" width="6.5" height="6.5" rx="1.5" />
       <rect x="13" y="16" width="6.5" height="3.5" rx="1.5" />
+    </>
+  ),
+  graph: (
+    <>
+      <circle cx="6.5" cy="8" r="1.75" />
+      <circle cx="17.5" cy="6.5" r="1.75" />
+      <circle cx="10.5" cy="17.5" r="1.75" />
+      <circle cx="18" cy="16.5" r="1.75" />
+      <path d="M8.2 7.75 15.8 6.75" />
+      <path d="m7.8 9.1 1.9 6.3" />
+      <path d="m12.1 17.2 4.3-.4" />
+      <path d="m17.7 8.3.2 6.4" />
     </>
   ),
   globe: (
