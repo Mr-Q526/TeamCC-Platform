@@ -95,14 +95,14 @@ git fetch origin
 git switch main
 git pull
 
-mkdir -p .worktrees
-git worktree add .worktrees/<worktree-name> -b <branch-name> main
+mkdir -p worktrees
+git worktree add worktrees/<worktree-name> -b <branch-name> main
 ```
 
 进入 worktree 开发：
 
 ```bash
-cd /Users/minruiqing/MyProjects/teamcc-platform/.worktrees/<worktree-name>
+cd /Users/minruiqing/MyProjects/teamcc-platform/worktrees/<worktree-name>
 ```
 
 查看已有 worktree：
@@ -114,10 +114,10 @@ git worktree list
 当前已创建的 worktree：
 
 ```text
-/Users/minruiqing/MyProjects/teamcc-platform/.worktrees/admin        admin
-/Users/minruiqing/MyProjects/teamcc-platform/.worktrees/eval-runner  wt-eval-runner
-/Users/minruiqing/MyProjects/teamcc-platform/.worktrees/teamcc       teamcc
-/Users/minruiqing/MyProjects/teamcc-platform/.worktrees/skill-graph  skill-graph
+/Users/minruiqing/MyProjects/teamcc-platform/worktrees/admin        admin
+/Users/minruiqing/MyProjects/teamcc-platform/worktrees/eval-runner  wt-eval-runner
+/Users/minruiqing/MyProjects/teamcc-platform/worktrees/teamcc       teamcc
+/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph  skill-graph
 ```
 
 ### 3.1 为什么要同步 main
@@ -127,7 +127,7 @@ worktree 分支不是 `main` 的实时镜像。创建后它会停在创建时的
 开始开发前建议同步：
 
 ```bash
-cd /Users/minruiqing/MyProjects/teamcc-platform/.worktrees/<worktree-name>
+cd /Users/minruiqing/MyProjects/teamcc-platform/worktrees/<worktree-name>
 git fetch origin
 git merge origin/main
 ```
@@ -153,7 +153,7 @@ git push -u origin <branch-name>
 
 ```bash
 cd /Users/minruiqing/MyProjects/teamcc-platform
-git worktree remove .worktrees/<worktree-name>
+git worktree remove worktrees/<worktree-name>
 git branch -d <branch-name>
 ```
 
@@ -401,10 +401,10 @@ cd /Users/minruiqing/MyProjects/teamcc-platform
 git fetch origin
 git switch main
 git pull
-mkdir -p .worktrees
-git worktree add .worktrees/<worktree-name> -b <branch-name> main
+mkdir -p worktrees
+git worktree add worktrees/<worktree-name> -b <branch-name> main
 
-cd .worktrees/<worktree-name>
+cd worktrees/<worktree-name>
 # 修改代码
 git add <files>
 git commit -m "Implement feature x"
