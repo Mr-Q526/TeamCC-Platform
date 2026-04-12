@@ -1,36 +1,119 @@
 # TeamCC Platform
 
-TeamCC 是一款为现代企业打造的下一代 Agentic（智能体化）研发与协作治理平台。基于底层强大的 AI 代理（如基于 Claude Code 定制的内核），TeamCC 彻底重塑了企业内部工具的使用方式与研发效能。
+TeamCC 是一个围绕 Coding Agent（目前基于 Claude Code 改造）做企业级管控的项目。核心解决两个问题：
 
-本平台核心致力于解决 AI Agent 深入企业日常乃至核心工作流时的两个最致命痛点：**防范失控（安全合规）**与**打破孤岛（资产沉淀）**。
-
----
-
-## 🛡️ 核心能力一：企业级身份权限管理 (Identity-Based Access Control)
-
-在赋予 AI 代理（或使用 Agent 的员工）强大的代码库编辑、终端指令执行及工具调用能力的同时，极易因“过度信任”导致越权访问、未经授权的环境破坏及各种不安全行为。
-
-TeamCC 提供了一套深度的、基于企业身份的动态权限治理引擎：
-
-- **组织架构感知的策略控制 (Team-aware Identity Governance)**：将企业现有的部门 (Department)、团队、角色 (Role) 状态与系统操作权限动态绑定。平台精确知晓当前是“哪位员工在使用 Agent”，从而智能划定该员工及 Agent 可操作的资源边界。
-- **细粒度运行时权限沙盒 (Runtime Permission Pipeline)**：深度接管与重写了底层权限管道。支持变量注入和基于特定项目目录的精确访问控制。系统提供“绝对优先级”的拒绝 (Deny) 规则，严格防止 Agent 修改受限制的源码、系统配置或访问不属于当前团队的密钥，防止破坏越权。
-- **危险行为阻断**：当员工试图驱动 Agent 调用具有破坏性的命令（例如高风险脚本运行、全局环境删除）或超出由于其身份所限定的能力时，系统会在运行时立刻拦截，并请求上级或管理员审批。
-- **全链路安全审计与拓扑监控 (Full-chain Security Audit)**：彻底消除 Agent 操作的“黑盒化”。每一次文件读写、工具调用、命令执行都带有完善的身份追溯，实时同步至后台审计系统。更有基于 **Neo4j** 构建的可视化管理控制台（Admin Dashboard），直观呈现“人员-角色-受控资产”的复杂权限拓扑网络。
+1. **员工用 Coding Agent 时，怎么管住权限？** —— 防止 Agent 越权操作、乱删文件、访问不该碰的代码。
+2. **团队用 Agent 积累的经验（Skill），怎么沉淀下来复用？** —— 不让好的实践停留在个人脑子里，而是变成团队资产。
 
 ---
 
-## 🧠 核心能力二：企业级 Skill 沉淀系统 (Skill Graph Accumulation)
+## 🛡️ 企业级权限管控
 
-个人使用 AI 的痛点是“每次都需要反复教导”，而企业的痛点则是“优秀工程师的最佳实践无法在代码层面跨组织传递”。TeamCC 旨在让整个公司的操作经验不断转化为资产，越用越聪明：
+### 问题
 
-- **海量技能结构化存储**：不仅仅管理简单的 Prompt，而是将具体的开发流、运维任务、故障排查方案抽象成可直接执行的 **Skill**（技能）。这些 Skill 利用复杂的网络图谱进行管理，可以包含自身的运行依赖、上下游关系及适用场景。
-- **使用中的自生长与自动固化**：TeamCC 记录着丰富的运行时行为（例如 `.claude/skill-events/` 记录）。通过追踪员工解决复杂问题的调用链与最终有效的代码结果，系统可以在员工的使用过程中，不断总结并在后台自动沉淀出新的标准 Skill，从而反哺整个平台。
-- **无感式的智能召回 (Contextual Skill Retrieval)**：面对庞大的企业级 Skill 库，在使用时员工根本不需要刻意搜索。当触发具体任务时，TeamCC 在后台会自动结合所在的项目目录、Git Worktree 配置以及历史记录，精准分析并按需加载最匹配的工作流 Skill 集，让 Agent “生而知之”。
-- **隐性资产的企业级复用**：通过 Skill 图谱（Skill Graph），一个安全专家在特定分支沉淀的代码审计 Skill、或是运维专家编写的自动化 Docker 联调 Skill，能够平滑流转给其他普通研发人员随时调用，实现企业内部知识的指数级辐射与分发。
+把 Claude Code 直接交给团队用，最大的风险就是"过度信任"。Agent 有能力读写任意文件、执行任意命令，如果不做约束：
+
+- 实习生可能让 Agent 改了不该改的核心模块
+- Agent 可能执行破坏性的 shell 命令（`rm -rf`、`docker down` 之类）
+- 不同项目组的代码和密钥没有隔离，存在横向越权
+
+### 做法
+
+TeamCC 的思路是：**身份 → 权限包 → 运行时拦截 → 审计**，形成闭环。
+
+#### 1. 统一身份接入
+
+Claude Code 启动时，先从 TeamCC Admin 拉取当前用户的身份信息（部门、角色、项目），不依赖本地手写配置文件。
+
+```
+src/bootstrap/teamccAuth.ts   → 登录、token 刷新、身份拉取
+src/utils/identity.ts         → 身份数据结构化，给后续权限判断和 Skill 选择用
+```
+
+#### 2. 权限包下发与注入
+
+管理员在 Admin 后台配置好各角色的权限策略（哪些目录可读写、哪些命令禁止执行、哪些工具需要审批），TeamCC 在运行时把这些规则注入到 Claude Code 的权限管道里。
+
+```
+src/utils/permissions/teamccLoader.ts   → 从后端拉权限包，转成运行时规则
+src/utils/permissions/rulesMerger.ts    → 多来源规则按"最严格"原则合并
+```
+
+关键点：**企业规则优先级高于本地配置**。员工不能通过修改本地 `.claude/` 配置文件绕过企业策略。deny 规则绝对优先。
+
+#### 3. 运行时拦截
+
+当 Agent 要执行某个操作时（写文件、跑命令、调工具），权限引擎实时判断：
+
+- **allow**：直接放行
+- **deny**：立即阻断，Agent 无法执行
+- **ask**：弹出审批，需要上级确认
+
+#### 4. 全链路审计
+
+每次操作都会以 fire-and-forget 方式上报到 Admin 后台，记录：谁、什么身份、做了什么、结果如何。
+
+```
+src/bootstrap/teamccAudit.ts  → 审计上报（boot / bash_command / file_write / tool_permission_decision）
+```
+
+Admin 后台提供审计日志查询，以及基于 Neo4j 的权限拓扑可视化（人 → 角色 → 可操作资源的关系图）。
 
 ---
 
-## 🛠️ 项目特色与架构理念
+## 🧠 Skill 沉淀体系
 
-- **隔离化并发体系**：利用 Git Worktree 与 Docker 结合的方式，建立极其安全且互不干扰的独立本地与容器开发上下文，完美契合多 Agent 协作流。
-- **图数据驱动治理 (Neo4j)**：无论是人员的权限边界还是复杂的 Skill 调用关系链路，底层均采用高效的图数据库结构，赋予平台洞探关系网络带来的分析能力。
+个人用 Agent 的痛点是每次都要重新教；团队的痛点是好的经验出不了个人目录。TeamCC 把 Skill 从散落的文件变成可检索、可评价、可流转的团队资产。
+
+- **结构化存储**：Skill 统一管理，带标准元信息（适用场景、部门标签、依赖关系）。底层用 pgvector 做向量检索，Neo4j 存 Skill 之间的关系图谱。
+- **按上下文自动召回**：不需要手动找 Skill。Agent 启动时根据项目目录、用户身份、任务描述，自动用 BM25 + 向量混合检索召回最匹配的 Skill。
+- **越用越好**：记录每个 Skill 的调用结果和用户反馈，数据回流到排序模型和图谱，好用的排名上升，不好用的下沉。
+- **跨团队流转**：一个人沉淀的 Skill 经评测验证后，可被整个团队甚至跨部门调用。
+
+```
+审计事件类型：skill_invoked / skill_completed / skill_feedback
+```
+
+#### 4. 团队级流转
+
+一个人沉淀的 Skill，经过评测验证后，可以被整个团队甚至跨部门使用。通过 Neo4j 图谱可以清楚看到 Skill 的来源、依赖关系和使用热度。
+
+---
+
+## 本地开发
+
+详细的启动步骤、分支规范、Docker 用法见 [DEVELOPMENT.md](./DEVELOPMENT.md)。
+
+快速概览：
+
+```bash
+# 启动数据库
+cd teamcc-admin && docker compose up -d
+cd skill-graph && bun run skills:db:up
+
+# 初始化数据
+cd teamcc-admin && npm ci && npm run db:push && npm run seed
+cd skill-graph && bun run skills:graph:seed-v1
+
+# 启动 Admin 后台
+cd teamcc-admin && npm run dev              # 后端 :3000
+cd teamcc-admin/frontend && npm run dev     # 前端 :5173
+
+# 验证 TeamSkill CLI
+cd TeamSkill-ClaudeCode && bun run version
+```
+
+---
+
+## 技术栈
+
+| 层 | 技术 |
+|---|---|
+| Coding Agent 内核 | Claude Code（TypeScript，深度改造） |
+| Admin 后端 | Node.js + Hono + Drizzle ORM |
+| Admin 前端 | React + Vite |
+| 关系型数据库 | PostgreSQL |
+| 向量检索 | pgvector |
+| 图数据库 | Neo4j |
+| 运行时 | Bun / Node.js |
+| 容器 | Docker Compose |
