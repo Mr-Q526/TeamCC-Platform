@@ -81,6 +81,7 @@
     "p-map": "*",
     "picomatch": "*",
     "proper-lockfile": "*",
+    "pg": "^8.16.3",
     "qrcode": "*",
     "react": "*",
     "react-reconciler": "*",

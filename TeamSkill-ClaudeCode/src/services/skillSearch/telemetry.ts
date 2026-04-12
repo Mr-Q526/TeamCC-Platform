@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import { appendFile, mkdir, readFile, readdir } from 'fs/promises'
 import { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
 import {
   createSkillFactEvent,
   type SkillFactContext,
@@ -11,14 +12,17 @@ import {
   type SkillFactRetrieval,
   type SkillFactSource,
 } from '../../../../skill-graph/src/events/skillFacts.js'
+import {
+  hasSkillFactPgConfig,
+  insertSkillFactEvent,
+  type SkillFactSinkMode,
+} from '../../../../skill-graph/src/events/storage.js'
 import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { logForDebugging } from '../../utils/debug.js'
 import {
   getSkillRegistryLocations,
   readGeneratedSkillRegistry,
 } from './registry.js'
-
-export type SkillTelemetryMode = 'local' | 'off'
 
 export type SkillTelemetryMetadata = {
   skillId: string
@@ -64,20 +68,42 @@ type SkillFactBuildInput = {
 }
 
 const metadataCache = new Map<string, Promise<SkillTelemetryMetadata | null>>()
+const SKILL_GRAPH_EVENTS_DIR = fileURLToPath(
+  new URL('../../../../skill-graph/data/events', import.meta.url),
+)
 
-function getTelemetryMode(): SkillTelemetryMode {
-  const mode = process.env.SKILL_EVAL_TELEMETRY?.trim().toLowerCase()
-  if (mode === 'off') return 'off'
-  return 'local'
+export function resolveSkillFactSinkMode(): SkillFactSinkMode {
+  const evalTelemetry = process.env.SKILL_EVAL_TELEMETRY?.trim().toLowerCase()
+  if (evalTelemetry === 'off') {
+    return 'off'
+  }
+
+  const explicitSink = process.env.SKILL_FACT_SINK?.trim().toLowerCase()
+  if (
+    explicitSink === 'postgres' ||
+    explicitSink === 'jsonl' ||
+    explicitSink === 'off'
+  ) {
+    return explicitSink
+  }
+
+  return hasSkillFactPgConfig() ? 'postgres' : 'jsonl'
 }
 
 function getTelemetryFilePath(cwd?: string): string {
-  const explicitPath = process.env.SKILL_EVAL_EVENTS_PATH?.trim()
+  const explicitPath =
+    process.env.SKILL_FACT_EVENTS_PATH?.trim() ??
+    process.env.SKILL_EVAL_EVENTS_PATH?.trim()
   if (explicitPath) {
     return explicitPath
   }
 
-  return join(cwd || process.cwd(), '.claude', 'skill-events', 'events.jsonl')
+  const explicitDir = process.env.SKILL_FACT_EVENTS_DIR?.trim()
+  if (explicitDir) {
+    return join(explicitDir, 'events.jsonl')
+  }
+
+  return join(SKILL_GRAPH_EVENTS_DIR, 'events.jsonl')
 }
 
 function toStringValue(value: unknown, fallback = ''): string {
@@ -238,11 +264,26 @@ export function buildSkillFactEvent(
 }
 
 export async function logSkillFactEvent(event: SkillFactEvent): Promise<void> {
-  if (getTelemetryMode() === 'off') {
+  const sinkMode = resolveSkillFactSinkMode()
+  if (sinkMode === 'off') {
     return
   }
 
   const filePath = getTelemetryFilePath(event.context.cwd ?? undefined)
+
+  if (sinkMode === 'postgres') {
+    try {
+      await insertSkillFactEvent(event)
+      return
+    } catch (error) {
+      logForDebugging(
+        `[skill-telemetry] failed to write PostgreSQL skill fact event ${event.eventId}: ${error}`,
+        {
+          level: 'warn',
+        },
+      )
+    }
+  }
 
   try {
     await mkdir(dirname(filePath), { recursive: true })
