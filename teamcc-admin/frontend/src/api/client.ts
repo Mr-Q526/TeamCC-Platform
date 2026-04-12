@@ -178,6 +178,79 @@ export const getAuditLogs = (
   return apiFetch(`${API_BASE}/admin/audit?${qs}`, token)
 }
 
+// ─── Admin: Skill Graph Integration (Reserved) ──────────────────────────────
+
+export interface SkillGraphCapabilityEntry {
+  implemented: boolean
+  endpoint: string
+  method: 'GET' | 'POST'
+}
+
+export interface SkillGraphCapabilitiesResponse {
+  service: 'skill-graph'
+  status: 'reserved'
+  capabilities: {
+    import: SkillGraphCapabilityEntry
+    weightExport: SkillGraphCapabilityEntry
+    executionStats: SkillGraphCapabilityEntry
+  }
+}
+
+export interface ReservedSkillResponse {
+  ok: false
+  status: 'not_implemented'
+  capability: 'skill_import' | 'weight_export' | 'execution_stats'
+  service: 'skill-graph'
+  message: string
+  input: Record<string, unknown> | null
+}
+
+export const getSkillGraphCapabilities = (token: string) =>
+  apiFetch(`${API_BASE}/admin/skills/capabilities`, token) as Promise<SkillGraphCapabilitiesResponse>
+
+export const importSkills = (
+  token: string,
+  body: {
+    sourceType?: string
+    sourceRef?: string
+    dryRun?: boolean
+  },
+) =>
+  apiFetch(`${API_BASE}/admin/skills/import`, token, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  }) as Promise<ReservedSkillResponse>
+
+export const exportSkillWeights = (
+  token: string,
+  params?: {
+    format?: string
+    scope?: string
+    window?: string
+  },
+) => {
+  const qs = new URLSearchParams()
+  if (params?.format) qs.set('format', params.format)
+  if (params?.scope) qs.set('scope', params.scope)
+  if (params?.window) qs.set('window', params.window)
+  return apiFetch(`${API_BASE}/admin/skills/weights/export?${qs}`, token) as Promise<ReservedSkillResponse>
+}
+
+export const getSkillExecutionStats = (
+  token: string,
+  params?: {
+    window?: string
+    groupBy?: string
+    skillId?: string
+  },
+) => {
+  const qs = new URLSearchParams()
+  if (params?.window) qs.set('window', params.window)
+  if (params?.groupBy) qs.set('groupBy', params.groupBy)
+  if (params?.skillId) qs.set('skillId', params.skillId)
+  return apiFetch(`${API_BASE}/admin/skills/execution-stats?${qs}`, token) as Promise<ReservedSkillResponse>
+}
+
 // ─── Policy Bundle (for Claude Code) ───────────────────────────────────────────
 
 export const getPolicyBundle = (token: string, projectId: number, userId?: number) => {

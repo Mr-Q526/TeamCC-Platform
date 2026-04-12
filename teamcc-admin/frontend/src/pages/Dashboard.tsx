@@ -12,7 +12,6 @@ import TemplatesPage from './TemplatesPage'
 import AuditPage from './AuditPage'
 import PoliciesPage from './PoliciesPage'
 import AssignmentsPage from './AssignmentsPage'
-import Neo4jPage from './Neo4jPage'
 import '../styles/Dashboard.css'
 
 interface DashboardProps {
@@ -20,7 +19,7 @@ interface DashboardProps {
   onLogout: () => void
 }
 
-type ViewKey = 'home' | 'users' | 'assignments' | 'templates' | 'audit' | 'policies' | 'neo4j'
+type ViewKey = 'home' | 'users' | 'assignments' | 'templates' | 'audit' | 'policies'
 
 interface RecentActivity {
   id: number
@@ -60,6 +59,7 @@ const EMPTY_OVERVIEW: OverviewState = {
 export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
       const { t, i18n } = useTranslation()
       const isZh = i18n.language === 'zh'
+  const neo4jBrowserUrl = import.meta.env.VITE_NEO4J_BROWSER_URL?.trim() || 'http://127.0.0.1:7474/browser/'
 
   const copy = isZh
     ? {
@@ -505,13 +505,18 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
         policy: 'Policy',
       }
 
-  const navItems: Array<{ key: ViewKey; icon: 'dashboard' | 'users' | 'templates' | 'audit' | 'shield' | 'spark' | 'graph'; label: string }> = [
+  const navItems: Array<{
+    key: ViewKey | 'neo4j'
+    icon: 'dashboard' | 'users' | 'templates' | 'audit' | 'shield' | 'spark' | 'graph'
+    label: string
+    externalHref?: string
+  }> = [
     { key: 'home', icon: 'dashboard', label: t('nav.dashboard') },
     { key: 'users', icon: 'users', label: t('nav.users') },
     { key: 'assignments', icon: 'spark', label: isZh ? '项目授权' : 'Assignments' },
     { key: 'templates', icon: 'templates', label: t('nav.templates') },
     { key: 'policies', icon: 'shield', label: isZh ? '部门策略' : 'Policies' },
-    { key: 'neo4j', icon: 'graph', label: isZh ? 'Neo4j 图谱' : 'Neo4j Graph' },
+    { key: 'neo4j', icon: 'graph', label: isZh ? 'Neo4j 图谱' : 'Neo4j Graph', externalHref: neo4jBrowserUrl },
     { key: 'audit', icon: 'audit', label: t('nav.audit') },
   ]
 
@@ -527,6 +532,10 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
       setOverviewLoading(true)
     }
     setCurrentPage(page)
+  }
+
+  const openExternalPage = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer')
   }
 
   const renderHome = () => (
@@ -736,8 +745,14 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
             {navItems.map((item) => (
               <button
                 key={item.key}
-                className={`nav-button ${currentPage === item.key ? 'active' : ''}`}
-                onClick={() => navigateTo(item.key)}
+                className={`nav-button ${!item.externalHref && currentPage === item.key ? 'active' : ''}`}
+                onClick={() => {
+                  if (item.externalHref) {
+                    openExternalPage(item.externalHref)
+                    return
+                  }
+                  navigateTo(item.key as ViewKey)
+                }}
                 title={item.label}
               >
                 <span className="nav-icon">
@@ -799,9 +814,6 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
             )}
             {currentPage === 'policies' && (
               <PoliciesPage accessToken={accessToken} onDataChange={loadOverview} />
-            )}
-            {currentPage === 'neo4j' && (
-              <Neo4jPage browserUrl={import.meta.env.VITE_NEO4J_BROWSER_URL} />
             )}
             {currentPage === 'audit' && <AuditPage accessToken={accessToken} />}
           </main>

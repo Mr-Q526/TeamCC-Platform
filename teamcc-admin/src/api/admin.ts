@@ -78,6 +78,21 @@ async function writeAudit(
   })
 }
 
+function sendReservedSkillResponse(
+  reply: { status: (code: number) => { send: (payload: unknown) => unknown } },
+  capability: 'skill_import' | 'weight_export' | 'execution_stats',
+  input?: Record<string, unknown>,
+) {
+  return reply.status(501).send({
+    ok: false,
+    status: 'not_implemented',
+    capability,
+    service: 'skill-graph',
+    message: 'Reserved for future skill-graph service integration',
+    input: input ?? null,
+  })
+}
+
 export async function registerAdminRoutes(fastify: FastifyInstance) {
   // ─────────────────────────────────────────────
   //  Dictionaries
@@ -712,6 +727,96 @@ export async function registerAdminRoutes(fastify: FastifyInstance) {
       await writeAudit(actorId, 'delete', 'department_policy', policyId, existing, { status: 'disabled' })
 
       return reply.send({ ok: true })
+    } catch (e) {
+      return reply.status(401).send({ error: (e as Error).message })
+    }
+  })
+
+  // ─────────────────────────────────────────────
+  //  Skill Graph Integration (Reserved)
+  // ─────────────────────────────────────────────
+
+  fastify.get('/admin/skills/capabilities', async (request, reply) => {
+    try {
+      await requireAdmin(request)
+      return reply.send({
+        service: 'skill-graph',
+        status: 'reserved',
+        capabilities: {
+          import: {
+            implemented: false,
+            endpoint: '/admin/skills/import',
+            method: 'POST',
+          },
+          weightExport: {
+            implemented: false,
+            endpoint: '/admin/skills/weights/export',
+            method: 'GET',
+          },
+          executionStats: {
+            implemented: false,
+            endpoint: '/admin/skills/execution-stats',
+            method: 'GET',
+          },
+        },
+      })
+    } catch (e) {
+      return reply.status(401).send({ error: (e as Error).message })
+    }
+  })
+
+  fastify.post<{
+    Body: {
+      sourceType?: string
+      sourceRef?: string
+      dryRun?: boolean
+    }
+  }>('/admin/skills/import', async (request, reply) => {
+    try {
+      await requireAdmin(request)
+      return sendReservedSkillResponse(reply, 'skill_import', {
+        sourceType: request.body?.sourceType ?? null,
+        sourceRef: request.body?.sourceRef ?? null,
+        dryRun: request.body?.dryRun ?? false,
+      })
+    } catch (e) {
+      return reply.status(401).send({ error: (e as Error).message })
+    }
+  })
+
+  fastify.get<{
+    Querystring: {
+      format?: string
+      scope?: string
+      window?: string
+    }
+  }>('/admin/skills/weights/export', async (request, reply) => {
+    try {
+      await requireAdmin(request)
+      return sendReservedSkillResponse(reply, 'weight_export', {
+        format: request.query?.format ?? 'json',
+        scope: request.query?.scope ?? 'global',
+        window: request.query?.window ?? '30d',
+      })
+    } catch (e) {
+      return reply.status(401).send({ error: (e as Error).message })
+    }
+  })
+
+  fastify.get<{
+    Querystring: {
+      window?: string
+      groupBy?: string
+      skillId?: string
+    }
+  }>('/admin/skills/execution-stats', async (request, reply) => {
+    try {
+      await requireAdmin(request)
+      return sendReservedSkillResponse(reply, 'execution_stats', {
+        window: request.query?.window ?? '30d',
+        groupBy: request.query?.groupBy ?? 'skill',
+        skillId: request.query?.skillId ?? null,
+      })
     } catch (e) {
       return reply.status(401).send({ error: (e as Error).message })
     }
