@@ -535,7 +535,7 @@ export type Attachment =
         rank: number
         retrievalSource: 'local_lexical' | 'local_hybrid'
         finalScore: number
-        scoreBreakdown: {
+        finalScoreBreakdown: {
           recallNormalized: number
           graphFeatureScore: number
         }
@@ -547,7 +547,7 @@ export type Attachment =
       dataVersions?: {
         registryVersion: string | null
         embeddingsGeneratedAt: string | null
-        aggregateGeneratedAt: string | null
+        retrievalFeaturesGeneratedAt: string | null
       }
     }
   | {

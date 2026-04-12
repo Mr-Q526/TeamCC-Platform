@@ -146,6 +146,13 @@ const DEFAULT_OUTPUT_FILE = join(
   GENERATED_SKILL_RETRIEVAL_FEATURES_FILE,
 )
 
+function resolveRetrievalFeaturesFilePath(filePath?: string): string {
+  return (
+    filePath ||
+    process.env.SKILL_RETRIEVAL_FEATURES_PATH?.trim() ||
+    DEFAULT_OUTPUT_FILE
+  )
+}
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
@@ -473,7 +480,7 @@ export function buildSkillRetrievalFeatures(
 }
 
 export async function readSkillRetrievalFeatures(
-  filePath = DEFAULT_OUTPUT_FILE,
+  filePath = resolveRetrievalFeaturesFilePath(),
 ): Promise<SkillRetrievalFeaturesManifest | null> {
   if (!existsSync(filePath)) {
     return null
