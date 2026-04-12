@@ -5,6 +5,7 @@ import {
   fileHistoryTrackEdit,
 } from 'src/utils/fileHistory.js'
 import { z } from 'zod/v4'
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
 import { buildTool, type ToolDef, type ToolUseContext } from '../../Tool.js'
 import type { NotebookCell, NotebookContent } from '../../types/notebook.js'
 import { getCwd } from '../../utils/cwd.js'
@@ -451,6 +452,18 @@ export const NotebookEditTool = buildTool({
         original_file: content,
         updated_file: updatedContent,
       }
+
+      void reportAuditLog(getCwd(), 'file_write', {
+        toolName: NOTEBOOK_EDIT_TOOL_NAME,
+        targetPath: fullPath,
+        changeType: edit_mode ?? 'replace',
+        failed: false,
+        interrupted: false,
+        contentBytes: Buffer.byteLength(updatedContent, 'utf8'),
+        previousContentBytes: Buffer.byteLength(content, 'utf8'),
+        cellId: new_cell_id || cell_id || null,
+      })
+
       return {
         data,
       }

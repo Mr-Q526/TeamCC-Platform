@@ -1,18 +1,13 @@
 /**
- * Identity Profile loader and ID-to-label mapping cache.
+ * Identity profile loader.
  *
- * Reads `.claude/identity/active.md` (YAML frontmatter only), parses the
- * numeric ID fields into a typed IdentityProfile, and provides a cached
- * mapping layer that converts IDs to human-readable labels for Skill
- * retrieval and model context injection.
+ * Converts verified TeamCC identity payloads into runtime IdentityProfile
+ * objects and exposes optional display labels when TeamCC provides them.
  */
 
-import { join } from 'path'
-import { getFsImplementation } from './fsOperations.js'
 import { logForDebugging } from './debug.js'
 import { logForDiagnosticsNoPII } from './diagLogs.js'
 import type { IdentityEnvelope } from '../bootstrap/teamccAuth.js'
-import { getTeamCCIdentityPath } from './teamccPaths.js'
 import { loadCachedIdentity } from '../bootstrap/teamccAuth.js'
 
 // ---------------------------------------------------------------------------
@@ -21,91 +16,75 @@ import { loadCachedIdentity } from '../bootstrap/teamccAuth.js'
 
 export type IdentityProfile = {
   userId: number
+  username?: string
   orgId: number | null
   departmentId: number
   teamId: number
   roleId: number
   levelId: number
   projectId: number
+  orgLabel?: string | null
+  departmentLabel?: string
+  teamLabel?: string
+  roleLabel?: string
+  levelLabel?: string
 }
 
 // ---------------------------------------------------------------------------
-// ID → Label mapping dictionaries (in-memory cache)
+// Display helpers
 // ---------------------------------------------------------------------------
 
-const DEPARTMENT_MAP: Record<number, string> = {
-  101: 'frontend',
-  102: 'backend',
-  103: 'qa',
-  104: 'sre',
-  105: 'data',
-  106: 'mobile',
-  107: 'product',
-  108: 'operations',
-  109: 'hr',
-  110: 'finance',
-  111: 'security',
-  112: 'design',
+function normalizeIdentityLabel(value: string | null | undefined): string | undefined {
+  const normalized = value?.trim()
+  return normalized ? normalized : undefined
 }
 
-const ROLE_MAP: Record<number, string> = {
-  201: 'frontend-developer',
-  202: 'java-developer',
-  203: 'test-automation',
-  204: 'devops-sre',
+function formatIdentityFallback(kind: string, id: number | null | undefined): string {
+  return id === null || id === undefined ? `${kind}=unknown` : `${kind}_id=${id}`
 }
 
-const LEVEL_MAP: Record<number, string> = {
-  301: 'p3',
-  302: 'p4',
-  303: 'p5',
-  304: 'p6',
-  305: 'p7',
+function formatIdentityContextValue(
+  kind: string,
+  id: number | null | undefined,
+  label?: string | null,
+): string {
+  const normalized = normalizeIdentityLabel(label)
+  return normalized ? `${kind}=${normalized}` : formatIdentityFallback(kind, id)
 }
 
-const ORG_MAP: Record<number, string> = {
-  10: 'org_tech_hub',
-  20: 'org_business',
+export function mapDepartment(
+  id: number,
+  label?: string | null,
+): string {
+  return normalizeIdentityLabel(label) ?? formatIdentityFallback('department', id)
 }
 
-const TEAM_MAP: Record<number, string> = {
-  1011: 'commerce-web',
-  1012: 'growth-mobile',
-  1013: 'admin-portal',
-  1021: 'payment-infra',
-  1022: 'order-service',
-  1051: 'data-platform',
-  1052: 'algorithm',
-  1071: 'product-growth',
-  1072: 'product-platform',
-  1081: 'content-ops',
-  1082: 'user-ops',
-  1091: 'talent-acquisition',
-  1092: 'hrbp',
+export function mapRole(
+  id: number,
+  label?: string | null,
+): string {
+  return normalizeIdentityLabel(label) ?? formatIdentityFallback('role', id)
 }
 
-// ---------------------------------------------------------------------------
-// Mapping helpers (cache-friendly — the maps ARE the cache)
-// ---------------------------------------------------------------------------
-
-export function mapDepartment(id: number): string {
-  return DEPARTMENT_MAP[id] ?? `unknown_dept(${id})`
+export function mapLevel(
+  id: number,
+  label?: string | null,
+): string {
+  return normalizeIdentityLabel(label) ?? formatIdentityFallback('level', id)
 }
 
-export function mapRole(id: number): string {
-  return ROLE_MAP[id] ?? `unknown_role(${id})`
+export function mapOrg(
+  id: number | null,
+  label?: string | null,
+): string {
+  return normalizeIdentityLabel(label) ?? formatIdentityFallback('org', id)
 }
 
-export function mapLevel(id: number): string {
-  return LEVEL_MAP[id] ?? `unknown_level(${id})`
-}
-
-export function mapOrg(id: number): string {
-  return ORG_MAP[id] ?? `unknown_org(${id})`
-}
-
-export function mapTeam(id: number): string {
-  return TEAM_MAP[id] ?? `unknown_team(${id})`
+export function mapTeam(
+  id: number,
+  label?: string | null,
+): string {
+  return normalizeIdentityLabel(label) ?? formatIdentityFallback('team', id)
 }
 
 // ---------------------------------------------------------------------------
@@ -152,19 +131,42 @@ export function envelopeToProfile(
   projectId?: number,
 ): IdentityProfile {
   const subject = envelope.subject
+  const labels = envelope.labels
   return {
     userId: subject.userId,
+    username: normalizeIdentityLabel(subject.username),
     orgId: subject.orgId ?? null,
     departmentId: subject.departmentId,
     teamId: subject.teamId,
     roleId: subject.roleId,
     levelId: subject.levelId,
     projectId: projectId ?? subject.defaultProjectId ?? 1,
+    orgLabel:
+      normalizeIdentityLabel(labels?.org) ??
+      normalizeIdentityLabel(subject.orgLabel) ??
+      normalizeIdentityLabel(subject.orgName) ??
+      null,
+    departmentLabel:
+      normalizeIdentityLabel(labels?.department) ??
+      normalizeIdentityLabel(subject.departmentLabel) ??
+      normalizeIdentityLabel(subject.departmentName),
+    teamLabel:
+      normalizeIdentityLabel(labels?.team) ??
+      normalizeIdentityLabel(subject.teamLabel) ??
+      normalizeIdentityLabel(subject.teamName),
+    roleLabel:
+      normalizeIdentityLabel(labels?.role) ??
+      normalizeIdentityLabel(subject.roleLabel) ??
+      normalizeIdentityLabel(subject.roleName),
+    levelLabel:
+      normalizeIdentityLabel(labels?.level) ??
+      normalizeIdentityLabel(subject.levelLabel) ??
+      normalizeIdentityLabel(subject.levelName),
   }
 }
 
 /**
- * Loads identity from local cache with fallback support
+ * Backwards-compatible alias for cached TeamCC identity loading.
  */
 export async function loadLocalIdentityProfile(
   cwd: string,
@@ -184,13 +186,17 @@ export function buildIdentityContextString(
   profile: IdentityProfile,
 ): string {
   const parts = [
-    `department=${mapDepartment(profile.departmentId)}`,
-    `team=${mapTeam(profile.teamId)}`,
-    `role=${mapRole(profile.roleId)}`,
-    `level=${mapLevel(profile.levelId)}`,
+    formatIdentityContextValue(
+      'department',
+      profile.departmentId,
+      profile.departmentLabel,
+    ),
+    formatIdentityContextValue('team', profile.teamId, profile.teamLabel),
+    formatIdentityContextValue('role', profile.roleId, profile.roleLabel),
+    formatIdentityContextValue('level', profile.levelId, profile.levelLabel),
   ]
   if (profile.orgId !== null) {
-    parts.unshift(`org=${mapOrg(profile.orgId)}`)
+    parts.unshift(formatIdentityContextValue('org', profile.orgId, profile.orgLabel))
   }
   return `Current operator identity: ${parts.join(', ')} (user_id=${profile.userId}, project_id=${profile.projectId})`
 }

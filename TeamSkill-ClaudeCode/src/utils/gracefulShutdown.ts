@@ -36,6 +36,7 @@ import {
   logEvent,
 } from '../services/analytics/index.js'
 import type { AppState } from '../state/AppState.js'
+import { reportAuditLog } from '../bootstrap/teamccAudit.js'
 import { runCleanupFunctions } from './cleanupRegistry.js'
 import { logForDebugging } from './debug.js'
 import { logForDiagnosticsNoPII } from './diagLogs.js'
@@ -427,6 +428,20 @@ export async function gracefulShutdown(
 
   // Set the exit code that will be used when process naturally exits
   process.exitCode = exitCode
+
+  try {
+    await reportAuditLog(
+      process.cwd(),
+      'exit',
+      { exitCode, reason },
+      {
+        allowCachedConfigFallback: reason === 'logout',
+        refreshToken: false,
+      },
+    )
+  } catch {
+    // Ignore TeamCC audit failures during shutdown
+  }
 
   // Exit alt screen and print resume hint FIRST, before any async operations.
   // This ensures the hint is visible even if the process is killed during

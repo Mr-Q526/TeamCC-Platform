@@ -183,6 +183,13 @@ type State = {
       content: string
       invokedAt: number
       agentId: string | null
+      skillId: string | null
+      version: string | null
+      sourceHash: string | null
+      traceId: string | null
+      taskId: string | null
+      retrievalRoundId: string | null
+      resolutionError: string | null
     }
   >
   // Track slow operations for dev bar display (ant-only)
@@ -254,9 +261,16 @@ type State = {
   // logAPISuccess to tag the first post-compaction API call so we can
   // distinguish compaction-induced cache misses from TTL expiry.
   pendingPostCompaction: boolean
-  // Team identity profile parsed from .claude/identity/active.md frontmatter.
-  // Used by permission compiler, Skill selector, and context injection.
+  // TeamCC identity profile verified from remote /identity/me.
+  // Used by permission compiler, Skill selector, audit enrichment, and context injection.
   identityProfile: import('../utils/identity.js').IdentityProfile | null
+  // Current TeamCC enterprise session state for the running process.
+  teamccSessionState:
+    | 'unauthenticated'
+    | 'authenticated_scoped'
+    | 'authenticated_restricted'
+  // Optional failure reason attached to the current TeamCC session state.
+  teamccSessionFailureReason: string | null
 }
 
 // ALSO HERE - THINK THRICE BEFORE MODIFYING
@@ -423,8 +437,10 @@ function getInitialState(): State {
     lastMainRequestId: undefined,
     lastApiCompletionTimestamp: null,
     pendingPostCompaction: false,
-    // Identity profile - loaded from .claude/identity/active.md in setup
+    // TeamCC runtime identity/session state
     identityProfile: null,
+    teamccSessionState: 'unauthenticated',
+    teamccSessionFailureReason: null,
   }
 
   return state
@@ -1229,6 +1245,25 @@ export function getIdentityProfile(): import('../utils/identity.js').IdentityPro
   return STATE.identityProfile
 }
 
+export function setTeamCCSessionState(
+  state: 'unauthenticated' | 'authenticated_scoped' | 'authenticated_restricted',
+  failureReason: string | null = null,
+): void {
+  STATE.teamccSessionState = state
+  STATE.teamccSessionFailureReason = failureReason
+}
+
+export function getTeamCCSessionState():
+  | 'unauthenticated'
+  | 'authenticated_scoped'
+  | 'authenticated_restricted' {
+  return STATE.teamccSessionState
+}
+
+export function getTeamCCSessionFailureReason(): string | null {
+  return STATE.teamccSessionFailureReason
+}
+
 export function addToInMemoryErrorLog(errorInfo: {
   error: string
   timestamp: string
@@ -1522,6 +1557,13 @@ export type InvokedSkillInfo = {
   content: string
   invokedAt: number
   agentId: string | null
+  skillId: string | null
+  version: string | null
+  sourceHash: string | null
+  traceId: string | null
+  taskId: string | null
+  retrievalRoundId: string | null
+  resolutionError: string | null
 }
 
 export function addInvokedSkill(
@@ -1529,6 +1571,15 @@ export function addInvokedSkill(
   skillPath: string,
   content: string,
   agentId: string | null = null,
+  metadata?: {
+    skillId?: string | null
+    version?: string | null
+    sourceHash?: string | null
+    traceId?: string | null
+    taskId?: string | null
+    retrievalRoundId?: string | null
+    resolutionError?: string | null
+  },
 ): void {
   const key = `${agentId ?? ''}:${skillName}`
   STATE.invokedSkills.set(key, {
@@ -1537,6 +1588,13 @@ export function addInvokedSkill(
     content,
     invokedAt: Date.now(),
     agentId,
+    skillId: metadata?.skillId ?? null,
+    version: metadata?.version ?? null,
+    sourceHash: metadata?.sourceHash ?? null,
+    traceId: metadata?.traceId ?? null,
+    taskId: metadata?.taskId ?? null,
+    retrievalRoundId: metadata?.retrievalRoundId ?? null,
+    resolutionError: metadata?.resolutionError ?? null,
   })
 }
 
@@ -1772,4 +1830,3 @@ export function getPromptId(): string | null {
 export function setPromptId(id: string | null): void {
   STATE.promptId = id
 }
-

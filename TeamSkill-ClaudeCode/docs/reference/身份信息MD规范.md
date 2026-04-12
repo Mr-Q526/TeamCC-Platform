@@ -1,41 +1,34 @@
-# 身份信息 MD (Identity MD) 规范设计
+# 身份信息 MD 规范设计（已废弃）
 
-## 1. 概述
-`Identity MD` 是团队级多 Skill Coding Agent 的极简身份凭证文件。它仅承载员工的组织身份映射声明，并且**所有属性值均采用纯数字 ID 编码**。其唯一作用是将其注入到 Runtime (运行环境) 中，作为后续映射解析的基础盘。**具体的工具名单、鉴权策略、角色 Prompt 不应写在该文件中。**
+> 2026-04-12 更新：本文描述的是早期本地身份文件方案，现已不再作为 TeamSkill-ClaudeCode 的实施方案。
 
----
+## 当前口径
 
-## 2. 文件存取规范
+- 企业版身份来源统一收敛到 `TeamCC Admin`
+- 运行时身份真相源为 `/identity/me` 返回的 `IdentityEnvelope`
+- 已取消 `.claude/identity/active.md`、活动身份文件和本地身份票据切换方案
 
-- **存放方式**: 维护在 `.claude/identities/` 目录下（如 `frontend-developer.md`）。
-- **激活入口**: 全局通过 `.claude/identity/active.md` 来触发软链读取生效。
+## 为什么废弃
 
----
+本地身份文件无法满足企业版要求：
 
-## 3. YAML 数据结构 (Schema) 
+- 不可统一下发
+- 不可统一失效
+- 不可审计
+- 不适合作为权限控制与 Skill 治理的基础面
 
-文件内只需要一组纯粹的数字 ID 表示。系统会通过运行时的缓存映射表（Lookup Table）将其转换为明文查询标识。
+## 保留本文的原因
 
-### 核心身份元数据组
-| 字段名 | 类型 | 说明 | 是否必填 |
-| --- | --- | --- | --- |
-| `user_id` | Number | 员工工号唯一编码 | 是 |
-| `org_id` | Number | 组织/公司 ID (例如: 10 代表该企业技术中台) | 否 |
-| `department_id` | Number | 所属大部门 (例如: 101 代表大前端结构) | 是 |
-| `team_id` | Number | 所属具体业务团队 (例如: 1011 代表电商前端架构组) | 是 |
-| `role_id` | Number | 角色职位 (例如: 201 代表前端开发) | 是 |
-| `level_id` | Number | 职级控制符，用于鉴别初/高级权限 (例如: 304 代表 P6) | 是 |
+仅用于保留历史设计脉络，帮助理解项目早期为什么会出现：
 
----
+- Identity MD
+- 活动身份文件
+- `CLAUDE.local.md -> @identity-file`
 
-## 4. 运行时映射查询与权限解耦 (Architecture Lookup)
+这些关键词。
 
-### 4.1 字符串映射与缓存查询
-文件提供的是高强度的数字 ID 编码，而在实际检索环节：
-1. Runtime 读取 `Identity MD`，加载到上下文中时得到纯净的数字编码 `[101, 201, 304]`。
-2. 系统随后通过字典（[ID对照表](身份ID对照表.md) 或接口拉取）将这组数字**映射为纯文本查询字段**（比如转为 `{"department":"frontend", "role":"frontend-developer"}`）。
-3. 字典配置应该在客户端内存侧**进行缓存（Cache）**，避免检索每个 Skill 前发生不必要的数据开销流转。
+## 替代阅读
 
-### 4.2 解耦与防篡改优势
-1. 身份文件只管证明“我的编号属性”。具体的工具沙箱名单和长串 Prompt 彻底被剥离。
-2. **阻断提权**：数字 ID 不能自然暴露太多信息，从物理结构上杜绝了使用者在个人电脑前篡改 MD 文件注入如 `allowed_tools: ["Bash(*)"]` 的高危规则，所有鉴权都是后端（策略库）动态对 ID 进行发牌交集校验。
+- `docs/TEAMCC_INTEGRATION_STATUS.md`
+- `docs/TEAMCC_AUTHENTICATION_GUIDE.md`
+- `docs/architecture/20260411-teamcc-admin-integration.md`

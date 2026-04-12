@@ -7,9 +7,9 @@ import { join, normalize, posix, sep } from 'path'
 import { hasAutoMemPathOverride, isAutoMemPath } from 'src/memdir/paths.js'
 import { isAgentMemoryPath } from 'src/tools/AgentTool/agentMemory.js'
 import {
-  CLAUDE_FOLDER_PERMISSION_PATTERN,
   FILE_EDIT_TOOL_NAME,
-  GLOBAL_CLAUDE_FOLDER_PERMISSION_PATTERN,
+  GLOBAL_TEAMCC_FOLDER_PERMISSION_PATTERN,
+  TEAMCC_FOLDER_PERMISSION_PATTERN,
 } from 'src/tools/FileEditTool/constants.js'
 import type { z } from 'zod/v4'
 import { getOriginalCwd, getSessionId } from '../../bootstrap/state.js'
@@ -22,7 +22,10 @@ import {
   getFsImplementation,
   getPathsForPermissionCheck,
 } from '../fsOperations.js'
-import { logPermissionDecision } from './audit.js'
+import {
+  isEnterprisePermissionSource,
+  logPermissionDecision,
+} from './audit.js'
 import {
   containsPathTraversal,
   expandPath,
@@ -77,6 +80,7 @@ export const DANGEROUS_DIRECTORIES = [
   '.git',
   '.vscode',
   '.idea',
+  '.teamcc',
   '.claude',
 ] as const
 
@@ -94,11 +98,11 @@ export function normalizeCaseForComparison(path: string): string {
 }
 
 /**
- * If filePath is inside a .claude/skills/{name}/ directory (project or global),
+ * If filePath is inside a .teamcc/skills/{name}/ directory (project or global),
  * return the skill name and a session-allow pattern scoped to just that skill.
  * Used to offer a narrower "allow edits to this skill only" option in the
  * permission dialog and SDK suggestions, so iterating on one skill doesn't
- * require granting session access to all of .claude/ (settings.json, hooks/, etc.).
+ * require granting session access to all of .teamcc/ (settings.json, hooks/, etc.).
  */
 export function getClaudeSkillScope(
   filePath: string,
@@ -219,7 +223,7 @@ export function isClaudeSettingsPath(filePath: string): boolean {
       `${sep}${TEAMCC_PROJECT_DIR_NAME}${sep}settings.local.json`,
     )
   ) {
-    // Include .claude/settings.json even for other projects
+    // Include .teamcc/settings.json even for other projects
     return true
   }
   // Check for current project's settings files (including managed settings and CLI args)
@@ -235,7 +239,7 @@ function isClaudeConfigFilePath(filePath: string): boolean {
     return true
   }
 
-  // Check if file is within .claude/commands or .claude/agents directories
+  // Check if file is within .teamcc/commands or .teamcc/agents directories
   // using proper path segment validation (not string matching with includes())
   // pathInWorkingPath now handles case-insensitive comparison to prevent bypasses
   const commandsDir = join(
@@ -291,7 +295,7 @@ function isSessionMemoryPath(absolutePath: string): boolean {
 
 /**
  * Check if file is within the current project's directory.
- * Path format: ~/.claude/projects/{sanitized-cwd}/...
+ * Path format: ~/.teamcc/projects/{sanitized-cwd}/...
  */
 function isProjectDirPath(absolutePath: string): boolean {
   const projectDir = getProjectDir(getCwd())
@@ -619,7 +623,7 @@ function hasSuspiciousWindowsPathPattern(path: string): boolean {
  *
  * This function performs comprehensive safety checks including:
  * - Suspicious Windows path patterns (NTFS streams, 8.3 names, long path prefixes, etc.)
- * - Claude config files (.claude/settings.json, .claude/commands/, .claude/agents/)
+ * - TeamCC config files (.teamcc/settings.json, .teamcc/commands/, .teamcc/agents/)
  * - MCP CLI state files (managed internally by Claude Code)
  * - Dangerous files (.bashrc, .gitconfig, .git/, .vscode/, .idea/, etc.)
  *
@@ -1110,12 +1114,16 @@ export function checkReadPermissionForTool(
       'deny',
     )
     if (denyRule) {
-      if (denyRule.source === 'policySettings') {
-        logPermissionDecision('FileRead', 'deny', denyRule.source, String(pathToCheck), denyRule.ruleValue.ruleContent || '*')
-      }
+      logPermissionDecision(
+        'FileRead',
+        'deny',
+        denyRule.source,
+        String(pathToCheck),
+        denyRule.ruleValue.ruleContent || '*',
+      )
       return {
         behavior: 'deny',
-        message: denyRule.source === 'policySettings'
+        message: isEnterprisePermissionSource(denyRule.source)
           ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的访问权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
           : `Permission to read ${path} has been denied.`,
         decisionReason: {
@@ -1136,6 +1144,13 @@ export function checkReadPermissionForTool(
       'ask',
     )
     if (askRule) {
+      logPermissionDecision(
+        'FileRead',
+        'ask',
+        askRule.source,
+        String(pathToCheck),
+        askRule.ruleValue.ruleContent || '*',
+      )
       return {
         behavior: 'ask',
         message: `Claude requested permissions to read from ${path}, but you haven't granted it yet.`,
@@ -1191,6 +1206,13 @@ export function checkReadPermissionForTool(
     'allow',
   )
   if (allowRule) {
+    logPermissionDecision(
+      'FileRead',
+      'allow',
+      allowRule.source,
+      String(path),
+      allowRule.ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'allow',
       updatedInput: input,
@@ -1253,12 +1275,16 @@ export function checkWritePermissionForTool<Input extends AnyObject>(
       'deny',
     )
     if (denyRule) {
-      if (denyRule.source === 'policySettings') {
-        logPermissionDecision('FileWrite', 'deny', denyRule.source, String(pathToCheck), denyRule.ruleValue.ruleContent || '*')
-      }
+      logPermissionDecision(
+        'FileWrite',
+        'deny',
+        denyRule.source,
+        String(pathToCheck),
+        denyRule.ruleValue.ruleContent || '*',
+      )
       return {
         behavior: 'deny',
-        message: denyRule.source === 'policySettings'
+        message: isEnterprisePermissionSource(denyRule.source)
           ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的操作权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
           : `Permission to write to ${path} has been denied.`,
         decisionReason: {
@@ -1280,17 +1306,17 @@ export function checkWritePermissionForTool<Input extends AnyObject>(
     return internalEditResult
   }
 
-  // 1.6. Check for .claude/** allow rules BEFORE safety checks
-  // This allows session-level permissions to bypass the safety blocks for .claude/
+  // 1.6. Check for .teamcc/** allow rules BEFORE safety checks
+  // This allows session-level permissions to bypass the safety blocks for .teamcc/
   // We only allow this for session-level rules to prevent users from accidentally
-  // permanently granting broad access to their .claude/ folder.
+  // permanently granting broad access to their .teamcc/ folder.
   //
   // matchingRuleForInput returns the first match across all sources. If the user
-  // also has a broader Edit(.claude) rule in userSettings (e.g. from sandbox
+  // also has a broader Edit(.teamcc) rule in userSettings (e.g. from sandbox
   // write-allow conversion), that rule would be found first and its source check
   // below would fail. Scope the search to session-only rules so the dialog's
   // "allow Claude to edit its own settings for this session" option actually works.
-  const claudeFolderAllowRule = matchingRuleForInput(
+  const teamccFolderAllowRule = matchingRuleForInput(
     path,
     {
       ...toolPermissionContext,
@@ -1301,30 +1327,37 @@ export function checkWritePermissionForTool<Input extends AnyObject>(
     'edit',
     'allow',
   )
-  if (claudeFolderAllowRule) {
-    // Check if this rule is scoped under .claude/ (project or global).
-    // Accepts both the broad patterns ('/.claude/**', '~/.claude/**') and
-    // narrowed ones like '/.claude/skills/my-skill/**' so users can grant
+  if (teamccFolderAllowRule) {
+    // Check if this rule is scoped under .teamcc/ (project or global).
+    // Accepts both the broad patterns ('/.teamcc/**', '~/.teamcc/**') and
+    // narrowed ones like '/.teamcc/skills/my-skill/**' so users can grant
     // session access to a single skill without also exposing settings.json
     // or hooks/. The rule already matched the path via matchingRuleForInput;
     // this is an additional scope check. Reject '..' to prevent a rule like
-    // '/.claude/../**' from leaking this bypass outside .claude/.
-    const ruleContent = claudeFolderAllowRule.ruleValue.ruleContent
+    // '/.teamcc/../**' from leaking this bypass outside .teamcc/.
+    const ruleContent = teamccFolderAllowRule.ruleValue.ruleContent
     if (
       ruleContent &&
-      (ruleContent.startsWith(CLAUDE_FOLDER_PERMISSION_PATTERN.slice(0, -2)) ||
+      (ruleContent.startsWith(TEAMCC_FOLDER_PERMISSION_PATTERN.slice(0, -2)) ||
         ruleContent.startsWith(
-          GLOBAL_CLAUDE_FOLDER_PERMISSION_PATTERN.slice(0, -2),
+          GLOBAL_TEAMCC_FOLDER_PERMISSION_PATTERN.slice(0, -2),
         )) &&
       !ruleContent.includes('..') &&
       ruleContent.endsWith('/**')
     ) {
+      logPermissionDecision(
+        'FileWrite',
+        'allow',
+        teamccFolderAllowRule.source,
+        String(path),
+        ruleContent,
+      )
       return {
         behavior: 'allow',
         updatedInput: input,
         decisionReason: {
           type: 'rule',
-          rule: claudeFolderAllowRule,
+          rule: teamccFolderAllowRule,
         },
       }
     }
@@ -1334,10 +1367,10 @@ export function checkWritePermissionForTool<Input extends AnyObject>(
   // This MUST come before checking allow rules to prevent users from accidentally granting
   // permission to edit protected files
   const safetyCheck = checkPathSafetyForAutoEdit(path, pathsToCheck)
-  if (!safetyCheck.safe) {
-    // SDK suggestion: if under .claude/skills/{name}/, emit the narrowed
+  if (safetyCheck.safe === false) {
+    // SDK suggestion: if under .teamcc/skills/{name}/, emit the narrowed
     // session-scoped addRules that step 1.6 will honor on the next call.
-    // Everything else (.claude/settings.json, .git/, .vscode/, .idea/) falls
+    // Everything else (.teamcc/settings.json, .git/, .vscode/, .idea/) falls
     // back to generateSuggestions — its setMode suggestion doesn't bypass
     // this check, but preserving it avoids a surprising empty array.
     const skillScope = getClaudeSkillScope(path)
@@ -1377,6 +1410,13 @@ export function checkWritePermissionForTool<Input extends AnyObject>(
       'ask',
     )
     if (askRule) {
+      logPermissionDecision(
+        'FileWrite',
+        'ask',
+        askRule.source,
+        String(pathToCheck),
+        askRule.ruleValue.ruleContent || '*',
+      )
       return {
         behavior: 'ask',
         message: `Claude requested permissions to write to ${path}, but you haven't granted it yet.`,
@@ -1413,6 +1453,13 @@ export function checkWritePermissionForTool<Input extends AnyObject>(
     'allow',
   )
   if (allowRule) {
+    logPermissionDecision(
+      'FileWrite',
+      'allow',
+      allowRule.source,
+      String(path),
+      allowRule.ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'allow',
       updatedInput: input,
@@ -1542,7 +1589,7 @@ export function checkEditableInternalPath(
   // Template job's own directory. Env key hardcoded (vs importing JOB_ENV_KEY
   // from jobs/state) so tree-shaking eliminates the string from external
   // builds — spawn.test.ts asserts the string matches. Hijack guard: the env
-  // var value must itself resolve under ~/.claude/jobs/. Symlink guard: every
+  // var value must itself resolve under ~/.teamcc/jobs/. Symlink guard: every
   // resolved form of the target (lexical + symlink chain) must fall under some
   // resolved form of the job dir, so a symlink inside the job dir pointing at
   // e.g. ~/.ssh/authorized_keys does not get a free write. Resolving both
@@ -1556,7 +1603,7 @@ export function checkEditableInternalPath(
       const jobsRootForms = getPathsForPermissionCheck(jobsRoot).map(normalize)
       // Hijack guard: every resolved form of the job dir must sit under
       // some resolved form of the jobs root. Resolving both sides handles
-      // the case where ~/.claude is a symlink (e.g. to /data/claude-config).
+      // the case where ~/.teamcc is a symlink (e.g. to /data/teamcc-config).
       const isUnderJobsRoot = jobDirForms.every(jd =>
         jobsRootForms.some(jr => jd.startsWith(jr + sep)),
       )
@@ -1595,7 +1642,7 @@ export function checkEditableInternalPath(
 
   // Memdir directory (persistent memory for cross-session learning)
   // This pre-safety-check carve-out exists because the default path is under
-  // ~/.claude/, which is in DANGEROUS_DIRECTORIES. The CLAUDE_COWORK_MEMORY_PATH_OVERRIDE
+  // ~/.teamcc/, which is in DANGEROUS_DIRECTORIES. The CLAUDE_COWORK_MEMORY_PATH_OVERRIDE
   // override is an arbitrary caller-designated directory with no such conflict,
   // so it gets NO special permission treatment here — writes go through normal
   // permission flow (step 5 → ask). SDK callers who want silent memory should
@@ -1611,13 +1658,13 @@ export function checkEditableInternalPath(
     }
   }
 
-  // .claude/launch.json — desktop preview config (dev server command + port).
+  // .teamcc/launch.json — desktop preview config (dev server command + port).
   // The desktop's preview_start MCP tool instructs Claude to create/update
   // this file as part of the preview workflow. Without this carve-out the
-  // .claude/ DANGEROUS_DIRECTORIES check prompts for it, which in SDK mode
+  // .teamcc/ DANGEROUS_DIRECTORIES check prompts for it, which in SDK mode
   // cascades: user clicks "Always allow" → setMode:acceptEdits suggestion
   // applied → silent downgrade from auto mode. Matches the project-level
-  // .claude/ only (not ~/.claude/) since launch.json is per-project.
+  // .teamcc/ only (not ~/.teamcc/) since launch.json is per-project.
   if (
     normalizeCaseForComparison(normalizedPath) ===
     normalizeCaseForComparison(
@@ -1662,7 +1709,7 @@ export function checkReadableInternalPath(
   }
 
   // Project directory (for reading past session memories)
-  // Path format: ~/.claude/projects/{sanitized-cwd}/...
+  // Path format: ~/.teamcc/projects/{sanitized-cwd}/...
   if (isProjectDirPath(normalizedPath)) {
     return {
       behavior: 'allow',
@@ -1757,7 +1804,7 @@ export function checkReadableInternalPath(
     }
   }
 
-  // Tasks directory (~/.claude/tasks/) for swarm task coordination
+  // Tasks directory (~/.teamcc/tasks/) for swarm task coordination
   const tasksDir = join(getClaudeConfigHomeDir(), 'tasks') + sep
   if (
     normalizedPath === tasksDir.slice(0, -1) ||
@@ -1773,7 +1820,7 @@ export function checkReadableInternalPath(
     }
   }
 
-  // Teams directory (~/.claude/teams/) for swarm coordination
+  // Teams directory (~/.teamcc/teams/) for swarm coordination
   const teamsReadDir = join(getClaudeConfigHomeDir(), 'teams') + sep
   if (
     normalizedPath === teamsReadDir.slice(0, -1) ||

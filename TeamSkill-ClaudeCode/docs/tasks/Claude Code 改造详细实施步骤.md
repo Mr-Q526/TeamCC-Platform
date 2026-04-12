@@ -1,84 +1,189 @@
-# Claude Code 团队控制面架构改造详细实施步骤
+# Claude Code 团队控制面改造详细实施步骤
 
-基于前期的 PRD 规划与多轮工程落地探讨，这份完整实施计划定义了将 Claude Code 从个人辅助工具改造为具有强控制面机制的团队级 Coding Agent 的全体改造步骤。
+基于当前落地进度，这份文档重新收敛 Claude Code 的企业版改造主线：**以 TeamCC 作为身份与权限控制面，以 Skill 沉淀作为团队经验资产层。**
 
-## 目标回顾
+## 当前目标
 
-核心思想：**复用底层且无需重造沙箱**。在保持原生 `skill`、`mcp` 和 `hook` 逻辑不变的前提下，在顶部添加一层**防篡改鉴权**、**黑名单级交集授权**，以及**带截断的匹配调度和精密行为追踪**。
+本项目已经不再围绕“本地身份文件 + 本地规则拼装”推进，而是围绕以下两件事推进：
 
----
+1. **权限鉴定**：让企业身份、权限包和工具执行边界形成稳定闭环。
+2. **Skill 沉淀**：让团队经验通过 registry、embedding、graph、feedback 形成可治理资产。
 
-## 阶段改造总览 (分阶段全流程技术方案)
-
-我们将整个落地切片拆分为多个阶段（当前聚焦重点跑通 Phase 1 闭环），对应的核心修改组件如下：
-
-### [Phase 1.1] 身份与强安全状态接入层 (Identity & Verification)
-
-本阶段核心是在会话加载初始时植入“防篡改、防过期的强控制面身份状态检查”，向下抛出并全局挂载 `UserProfile`。
-
-#### 修改点 1：`src/utils/claudemd.ts`
-- **增加组织读取入口**: 核心改造加载函数，注入针对工作区 `.claude/identity/active.md` 或者特定签名存续的读取链路。
-- **防止非授权利用与篡改**: 利用设定好的 Schema（如 Zod）解析元数据内的 `department`, `role`, `level`。
-- **工具与权限配置下发**: (新增改造) `Identity MD` 不仅起挂载身份标签的作用，还将直接作为**动态签发的权限配置票据**，它会在 Frontmatter 中明文配置好改员工可用的工具集（如 `allowed-tools: [...]`）、限制（`disallowed-tools: [...]`），以便将这些参数直接输送给合并权限拦截器。
-- **过期票据硬性拦截**: 必须比对并校验 MD 中的 `expireAt` （过期时间戳）或 Hash 信息完整性。侦测到任何超时或伪造行为皆直接抛错跳出或锁定在拒绝状态下运行。
-- **状态注入**: 将校验合法的职级、标识状态及携带的特定工具权限表，向下传入环境配置表。
-
-#### 修改点 2：`src/context.ts`
-- 在组装给原生大模型可见系统 Prompt 环节的最早期，强行写入员工角色卡标志（如告知当前登录为“测试部门专员”），使其预判行为尺度。
+> 2026-04-12 更新：`.claude/identity/active.md` 方案已取消，企业版身份来源统一收敛到 TeamCC Admin。
 
 ---
 
-### [Phase 1.2] 基于“合并降维打击”的权限重编译器 (Permissions & Rules)
+## Phase 1.1: TeamCC 身份接入层
 
-通过巧妙降维转化达成复杂的 `全局 ∩ 部门 ∩ 项目` 交集授权计算。针对不满足身份要求的规则，通过直接并入系统的最高拦截级别 (`DenyRules`)，实施“降维一票否决”。
+### 目标
 
-#### 修改点 3：`src/utils/permissions/permissionSetup.ts`
-- **生成靶向拦截过滤策略**: 根据传进来的 `UserProfile` 构建拦截器。如果某高危指令（如访问生产集群）仅允许高级开发 SRE 调用，但当前属于试用期员工——系统将动态生成 `Bash(ssh prod-server*)` 的限制串，强行 `push` 至会话原生的 `ToolPermissionContext.alwaysDenyRules` 中。
-- **穿透防护**: 由于 Claude Code 原理是 Deny 永远处于判断流的第一截点。通过这个注入动作，即便个人私藏带有高危 Allow 的 `SKILL.md`，也会由于拦截先行从而被拒于沙箱系统之外，极大幅度简化判定交集的代码开销成本。
+在会话初始化阶段建立企业身份上下文，杜绝手写身份票据。
 
----
+### 主要改造点
 
-### [Phase 1.3] Selector 打分调度与防冗余截断设计 (Top-K Skill Routing)
+#### `src/bootstrap/teamccAuth.ts`
 
-对原本系统将所有可用技能一口气暴露给 Agent 从而引发严重失焦、死循环调试的症状进行手术。这要求构建真正的检索引擎与筛选队列。
+- 读取项目级、用户级和环境变量配置
+- 登录、刷新、登出
+- 拉取 `/identity/me`
+- 维护身份缓存
 
-#### 修改点 4：`src/skills/loadSkillsDir.ts`
-- **元数据识别扩展**: 除现有参数，让加载器读取并解析 `SKILL.md` 中的扩展分箱标签组，如 `roleTags`, `sceneTags`, `trustLevel`。
+#### `src/main.tsx`
 
-#### 修改点 5：`src/services/skillSearch/localSearch.ts`
-- **构建积分调度引擎**: 舍弃纯空返回。编写实质计算方法；获取 `loadSkillsDir` 返回的全量原始数组后，用当前的运行上下文变量（`UserProfile` 字段及 `projectTags` 等特征符）与元数据循环求交。
-- **动态硬截断 (Phase 1 方案)**: 虽然未来终局会采取动态 Token 水位及剪枝推平计算，针对一期 MVP 我们在结果回吐前执行强力的限定截流（如 `.sort((a,b)=>a.matchScore - b.matchScore).slice(0, 3)`）。
+- 在 `permissionSetup` 之前完成 TeamCC 身份建立
+- token 缺失、失效、刷新失败时给出明确路径
+- 远端不可达时优先回退缓存
 
-#### 修改点 6：`src/tools/SkillTool/prompt.ts`
-- 将原定拉取全量的列表映射函数，精准切换至基于上述 `localSearch` 跑出结果的特定 Top-3 切片数组。从此模型面对任务将从限定、精准、最值得信赖的有限制集合中发起选取。
+#### `src/utils/identity.ts`
 
----
+- 将 `IdentityEnvelope` 转换为 `IdentityProfile`
+- 为上下文注入和 Skill 选择提供结构化身份数据
 
-### [Phase 1.4] 深层不可见防抵赖追踪网络 (Telemetry & Audit)
+### 当前原则
 
-这是保障引入团队平台方案不致变为隐形渗透或事故责任不清的兜底护城河。必须实现精确追踪。
-
-#### 修改点 7：`src/utils/suggestions/skillUsageTracking.ts`
-不仅需加入 `skill_invoked` 和 `skill_completed` 等基础暴露淘汰率评估，更重要的是针对其真实**动作命令拦截追踪**做深埋点。
-
-- **`tool_permission_decision` 钩子**: 侦听判定引擎结局（触发是基于 `Deny` 生效了、还是符合完全的白名单自动悄悄执行 `Allow` 了，或系统退回交互阻拦让用户选择 `Ask` 的那一刻动作），全部写下轨迹特征。
-- **`tool_execution_audit` 连接打桩**: 明确最终系统在通过了拦截/批准环节后真正扔进终端沙盒运行的字面量本体（比如明确捕获到发起 `scp XXX user@ip:` 等语句行为）。
-以此支持云端对“用户 张三 - 何月何日 - 通过手动强行允许 (或系统鉴权放开) - 致使连接线上数据库”事件实现防抵赖闭环回放。
+- 不再引入 `.claude/identity/active.md`
+- 不再把本地 md 票据当作身份真相源
+- 企业路径必须来自 TeamCC
 
 ---
 
-## [Phase 2 & 3] 演进路线参考 (长线架构延展)
+## Phase 1.2: 权限编译与运行时注入
 
-- **淘汰与剪枝升级**: 置换 `localSearch` 的 Hardcode 切分方式。根据相似度引擎模型或 Token 计算容量实施“非等宽且边界模糊的大型智能漏斗调度”。
-- **远程托管对接**: 脱离静态的 Identity 生成或本地 `trustLevel`，依靠团队内建的统一 Score 快照以及 IAM 打通的微服务节点实施无感票据颁出与能力收敛。
+### 目标
+
+让 TeamCC 下发的权限包真正影响工具执行边界，而不是停留在“可拉取”的层面。
+
+### 主要改造点
+
+#### `src/utils/permissions/teamccLoader.ts`
+
+- 调用 `/policy/bundle`
+- 转换为运行时 `PermissionRule`
+- 应用 `envOverrides`
+- 做本地缓存回退
+
+#### `src/utils/permissions/permissionSetup.ts`
+
+- 在 `ToolPermissionContext` 初始化时注入 TeamCC rules
+- 与本地规则一起进入同一条权限编译链路
+
+#### `src/utils/permissions/rulesMerger.ts`
+
+- 对多源规则执行“最严格原则”合并
+- 形成可诊断的来源信息
+
+### 原则
+
+- 企业边界由 TeamCC 权限包定义
+- 本地规则可存在，但不能替代企业控制面
+- 权限判断必须服务于可审计与可回收
 
 ---
 
-## 验证与发布方案
+## Phase 1.3: Skill 沉淀与选择器
 
-| 测试维度 | 前提或情景验证 | 预期效果 (Expectation) |
+### 目标
+
+让 Skill 从“文件集合”进化为“团队资产集合”。
+
+### 主要改造点
+
+#### `skills-flat/`
+
+- 作为统一 Skill 源目录
+- 统一元信息字段
+
+#### `src/services/skillSearch/localSearch.ts`
+
+- 读取 generated registry
+- 支持 BM25 + 向量混合召回
+- 为后续 rerank 与 graph 留好入口
+
+#### `src/skills/loadSkillsDir.ts`
+
+- 加载 Skill 元信息
+- 对接部门、场景、域标签
+
+### 目标状态
+
+- 身份与项目上下文决定 Skill 可见范围
+- 检索结果限定在更可信、更贴近场景的候选集
+- Skill 使用结果可被持续评估和回流
+
+---
+
+## Phase 1.4: 审计与反馈埋点
+
+### 目标
+
+补齐企业运行时最关键的可观测能力。
+
+### 需要覆盖的信号
+
+- `tool_permission_decision`
+- `tool_execution_audit`
+- `skill_invoked`
+- `skill_completed`
+- `skill_feedback`
+
+### 目标效果
+
+- 清楚知道是谁、在什么身份下、触发了什么权限决策
+- 清楚知道某个 Skill 是否真的提高了任务完成率
+
+---
+
+## Phase 2: Skill 评测、图谱与重排
+
+### 目标
+
+把 Skill 检索从“静态召回”升级为“可学习的治理系统”。
+
+### 核心方向
+
+- registry 统一产物
+- embedding 构建与导入
+- Neo4j 图模型
+- feedback event
+- reranker
+- 评测与回放
+
+### 与控制面的关系
+
+- TeamCC 身份决定检索上下文
+- 权限边界决定 Skill 是否可执行
+- feedback 决定 Skill 是否值得继续推荐
+
+---
+
+## 当前优先级
+
+### P0
+
+1. 清理残留的本地身份文件方案文档和注释
+2. 收口 TeamCC 登录、身份、权限的命令与文档
+3. 强化 TeamCC 权限来源可见性
+
+### P1
+
+1. 去掉客户端硬编码身份标签映射
+2. 补齐权限审计与 Tool 级埋点
+3. 让身份与能力边界稳定影响 Skill 检索
+
+### P2
+
+1. 聚合 Skill feedback
+2. 回灌到 reranker / graph
+3. 建立更完整的评测回放链路
+
+---
+
+## 验证矩阵
+
+| 测试维度 | 前提或情景验证 | 预期效果 |
 | :--- | :--- | :--- |
-| **防篡改与强迫隔离** | 在活动目录植入被私自涂改过 Hash 、或者人为延后伪造过期 `expireAt` 的 `.claude/identity/active.md`。 | 系统执行或调用 CLI 读取环境即时抛出拒绝提示，或者将系统强制运行于权限最小被剥夺的不信任态。 |
-| **Deny交集拦截过滤** | 系统拥有能下发运维脚本的高权 Skill (配置允许访问特定主机)，但是当前载体角色为非认证普通人员。 | 该角色因为生成了一票否决的 DenyRules 并集，高权 Skill 即使被大模型发起调用也必然撞向沙盒红线，触发拒绝执行警告。 |
-| **Top-K 精准限流** | 在其测试仓库放置20多个形态各异、场景冲突的独立 `SKILL.md` 配置环境组。 | 在最终生成的系统上下文内，观察仅投喂了依据场景与置信度推导排行得分前 `3` 名的工具，绝不多浪费 Context 负载量，彻底断绝长尾诱导干扰。 |
-| **真实归因与溯源审计** | 在一次要求联网读取目标日志事件中，无论动作是悄然而过，抑或由操作者在拦截提示后手动授权 Allow 的行为。 | 上报组件准确留存下：对应的特定账户角色、准确发生时戳、完整的交互判定来源以及精确命中目标机的信息 `tool_execution_audit`。 |
+| TeamCC 身份建立 | 本地已登录或存在有效 token | 启动时拉取 `/identity/me` 并挂载 `IdentityProfile` |
+| 权限注入 | TeamCC 返回 deny / ask / allow 规则 | 实际工具执行边界发生变化 |
+| 缓存回退 | 远端不可达但本地缓存有效 | 启动仍可维持企业路径的基础能力 |
+| Skill 检索 | 相同任务在不同身份/项目下执行 | 候选 Skill 集发生合理变化 |
+| 审计闭环 | 触发权限拦截或实际工具执行 | 能记录身份、决策与执行信号 |

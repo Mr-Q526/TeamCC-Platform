@@ -13,8 +13,12 @@ import {
   levels,
   projects,
 } from '../db/schema.js'
-import { eq, and, desc, sql } from 'drizzle-orm'
-import { JWT_SECRET, hashPassword } from '../services/auth.js'
+import { eq, and, desc, sql, inArray } from 'drizzle-orm'
+import { JWT_SECRET, hashPassword, requireActiveUserById } from '../services/auth.js'
+import {
+  buildEffectivePolicyPreview,
+  getDefaultProjectIdForUser,
+} from '../services/policy.js'
 import crypto from 'crypto'
 
 /**
@@ -45,8 +49,7 @@ async function requireAdmin(request: any): Promise<number> {
   if (decoded.exp && decoded.exp < now) throw new Error('Token expired')
 
   const userId = decoded.userId
-  const user = await db.select().from(users).where(eq(users.id, userId)).limit(1).then((r) => r[0])
-  if (!user) throw new Error('User not found')
+  const user = await requireActiveUserById(userId)
 
   const userRoles = (user.roles || '').split(',').map((r: string) => r.trim())
   if (!userRoles.includes('admin')) throw new Error('Admin role required')
@@ -423,6 +426,37 @@ export async function registerAdminRoutes(fastify: FastifyInstance) {
     }
   })
 
+  /** GET /admin/users/:id/effective-policy?projectId=1 */
+  fastify.get<{
+    Params: { id: string }
+    Querystring: { projectId?: string }
+  }>('/admin/users/:id/effective-policy', async (request, reply) => {
+    try {
+      await requireAdmin(request)
+      const userId = parseInt(request.params.id)
+      if (isNaN(userId)) return reply.status(400).send({ error: 'Invalid user id' })
+
+      const existing = await db.select().from(users).where(eq(users.id, userId)).limit(1).then((rows) => rows[0])
+      if (!existing) return reply.status(404).send({ error: 'User not found' })
+      if (existing.status !== 'active') {
+        return reply.status(400).send({ error: 'User must be active to preview policy' })
+      }
+
+      const projectId = request.query.projectId
+        ? parseInt(request.query.projectId, 10)
+        : await getDefaultProjectIdForUser(userId)
+
+      if (isNaN(projectId)) {
+        return reply.status(400).send({ error: 'Invalid projectId' })
+      }
+
+      const preview = await buildEffectivePolicyPreview(userId, projectId)
+      return reply.send(preview)
+    } catch (e) {
+      return reply.status(401).send({ error: (e as Error).message })
+    }
+  })
+
   /** GET /admin/assignments */
   fastify.get('/admin/assignments', async (request, reply) => {
     try {
@@ -509,14 +543,48 @@ export async function registerAdminRoutes(fastify: FastifyInstance) {
 
   /** GET /admin/audit?limit=50&offset=0&action=&targetType= */
   fastify.get<{
-    Querystring: { limit?: string; offset?: string; action?: string; targetType?: string }
+    Querystring: {
+      limit?: string
+      offset?: string
+      action?: string
+      actions?: string
+      targetType?: string
+      severity?: string
+    }
   }>('/admin/audit', async (request, reply) => {
     try {
       await requireAdmin(request)
       const limit = Math.min(parseInt(request.query.limit || '50'), 200)
       const offset = parseInt(request.query.offset || '0')
+      const conditions: any[] = []
 
-      const logs = await db.select({
+      if (request.query.action) {
+        conditions.push(eq(auditLog.action, request.query.action))
+      }
+
+      if (request.query.actions) {
+        const actions = request.query.actions
+          .split(',')
+          .map((action) => action.trim())
+          .filter(Boolean)
+        if (actions.length > 0) {
+          conditions.push(inArray(auditLog.action, actions))
+        }
+      }
+
+      if (request.query.targetType) {
+        conditions.push(eq(auditLog.targetType, request.query.targetType))
+      }
+
+      if (request.query.severity) {
+        conditions.push(
+          sql`coalesce(${auditLog.afterJson}::jsonb ->> 'severity', 'info') = ${request.query.severity}`,
+        )
+      }
+
+      const whereClause = conditions.length > 0 ? and(...conditions) : undefined
+
+      const auditQuery = db.select({
         id: auditLog.id,
         actorUserId: auditLog.actorUserId,
         action: auditLog.action,
@@ -533,7 +601,10 @@ export async function registerAdminRoutes(fastify: FastifyInstance) {
         .limit(limit)
         .offset(offset)
 
-      const [{ count }] = await db.select({ count: sql<number>`count(*)` }).from(auditLog)
+      const logs = whereClause ? await auditQuery.where(whereClause) : await auditQuery
+
+      const countQuery = db.select({ count: sql<number>`count(*)` }).from(auditLog)
+      const [{ count }] = whereClause ? await countQuery.where(whereClause) : await countQuery
 
       return reply.send({ logs, total: Number(count), limit, offset })
     } catch (e) {

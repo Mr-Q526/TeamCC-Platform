@@ -1,172 +1,137 @@
 # TeamCC Admin 集成状态
 
-**最后更新**: 2026-04-11  
-**状态**: Phase 1 & 2 完成 ✅
+**最后更新**: 2026-04-12
+**状态**: 权限控制主链路已落地，文档收口中
 
-## 🎯 总体目标
+## 总体目标
 
-在 Claude Code 中集成来自 TeamCC Admin 的身份认证和权限管理系统，实现统一的身份验证和权限检查。
+在 TeamSkill-ClaudeCode 中，将 `TeamCC Admin` 收敛为企业版运行时的唯一身份与权限控制面，并以此支撑两条主线：
+
+- 权限鉴定与工具执行边界控制
+- Skill 沉淀、检索、评测与治理
+
+## 当前收敛原则
+
+- 已取消 `.claude/identity/active.md` 方案。
+- 企业执行链路不再接受本地身份票据或活动身份文件。
+- TeamCC 身份以 `/identity/me` 返回的 `IdentityEnvelope` 为唯一真相源。
+- TeamCC 权限以 `/policy/bundle` 返回的 `PermissionBundle` 为唯一企业权限源。
+- 未配置 TeamCC 时，CLI 仍可用于源码恢复、调试和非企业模式验证，但不具备企业身份与权限能力。
 
 ---
 
-## 📊 实现进度
+## 实现进度
 
-### ✅ Phase 1: 身份认证与拉取（完成）
+### ✅ Phase 1: TeamCC 身份接入
 
-**目标**: Claude Code 能从 TeamCC Admin 获取用户身份信息
+**目标**: 启动时拿到 TeamCC 身份，并在运行时挂载 `IdentityProfile`
 
 **已实现**：
-- [x] `src/bootstrap/teamccAuth.ts` - Token 管理和认证
-  - 配置加载 (项目级 + 用户级 + 环境变量)
-  - Token 刷新逻辑
+- `src/bootstrap/teamccAuth.ts`
+  - 项目级配置、用户级配置、环境变量加载
+  - `/auth/login`、`/auth/refresh`、登出
+  - `/identity/me` 拉取与本地缓存
+- `src/main.tsx`
+  - 启动时优先读取 TeamCC 配置
   - 远程身份获取
-  - 本地缓存支持
-  - 登出功能
+  - token 失效和无 token 的拦截
+  - 远程失败时退回身份缓存
+- `src/utils/identity.ts`
+  - `IdentityEnvelope -> IdentityProfile` 转换
+  - 上下文注入所需的身份摘要生成
+- `src/commands/identity.tsx`
+  - 基础身份查看命令
 
-- [x] `src/utils/identity.ts` 增强
-  - `envelopeToProfile()` - IdentityEnvelope 转换
-  - `loadLocalIdentityProfile()` - 本地文件分离
-  - 支持远程身份源
-
-- [x] `src/main.tsx` 集成
-  - 启动时自动认证
-  - 三层降级：远程 → 本地缓存 → 本地文件
-
-- [x] `src/commands/identity.tsx` - `/identity` 命令
-  - 查看当前身份信息
-  - 清除身份配置
-  - 友好的错误信息
-
-**关键特性**：
-- 远程身份获取失败时自动降级
-- 环境变量支持 `TEAMCC_ADMIN_URL`, `TEAMCC_ACCESS_TOKEN`
-- Token 过期时自动刷新
-- 本地 JSON 缓存
+**当前结论**：
+- TeamCC 已经是实际运行路径中的身份来源。
+- `.claude/identity/active.md` 仅属于历史方案，不再是目标实现。
 
 ---
 
-### ✅ Phase 2: 权限配置拉取与合并（完成）
+### ✅ Phase 2: TeamCC 权限包接入与运行时注入
 
-**目标**: 从 TeamCC Admin 拉取权限配置，与本地规则合并
+**目标**: 把 TeamCC 权限真正送入工具权限判定链路
 
 **已实现**：
-- [x] `src/utils/permissions/teamccLoader.ts` - 权限包加载
-  - 从 `/policy/bundle` 端点获取权限
-  - 格式转换 (PermissionBundleRule → PermissionRule)
-  - 缓存和降级支持
-  - 获取 Capabilities 和 EnvOverrides
+- `src/utils/permissions/teamccLoader.ts`
+  - 从 `/policy/bundle` 拉取权限包
+  - `PermissionBundleRule -> PermissionRule` 转换
+  - `envOverrides` 插值
+  - `permission-bundle-{projectId}.json` 缓存与离线回退
+- `src/utils/permissions/rulesMerger.ts`
+  - 规则分组与最严格原则合并
+- `src/utils/permissions/teamccIntegration.ts`
+  - TeamCC + 本地规则联合加载与诊断
+- `src/utils/permissions/permissionSetup.ts`
+  - 在 `ToolPermissionContext` 初始化阶段注入 TeamCC 规则
 
-- [x] `src/utils/permissions/rulesMerger.ts` - 规则合并
-  - 分组规则 (tool + content 组合)
-  - "最严格原则" 合并 (deny > ask > allow)
-  - 规则过滤 (按工具名、按内容)
-  - 诊断和调试
-
-- [x] `src/utils/permissions/teamccIntegration.ts` - 集成主模块
-  - 加载所有权限源
-  - 协调多源合并
-  - 诊断汇总
-
-- [x] `src/types/permissions.ts` 更新
-  - 添加 `'teamccAdmin'` 到 `PermissionRuleSource`
-
-**关键特性**：
-- 多源规则合并：TeamCC Admin + settings.json + CLAUDE.md
-- "最严格原则"：deny 覆盖 ask，ask 覆盖 allow
-- 源追踪：每条合并规则保留来源信息
-- 智能降级：远程失败时使用本地规则
-- 规则过滤：支持通配符和 glob 模式
-
-**规则合并示例**：
-```
-TeamCC Admin:   deny Edit **
-Local settings: allow Edit src/client/**
-结果:           deny Edit ** (最严格)
-```
+**当前结论**：
+- TeamCC 权限不是“只拉取不生效”，而是已经进入实际权限上下文。
+- 本地 `settings.json` / `CLAUDE.md` 仍可参与合并，但企业权限边界以 TeamCC bundle 为主。
 
 ---
 
-### ⏳ Phase 3: UI 命令与交互（未开始）
+### 🟡 Phase 3: 命令与运维可见性
 
-**目标**: 提供用户友好的登录和权限管理命令
+**状态**: 已有实现，尚未完全收口
 
-**计划实现**：
-- [ ] `/login` 命令 - 交互式认证
-  - 提示输入用户名和密码
-  - 向 TeamCC Admin 认证
-  - 保存 token 到 .claude/teamcc.json
-  
-- [ ] `/identity` 命令增强
-  - 显示更详细的身份信息
-  - 显示缓存状态和过期时间
-  
-- [ ] `/permissions` 命令 - 查看权限规则
-  - 显示所有合并后的规则
-  - 按工具分组
-  - 显示来源信息
-  - 支持查询特定工具的规则
-  
-- [ ] `/logout` 命令
-  - 清除本地 token
-  - 清除缓存
+**已存在命令**：
+- `/login`
+- `/logout`
+- `/auth status`
+- `/auth refresh`
+- `/identity`
+- `/permissions`
+
+**仍待完善**：
+- 文档与命令行为说明统一
+- 更明确的 token 失效、缓存命中、远端不可达提示
+- 面向 TeamCC 的权限来源诊断视图
 
 ---
 
-### ⏳ Phase 4: 高级缓存与离线支持（未开始）
+### 🟡 Phase 4: 缓存、审计与治理闭环
 
-**目标**: 完善缓存策略，支持完全离线工作
+**状态**: 部分完成
 
-**计划实现**：
-- [ ] 权限 Bundle 持久化缓存
-  - `.claude/cache/permissions-{projectId}.json`
-  - 24小时 TTL
-  
-- [ ] 缓存过期策略
-  - 自动过期检查
-  - 软过期（使用但尝试刷新）vs 硬过期（不使用）
-  
-- [ ] 手动刷新命令
-  - `/permissions-refresh` - 强制刷新权限
-  - `/identity-refresh` - 强制刷新身份
-  
-- [ ] 审计日志
-  - 权限检查日志
-  - 规则应用日志
-  - 集成到现有审计系统
+**已实现**：
+- 身份缓存：`.claude/cache/identity.json`
+- 权限包缓存：`.claude/cache/permission-bundle-{projectId}.json`
+- 远端失败时的离线回退
+
+**仍待完善**：
+- 缓存策略文档与 TTL 口径统一
+- 权限刷新与缓存失效的运维说明
+- 审计日志与权限决策可观测性
+- 身份标签映射从客户端硬编码迁移到可治理来源
 
 ---
 
-## 📁 代码结构
+## 代码入口
 
-```
+```text
 src/
 ├── bootstrap/
-│   └── teamccAuth.ts              ← Phase 1: Token & Auth
+│   ├── teamccAuth.ts
+│   └── teamccAudit.ts
 ├── commands/
-│   ├── identity.tsx               ← Phase 1: /identity 命令
-│   └── (login.tsx, permissions.tsx 在 Phase 3)
+│   ├── identity.tsx
+│   ├── auth.tsx
+│   ├── login/
+│   └── logout/
 ├── utils/
-│   ├── identity.ts                ← Phase 1: 身份加载
+│   ├── identity.ts
 │   └── permissions/
-│       ├── teamccLoader.ts        ← Phase 2: 权限包加载
-│       ├── rulesMerger.ts         ← Phase 2: 规则合并
-│       ├── teamccIntegration.ts   ← Phase 2: 集成主模块
-│       └── permissionsLoader.ts   ← 现有: 本地权限加载
-├── main.tsx                       ← Phase 1: 启动集成
-└── types/
-    └── permissions.ts             ← Phase 2: 新增 teamccAdmin 源
-
-docs/architecture/
-├── 20260411-teamcc-admin-integration.md      ← 总体方案
-├── 20260411-teamcc-integration-testing.md    ← 测试指南
-└── TEAMCC_INTEGRATION_STATUS.md              ← 本文档
+│       ├── teamccLoader.ts
+│       ├── teamccIntegration.ts
+│       ├── rulesMerger.ts
+│       └── permissionSetup.ts
+└── main.tsx
 ```
 
----
+## 配置方式
 
-## 🔧 配置示例
-
-### 项目级配置 (`.claude/teamcc.json`)
+### 项目级配置 `.claude/teamcc.json`
 
 ```json
 {
@@ -178,6 +143,10 @@ docs/architecture/
 }
 ```
 
+### 用户级配置 `~/.teamcc/config.json`
+
+适用于跨项目复用 TeamCC 凭证。
+
 ### 环境变量
 
 ```bash
@@ -186,182 +155,60 @@ TEAMCC_ACCESS_TOKEN=eyJhbGc...
 TEAMCC_REFRESH_TOKEN=c1dd8d...
 ```
 
-### 本地身份文件 (`.claude/identity/active.md`)
-
-```yaml
----
-user_id: 100
-org_id: 10
-department_id: 102
-team_id: 1022
-role_id: 202
-level_id: 303
----
-```
-
 ---
 
-## 🚀 快速测试
+## 快速验证
 
-### 1. 启动两个服务
+### 1. 启动 TeamCC Admin
 
 ```bash
-# 终端 1: TeamCC Admin
 cd /Users/minruiqing/MyProjects/teamcc-admin
 npm run dev
-# → http://localhost:3000
-
-# 终端 2: Claude Code
-cd /Users/minruiqing/MyProjects/TeamSkill-ClaudeCode
-npm run dev
 ```
 
-### 2. 验证身份加载
+### 2. 启动 Claude Code
 
 ```bash
-# 在 Claude Code 中
+cd /Users/minruiqing/MyProjects/teamcc-platform/worktrees/teamcc/TeamSkill-ClaudeCode
+bun run dev
+```
+
+### 3. 在 REPL 中登录并检查状态
+
+```text
+/login
+/auth status
 /identity
-
-# 预期输出 (如果有本地文件或远程身份)
-# Current Identity:
-#   User ID: 100
-#   Department: backend
-#   Team: order-service
-#   Role: java-developer
-#   Level: p5
-#   Project ID: 1
+/permissions
 ```
 
-### 3. 验证权限合并
+### 4. 验证离线缓存
 
-- 编辑 `settings.json` 添加本地权限
-- 检查日志看规则是否正确合并
-- 验证权限检查使用了合并后的规则
-
----
-
-## 🔗 关键集成点
-
-### 身份注入
-```typescript
-// src/main.tsx
-const profile = await loadIdentityProfile(getCwd())
-setIdentityProfile(profile)
-```
-
-### 权限合并
-```typescript
-// 未来在 permissions/permissions.ts 中
-const merged = await loadAndMergeAllPermissionRules(projectId)
-// 在权限检查时使用 merged 规则
-```
-
-### 缓存路径
-```
-.claude/
-├── identity/
-│   └── active.md
-├── cache/
-│   ├── identity.json
-│   └── permissions-{projectId}.json
-└── teamcc.json
-```
+1. 先在联机状态下成功登录一次。
+2. 关闭 `teamcc-admin`。
+3. 重新启动 Claude Code。
+4. 验证是否命中身份缓存与权限包缓存。
 
 ---
 
-## 📋 已知限制
+## 已知待收口项
 
-### Phase 1
-
-- [ ] 尚未实现 `/login` 命令 (需要交互式 I/O)
-- [x] Token 刷新已实现
-- [x] 离线降级已实现
-
-### Phase 2
-
-- [ ] 权限 Bundle 缓存持久化未实现（框架就位）
-- [x] 规则合并已完全实现
-- [x] 多源加载已实现
-- [x] 智能降级已实现
-
-### General
-
-- 权限检查尚未真正集成到工具执行流程
-  - 规则加载已准备好
-  - 集成需要修改 `Tool.ts` 中的权限检查逻辑
-- 审计日志记录未实现（后续阶段）
+- 多份文档仍残留 `.claude/identity/active.md` 的早期设计描述。
+- `src/utils/identity.ts` 中的部门、角色、团队映射仍是客户端硬编码。
+- `/identity clear` 的语义仍偏弱，更适合作为后续收口项而不是企业主路径命令。
+- `/permissions` 目前复用现有权限 UI，仍需补强 TeamCC 来源可见性。
 
 ---
 
-## 🧪 测试清单
+## 与 Skill 沉淀主线的关系
 
-- [ ] 本地身份文件加载
-- [ ] 远程身份获取与缓存
-- [ ] 本地权限规则加载
-- [ ] 远程权限包获取
-- [ ] 多源规则合并
-- [ ] Token 刷新
-- [ ] 离线降级场景
-- [ ] 规则优先级正确性
-- [ ] 性能 (启动时间)
+权限与 Skill 并不是两套独立工作：
 
----
+- TeamCC 身份和能力边界决定 Skill 检索与可见范围。
+- Skill registry / embedding / graph / feedback 是团队经验沉淀层。
+- 企业版目标是“先做权限控制面，再做 Skill 治理闭环”。
 
-## 🎓 学习资源
+Skill 检索与评测的独立进度见：
 
-### 文档
-
-1. **集成方案**: `docs/architecture/20260411-teamcc-admin-integration.md`
-   - 详细的架构设计
-   - 4 个阶段的实现步骤
-   - 风险评估
-
-2. **测试指南**: `docs/architecture/20260411-teamcc-integration-testing.md`
-   - 手动测试场景
-   - 调试命令
-   - 常见问题
-
-### 代码参考
-
-- Token 管理: `src/bootstrap/teamccAuth.ts`
-- 规则合并: `src/utils/permissions/rulesMerger.ts`
-- 身份转换: `src/utils/identity.ts` 中的 `envelopeToProfile()`
-
----
-
-## 📞 支持与讨论
-
-- 问题跟踪: GitHub Issues (待创建)
-- 设计讨论: Architecture 文档评论
-- 测试反馈: 见测试指南
-
----
-
-## 下一步行动
-
-### 立即
-
-1. ✅ Phase 1 完成并测试
-2. ✅ Phase 2 完成并测试
-3. 📝 编写文档（进行中）
-
-### 近期 (1-2 周)
-
-1. 实现 Phase 3: `/login` 和 `/permissions` 命令
-2. 集成权限检查到 Tool 执行
-3. 完整的端到端测试
-
-### 中期 (2-4 周)
-
-1. 实现 Phase 4: 高级缓存
-2. 性能优化
-3. 生产部署准备
-
----
-
-## 版本信息
-
-- Claude Code Commit: f491dc1 (Phase 2 合并)
-- TeamCC Admin: 已有 7 个权限模板
-- Node.js: 18+
-- Bun: 已兼容
+- `docs/tasks/Skill 检索与评测系统详细实施步骤.md`
+- `docs/architecture/Skill 检索与质量评测系统方案.md`

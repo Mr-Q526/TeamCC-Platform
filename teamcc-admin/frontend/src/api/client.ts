@@ -1,5 +1,27 @@
 export const API_BASE = 'http://localhost:3000'
 
+class ApiError extends Error {
+  status: number
+
+  constructor(message: string, status: number) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+  }
+}
+
+function notifyAuthInvalid(status: number) {
+  if (status === 401 && typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('teamcc-auth-invalid'))
+  }
+}
+
+async function throwApiError(response: Response, fallback: string): Promise<never> {
+  notifyAuthInvalid(response.status)
+  const body = await response.json().catch(() => ({}))
+  throw new ApiError(body.error || body.message || fallback, response.status)
+}
+
 async function apiFetch(url: string, token: string, options?: RequestInit) {
   const res = await fetch(url, {
     ...options,
@@ -10,8 +32,7 @@ async function apiFetch(url: string, token: string, options?: RequestInit) {
     },
   })
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}))
-    throw new Error(body.error || `HTTP ${res.status}`)
+    await throwApiError(res, `HTTP ${res.status}`)
   }
   return res.json()
 }
@@ -58,7 +79,7 @@ export async function getIdentity(accessToken: string) {
   })
 
   if (!response.ok) {
-    throw new Error('Failed to fetch identity')
+    await throwApiError(response, 'Failed to fetch identity')
   }
 
   return response.json()
@@ -73,6 +94,13 @@ export const getDictionaries = (token: string) =>
 
 export const getUsers = (token: string) =>
   apiFetch(`${API_BASE}/admin/users`, token)
+
+export const getEffectivePolicyPreview = (token: string, userId: number, projectId?: number) => {
+  const qs = new URLSearchParams()
+  if (projectId !== undefined) qs.set('projectId', String(projectId))
+  const suffix = qs.size > 0 ? `?${qs}` : ''
+  return apiFetch(`${API_BASE}/admin/users/${userId}/effective-policy${suffix}`, token)
+}
 
 export const createUser = (token: string, body: Record<string, unknown>) =>
   apiFetch(`${API_BASE}/admin/users`, token, { method: 'POST', body: JSON.stringify(body) })
@@ -129,10 +157,24 @@ export const deleteDepartmentPolicy = (token: string, id: number) =>
 
 // ─── Admin: Audit ─────────────────────────────────────────────────────────────
 
-export const getAuditLogs = (token: string, params?: { limit?: number; offset?: number }) => {
+export const getAuditLogs = (
+  token: string,
+  params?: {
+    limit?: number
+    offset?: number
+    action?: string
+    actions?: string[]
+    targetType?: string
+    severity?: 'info' | 'warning' | 'critical'
+  },
+) => {
   const qs = new URLSearchParams()
   if (params?.limit) qs.set('limit', String(params.limit))
   if (params?.offset) qs.set('offset', String(params.offset))
+  if (params?.action) qs.set('action', params.action)
+  if (params?.actions?.length) qs.set('actions', params.actions.join(','))
+  if (params?.targetType) qs.set('targetType', params.targetType)
+  if (params?.severity) qs.set('severity', params.severity)
   return apiFetch(`${API_BASE}/admin/audit?${qs}`, token)
 }
 

@@ -1,7 +1,7 @@
 import { join } from 'path'
+import { getIdentityProfile } from '../../bootstrap/state.js'
 import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { getFsImplementation } from '../../utils/fsOperations.js'
-import { getTeamCCIdentityPath } from '../../utils/teamccPaths.js'
 import { logForDebugging } from '../../utils/debug.js'
 import {
   getSkillRegistryLocations,
@@ -13,9 +13,10 @@ import {
   vectorSearchAvailable,
 } from './vectorSearch.js'
 import {
+  buildSkillFactEvent,
+  createSkillFactAttribution,
   createSkillTelemetryTraceId,
-  logSkillSearchTelemetry,
-  type SkillCandidateTelemetry,
+  logSkillFactEvent,
 } from './telemetry.js'
 
 type IndexedSkill = {
@@ -64,6 +65,8 @@ type LocalSkillSearchOptions = {
   limit?: number
   queryContext?: string
   traceId?: string
+  taskId?: string
+  retrievalRoundId?: string
   telemetry?: boolean
 }
 
@@ -80,14 +83,14 @@ export type SkillScoreBreakdown = {
   penalty: number
 }
 
-const DEPARTMENT_ID_TO_TAG: Record<number, string> = {
-  101: 'frontend-platform',
-  102: 'backend-platform',
-  104: 'infra-platform',
-  105: 'data-platform',
-  107: 'growth',
-  108: 'growth',
-  111: 'security-platform',
+function normalizeDepartmentTag(label: string | undefined): string | null {
+  const normalized = label
+    ?.trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, '-')
+    .replace(/^-+|-+$/g, '')
+
+  return normalized || null
 }
 
 const QUERY_EXPANSIONS: Record<string, string[]> = {
@@ -310,22 +313,13 @@ function collectHintMatches(
   return matches
 }
 
-async function loadDepartmentTag(cwd: string): Promise<string | null> {
-  const identityPath = getTeamCCIdentityPath(cwd)
-
-  try {
-    const raw = await getFsImplementation().readFile(identityPath, {
-      encoding: 'utf-8',
-    })
-    const { frontmatter } = parseFrontmatter(raw, identityPath)
-    const departmentId = Number(frontmatter.department_id)
-    if (!Number.isFinite(departmentId)) {
-      return null
-    }
-    return DEPARTMENT_ID_TO_TAG[departmentId] ?? null
-  } catch {
+async function loadDepartmentTag(_cwd: string): Promise<string | null> {
+  const profile = getIdentityProfile()
+  if (!profile) {
     return null
   }
+
+  return normalizeDepartmentTag(profile.departmentLabel)
 }
 
 async function buildSkillIndex(cwd: string): Promise<SkillIndex> {
@@ -588,9 +582,7 @@ function scoreSkill(
   }
 }
 
-function toTelemetryCandidate(
-  skill: LocalSkillSearchResult,
-): SkillCandidateTelemetry {
+function toTelemetryCandidate(skill: LocalSkillSearchResult) {
   return {
     skillId: skill.skillId,
     name: skill.name,
@@ -614,6 +606,8 @@ export async function localSkillSearch({
   limit = 5,
   queryContext = '',
   traceId = createSkillTelemetryTraceId(),
+  taskId,
+  retrievalRoundId,
   telemetry = true,
 }: LocalSkillSearchOptions): Promise<LocalSkillSearchResult[]> {
   const trimmedQuery = query.trim()
@@ -705,30 +699,75 @@ export async function localSkillSearch({
   }))
 
   if (telemetry) {
-    await logSkillSearchTelemetry({
-      eventName: 'skill_retrieval_run',
-      traceId,
-      cwd,
-      department: departmentTag,
-      payload: {
-        query: trimmedQuery,
-        queryContext,
-        enhancedQuery: enrichedQuery,
-        limit,
-        indexSkillCount: skills.length,
-        returnedSkillCount: results.length,
-        queryTokens,
-        vectorEnabled,
-        vectorCandidateCount: vectorResults.length,
-        hintedDomains: [...hintedDomains],
-        hintedScenes: [...hintedScenes],
-        registryLocations: getSkillRegistryLocations(cwd).map(location => ({
-          kind: location.kind,
-          dir: location.dir,
-        })),
-        candidates: results.map(toTelemetryCandidate),
-      },
-    })
+    const attribution = createSkillFactAttribution(taskId, traceId, retrievalRoundId)
+
+    await logSkillFactEvent(
+      buildSkillFactEvent({
+        factKind: 'retrieval_run',
+        source: 'system',
+        cwd,
+        department: departmentTag,
+        domain: [...hintedDomains][0] ?? null,
+        scene: [...hintedScenes][0] ?? null,
+        taskId: attribution.taskId,
+        traceId: attribution.traceId,
+        retrievalRoundId: attribution.retrievalRoundId,
+        retrieval: {
+          candidateCount: results.length,
+          retrievalSource: vectorEnabled ? 'local_hybrid' : 'local_lexical',
+        },
+        payload: {
+          query: trimmedQuery,
+          queryContext,
+          enhancedQuery: enrichedQuery,
+          limit,
+          indexSkillCount: skills.length,
+          returnedSkillCount: results.length,
+          queryTokens,
+          vectorEnabled,
+          vectorCandidateCount: vectorResults.length,
+          hintedDomains: [...hintedDomains],
+          hintedScenes: [...hintedScenes],
+          registryLocations: getSkillRegistryLocations(cwd).map(location => ({
+            kind: location.kind,
+            dir: location.dir,
+          })),
+          candidates: results.map(toTelemetryCandidate),
+        },
+      }),
+    )
+
+    await Promise.all(
+      results.map(result =>
+        logSkillFactEvent(
+          buildSkillFactEvent({
+            factKind: 'skill_exposed',
+            source: 'system',
+            cwd,
+            department: departmentTag,
+            scene: result.sceneTags[0] ?? [...hintedScenes][0] ?? null,
+            domain: result.domain,
+            taskId: attribution.taskId,
+            traceId: attribution.traceId,
+            retrievalRoundId: attribution.retrievalRoundId,
+            skillId: result.skillId,
+            skillName: result.name,
+            skillVersion: result.version,
+            sourceHash: result.sourceHash,
+            retrieval: {
+              rank: result.rank,
+              candidateCount: results.length,
+              retrievalSource: result.retrievalSource,
+              score: result.score,
+              scoreBreakdown: result.scoreBreakdown,
+            },
+            payload: {
+              query: trimmedQuery,
+            },
+          }),
+        ),
+      ),
+    )
   }
 
   return results

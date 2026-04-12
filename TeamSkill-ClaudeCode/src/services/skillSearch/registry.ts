@@ -41,6 +41,9 @@ export type SkillRegistryManifest = {
 const BUNDLED_SKILL_REGISTRY_DIR = fileURLToPath(
   new URL('../../../skills-flat', import.meta.url),
 )
+const MONOREPO_SKILL_GRAPH_REGISTRY_DIR = fileURLToPath(
+  new URL('../../../../skill-graph/skills-flat', import.meta.url),
+)
 
 function splitRegistryEnv(value: string | undefined): string[] {
   if (!value) {
@@ -82,6 +85,14 @@ export function getSkillRegistryLocations(
   if (singleEnvDir) {
     pushLocation(locations, seen, singleEnvDir, 'userSettings', 'env')
   }
+
+  pushLocation(
+    locations,
+    seen,
+    MONOREPO_SKILL_GRAPH_REGISTRY_DIR,
+    'projectSettings',
+    'project',
+  )
 
   pushLocation(
     locations,

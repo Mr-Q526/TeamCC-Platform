@@ -1,57 +1,28 @@
 import { randomUUID } from 'crypto'
 import { appendFile, mkdir, readFile, readdir } from 'fs/promises'
 import { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
+import {
+  createSkillFactEvent,
+  type SkillFactContext,
+  type SkillFactEvent,
+  type SkillFactFeedback,
+  type SkillFactKind,
+  type SkillFactOutcome,
+  type SkillFactRetrieval,
+  type SkillFactSource,
+} from '../../../../skill-graph/src/events/skillFacts.js'
+import {
+  hasSkillFactPgConfig,
+  insertSkillFactEvent,
+  type SkillFactSinkMode,
+} from '../../../../skill-graph/src/events/storage.js'
 import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { logForDebugging } from '../../utils/debug.js'
 import {
   getSkillRegistryLocations,
   readGeneratedSkillRegistry,
 } from './registry.js'
-
-export type SkillTelemetryEventName =
-  | 'skill_retrieval_run'
-  | 'skill_exposed'
-  | 'skill_selected'
-  | 'skill_invoked'
-  | 'skill_completed'
-  | 'skill_failed'
-  | 'skill_feedback'
-
-export type SkillTelemetryMode = 'local' | 'off'
-
-export type SkillCandidateTelemetry = {
-  skillId: string
-  name: string
-  displayName: string
-  aliases?: string[]
-  version: string
-  sourceHash: string
-  domain: string
-  departmentTags: string[]
-  sceneTags: string[]
-  rank?: number
-  score?: number
-  scoreBreakdown?: Record<string, number>
-  retrievalSource?: string
-}
-
-export type SkillTelemetryEvent = {
-  schemaVersion?: '2026-04-11'
-  eventName: SkillTelemetryEventName
-  eventId?: string
-  traceId?: string
-  runId?: string
-  createdAt?: string
-  cwd?: string
-  department?: string | null
-  scene?: string | null
-  skillId?: string
-  skillName?: string
-  skillVersion?: string
-  sourceHash?: string
-  selectedBy?: 'model' | 'user' | 'system' | 'eval_oracle'
-  payload?: Record<string, unknown>
-}
 
 export type SkillTelemetryMetadata = {
   skillId: string
@@ -67,21 +38,72 @@ export type SkillTelemetryMetadata = {
   skillPath: string
 }
 
-const metadataCache = new Map<string, Promise<SkillTelemetryMetadata | null>>()
+export type SkillFactAttribution = {
+  traceId: string
+  taskId: string
+  retrievalRoundId: string
+}
 
-function getTelemetryMode(): SkillTelemetryMode {
-  const mode = process.env.SKILL_EVAL_TELEMETRY?.trim().toLowerCase()
-  if (mode === 'off') return 'off'
-  return 'local'
+type SkillFactBuildInput = {
+  factKind: SkillFactKind
+  source?: SkillFactSource | null
+  cwd?: string | null
+  projectId?: string | null
+  department?: string | null
+  scene?: string | null
+  domain?: string | null
+  taskId?: string | null
+  traceId?: string | null
+  retrievalRoundId?: string | null
+  metadata?: SkillTelemetryMetadata | null
+  skillId?: string | null
+  skillName?: string | null
+  skillVersion?: string | null
+  sourceHash?: string | null
+  retrieval?: Partial<SkillFactRetrieval> | null
+  outcome?: Partial<SkillFactOutcome> | null
+  feedback?: Partial<SkillFactFeedback> | null
+  payload?: Record<string, unknown> | null
+  resolutionError?: string | null
+}
+
+const metadataCache = new Map<string, Promise<SkillTelemetryMetadata | null>>()
+const SKILL_GRAPH_EVENTS_DIR = fileURLToPath(
+  new URL('../../../../skill-graph/data/events', import.meta.url),
+)
+
+export function resolveSkillFactSinkMode(): SkillFactSinkMode {
+  const evalTelemetry = process.env.SKILL_EVAL_TELEMETRY?.trim().toLowerCase()
+  if (evalTelemetry === 'off') {
+    return 'off'
+  }
+
+  const explicitSink = process.env.SKILL_FACT_SINK?.trim().toLowerCase()
+  if (
+    explicitSink === 'postgres' ||
+    explicitSink === 'jsonl' ||
+    explicitSink === 'off'
+  ) {
+    return explicitSink
+  }
+
+  return hasSkillFactPgConfig() ? 'postgres' : 'jsonl'
 }
 
 function getTelemetryFilePath(cwd?: string): string {
-  const explicitPath = process.env.SKILL_EVAL_EVENTS_PATH?.trim()
+  const explicitPath =
+    process.env.SKILL_FACT_EVENTS_PATH?.trim() ??
+    process.env.SKILL_EVAL_EVENTS_PATH?.trim()
   if (explicitPath) {
     return explicitPath
   }
 
-  return join(cwd || process.cwd(), '.claude', 'skill-events', 'events.jsonl')
+  const explicitDir = process.env.SKILL_FACT_EVENTS_DIR?.trim()
+  if (explicitDir) {
+    return join(explicitDir, 'events.jsonl')
+  }
+
+  return join(SKILL_GRAPH_EVENTS_DIR, 'events.jsonl')
 }
 
 function toStringValue(value: unknown, fallback = ''): string {
@@ -103,34 +125,169 @@ function toStringArray(value: unknown): string[] {
   return []
 }
 
-function normalizeSkillName(value: string): string {
+function normalizeSkillLookupKey(value: string): string {
   return value.trim().toLowerCase()
+}
+
+function toResolutionError(metadata: SkillTelemetryMetadata | null): string | null {
+  if (!metadata) {
+    return 'skill_metadata_not_found'
+  }
+
+  if (!metadata.skillId || !metadata.version || !metadata.sourceHash) {
+    return 'skill_identity_incomplete'
+  }
+
+  return null
+}
+
+function inferBuildResolutionError(
+  factKind: SkillFactKind,
+  metadata: SkillTelemetryMetadata | null,
+  identity: {
+    skillId: string | null
+    skillVersion: string | null
+    sourceHash: string | null
+  },
+  resolutionError?: string | null,
+): string | null {
+  if (resolutionError) {
+    return resolutionError
+  }
+
+  if (identity.skillId && identity.skillVersion && identity.sourceHash) {
+    return null
+  }
+
+  if (factKind === 'retrieval_run' || factKind === 'eval_outcome') {
+    return null
+  }
+
+  return toResolutionError(metadata)
+}
+
+function lookupKeysForMetadata(
+  metadata: Pick<SkillTelemetryMetadata, 'skillId' | 'name' | 'displayName' | 'aliases'>,
+): string[] {
+  return [
+    metadata.skillId,
+    metadata.name,
+    metadata.displayName,
+    ...metadata.aliases,
+  ]
+    .map(normalizeSkillLookupKey)
+    .filter(Boolean)
 }
 
 export function createSkillTelemetryTraceId(): string {
   return randomUUID()
 }
 
-export async function logSkillSearchTelemetry(
-  event: SkillTelemetryEvent,
-): Promise<void> {
-  if (getTelemetryMode() === 'off') {
+export function createSkillFactAttribution(
+  taskId?: string | null,
+  traceId?: string | null,
+  retrievalRoundId?: string | null,
+): SkillFactAttribution {
+  const normalizedTraceId = traceId?.trim() || randomUUID()
+  return {
+    traceId: normalizedTraceId,
+    taskId: taskId?.trim() || normalizedTraceId,
+    retrievalRoundId: retrievalRoundId?.trim() || normalizedTraceId,
+  }
+}
+
+export function rememberDiscoveredSkillAttribution(
+  map: Map<string, SkillFactAttribution> | undefined,
+  metadata: Pick<SkillTelemetryMetadata, 'skillId' | 'name' | 'displayName' | 'aliases'>,
+  attribution: SkillFactAttribution,
+): void {
+  if (!map) {
     return
   }
 
-  const normalizedEvent = {
-    schemaVersion: '2026-04-11',
-    eventId: randomUUID(),
-    runId: process.env.SKILL_EVAL_RUN_ID,
-    createdAt: new Date().toISOString(),
-    ...event,
+  for (const key of lookupKeysForMetadata(metadata)) {
+    map.set(key, attribution)
+  }
+}
+
+export function resolveDiscoveredSkillAttribution(
+  map: Map<string, SkillFactAttribution> | undefined,
+  skillName: string,
+): SkillFactAttribution | null {
+  if (!map) {
+    return null
   }
 
-  const filePath = getTelemetryFilePath(event.cwd)
+  return map.get(normalizeSkillLookupKey(skillName)) ?? null
+}
+
+export function buildSkillFactEvent(
+  input: SkillFactBuildInput,
+): SkillFactEvent {
+  const metadata = input.metadata ?? null
+  const identity = {
+    skillId: input.skillId ?? metadata?.skillId ?? null,
+    skillVersion: input.skillVersion ?? metadata?.version ?? null,
+    sourceHash: input.sourceHash ?? metadata?.sourceHash ?? null,
+  }
+  const context: Partial<SkillFactContext> = {
+    cwd: input.cwd ?? null,
+    projectId: input.projectId ?? null,
+    department: input.department ?? null,
+    scene: input.scene ?? null,
+    domain: input.domain ?? metadata?.domain ?? null,
+  }
+
+  return createSkillFactEvent({
+    factKind: input.factKind,
+    source: input.source ?? null,
+    runId: process.env.SKILL_EVAL_RUN_ID ?? null,
+    traceId: input.traceId ?? null,
+    taskId: input.taskId ?? null,
+    retrievalRoundId: input.retrievalRoundId ?? null,
+    skillId: identity.skillId,
+    skillName: metadata?.name ?? input.skillName ?? null,
+    skillVersion: identity.skillVersion,
+    sourceHash: identity.sourceHash,
+    context,
+    retrieval: input.retrieval ?? null,
+    outcome: input.outcome ?? null,
+    feedback: input.feedback ?? null,
+    resolutionError: inferBuildResolutionError(
+      input.factKind,
+      metadata,
+      identity,
+      input.resolutionError,
+    ),
+    payload: input.payload ?? null,
+  })
+}
+
+export async function logSkillFactEvent(event: SkillFactEvent): Promise<void> {
+  const sinkMode = resolveSkillFactSinkMode()
+  if (sinkMode === 'off') {
+    return
+  }
+
+  const filePath = getTelemetryFilePath(event.context.cwd ?? undefined)
+
+  if (sinkMode === 'postgres') {
+    try {
+      await insertSkillFactEvent(event)
+      return
+    } catch (error) {
+      logForDebugging(
+        `[skill-telemetry] failed to write PostgreSQL skill fact event ${event.eventId}: ${error}`,
+        {
+          level: 'warn',
+        },
+      )
+    }
+  }
 
   try {
     await mkdir(dirname(filePath), { recursive: true })
-    await appendFile(filePath, `${JSON.stringify(normalizedEvent)}\n`, 'utf-8')
+    await appendFile(filePath, `${JSON.stringify(event)}\n`, 'utf-8')
   } catch (error) {
     logForDebugging(`[skill-telemetry] failed to write ${filePath}: ${error}`, {
       level: 'warn',
@@ -142,7 +299,7 @@ export async function resolveSkillTelemetryMetadata(
   cwd: string,
   skillName: string,
 ): Promise<SkillTelemetryMetadata | null> {
-  const normalizedName = normalizeSkillName(skillName)
+  const normalizedName = normalizeSkillLookupKey(skillName)
   if (!normalizedName) {
     return null
   }
@@ -161,6 +318,20 @@ export async function resolveSkillTelemetryMetadata(
   return loadingPromise
 }
 
+export async function resolveSkillTelemetryMetadataWithError(
+  cwd: string,
+  skillName: string,
+): Promise<{
+  metadata: SkillTelemetryMetadata | null
+  resolutionError: string | null
+}> {
+  const metadata = await resolveSkillTelemetryMetadata(cwd, skillName)
+  return {
+    metadata,
+    resolutionError: toResolutionError(metadata),
+  }
+}
+
 async function resolveSkillTelemetryMetadataUncached(
   cwd: string,
   normalizedSkillName: string,
@@ -170,11 +341,11 @@ async function resolveSkillTelemetryMetadataUncached(
     if (generatedRegistry && generatedRegistry.skills.length > 0) {
       for (const skill of generatedRegistry.skills) {
         if (
-          normalizeSkillName(skill.name) !== normalizedSkillName &&
-          normalizeSkillName(skill.skillId) !== normalizedSkillName &&
-          normalizeSkillName(skill.displayName) !== normalizedSkillName &&
+          normalizeSkillLookupKey(skill.name) !== normalizedSkillName &&
+          normalizeSkillLookupKey(skill.skillId) !== normalizedSkillName &&
+          normalizeSkillLookupKey(skill.displayName) !== normalizedSkillName &&
           !skill.aliases.some(
-            alias => normalizeSkillName(alias) === normalizedSkillName,
+            alias => normalizeSkillLookupKey(alias) === normalizedSkillName,
           )
         ) {
           continue
@@ -216,9 +387,9 @@ async function resolveSkillTelemetryMetadataUncached(
         const skillId = toStringValue(frontmatter.skillId)
 
         if (
-          normalizeSkillName(name) !== normalizedSkillName &&
-          normalizeSkillName(entry.name) !== normalizedSkillName &&
-          normalizeSkillName(skillId) !== normalizedSkillName
+          normalizeSkillLookupKey(name) !== normalizedSkillName &&
+          normalizeSkillLookupKey(entry.name) !== normalizedSkillName &&
+          normalizeSkillLookupKey(skillId) !== normalizedSkillName
         ) {
           continue
         }

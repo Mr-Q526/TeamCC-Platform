@@ -29,6 +29,8 @@ export type TeamCCConfig = {
   refreshToken?: string // 用于刷新的 refresh token
   tokenExpiry?: number  // token 过期时间戳 (ms)
   cacheDir?: string     // 缓存目录
+  configPath?: string   // 配置实际来源路径（仅运行时元数据，不持久化）
+  configSource?: 'project' | 'user' | 'env' // 配置来源（仅运行时元数据）
 }
 
 export type IdentityEnvelope = {
@@ -43,6 +45,23 @@ export type IdentityEnvelope = {
     roleId: number
     levelId: number
     defaultProjectId: number
+    orgLabel?: string | null
+    departmentLabel?: string
+    teamLabel?: string
+    roleLabel?: string
+    levelLabel?: string
+    orgName?: string | null
+    departmentName?: string
+    teamName?: string
+    roleName?: string
+    levelName?: string
+  }
+  labels?: {
+    org?: string | null
+    department?: string
+    team?: string
+    role?: string
+    level?: string
   }
   timestamp?: string
   expiry?: string
@@ -61,10 +80,14 @@ export type LoginResponse = {
 // ---------------------------------------------------------------------------
 
 const CONFIG_SEARCH_PATHS = [
-  // 项目级配置（可提交到 git）
-  (cwd: string) => getTeamCCProjectConfigFile(cwd),
-  // 用户级配置（敏感信息，应该 gitignore）
-  () => join(homedir(), '.teamcc', 'config.json'),
+  {
+    source: 'project' as const,
+    pathFn: (cwd: string) => getTeamCCProjectConfigFile(cwd),
+  },
+  {
+    source: 'user' as const,
+    pathFn: () => join(homedir(), '.teamcc', 'config.json'),
+  },
 ]
 
 const CACHE_DIR_PATH = (cwd: string) => getTeamCCProjectCacheDir(cwd)
@@ -76,15 +99,19 @@ const CACHE_DIR_PATH = (cwd: string) => getTeamCCProjectCacheDir(cwd)
 export async function loadTeamCCConfig(
   cwd: string,
 ): Promise<TeamCCConfig | null> {
-  for (const pathFn of CONFIG_SEARCH_PATHS) {
-    const configPath = pathFn(cwd)
+  for (const entry of CONFIG_SEARCH_PATHS) {
+    const configPath = entry.pathFn(cwd)
     if (!existsSync(configPath)) continue
 
     try {
       const content = await readFile(configPath, 'utf-8')
       const config = JSON.parse(content) as TeamCCConfig
       logForDebugging(`[teamcc] Loaded config from ${configPath}`)
-      return config
+      return {
+        ...config,
+        configPath,
+        configSource: entry.source,
+      }
     } catch (e) {
       logForDebugging(
         `[teamcc] Failed to parse config at ${configPath}: ${(e as Error).message}`,
@@ -99,6 +126,7 @@ export async function loadTeamCCConfig(
       apiBase: process.env.TEAMCC_ADMIN_URL,
       accessToken: process.env.TEAMCC_ACCESS_TOKEN,
       refreshToken: process.env.TEAMCC_REFRESH_TOKEN,
+      configSource: 'env',
     }
   }
 
@@ -112,7 +140,10 @@ export async function saveTeamCCConfig(
   cwd: string,
   config: TeamCCConfig,
 ): Promise<void> {
-  const configPath = CONFIG_SEARCH_PATHS[0](cwd)
+  const configPath =
+    config.configSource === 'env'
+      ? CONFIG_SEARCH_PATHS[0].pathFn(cwd)
+      : config.configPath ?? CONFIG_SEARCH_PATHS[0].pathFn(cwd)
   const dir = join(configPath, '..')
 
   // 确保目录存在
@@ -129,6 +160,36 @@ export async function saveTeamCCConfig(
 
   await writeFile(configPath, JSON.stringify(configToSave, null, 2), 'utf-8')
   logForDebugging(`[teamcc] Saved config to ${configPath}`)
+}
+
+function didTokenConfigChange(
+  previous: TeamCCConfig,
+  next: TeamCCConfig,
+): boolean {
+  return (
+    previous.accessToken !== next.accessToken ||
+    previous.refreshToken !== next.refreshToken ||
+    previous.tokenExpiry !== next.tokenExpiry ||
+    previous.username !== next.username ||
+    previous.apiBase !== next.apiBase
+  )
+}
+
+export async function getPersistedValidAccessToken(
+  cwd: string,
+  config: TeamCCConfig,
+  timeoutMs: number = 5000,
+): Promise<{ token: string; updatedConfig: TeamCCConfig }> {
+  const { token, updatedConfig } = await getValidAccessToken(config, timeoutMs)
+
+  if (
+    config.configSource !== 'env' &&
+    didTokenConfigChange(config, updatedConfig)
+  ) {
+    await saveTeamCCConfig(cwd, updatedConfig)
+  }
+
+  return { token, updatedConfig }
 }
 
 // ---------------------------------------------------------------------------
@@ -284,11 +345,12 @@ export async function getValidAccessToken(
  * 包含 5 秒超时以防止启动卡顿
  */
 export async function fetchIdentityFromTeamCC(
+  cwd: string,
   config: TeamCCConfig,
   timeoutMs: number = 5000,
 ): Promise<IdentityEnvelope> {
   // 把超时传下去，避免在里面死锁
-  const { token } = await getValidAccessToken(config, timeoutMs)
+  const { token } = await getPersistedValidAccessToken(cwd, config, timeoutMs)
 
   try {
     const controller = new AbortController()
@@ -403,7 +465,9 @@ export function isCacheValid(envelope: IdentityEnvelope): boolean {
  * 清除本地 TeamCC 配置
  */
 export async function logoutFromTeamCC(cwd: string): Promise<void> {
-  const configPath = CONFIG_SEARCH_PATHS[0](cwd)
+  const existingConfig = await loadTeamCCConfig(cwd)
+  const configPath =
+    existingConfig?.configPath ?? CONFIG_SEARCH_PATHS[0].pathFn(cwd)
 
   try {
     if (existsSync(configPath)) {

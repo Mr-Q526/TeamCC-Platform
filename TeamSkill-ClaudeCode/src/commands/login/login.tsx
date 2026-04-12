@@ -1,6 +1,8 @@
 import { feature } from 'bun:bundle'
 import * as React from 'react'
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
 import { resetCostState } from '../../bootstrap/state.js'
+import { applyTeamCCSessionToRuntime } from '../../bootstrap/teamccRuntime.js'
 import {
   clearTrustedDeviceToken,
   enrollTrustedDevice,
@@ -23,45 +25,68 @@ import {
 import { resetUserCache } from '../../utils/user.js'
 import { TeamCCLogin } from './teamccLogin.js'
 
+export async function applySuccessfulTeamCCLogin(
+  context: LocalJSXCommandContext,
+  session: import('../../bootstrap/teamccSession.js').TeamCCBootstrapResult,
+): Promise<void> {
+  applyTeamCCSessionToRuntime(context, session)
+  void reportAuditLog(process.cwd(), 'login', {
+    status: session.status,
+    warning: session.warning,
+    failureReason: session.failureReason,
+    projectId: session.identityProfile?.projectId,
+  })
+  resetCostState()
+  void refreshRemoteManagedSettings()
+  void refreshPolicyLimits()
+  resetUserCache()
+  refreshGrowthBookAfterAuthChange()
+  clearTrustedDeviceToken()
+  void enrollTrustedDevice()
+  resetBypassPermissionsCheck()
+
+  const appState = context.getAppState()
+  void checkAndDisableBypassPermissionsIfNeeded(
+    appState.toolPermissionContext,
+    context.setAppState,
+  )
+  if (feature('TRANSCRIPT_CLASSIFIER')) {
+    resetAutoModeGateCheck()
+    void checkAndDisableAutoModeIfNeeded(
+      appState.toolPermissionContext,
+      context.setAppState,
+      appState.fastMode,
+    )
+  }
+
+  context.setAppState(prev => ({
+    ...prev,
+    authVersion: prev.authVersion + 1,
+  }))
+}
+
 export async function call(
   onDone: LocalJSXCommandOnDone,
   context: LocalJSXCommandContext,
 ): Promise<React.ReactNode> {
   return (
     <Login
-      onDone={async success => {
+      onDone={async ({ success, session }) => {
         context.onChangeAPIKey()
         context.setMessages(stripSignatureBlocks)
         if (success) {
-          resetCostState()
-          void refreshRemoteManagedSettings()
-          void refreshPolicyLimits()
-          resetUserCache()
-          refreshGrowthBookAfterAuthChange()
-          clearTrustedDeviceToken()
-          void enrollTrustedDevice()
-          resetBypassPermissionsCheck()
-
-          const appState = context.getAppState()
-          void checkAndDisableBypassPermissionsIfNeeded(
-            appState.toolPermissionContext,
-            context.setAppState,
-          )
-          if (feature('TRANSCRIPT_CLASSIFIER')) {
-            resetAutoModeGateCheck()
-            void checkAndDisableAutoModeIfNeeded(
-              appState.toolPermissionContext,
-              context.setAppState,
-              appState.fastMode,
-            )
+          if (!session) {
+            onDone('登录失败：缺少 TeamCC 会话结果')
+            return
           }
 
-          context.setAppState(prev => ({
-            ...prev,
-            authVersion: prev.authVersion + 1,
-          }))
+          await applySuccessfulTeamCCLogin(context, session)
         }
-        onDone(success ? '已成功登录 TeamCC' : '登录已取消')
+        const successMessage =
+          success && session?.status === 'authenticated_restricted'
+            ? '已成功登录 TeamCC，但当前项目权限未加载，处于 restricted mode'
+            : '已成功登录 TeamCC'
+        onDone(success ? successMessage : '登录已取消')
       }}
     />
   )
@@ -81,17 +106,21 @@ function exitGuide(exitState: any) {
 }
 
 export function Login(props: {
-  onDone: (success: boolean) => void
+  onDone: (result: {
+    success: boolean
+    session?: import('../../bootstrap/teamccSession.js').TeamCCBootstrapResult
+  }) => void
   startingMessage?: string
 }): React.ReactNode {
   return (
     <Dialog
       title="TeamCC Login"
-      onCancel={() => props.onDone(false)}
+      onCancel={() => props.onDone({ success: false })}
       color="permission"
       inputGuide={exitGuide}
       isCancelActive={false}
     >
+      {props.startingMessage ? <Text>{props.startingMessage}</Text> : null}
       <TeamCCLogin onDone={props.onDone} />
     </Dialog>
   )

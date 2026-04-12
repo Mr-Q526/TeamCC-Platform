@@ -219,9 +219,6 @@ export default function PoliciesPage({ accessToken, onDataChange }: PoliciesPage
     return haystack.includes(search)
   })
 
-  const activeCount = policies.filter((p) => p.status === 'active').length
-  const disabledCount = policies.filter((p) => p.status === 'disabled').length
-
   const openAdd = () => {
     setEditPolicy(null)
     setForm({

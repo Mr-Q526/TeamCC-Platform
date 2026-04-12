@@ -124,7 +124,7 @@
 当前内容包括：
 
 - `teamcc.json`
-- `identity/active.md`
+- `identity/`（历史遗留目录，现已不再作为企业身份入口）
 - `skills/`
 - `agents/`
 - `commands/`

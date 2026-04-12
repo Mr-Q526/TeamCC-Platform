@@ -4,29 +4,101 @@
  * Provides non-blocking telemetry to the TeamCC Admin backend for sensitive operations.
  */
 import { logForDebugging } from '../utils/debug.js'
-import { loadTeamCCConfig, getValidAccessToken } from './teamccAuth.js'
-import { loadLocalIdentityProfile } from '../utils/identity.js'
+import type { TeamCCConfig } from './teamccAuth.js'
+import { loadTeamCCConfig, getPersistedValidAccessToken } from './teamccAuth.js'
+import {
+  getIdentityProfile,
+  getSessionId,
+  getTeamCCSessionFailureReason,
+  getTeamCCSessionState,
+} from './state.js'
 
-export type AuditEventType = 'boot' | 'login' | 'bash_command' | 'file_write'
+export type AuditEventType =
+  | 'boot'
+  | 'login'
+  | 'logout'
+  | 'exit'
+  | 'bash_command'
+  | 'file_write'
+  | 'tool_permission_decision'
+
+type AuditOptions = {
+  allowCachedConfigFallback?: boolean
+  refreshToken?: boolean
+}
+
+type AuditIdentitySnapshot = {
+  userId: number
+  departmentId: number
+  projectId: number
+}
+
+let lastKnownAuditConfig: TeamCCConfig | null = null
+let lastKnownAuditIdentity: AuditIdentitySnapshot | null = null
+
+function rememberAuditConfig(config: TeamCCConfig | null): void {
+  if (!config?.apiBase) {
+    return
+  }
+
+  lastKnownAuditConfig = {
+    apiBase: config.apiBase,
+    username: config.username,
+    accessToken: config.accessToken,
+    refreshToken: config.refreshToken,
+    tokenExpiry: config.tokenExpiry,
+    configPath: config.configPath,
+    configSource: config.configSource,
+  }
+}
+
+function rememberAuditIdentity(identity: ReturnType<typeof getIdentityProfile>): void {
+  if (!identity) {
+    return
+  }
+
+  lastKnownAuditIdentity = {
+    userId: identity.userId,
+    departmentId: identity.departmentId,
+    projectId: identity.projectId,
+  }
+}
 
 export async function reportAuditLog(
   cwd: string,
   eventType: AuditEventType,
-  payload: Record<string, any>
+  payload: Record<string, unknown>,
+  options: AuditOptions = {},
 ): Promise<void> {
   try {
-    const config = await loadTeamCCConfig(cwd)
+    const loadedConfig = await loadTeamCCConfig(cwd)
+    const config =
+      loadedConfig?.apiBase
+        ? loadedConfig
+        : options.allowCachedConfigFallback
+          ? lastKnownAuditConfig
+          : null
     if (!config || !config.apiBase) return
+    rememberAuditConfig(config)
 
-    // Attempt to enrich with identity info
-    const identity = await loadLocalIdentityProfile(cwd)
+    // Enrich with current runtime identity and retain the last verified snapshot
+    // so exit-after-logout can still be attributed.
+    const identity = getIdentityProfile()
+    rememberAuditIdentity(identity)
+    const effectiveIdentity =
+      identity ??
+      (options.allowCachedConfigFallback ? lastKnownAuditIdentity : null)
+    const sessionId = getSessionId()
+    const teamccSessionStatus = getTeamCCSessionState()
+    const teamccSessionFailureReason = getTeamCCSessionFailureReason()
     
     // Attempt to grab token securely
     let token = config.accessToken
-    if (token) {
+    if (token && options.refreshToken !== false) {
       try {
-        const validTokenObj = await getValidAccessToken(config)
+        const validTokenObj = await getPersistedValidAccessToken(cwd, config)
         token = validTokenObj.token
+        rememberAuditConfig(validTokenObj.updatedConfig)
       } catch {
         // Token might be expired and refresh failed, keep best-effort token
       }
@@ -34,12 +106,21 @@ export async function reportAuditLog(
 
     const auditData = {
       timestamp: new Date().toISOString(),
-      userId: identity?.userId ?? 0,
-      departmentId: identity?.departmentId ?? 0,
+      userId: effectiveIdentity?.userId,
+      departmentId: effectiveIdentity?.departmentId,
+      projectId: effectiveIdentity?.projectId,
+      sessionId,
       eventType,
-      details: payload,
+      details: {
+        sessionId,
+        projectId: effectiveIdentity?.projectId,
+        teamccSessionStatus,
+        ...(teamccSessionFailureReason && {
+          teamccSessionFailureReason,
+        }),
+        ...payload,
+      },
     }
-    console.log("PAYLOAD USER ID:", auditData.userId, "IDENTITY:", identity);
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -72,4 +153,3 @@ export async function reportAuditLog(
     logForDebugging(`[teamcc-audit] Internal error during audit reporting: ${(error as Error).message}`, { level: 'error' })
   }
 }
-

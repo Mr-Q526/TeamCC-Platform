@@ -6,6 +6,7 @@ import {
   timestamp,
   primaryKey,
   integer,
+  index,
   uniqueIndex,
 } from 'drizzle-orm/pg-core'
 import { sql } from 'drizzle-orm'
@@ -150,7 +151,7 @@ export const departmentPolicies = table(
       .default(sql`now()`),
   },
   (table) => ({
-    deptIdx: uniqueIndex('dept_policies_dept_idx').on(table.departmentId),
+    deptIdx: index('dept_policies_department_idx').on(table.departmentId),
   })
 )
 

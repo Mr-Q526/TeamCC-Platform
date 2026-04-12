@@ -1,0 +1,133 @@
+.neo4j-page {
+  gap: 18px;
+}
+
+.neo4j-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 18px;
+}
+
+.neo4j-intro-card,
+.neo4j-meta-card,
+.neo4j-browser-card {
+  padding: 24px;
+}
+
+.neo4j-intro-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.neo4j-intro-card h2,
+.neo4j-meta-card h3,
+.neo4j-browser-card h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.04em;
+}
+
+.neo4j-intro-card p,
+.neo4j-meta-card p,
+.neo4j-browser-card p {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.neo4j-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.neo4j-meta-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.neo4j-meta-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.neo4j-meta-item {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+}
+
+.neo4j-meta-item span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.neo4j-meta-item strong {
+  color: var(--text-strong);
+  font-size: 14px;
+  word-break: break-all;
+}
+
+.neo4j-note-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.neo4j-browser-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.neo4j-browser-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.neo4j-frame-shell {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #0f172a;
+  min-height: 720px;
+}
+
+.neo4j-frame {
+  width: 100%;
+  min-height: 720px;
+  border: 0;
+  background: #0f172a;
+}
+
+@media (max-width: 1024px) {
+  .neo4j-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .neo4j-intro-card,
+  .neo4j-meta-card,
+  .neo4j-browser-card {
+    padding: 22px 20px;
+  }
+
+  .neo4j-browser-head {
+    flex-direction: column;
+  }
+
+  .neo4j-frame-shell,
+  .neo4j-frame {
+    min-height: 560px;
+  }
+}

@@ -1,5 +1,7 @@
 # Claude Code 改造方案
 
+> 2026-04-12 更新：本文包含早期 `Identity MD` / `.claude/identity/active.md` 方案讨论。当前现行口径已经收敛为 `TeamCC Admin` 唯一身份源；下文相关表述仅保留历史背景，不能再视为实施要求。
+>
 > 本文只描述 Claude Code 本身的改造，不展开配套评测平台和图谱服务细节。评测结果、score snapshot 和关系查询服务仅作为外部依赖存在。
 
 ## 1. 方案目标
@@ -111,14 +113,14 @@
 
 要做的事：
 
-- 增加活动身份文件发现逻辑
-- 允许 `.claude/identity/active.md` 作为身份入口
-- 保留 `CLAUDE.local.md -> @identity-file` 的兼容方案
-- 把身份正文注入系统上下文，把 frontmatter 编译结果缓存为运行时 profile
+- 增加 TeamCC 身份 profile 的接入逻辑
+- 不再允许 `.claude/identity/active.md` 作为正式身份入口
+- 清理 `CLAUDE.local.md -> @identity-file` 一类历史兼容思路
+- 把远端身份摘要注入系统上下文，并将结构化结果缓存为运行时 profile
 
 结果要求：
 
-- 同一个项目里切换不同身份文件后，后续会话能得到不同的权限和 Skill 候选
+- 同一个项目在不同 TeamCC 身份与项目授权下，后续会话能得到不同的权限和 Skill 候选
 
 ### 6.2 Skill 元数据与 selector
 

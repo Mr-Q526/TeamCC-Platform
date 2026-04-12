@@ -3,6 +3,7 @@ import memoize from 'lodash-es/memoize.js'
 import {
   getAdditionalDirectoriesForClaudeMd,
   getIdentityProfile,
+  getTeamCCSessionState,
   setCachedClaudeMdContent,
 } from './bootstrap/state.js'
 import { getLocalISODate } from './constants/common.js'
@@ -178,10 +179,15 @@ export const getUserContext = memoize(
 
     // Build identity context if a profile is loaded
     const identityProfile = getIdentityProfile()
+    const teamccSessionState = getTeamCCSessionState()
     let identityContext: string | null = null
     if (identityProfile) {
       const { buildIdentityContextString } = await import('./utils/identity.js')
       identityContext = buildIdentityContextString(identityProfile)
+      if (teamccSessionState === 'authenticated_restricted') {
+        identityContext +=
+          ' TeamCC restricted mode is active: identity is verified, but project permissions were not loaded.'
+      }
     }
 
     logForDiagnosticsNoPII('info', 'user_context_completed', {

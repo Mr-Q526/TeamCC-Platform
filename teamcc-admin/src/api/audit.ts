@@ -1,9 +1,30 @@
 import type { FastifyInstance } from 'fastify'
 import { db } from '../db/index.js'
-import { auditLog, users } from '../db/schema.js'
-import { eq, desc, sql, and } from 'drizzle-orm'
-import { JWT_SECRET } from '../services/auth.js'
+import { auditLog } from '../db/schema.js'
+import { JWT_SECRET, requireActiveUserById } from '../services/auth.js'
 import crypto from 'crypto'
+
+type ClientAuditEventType =
+  | 'boot'
+  | 'login'
+  | 'logout'
+  | 'exit'
+  | 'bash_command'
+  | 'file_write'
+  | 'command_execution_error'
+  | 'permission_allow'
+  | 'permission_ask'
+  | 'permission_deny'
+  | 'policy_violation'
+
+type ClientAuditTargetType =
+  | 'session'
+  | 'command'
+  | 'file'
+  | 'tool'
+  | 'policy'
+
+type AuditSeverity = 'info' | 'warning' | 'critical'
 
 /**
  * Verify JWT token and extract userId + username
@@ -47,6 +68,73 @@ const DANGEROUS_PATTERNS = [
 
 function isDangerousCommand(command: string): boolean {
   return DANGEROUS_PATTERNS.some((p) => p.test(command))
+}
+
+function severityRank(severity: AuditSeverity): number {
+  return severity === 'critical' ? 3 : severity === 'warning' ? 2 : 1
+}
+
+function normalizeTargetType(
+  eventType: ClientAuditEventType,
+  targetType?: ClientAuditTargetType,
+): ClientAuditTargetType {
+  if (targetType) return targetType
+
+  switch (eventType) {
+    case 'boot':
+    case 'login':
+    case 'logout':
+    case 'exit':
+      return 'session'
+    case 'bash_command':
+    case 'command_execution_error':
+      return 'command'
+    case 'file_write':
+      return 'file'
+    case 'permission_allow':
+    case 'permission_ask':
+    case 'permission_deny':
+      return 'tool'
+    case 'policy_violation':
+      return 'policy'
+  }
+}
+
+function inferSeverity(
+  eventType: ClientAuditEventType,
+  details: Record<string, unknown>,
+  requestedSeverity?: AuditSeverity,
+): AuditSeverity {
+  let inferred: AuditSeverity = 'info'
+
+  switch (eventType) {
+    case 'boot':
+    case 'login':
+    case 'logout':
+    case 'exit':
+    case 'bash_command':
+    case 'file_write':
+    case 'permission_allow':
+      inferred = 'info'
+      break
+    case 'command_execution_error':
+    case 'permission_ask':
+      inferred = 'warning'
+      break
+    case 'policy_violation':
+      inferred = 'critical'
+      break
+    case 'permission_deny': {
+      const toolName = String(details.toolName || details.tool || '')
+      inferred = ['Edit', 'Write', 'Bash', 'WebFetch', 'WebSearch', 'NotebookEdit'].includes(toolName)
+        ? 'critical'
+        : 'warning'
+      break
+    }
+  }
+
+  if (!requestedSeverity) return inferred
+  return severityRank(requestedSeverity) > severityRank(inferred) ? requestedSeverity : inferred
 }
 
 /**
@@ -94,9 +182,10 @@ export async function registerAuditRoutes(fastify: FastifyInstance) {
       timestamp: string
       userId: number
       departmentId?: number
-      eventType: 'boot' | 'login' | 'logout' | 'bash_command' | 'file_write' | 'command_execution_error' | 'tool_access' | 'policy_violation'
+      eventType: ClientAuditEventType
+      targetType?: ClientAuditTargetType
       details: Record<string, unknown>
-      severity?: 'info' | 'warning' | 'critical'
+      severity?: AuditSeverity
     }
   }>('/api/audit', async (request, reply) => {
     try {
@@ -113,19 +202,19 @@ export async function registerAuditRoutes(fastify: FastifyInstance) {
       }
 
       // ── 3. Verify user exists ─────────────────────────────────────────
-      const user = await db.select().from(users).where(eq(users.id, tokenData.userId)).limit(1).then((r) => r[0])
-      if (!user) return reply.status(401).send({ error: 'User not found' })
+      await requireActiveUserById(tokenData.userId)
 
       // ── 4. Persist into shared audit_log ─────────────────────────────
-      const { timestamp, userId, eventType, details, severity } = request.body
+      const { timestamp, userId, eventType, targetType, details, severity } = request.body
+      const resolvedSeverity = inferSeverity(eventType, details, severity)
       const auditDetails = {
         ...details,
-        severity: severity || 'info',
+        severity: resolvedSeverity,
       }
       await db.insert(auditLog).values({
         actorUserId: userId,
         action: eventType,
-        targetType: 'cli_event',
+        targetType: normalizeTargetType(eventType, targetType),
         targetId: null,
         beforeJson: null,
         afterJson: JSON.stringify(auditDetails),
@@ -142,10 +231,16 @@ export async function registerAuditRoutes(fastify: FastifyInstance) {
       }
 
       // 策略违反告警
-      if (eventType === 'policy_violation' && severity === 'critical') {
+      if (eventType === 'policy_violation' && resolvedSeverity === 'critical') {
         const policy = String(details.policy || 'unknown')
         const tool = String(details.tool || 'unknown')
         void sendSecurityAlert(userId, tokenData.username, `Policy violation: ${tool} - ${policy}`, timestamp)
+      }
+
+      if (eventType === 'permission_deny' && resolvedSeverity === 'critical') {
+        const toolName = String(details.toolName || details.tool || 'unknown')
+        const target = String(details.target || details.command || 'unknown')
+        void sendSecurityAlert(userId, tokenData.username, `Permission denied: ${toolName} - ${target}`, timestamp)
       }
 
       return reply.status(202).send({ ok: true })

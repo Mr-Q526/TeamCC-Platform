@@ -1,7 +1,11 @@
 import { dirname, sep } from 'path'
 import { logEvent } from 'src/services/analytics/index.js'
 import { z } from 'zod/v4'
-import { logPermissionDecision } from '../../utils/permissions/audit.js'
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
+import {
+  isEnterprisePermissionSource,
+  logPermissionDecision,
+} from '../../utils/permissions/audit.js'
 import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
 import { diagnosticTracker } from '../../services/diagnosticTracking.js'
 import { clearDeliveredDiagnosticsForFile } from '../../services/lsp/LSPDiagnosticRegistry.js'
@@ -169,12 +173,16 @@ export const FileWriteTool = buildTool({
       'deny',
     )
     if (denyRule !== null) {
-      if (denyRule.source === 'policySettings') {
-        logPermissionDecision('FileWrite', 'deny', denyRule.source, fullFilePath, denyRule.ruleValue.ruleContent || '*')
-      }
+      logPermissionDecision(
+        'FileWrite',
+        'deny',
+        denyRule.source,
+        fullFilePath,
+        denyRule.ruleValue.ruleContent || '*',
+      )
       return {
         result: false,
-        message: denyRule.source === 'policySettings'
+        message: isEnterprisePermissionSource(denyRule.source)
           ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的操作权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
           : 'File is in a directory that is denied by your permission settings.',
         errorCode: 1,
@@ -392,6 +400,16 @@ export const FileWriteTool = buildTool({
         type: 'update',
       })
 
+      void reportAuditLog(cwd, 'file_write', {
+        toolName: FILE_WRITE_TOOL_NAME,
+        targetPath: fullFilePath,
+        changeType: 'update',
+        failed: false,
+        interrupted: false,
+        contentBytes: Buffer.byteLength(content, 'utf8'),
+        previousContentBytes: Buffer.byteLength(oldContent, 'utf8'),
+      })
+
       return {
         data,
       }
@@ -414,6 +432,16 @@ export const FileWriteTool = buildTool({
       tool: 'FileWriteTool',
       filePath: fullFilePath,
       type: 'create',
+    })
+
+    void reportAuditLog(cwd, 'file_write', {
+      toolName: FILE_WRITE_TOOL_NAME,
+      targetPath: fullFilePath,
+      changeType: 'create',
+      failed: false,
+      interrupted: false,
+      contentBytes: Buffer.byteLength(content, 'utf8'),
+      previousContentBytes: 0,
     })
 
     return {

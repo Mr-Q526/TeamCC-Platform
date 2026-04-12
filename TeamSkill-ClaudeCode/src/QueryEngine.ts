@@ -195,6 +195,14 @@ export class QueryEngine {
   // at the start of each submitMessage to avoid unbounded growth across
   // many turns in SDK mode.
   private discoveredSkillNames = new Set<string>()
+  private discoveredSkillAttributions = new Map<
+    string,
+    {
+      traceId: string
+      taskId: string
+      retrievalRoundId: string
+    }
+  >()
   private loadedNestedMemoryPaths = new Set<string>()
 
   constructor(config: QueryEngineConfig) {
@@ -371,6 +379,7 @@ export class QueryEngine {
       loadedNestedMemoryPaths: this.loadedNestedMemoryPaths,
       dynamicSkillDirTriggers: new Set<string>(),
       discoveredSkillNames: this.discoveredSkillNames,
+      discoveredSkillAttributions: this.discoveredSkillAttributions,
       setInProgressToolUseIDs: () => {},
       setResponseLength: () => {},
       updateFileHistoryState: (
