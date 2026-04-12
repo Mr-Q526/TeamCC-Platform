@@ -444,3 +444,117 @@ history/* 只查历史，不合并
 teamcc / admin / wt-eval-runner / skill-graph 开发完成后提 PR 到 main
 main      保持可启动、可联调
 ```
+
+## 10. Docker 运行规范
+
+### 10.1 核心原则
+
+**所有 Docker 服务（数据库、API、前端）统一在主工作区的 `main` 分支启动。**
+
+```text
+主工作区 (main)     → 唯一的 Docker 启动位置
+各个 worktree       → 只跑裸 dev server（npm run dev / bun run dev），通过网络连主工作区的容器
+```
+
+### 10.2 为什么不在 worktree 里启动 Docker
+
+Docker Compose 的 bind mount（如 `- .:/app`、`- ./frontend:/app`）使用相对路径，解析基准是 `docker compose up` 执行时的工作目录。
+
+```yaml
+# docker-compose.yml 中的挂载
+volumes:
+  - ./frontend:/app    # 这个 ./ 指向你执行命令时所在的目录
+```
+
+如果在 `worktrees/admin/teamcc-admin/` 启动，Docker 只能看到 `admin` 分支的前端代码。`skill-graph` 分支做的前端修改存在于 `worktrees/skill-graph/teamcc-admin/frontend/`，Docker 完全看不到。
+
+**每个 worktree 是独立的文件目录，Docker 只能挂载一个。** 这意味着：
+
+- ❌ 不可能通过 Docker 同时看到两个分支的修改
+- ❌ 在 worktree 里启动 Docker 会让其他分支的改动"消失"
+- ❌ 两个 worktree 同时启动同一个 Docker Compose 会导致端口冲突和容器名冲突
+
+### 10.3 正确做法
+
+#### 数据服务（数据库、Neo4j）
+
+始终在主工作区启动，所有 worktree 通过网络端口连接：
+
+```bash
+# 在主工作区启动
+cd /Users/minruiqing/MyProjects/teamcc-platform/teamcc-admin
+docker compose up -d postgres    # 只启动数据库
+
+cd /Users/minruiqing/MyProjects/teamcc-platform/skill-graph
+bun run skills:db:up             # pgvector + Neo4j
+```
+
+数据库通过 `localhost:5432`、`localhost:54329`、`localhost:7474` 等端口访问，不受文件目录影响。
+
+#### 后端 API
+
+推荐在 worktree 中裸跑 dev server，而不是用 Docker：
+
+```bash
+# 在你当前开发的 worktree 里
+cd worktrees/<worktree-name>/teamcc-admin
+npm run dev
+```
+
+如果确实需要 Docker 启动 API 容器（如需要完整的容器化环境），必须先合并代码到 `main`，然后在主工作区启动。
+
+#### 前端
+
+始终在 worktree 中裸跑 Vite dev server：
+
+```bash
+# 在你当前开发的 worktree 里
+cd worktrees/<worktree-name>/teamcc-admin/frontend
+npm install
+npm run dev -- --host 127.0.0.1
+```
+
+Vite 直接从本地文件系统读取代码，不涉及 Docker 挂载路径问题。
+
+### 10.4 需要同时看到多分支改动时
+
+如果你需要同时验证 `admin` 和 `skill-graph` 两个分支的前端改动，必须先在 Git 层面合并代码：
+
+```bash
+# 方案 A：在其中一个 worktree 里合并另一个分支
+cd worktrees/admin
+git merge skill-graph
+
+# 方案 B：两个分支都合并到 main，然后在主工作区启动
+# 1. 各分支提交 PR 到 main
+# 2. 合并后：
+cd /Users/minruiqing/MyProjects/teamcc-platform
+git switch main && git pull
+cd teamcc-admin
+docker compose up -d
+```
+
+### 10.5 服务分层速查
+
+| 服务 | 启动位置 | 启动方式 | 是否受 worktree 隔离影响 |
+|------|---------|---------|------------------------|
+| PostgreSQL (Admin) | 主工作区 | `docker compose up -d postgres` | ❌ named volume, 通过端口访问 |
+| pgvector (Skill) | 主工作区 | `bun run skills:db:up` | ❌ named volume, 通过端口访问 |
+| Neo4j | 主工作区 | `bun run skills:db:up` | ❌ named volume, 通过端口访问 |
+| Admin API | worktree | `npm run dev` (裸跑) | ✅ 读取本地代码 |
+| Admin Frontend | worktree | `npm run dev -- --host 127.0.0.1` (裸跑) | ✅ 读取本地代码 |
+| TeamSkill CLI | worktree | `bun run version` | ✅ 读取本地代码 |
+
+### 10.6 docker-compose.yml 里的 api / web 服务何时使用
+
+`teamcc-admin/docker-compose.yml` 中的 `api` 和 `web` 服务适用于：
+
+- 部署到 staging 或生产环境
+- 需要容器化完整性测试
+- CI/CD 流水线
+
+**日常功能开发时，不要使用它们。** 只启动 `postgres` 服务即可：
+
+```bash
+docker compose up -d postgres
+```
