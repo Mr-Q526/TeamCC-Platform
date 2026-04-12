@@ -16,6 +16,7 @@ import { loadCachedIdentity } from '../bootstrap/teamccAuth.js'
 
 export type IdentityProfile = {
   userId: number
+  username?: string
   orgId: number | null
   departmentId: number
   teamId: number
@@ -133,6 +134,7 @@ export function envelopeToProfile(
   const labels = envelope.labels
   return {
     userId: subject.userId,
+    username: normalizeIdentityLabel(subject.username),
     orgId: subject.orgId ?? null,
     departmentId: subject.departmentId,
     teamId: subject.teamId,

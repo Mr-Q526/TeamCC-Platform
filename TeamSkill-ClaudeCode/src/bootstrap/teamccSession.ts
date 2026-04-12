@@ -43,7 +43,7 @@ export type TeamCCBootstrapResult =
     })
 
 export function isTeamCCAuthEntrypoint(argv: string[] = process.argv): boolean {
-  const authCommands = new Set(['auth', 'login', 'logout'])
+  const authCommands = new Set(['auth', 'login', 'logout', '/login'])
   return argv.some(arg => authCommands.has(arg))
 }
 

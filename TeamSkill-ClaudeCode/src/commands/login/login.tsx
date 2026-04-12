@@ -25,6 +25,46 @@ import {
 import { resetUserCache } from '../../utils/user.js'
 import { TeamCCLogin } from './teamccLogin.js'
 
+export async function applySuccessfulTeamCCLogin(
+  context: LocalJSXCommandContext,
+  session: import('../../bootstrap/teamccSession.js').TeamCCBootstrapResult,
+): Promise<void> {
+  applyTeamCCSessionToRuntime(context, session)
+  void reportAuditLog(process.cwd(), 'login', {
+    status: session.status,
+    warning: session.warning,
+    failureReason: session.failureReason,
+    projectId: session.identityProfile?.projectId,
+  })
+  resetCostState()
+  void refreshRemoteManagedSettings()
+  void refreshPolicyLimits()
+  resetUserCache()
+  refreshGrowthBookAfterAuthChange()
+  clearTrustedDeviceToken()
+  void enrollTrustedDevice()
+  resetBypassPermissionsCheck()
+
+  const appState = context.getAppState()
+  void checkAndDisableBypassPermissionsIfNeeded(
+    appState.toolPermissionContext,
+    context.setAppState,
+  )
+  if (feature('TRANSCRIPT_CLASSIFIER')) {
+    resetAutoModeGateCheck()
+    void checkAndDisableAutoModeIfNeeded(
+      appState.toolPermissionContext,
+      context.setAppState,
+      appState.fastMode,
+    )
+  }
+
+  context.setAppState(prev => ({
+    ...prev,
+    authVersion: prev.authVersion + 1,
+  }))
+}
+
 export async function call(
   onDone: LocalJSXCommandOnDone,
   context: LocalJSXCommandContext,
@@ -40,40 +80,7 @@ export async function call(
             return
           }
 
-          applyTeamCCSessionToRuntime(context, session)
-          void reportAuditLog(process.cwd(), 'login', {
-            status: session.status,
-            warning: session.warning,
-            failureReason: session.failureReason,
-            projectId: session.identityProfile?.projectId,
-          })
-          resetCostState()
-          void refreshRemoteManagedSettings()
-          void refreshPolicyLimits()
-          resetUserCache()
-          refreshGrowthBookAfterAuthChange()
-          clearTrustedDeviceToken()
-          void enrollTrustedDevice()
-          resetBypassPermissionsCheck()
-
-          const appState = context.getAppState()
-          void checkAndDisableBypassPermissionsIfNeeded(
-            appState.toolPermissionContext,
-            context.setAppState,
-          )
-          if (feature('TRANSCRIPT_CLASSIFIER')) {
-            resetAutoModeGateCheck()
-            void checkAndDisableAutoModeIfNeeded(
-              appState.toolPermissionContext,
-              context.setAppState,
-              appState.fastMode,
-            )
-          }
-
-          context.setAppState(prev => ({
-            ...prev,
-            authVersion: prev.authVersion + 1,
-          }))
+          await applySuccessfulTeamCCLogin(context, session)
         }
         const successMessage =
           success && session?.status === 'authenticated_restricted'
@@ -113,6 +120,7 @@ export function Login(props: {
       inputGuide={exitGuide}
       isCancelActive={false}
     >
+      {props.startingMessage ? <Text>{props.startingMessage}</Text> : null}
       <TeamCCLogin onDone={props.onDone} />
     </Dialog>
   )

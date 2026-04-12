@@ -128,6 +128,8 @@ export function formatIdentityLines(
   const displayName =
     username && username.length <= MAX_USERNAME_LENGTH
       ? username
+      : profile.username && profile.username.length <= MAX_USERNAME_LENGTH
+        ? profile.username
       : `user-${profile.userId}`
   const nameLine =
     displayName === `user-${profile.userId}`

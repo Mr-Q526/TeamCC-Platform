@@ -809,6 +809,15 @@ export async function main() {
     }
   }
 
+  // `teamcc login` should open the TeamCC slash-command login flow instead of
+  // being treated as a plain natural-language prompt.
+  {
+    const rawCliArgs = process.argv.slice(2);
+    if (rawCliArgs.length === 1 && rawCliArgs[0] === 'login') {
+      process.argv = [process.argv[0]!, process.argv[1]!, '/login'];
+    }
+  }
+
   // Check for -p/--print and --init-only flags early to set isInteractiveSession before init()
   // This is needed because telemetry initialization calls auth functions that need this flag
   const cliArgs = process.argv.slice(2);
