@@ -45,13 +45,330 @@ docker compose -f docker-compose.skill-platform.yml up -d
 
 ## 3. 系统边界
 
+### 3.0 Monorepo 目录方案
+
+当前阶段推荐先采用低风险 monorepo 方案 A：合并为一个 Git 仓库，但保留原项目目录名。
+
+目录结构：
+
+```text
+teamcc-platform/
+  teamcc-admin/
+  TeamSkill-ClaudeCode/
+  skill-graph/
+  docker-compose.skill-platform.yml
+  .env.docker.example
+  scripts/
+    platform
+  docs/
+```
+
+该方案的目标是先降低本地启动和 Docker build 成本，不在第一阶段强行重命名或重排项目结构。
+
+保留原目录名的好处：
+
+- 迁移成本最低。
+- 原有脚本、README、Dockerfile 和路径引用改动较少。
+- 更容易对照历史仓库和历史提交。
+- 可以先跑通 Compose 平台，再决定是否整理为 `apps/`、`packages/` 结构。
+
+约束是：
+
+- 三个项目仍然保持独立模块边界。
+- admin、eval、graph 不应随意跨目录 import 对方内部代码。
+- 共享类型、事件 schema、数据库 schema 后续可以再抽到公共目录。
+
+### 3.0.1 Git 仓库管理方案
+
+采用：
+
+```text
+一个 monorepo Git 仓库
++ 多个 git worktree
+```
+
+不采用：
+
+```text
+外层 teamcc-platform Git 仓库
++ 内层 teamcc-admin/.git
++ 内层 TeamSkill-ClaudeCode/.git
++ 内层 skill-graph/.git
+```
+
+原因是嵌套 Git 仓库会让提交、diff、CI、Docker build context 和评测回放变复杂。平台级变更经常同时涉及 compose、admin、eval、graph 和 schema，如果保留三个独立 Git 仓库，就很难保证一次提交代表一套完整可运行的平台版本。
+
+合并后只保留 `teamcc-platform/.git`。三个项目目录只是普通子目录：
+
+```text
+teamcc-platform/
+  .git/
+  teamcc-admin/
+  TeamSkill-ClaudeCode/
+  skill-graph/
+```
+
+旧项目仓库可以保留为只读备份，但不要把它们的 `.git` 复制进 monorepo。
+
+### 3.0.2 复制式合并步骤
+
+本方案使用复制方式迁移，不使用 `git subtree`、`git filter-repo` 或 submodule。这样迁移成本最低，但会丢失三个旧仓库在新仓库中的逐文件历史。旧仓库历史仍可通过归档仓库查询。
+
+假设当前目录结构是：
+
+```text
+~/MyProjects/
+  teamcc-admin/
+  TeamSkill-ClaudeCode/
+  skill-graph/
+```
+
+第一步，创建新的 monorepo 根目录：
+
+```bash
+cd ~/MyProjects
+mkdir teamcc-platform
+cd teamcc-platform
+git init
+```
+
+第二步，复制三个项目目录。推荐用 `rsync`，因为它可以显式排除 `.git`、依赖目录和构建产物：
+
+```bash
+rsync -a \
+  --exclude .git \
+  --exclude node_modules \
+  --exclude dist \
+  --exclude build \
+  --exclude coverage \
+  --exclude .next \
+  --exclude .turbo \
+  --exclude .cache \
+  --exclude .teamcc \
+  ../teamcc-admin/ ./teamcc-admin/
+
+rsync -a \
+  --exclude .git \
+  --exclude node_modules \
+  --exclude dist \
+  --exclude build \
+  --exclude coverage \
+  --exclude .next \
+  --exclude .turbo \
+  --exclude .cache \
+  --exclude .teamcc \
+  ../TeamSkill-ClaudeCode/ ./TeamSkill-ClaudeCode/
+
+rsync -a \
+  --exclude .git \
+  --exclude node_modules \
+  --exclude dist \
+  --exclude build \
+  --exclude coverage \
+  --exclude .next \
+  --exclude .turbo \
+  --exclude .cache \
+  --exclude .teamcc \
+  ../skill-graph/ ./skill-graph/
+```
+
+如果 `skill-graph/` 暂时还不存在，可以先创建空目录或跳过复制：
+
+```bash
+mkdir -p skill-graph
+```
+
+第三步，在 monorepo 根目录新增平台级文件：
+
+```text
+teamcc-platform/
+  docker-compose.skill-platform.yml
+  .env.docker.example
+  .gitignore
+  scripts/
+    platform
+  docs/
+```
+
+根目录 `.gitignore` 至少包含：
+
+```gitignore
+node_modules
+dist
+build
+coverage
+.next
+.turbo
+.cache
+.teamcc
+.env
+.env.local
+.env.docker
+*.log
+```
+
+第四步，确认没有嵌套 `.git`：
+
+```bash
+find . -name .git -type d
+```
+
+期望只看到：
+
+```text
+./.git
+```
+
+如果误复制了子项目 `.git`，删除子项目内的 `.git` 目录：
+
+```bash
+rm -rf teamcc-admin/.git
+rm -rf TeamSkill-ClaudeCode/.git
+rm -rf skill-graph/.git
+```
+
+第五步，提交首次导入：
+
+```bash
+git add .
+git commit -m "Import platform projects"
+```
+
+第六步，配置远端仓库：
+
+```bash
+git remote add origin <teamcc-platform-git-url>
+git branch -M main
+git push -u origin main
+```
+
+第七步，将旧仓库设置为只读或归档：
+
+```text
+teamcc-admin       archived / read-only
+TeamSkill-ClaudeCode archived / read-only
+skill-graph        archived / read-only
+```
+
+后续新开发都进入 `teamcc-platform`，避免新旧仓库同时演进。
+
+### 3.0.3 Worktree 并行开发方案
+
+主目录 `teamcc-platform/` 作为集成工作区，保持干净，用于启动完整平台和最终验证。
+
+不同 agent 使用不同 worktree 和不同分支：
+
+```bash
+cd ~/MyProjects/teamcc-platform
+
+git worktree add ../wt-admin-auth -b codex/admin-auth main
+git worktree add ../wt-eval-runner -b codex/eval-runner main
+git worktree add ../wt-graph-ingest -b codex/graph-ingest main
+git worktree add ../wt-platform-docker -b codex/platform-docker main
+```
+
+目录结构：
+
+```text
+~/MyProjects/
+  teamcc-platform/       main，集成验证
+  wt-admin-auth/         codex/admin-auth
+  wt-eval-runner/        codex/eval-runner
+  wt-graph-ingest/       codex/graph-ingest
+  wt-platform-docker/    codex/platform-docker
+```
+
+每个 worktree 都包含完整 monorepo：
+
+```text
+wt-eval-runner/
+  teamcc-admin/
+  TeamSkill-ClaudeCode/
+  skill-graph/
+  docker-compose.skill-platform.yml
+```
+
+建议分支和目录所有权：
+
+```text
+codex/admin-*     主要修改 teamcc-admin/
+codex/eval-*      主要修改 TeamSkill-ClaudeCode/
+codex/graph-*     主要修改 skill-graph/
+codex/platform-*  主要修改 docker-compose、scripts、共享配置、根目录文档
+```
+
+如果一个任务需要跨多个项目改动，应明确声明写入范围，例如：
+
+```text
+本分支修改 TeamSkill-ClaudeCode/ 和 docker-compose.skill-platform.yml
+不修改 teamcc-admin/ 和 skill-graph/
+```
+
+共享文件由 `codex/platform-*` 分支优先承接，避免多个 agent 同时修改：
+
+```text
+docker-compose.skill-platform.yml
+.env.docker.example
+scripts/platform
+共享事件 schema
+数据库 migration
+跨项目类型定义
+```
+
+### 3.0.4 Worktree 集成流程
+
+每个 agent 在自己的 worktree 内提交：
+
+```bash
+git status
+git add <changed-files>
+git commit -m "Implement eval runner sandbox"
+```
+
+集成时在主工作区合并：
+
+```bash
+cd ~/MyProjects/teamcc-platform
+git switch main
+git pull
+git merge codex/eval-runner
+```
+
+合并后运行平台级验证：
+
+```bash
+docker compose -f docker-compose.skill-platform.yml up -d
+./scripts/platform doctor
+```
+
+如果多个 worktree 需要同时启动 Docker Compose，必须使用不同 project name：
+
+```bash
+docker compose -p eval_runner -f docker-compose.skill-platform.yml up -d
+docker compose -p graph_ingest -f docker-compose.skill-platform.yml up -d
+```
+
+但 host 端口仍会冲突，例如 `3000`、`3100`、`3200`、`5432`、`7474`、`7687`。因此默认策略是：
+
+- 主工作区启动完整平台。
+- 普通 agent worktree 只启动自己需要的服务或使用测试命令。
+- 多套平台并行运行时，必须通过 `.env` 覆盖端口和 volume 前缀。
+
+完成后清理 worktree：
+
+```bash
+git worktree list
+git worktree remove ../wt-eval-runner
+git branch -d codex/eval-runner
+```
+
 ### 3.1 包含的项目
 
 Docker 平台包含以下服务镜像：
 
 ```text
 teamcc-admin
-skill-eval
+TeamSkill-ClaudeCode / skill-eval
 skill-graph
 postgres + pgvector
 neo4j
@@ -59,7 +376,7 @@ neo4j
 
 其中 `skill-eval-api` 和 `skill-eval-worker` 可以复用同一个 `skill-eval` 镜像，通过不同 command 启动；`skill-graph-api` 和 `skill-graph-worker` 也可以复用同一个 `skill-graph` 镜像。
 
-如果图谱能力暂时还在当前仓库内，可以先让 graph 服务复用当前 repo 的镜像和命令；后续独立成项目后，再切换为独立 build context。
+如果图谱能力暂时还在 `TeamSkill-ClaudeCode/` 内，可以先让 graph 服务复用 `TeamSkill-ClaudeCode/` 的镜像和命令；后续独立成 `skill-graph/` 目录后，再切换为独立 build context。
 
 ### 3.2 不包含的项目
 
@@ -227,24 +544,24 @@ skill-graph       -> 启动 graph-api 或 graph-worker
 
 `skill-graph-api` 和 `skill-graph-worker` 同理。
 
-如果三个项目是 sibling repo，Compose 可以分别指定 build context：
+采用 monorepo 方案 A 后，Compose 文件放在 `teamcc-platform/` 根目录，三个项目使用根目录下的相对路径作为 build context：
 
 ```yaml
 teamcc-admin:
   build:
-    context: ../teamcc-admin
+    context: ./teamcc-admin
 
 skill-eval-api:
   build:
-    context: .
+    context: ./TeamSkill-ClaudeCode
     dockerfile: docker/eval.Dockerfile
 
 skill-graph-api:
   build:
-    context: ../skill-graph
+    context: ./skill-graph
 ```
 
-如果图谱代码暂时位于当前仓库，可以先让 `skill-graph-api` 和 `skill-graph-worker` 使用当前仓库的 Dockerfile 和 graph command。
+如果图谱代码暂时位于 `TeamSkill-ClaudeCode/` 内，可以先让 `skill-graph-api` 和 `skill-graph-worker` 使用 `./TeamSkill-ClaudeCode` 作为 build context，并指定 `TeamSkill-ClaudeCode/` 内的 graph Dockerfile 或 command。后续图谱独立出来后，再切换为 `./skill-graph`。
 
 ### 7.2 进程管理
 
@@ -268,7 +585,7 @@ skill-graph-worker -> bun run graph:worker
 - 后续可以单独扩容 `skill-eval-worker`。
 - admin、eval、graph 可以独立构建和发布。
 
-如果当前 repo 还没有 `eval:server`、`eval:worker`、`graph:server`、`graph:worker` 脚本，可以先用占位命令或只启动已有的 eval/graph seed 命令，等服务化模块补齐后再切换。
+如果 `TeamSkill-ClaudeCode/` 或 `skill-graph/` 还没有 `eval:server`、`eval:worker`、`graph:server`、`graph:worker` 脚本，可以先用占位命令或只启动已有的 eval/graph seed 命令，等服务化模块补齐后再切换。
 
 ### 7.3 entrypoint 职责
 
@@ -335,7 +652,7 @@ services:
 
   teamcc-admin:
     build:
-      context: ../teamcc-admin
+      context: ./teamcc-admin
     environment:
       TEAMCC_LOCAL_ENABLED: "false"
       DATABASE_URL: postgres://teamcc:teamcc@postgres:5432/teamcc
@@ -347,7 +664,7 @@ services:
 
   skill-graph-api:
     build:
-      context: ../skill-graph
+      context: ./skill-graph
     command: bun run graph:server
     environment:
       DATABASE_URL: postgres://teamcc:teamcc@postgres:5432/teamcc
@@ -366,7 +683,7 @@ services:
 
   skill-graph-worker:
     build:
-      context: ../skill-graph
+      context: ./skill-graph
     command: bun run graph:worker
     environment:
       DATABASE_URL: postgres://teamcc:teamcc@postgres:5432/teamcc
@@ -381,7 +698,7 @@ services:
 
   skill-eval-api:
     build:
-      context: .
+      context: ./TeamSkill-ClaudeCode
       dockerfile: docker/eval.Dockerfile
     command: bun run eval:server
     environment:
@@ -404,7 +721,7 @@ services:
 
   skill-eval-worker:
     build:
-      context: .
+      context: ./TeamSkill-ClaudeCode
       dockerfile: docker/eval.Dockerfile
     command: bun run eval:worker
     environment:
@@ -433,9 +750,15 @@ volumes:
   skill_graph_cache:
 ```
 
-这里假设 compose 文件位于 `TeamSkill-ClaudeCode` 仓库根目录，`teamcc-admin` 和 `skill-graph` 是 sibling 项目。实际落地时需要根据本机项目目录调整 build context。
+这里假设 compose 文件位于 monorepo 根目录 `teamcc-platform/`，三个项目分别位于：
 
-如果 graph 代码暂时还在当前 repo，可以把 `skill-graph-api` 和 `skill-graph-worker` 的 build context 改为 `.`，并指定当前 repo 内的 graph Dockerfile 或 command。
+```text
+teamcc-platform/teamcc-admin
+teamcc-platform/TeamSkill-ClaudeCode
+teamcc-platform/skill-graph
+```
+
+如果 graph 代码暂时还在 `TeamSkill-ClaudeCode/` 内，可以把 `skill-graph-api` 和 `skill-graph-worker` 的 build context 改为 `./TeamSkill-ClaudeCode`，并指定 `TeamSkill-ClaudeCode/` 内的 graph Dockerfile 或 command。
 
 ## 9. 环境变量建议
 
@@ -703,24 +1026,31 @@ skill-eval-worker -> Docker socket -> agent-worker container per agent run
 建议新增：
 
 ```text
-docker/eval.Dockerfile
-docker/eval-entrypoint.sh
-docker-compose.skill-platform.yml
-scripts/platform
-.env.docker.example
+teamcc-platform/docker-compose.skill-platform.yml
+teamcc-platform/scripts/platform
+teamcc-platform/.env.docker.example
+teamcc-platform/TeamSkill-ClaudeCode/docker/eval.Dockerfile
+teamcc-platform/TeamSkill-ClaudeCode/docker/eval-entrypoint.sh
 ```
 
-如果 graph 是独立项目，则在 graph 项目中新增自己的 Dockerfile；如果 graph 暂时在当前 repo，则新增：
+如果 graph 是独立项目，则在 graph 项目中新增自己的 Dockerfile：
 
 ```text
-docker/graph.Dockerfile
-docker/graph-entrypoint.sh
+teamcc-platform/skill-graph/Dockerfile
+teamcc-platform/skill-graph/docker/graph-entrypoint.sh
+```
+
+如果 graph 暂时仍在 `TeamSkill-ClaudeCode/` 内，则新增：
+
+```text
+teamcc-platform/TeamSkill-ClaudeCode/docker/graph.Dockerfile
+teamcc-platform/TeamSkill-ClaudeCode/docker/graph-entrypoint.sh
 ```
 
 建议复用或升级：
 
 ```text
-docker-compose.skill-data.yml
+teamcc-platform/TeamSkill-ClaudeCode/docker-compose.skill-data.yml
 ```
 
 当前已有 `docker-compose.skill-data.yml` 包含 Postgres / pgvector 和 Neo4j，V1 可以基于它扩展出平台 compose，避免重复维护数据服务配置。
@@ -729,6 +1059,12 @@ docker-compose.skill-data.yml
 
 ### Phase 1：Compose 平台可启动
 
+- 建立 monorepo 根目录 `teamcc-platform/`。
+- 使用复制方式将 `teamcc-admin/`、`TeamSkill-ClaudeCode/`、`skill-graph/` 放入同一个 Git 仓库。
+- 复制时排除子项目 `.git`、`node_modules`、构建产物和本地缓存。
+- 确认 monorepo 内只保留 `teamcc-platform/.git`，不保留嵌套 Git 仓库。
+- 保留三个项目原目录名，先不做 `apps/` 目录重构。
+- 为 admin、eval、graph、platform 四类任务建立 worktree 分支规范。
 - 新增 eval Dockerfile。
 - 接入 admin Dockerfile。
 - 接入 graph Dockerfile 或 graph command。
@@ -765,6 +1101,8 @@ docker-compose.skill-data.yml
 
 ```text
 一个 docker compose 命令作为用户入口
+采用一个 monorepo Git 仓库，目录为 teamcc-platform/teamcc-admin、teamcc-platform/TeamSkill-ClaudeCode、teamcc-platform/skill-graph
+采用多个 git worktree 支持不同 agent 并行开发
 admin、eval-api、eval-worker、graph-api、graph-worker 拆成独立应用容器
 Postgres + pgvector 独立数据容器
 Neo4j 独立数据容器
@@ -776,6 +1114,7 @@ TeamCC 终端不作为常驻服务启动
 - 本地一键启动。
 - 用户理解成本低。
 - 多项目生命周期清晰。
+- 多 agent 并行开发互不踩工作区。
 - 单服务故障隔离更好。
 - 数据服务可维护。
 - 评测并发可扩展。
