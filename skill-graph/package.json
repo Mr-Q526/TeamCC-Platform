@@ -15,6 +15,7 @@
     "skills:graph:apply-aggregates-from-pg": "bun run ./scripts/applySkillAggregateGraphUpdateFromPg.ts",
     "skills:graph:refresh-from-facts": "bun run ./scripts/refreshSkillGraphFromFacts.ts",
     "skills:graph:inspect-feedback-loop": "bun run ./scripts/inspectSkillFeedbackLoop.ts",
+    "skills:graph:sync-registry": "bun run ./scripts/syncSkillRegistryToNeo4j.ts",
     "skills:graph:reset-demo-local": "bun run ./scripts/resetDemoLocalSkillGraph.ts",
     "skills:retrieve:demo": "bun run ./scripts/retrieveSkillsDemo.ts",
     "skills:refresh-aliases": "bun run ./scripts/skillMetadataAliasRefresh.ts",
