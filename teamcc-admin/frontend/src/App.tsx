@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react'
+import {
+  AUTH_INVALID_EVENT,
+  AUTH_REFRESHED_EVENT,
+} from './api/client'
 import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
 
@@ -46,8 +50,20 @@ function App() {
       localStorage.removeItem('refreshToken')
     }
 
-    window.addEventListener('teamcc-auth-invalid', handleAuthInvalid)
-    return () => window.removeEventListener('teamcc-auth-invalid', handleAuthInvalid)
+    const handleAuthRefreshed = (event: Event) => {
+      const detail = (event as CustomEvent<{ accessToken: string; refreshToken: string }>).detail
+      if (!detail) return
+      setAccessToken(detail.accessToken)
+      setRefreshToken(detail.refreshToken)
+    }
+
+    window.addEventListener(AUTH_INVALID_EVENT, handleAuthInvalid)
+    window.addEventListener(AUTH_REFRESHED_EVENT, handleAuthRefreshed as EventListener)
+
+    return () => {
+      window.removeEventListener(AUTH_INVALID_EVENT, handleAuthInvalid)
+      window.removeEventListener(AUTH_REFRESHED_EVENT, handleAuthRefreshed as EventListener)
+    }
   }, [])
 
   if (!accessToken) {
