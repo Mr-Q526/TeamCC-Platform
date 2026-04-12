@@ -806,6 +806,7 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
             {currentPage === 'audit' && <AuditPage accessToken={accessToken} />}
           </main>
         </div>
+      </div>
 
       {helpOpen ? (
         <div className="help-modal-backdrop" role="presentation" onClick={() => setHelpOpen(false)}>
