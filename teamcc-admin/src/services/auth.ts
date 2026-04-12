@@ -58,6 +58,31 @@ export async function authenticateUser(
     throw new Error('Invalid password')
   }
 
+  assertUserIsActive(user)
+
+  return user
+}
+
+export function assertUserIsActive(user: { status: string }) {
+  if (user.status !== 'active') {
+    throw new Error('User account is not active')
+  }
+}
+
+export async function requireActiveUserById(userId: number) {
+  const user = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, userId))
+    .limit(1)
+    .then((rows) => rows[0])
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  assertUserIsActive(user)
+
   return user
 }
 
