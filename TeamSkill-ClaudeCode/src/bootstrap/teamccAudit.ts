@@ -1,12 +1,17 @@
 /**
  * TeamCC Security Audit Trail Module
- *
+ * 
  * Provides non-blocking telemetry to the TeamCC Admin backend for sensitive operations.
  */
-import { getSessionId } from '../bootstrap/state.js'
 import { logForDebugging } from '../utils/debug.js'
+import type { TeamCCConfig } from './teamccAuth.js'
 import { loadTeamCCConfig, getPersistedValidAccessToken } from './teamccAuth.js'
-import { getIdentityProfile } from './state.js'
+import {
+  getIdentityProfile,
+  getSessionId,
+  getTeamCCSessionFailureReason,
+  getTeamCCSessionState,
+} from './state.js'
 
 export type AuditEventType =
   | 'boot'
@@ -15,47 +20,85 @@ export type AuditEventType =
   | 'exit'
   | 'bash_command'
   | 'file_write'
-  | 'command_execution_error'
-  | 'permission_allow'
-  | 'permission_ask'
-  | 'permission_deny'
-  | 'policy_violation'
+  | 'tool_permission_decision'
 
-export type AuditTargetType =
-  | 'session'
-  | 'command'
-  | 'file'
-  | 'tool'
-  | 'policy'
+type AuditOptions = {
+  allowCachedConfigFallback?: boolean
+  refreshToken?: boolean
+}
 
-export type AuditSeverity = 'info' | 'warning' | 'critical'
+type AuditIdentitySnapshot = {
+  userId: number
+  departmentId: number
+  projectId: number
+}
 
-function getTeamCCSessionStatus(hasConfig: boolean, hasToken: boolean, hasIdentity: boolean): string {
-  if (hasToken && hasIdentity) return 'authenticated_scoped'
-  if (hasToken) return 'authenticated_unscoped'
-  if (hasConfig) return 'configured_unauthed'
-  return 'disabled'
+let lastKnownAuditConfig: TeamCCConfig | null = null
+let lastKnownAuditIdentity: AuditIdentitySnapshot | null = null
+
+function rememberAuditConfig(config: TeamCCConfig | null): void {
+  if (!config?.apiBase) {
+    return
+  }
+
+  lastKnownAuditConfig = {
+    apiBase: config.apiBase,
+    username: config.username,
+    accessToken: config.accessToken,
+    refreshToken: config.refreshToken,
+    tokenExpiry: config.tokenExpiry,
+    configPath: config.configPath,
+    configSource: config.configSource,
+  }
+}
+
+function rememberAuditIdentity(identity: ReturnType<typeof getIdentityProfile>): void {
+  if (!identity) {
+    return
+  }
+
+  lastKnownAuditIdentity = {
+    userId: identity.userId,
+    departmentId: identity.departmentId,
+    projectId: identity.projectId,
+  }
 }
 
 export async function reportAuditLog(
   cwd: string,
   eventType: AuditEventType,
-  targetType: AuditTargetType,
   payload: Record<string, unknown>,
-  severity?: AuditSeverity,
+  options: AuditOptions = {},
 ): Promise<void> {
   try {
-    const config = await loadTeamCCConfig(cwd)
+    const loadedConfig = await loadTeamCCConfig(cwd)
+    const config =
+      loadedConfig?.apiBase
+        ? loadedConfig
+        : options.allowCachedConfigFallback
+          ? lastKnownAuditConfig
+          : null
     if (!config || !config.apiBase) return
+    rememberAuditConfig(config)
 
-    // Enrich with current runtime identity only.
+    // Enrich with current runtime identity and retain the last verified snapshot
+    // so exit-after-logout can still be attributed.
     const identity = getIdentityProfile()
+    rememberAuditIdentity(identity)
+    const effectiveIdentity =
+      identity ??
+      (options.allowCachedConfigFallback ? lastKnownAuditIdentity : null)
+    const sessionId = getSessionId()
+    const teamccSessionStatus = getTeamCCSessionState()
+    const teamccSessionFailureReason = getTeamCCSessionFailureReason()
+    
     // Attempt to grab token securely
     let token = config.accessToken
-    if (token) {
+    if (token && options.refreshToken !== false) {
       try {
         const validTokenObj = await getPersistedValidAccessToken(cwd, config)
         token = validTokenObj.token
+        rememberAuditConfig(validTokenObj.updatedConfig)
       } catch {
         // Token might be expired and refresh failed, keep best-effort token
       }
@@ -63,15 +106,18 @@ export async function reportAuditLog(
 
     const auditData = {
       timestamp: new Date().toISOString(),
-      userId: identity?.userId ?? 0,
-      departmentId: identity?.departmentId ?? 0,
+      userId: effectiveIdentity?.userId,
+      departmentId: effectiveIdentity?.departmentId,
+      projectId: effectiveIdentity?.projectId,
+      sessionId,
       eventType,
-      targetType,
-      severity,
       details: {
-        sessionId: getSessionId(),
-        projectId: identity?.projectId ?? null,
-        teamccSessionStatus: getTeamCCSessionStatus(!!config, !!token, !!identity),
+        sessionId,
+        projectId: effectiveIdentity?.projectId,
+        teamccSessionStatus,
+        ...(teamccSessionFailureReason && {
+          teamccSessionFailureReason,
+        }),
         ...payload,
       },
     }
@@ -89,31 +135,21 @@ export async function reportAuditLog(
       headers,
       body: JSON.stringify(auditData),
     })
-      .then(async (res) => {
-        if (!res.ok) {
-          const text = await res.text()
-          logForDebugging(
-            `[teamcc-audit] Backend rejected audit log: ${res.status} ${text}`,
-            { level: 'error' },
-          )
-        } else {
-          logForDebugging(
-            `[teamcc-audit] Successfully submitted audit log for event ${eventType}`,
-          )
-        }
-      })
-      .catch((e) => {
-        // Quietly swallow network errors to prevent interrupting user workflows
-        logForDebugging(
-          `[teamcc-audit] Failed to send audit log: ${(e as Error).message}`,
-          { level: 'error' },
-        )
-      })
+    .then(async (res) => {
+      if (!res.ok) {
+        const text = await res.text();
+        logForDebugging(`[teamcc-audit] Backend rejected audit log: ${res.status} ${text}`, { level: 'error' })
+      } else {
+        logForDebugging(`[teamcc-audit] Successfully submitted audit log for event ${eventType}`);
+      }
+    })
+    .catch((e) => {
+      // Quietly swallow network errors to prevent interrupting user workflows
+      logForDebugging(`[teamcc-audit] Failed to send audit log: ${(e as Error).message}`, { level: 'error' })
+    })
+
   } catch (error) {
     // Top level swallow to prevent breaking normal execution flows
-    logForDebugging(
-      `[teamcc-audit] Internal error during audit reporting: ${(error as Error).message}`,
-      { level: 'error' },
-    )
+    logForDebugging(`[teamcc-audit] Internal error during audit reporting: ${(error as Error).message}`, { level: 'error' })
   }
 }

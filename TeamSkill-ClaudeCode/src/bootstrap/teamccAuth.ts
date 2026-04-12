@@ -38,21 +38,30 @@ export type IdentityEnvelope = {
   subject: {
     userId: number
     username: string
-    email?: string
+    email: string
     orgId?: number | null
     departmentId: number
     teamId: number
     roleId: number
     levelId: number
     defaultProjectId: number
-    display?: {
-      org?: string | null
-      department?: string | null
-      team?: string | null
-      role?: string | null
-      level?: string | null
-      defaultProject?: string | null
-    }
+    orgLabel?: string | null
+    departmentLabel?: string
+    teamLabel?: string
+    roleLabel?: string
+    levelLabel?: string
+    orgName?: string | null
+    departmentName?: string
+    teamName?: string
+    roleName?: string
+    levelName?: string
+  }
+  labels?: {
+    org?: string | null
+    department?: string
+    team?: string
+    role?: string
+    level?: string
   }
   timestamp?: string
   expiry?: string
@@ -461,14 +470,6 @@ export async function logoutFromTeamCC(cwd: string): Promise<void> {
     existingConfig?.configPath ?? CONFIG_SEARCH_PATHS[0].pathFn(cwd)
 
   try {
-    const identity = await loadCachedIdentity(cwd)
-    if (identity) {
-      const { reportAuditLog } = await import('./teamccAudit.js')
-      void reportAuditLog(cwd, 'logout', 'session', {
-        username: identity.subject.username,
-      })
-    }
-
     if (existsSync(configPath)) {
       await writeFile(configPath, JSON.stringify({ apiBase: '' }, null, 2), 'utf-8')
       logForDebugging(`[teamcc] Cleared config at ${configPath}`)

@@ -9,7 +9,10 @@ import {
 import type { ToolPermissionContext, ToolUseContext } from '../../Tool.js'
 import type { PendingClassifierCheck } from '../../types/permissions.js'
 import { count } from '../../utils/array.js'
-import { logPermissionDecision } from '../../utils/permissions/audit.js'
+import {
+  isEnterprisePermissionSource,
+  logPermissionDecision,
+} from '../../utils/permissions/audit.js'
 import {
   checkSemantics,
   nodeTypeId,
@@ -999,13 +1002,17 @@ export const bashToolCheckExactMatchPermission = (
 
   // 1. Deny if exact command was denied
   if (matchingDenyRules[0] !== undefined) {
-    const denyRule = matchingDenyRules[0];
-    if (denyRule.source === 'policySettings') {
-      logPermissionDecision('Bash', 'deny', denyRule.source, String(command), denyRule.ruleValue.ruleContent || '*')
-    }
+    const denyRule = matchingDenyRules[0]
+    logPermissionDecision(
+      'Bash',
+      'deny',
+      denyRule.source,
+      String(command),
+      denyRule.ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'deny',
-      message: denyRule.source === 'policySettings'
+      message: isEnterprisePermissionSource(denyRule.source)
         ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的命令执行权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
         : `Permission to use ${BashTool.name} with command ${command} has been denied.`,
       decisionReason: {
@@ -1017,6 +1024,13 @@ export const bashToolCheckExactMatchPermission = (
 
   // 2. Ask if exact command was in ask rules
   if (matchingAskRules[0] !== undefined) {
+    logPermissionDecision(
+      'Bash',
+      'ask',
+      matchingAskRules[0].source,
+      String(command),
+      matchingAskRules[0].ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'ask',
       message: createPermissionRequestMessage(BashTool.name),
@@ -1029,6 +1043,13 @@ export const bashToolCheckExactMatchPermission = (
 
   // 3. Allow if exact command was allowed
   if (matchingAllowRules[0] !== undefined) {
+    logPermissionDecision(
+      'Bash',
+      'allow',
+      matchingAllowRules[0].source,
+      String(command),
+      matchingAllowRules[0].ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'allow',
       updatedInput: input,
@@ -1088,13 +1109,17 @@ export const bashToolCheckPermission = (
 
   // 2a. Deny if command has a deny rule
   if (matchingDenyRules[0] !== undefined) {
-    const denyRule = matchingDenyRules[0];
-    if (denyRule.source === 'policySettings') {
-      logPermissionDecision('Bash', 'deny', denyRule.source, String(command), denyRule.ruleValue.ruleContent || '*')
-    }
+    const denyRule = matchingDenyRules[0]
+    logPermissionDecision(
+      'Bash',
+      'deny',
+      denyRule.source,
+      String(command),
+      denyRule.ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'deny',
-      message: denyRule.source === 'policySettings'
+      message: isEnterprisePermissionSource(denyRule.source)
         ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的命令执行权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
         : `Permission to use ${BashTool.name} with command ${command} has been denied.`,
       decisionReason: {
@@ -1106,6 +1131,13 @@ export const bashToolCheckPermission = (
 
   // 2b. Ask if command has an ask rule
   if (matchingAskRules[0] !== undefined) {
+    logPermissionDecision(
+      'Bash',
+      'ask',
+      matchingAskRules[0].source,
+      String(command),
+      matchingAskRules[0].ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'ask',
       message: createPermissionRequestMessage(BashTool.name),
@@ -1141,6 +1173,13 @@ export const bashToolCheckPermission = (
 
   // 5. Allow if command has an allow rule
   if (matchingAllowRules[0] !== undefined) {
+    logPermissionDecision(
+      'Bash',
+      'allow',
+      matchingAllowRules[0].source,
+      String(command),
+      matchingAllowRules[0].ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'allow',
       updatedInput: input,
@@ -1295,13 +1334,17 @@ function checkSandboxAutoAllow(
 
   // Return immediately if there's an explicit deny rule on the full command
   if (matchingDenyRules[0] !== undefined) {
-    const denyRule = matchingDenyRules[0];
-    if (denyRule.source === 'policySettings') {
-      logPermissionDecision('Bash', 'deny', denyRule.source, String(command), denyRule.ruleValue.ruleContent || '*')
-    }
+    const denyRule = matchingDenyRules[0]
+    logPermissionDecision(
+      'Bash',
+      'deny',
+      denyRule.source,
+      String(command),
+      denyRule.ruleValue.ruleContent || '*',
+    )
     return {
       behavior: 'deny',
-      message: denyRule.source === 'policySettings'
+      message: isEnterprisePermissionSource(denyRule.source)
         ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的命令执行权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
         : `Permission to use ${BashTool.name} with command ${command} has been denied.`,
       decisionReason: {
@@ -1330,13 +1373,17 @@ function checkSandboxAutoAllow(
       )
       // Deny takes priority — return immediately
       if (subResult.matchingDenyRules[0] !== undefined) {
-        const denyRule = subResult.matchingDenyRules[0];
-        if (denyRule.source === 'policySettings') {
-          logPermissionDecision('Bash', 'deny', denyRule.source, String(sub), denyRule.ruleValue.ruleContent || '*')
-        }
+        const denyRule = subResult.matchingDenyRules[0]
+        logPermissionDecision(
+          'Bash',
+          'deny',
+          denyRule.source,
+          String(sub),
+          denyRule.ruleValue.ruleContent || '*',
+        )
         return {
           behavior: 'deny',
-          message: denyRule.source === 'policySettings'
+          message: isEnterprisePermissionSource(denyRule.source)
             ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的命令执行权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
             : `Permission to use ${BashTool.name} with command ${command} has been denied.`,
           decisionReason: {
@@ -1349,6 +1396,13 @@ function checkSandboxAutoAllow(
       firstAskRule ??= subResult.matchingAskRules[0]
     }
     if (firstAskRule) {
+      logPermissionDecision(
+        'Bash',
+        'ask',
+        firstAskRule.source,
+        String(command),
+        firstAskRule.ruleValue.ruleContent || '*',
+      )
       return {
         behavior: 'ask',
         message: createPermissionRequestMessage(BashTool.name),

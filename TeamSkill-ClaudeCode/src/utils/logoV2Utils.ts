@@ -128,6 +128,8 @@ export function formatIdentityLines(
   const displayName =
     username && username.length <= MAX_USERNAME_LENGTH
       ? username
+      : profile.username && profile.username.length <= MAX_USERNAME_LENGTH
+        ? profile.username
       : `user-${profile.userId}`
   const nameLine =
     displayName === `user-${profile.userId}`
@@ -137,7 +139,9 @@ export function formatIdentityLines(
     `${mapDepartment(profile.departmentId, profile.departmentLabel)}/${mapTeam(profile.teamId, profile.teamLabel)} · ` +
     `${mapRole(profile.roleId, profile.roleLabel)} · ${mapLevel(profile.levelId, profile.levelLabel)}`
   const detailsWithOrg =
-    profile.orgId !== null ? `${mapOrg(profile.orgId, profile.orgLabel)} · ${details}` : details
+    profile.orgId !== null
+      ? `${mapOrg(profile.orgId, profile.orgLabel)} · ${details}`
+      : details
   const detailLine =
     maxWidth && stringWidth(detailsWithOrg) > maxWidth
       ? details

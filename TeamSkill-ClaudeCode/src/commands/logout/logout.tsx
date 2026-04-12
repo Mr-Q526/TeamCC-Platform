@@ -1,15 +1,24 @@
 import * as React from 'react'
 import type { LocalJSXCommandOnDone } from '../../types/command.js'
-import { Text } from '../../ink.js'
 import type { LocalJSXCommandContext } from '../../commands.js'
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
 import { clearTeamCCRuntimeState } from '../../bootstrap/teamccRuntime.js'
 import { gracefulShutdownSync } from '../../utils/gracefulShutdown.js'
 import { logoutFromTeamCC } from '../../bootstrap/teamccAuth.js'
+import { stripSignatureBlocks } from '../../utils/messages.js'
 import { getTeamCCProjectCacheDir } from '../../utils/teamccPaths.js'
+import { Login, applySuccessfulTeamCCLogin } from '../login/login.js'
 
 export async function performLogout({
   clearOnboarding: _clearOnboarding = false,
 } = {}): Promise<void> {
+  await reportAuditLog(
+    process.cwd(),
+    'logout',
+    { reason: 'user_initiated_logout' },
+    { refreshToken: false },
+  )
+
   // 1. Wipe TeamCC config
   await logoutFromTeamCC(process.cwd())
 
@@ -36,17 +45,38 @@ export async function clearAuthRelatedCaches(): Promise<void> {
 }
 
 export async function call(
-  _onDone: LocalJSXCommandOnDone,
+  onDone: LocalJSXCommandOnDone,
   context: LocalJSXCommandContext,
 ): Promise<React.ReactNode> {
   await performLogout()
   clearTeamCCRuntimeState(context)
 
-  const message = <Text>已成功登出 TeamCC 账号。</Text>
+  return (
+    <Login
+      startingMessage="已成功登出 TeamCC 账号，请重新登录。"
+      onDone={async ({ success, session }) => {
+        if (success) {
+          if (!session) {
+            onDone('重新登录失败：缺少 TeamCC 会话结果')
+            return
+          }
 
-  setTimeout(() => {
-    gracefulShutdownSync(0, 'logout')
-  }, 200)
+          context.onChangeAPIKey()
+          context.setMessages(stripSignatureBlocks)
+          await applySuccessfulTeamCCLogin(context, session)
+          const successMessage =
+            session.status === 'authenticated_restricted'
+              ? '已重新登录 TeamCC，但当前项目权限未加载，处于 restricted mode'
+              : '已重新登录 TeamCC'
+          onDone(successMessage)
+          return
+        }
 
-  return message
+        onDone('登录已取消，已退出 TeamCC。')
+        setTimeout(() => {
+          gracefulShutdownSync(0, 'logout')
+        }, 200)
+      }}
+    />
+  )
 }

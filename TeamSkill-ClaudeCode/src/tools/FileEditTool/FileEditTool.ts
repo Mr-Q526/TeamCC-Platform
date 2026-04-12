@@ -1,6 +1,10 @@
 import { dirname, isAbsolute, sep } from 'path'
 import { logEvent } from 'src/services/analytics/index.js'
-import { logPermissionDecision } from '../../utils/permissions/audit.js'
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
+import {
+  isEnterprisePermissionSource,
+  logPermissionDecision,
+} from '../../utils/permissions/audit.js'
 import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
 import { diagnosticTracker } from '../../services/diagnosticTracking.js'
 import { clearDeliveredDiagnosticsForFile } from '../../services/lsp/LSPDiagnosticRegistry.js'
@@ -165,13 +169,17 @@ export const FileEditTool = buildTool({
       'deny',
     )
     if (denyRule !== null) {
-      if (denyRule.source === 'policySettings') {
-        logPermissionDecision('FileEdit', 'deny', denyRule.source, fullFilePath, denyRule.ruleValue.ruleContent || '*')
-      }
+      logPermissionDecision(
+        'FileEdit',
+        'deny',
+        denyRule.source,
+        fullFilePath,
+        denyRule.ruleValue.ruleContent || '*',
+      )
       return {
         result: false,
         behavior: 'ask',
-        message: denyRule.source === 'policySettings'
+        message: isEnterprisePermissionSource(denyRule.source)
           ? `【权限拒绝】受身份和组织策略限制，您没有目标所在项目目录的操作权限 (拦截规则: ${denyRule.ruleValue.toolName}(${denyRule.ruleValue.ruleContent || '*'}))`
           : 'File is in a directory that is denied by your permission settings.',
         errorCode: 2,
@@ -544,6 +552,17 @@ export const FileEditTool = buildTool({
     logEvent('tengu_edit_string_lengths', {
       oldStringBytes: Buffer.byteLength(old_string, 'utf8'),
       newStringBytes: Buffer.byteLength(new_string, 'utf8'),
+      replaceAll: replace_all,
+    })
+
+    void reportAuditLog(cwd, 'file_write', {
+      toolName: FILE_EDIT_TOOL_NAME,
+      targetPath: absoluteFilePath,
+      changeType: 'update',
+      failed: false,
+      interrupted: false,
+      contentBytes: Buffer.byteLength(updatedFile, 'utf8'),
+      previousContentBytes: Buffer.byteLength(originalFileContents, 'utf8'),
       replaceAll: replace_all,
     })
 
