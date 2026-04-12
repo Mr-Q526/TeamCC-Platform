@@ -12,6 +12,7 @@
     "skills:graph:build-update-input": "bun run ./scripts/buildSkillAggregateGraphUpdateInput.ts",
     "skills:graph:apply-aggregates": "bun run ./scripts/applySkillAggregateGraphUpdate.ts",
     "skills:graph:reset-demo-local": "bun run ./scripts/resetDemoLocalSkillGraph.ts",
+    "skills:retrieve:demo": "bun run ./scripts/retrieveSkillsDemo.ts",
     "skills:refresh-aliases": "bun run ./scripts/skillMetadataAliasRefresh.ts",
     "skills:build-registry": "bun run ./scripts/buildSkillRegistry.ts",
     "skills:build-embeddings": "bun run ./scripts/buildSkillEmbeddings.ts",
