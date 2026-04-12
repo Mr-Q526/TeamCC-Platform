@@ -1,4 +1,3 @@
-import { homedir } from 'os';
 import { basename, join, sep } from 'path';
 import React, { type ReactNode } from 'react';
 import { getOriginalCwd } from '../../../bootstrap/state.js';
@@ -7,42 +6,43 @@ import { getShortcutDisplay } from '../../../keybindings/shortcutFormat.js';
 import type { ToolPermissionContext } from '../../../Tool.js';
 import { expandPath, getDirectoryForPath } from '../../../utils/path.js';
 import { normalizeCaseForComparison, pathInAllowedWorkingPath } from '../../../utils/permissions/filesystem.js';
+import { getTeamCCConfigHomeDir, TEAMCC_PROJECT_DIR_NAME } from '../../../utils/teamccPaths.js';
 import type { OptionWithDescription } from '../../CustomSelect/select.js';
 /**
- * Check if a path is within the project's .claude/ folder.
- * This is used to determine whether to show the special ".claude folder" permission option.
+ * Check if a path is within the project's .teamcc/ folder.
+ * This is used to determine whether to show the special ".teamcc folder" permission option.
  */
-export function isInClaudeFolder(filePath: string): boolean {
+export function isInTeamCCFolder(filePath: string): boolean {
   const absolutePath = expandPath(filePath);
-  const claudeFolderPath = expandPath(`${getOriginalCwd()}/.claude`);
+  const teamccFolderPath = expandPath(join(getOriginalCwd(), TEAMCC_PROJECT_DIR_NAME));
 
-  // Check if the path is within the project's .claude folder
+  // Check if the path is within the project's .teamcc folder
   const normalizedAbsolutePath = normalizeCaseForComparison(absolutePath);
-  const normalizedClaudeFolderPath = normalizeCaseForComparison(claudeFolderPath);
+  const normalizedTeamCCFolderPath = normalizeCaseForComparison(teamccFolderPath);
 
-  // Path must start with the .claude folder path (and be inside it, not just the folder itself)
-  return normalizedAbsolutePath.startsWith(normalizedClaudeFolderPath + sep.toLowerCase()) ||
+  // Path must start with the .teamcc folder path (and be inside it, not just the folder itself)
+  return normalizedAbsolutePath.startsWith(normalizedTeamCCFolderPath + sep.toLowerCase()) ||
   // Also match case where sep is / on posix systems
-  normalizedAbsolutePath.startsWith(normalizedClaudeFolderPath + '/');
+  normalizedAbsolutePath.startsWith(normalizedTeamCCFolderPath + '/');
 }
 
 /**
- * Check if a path is within the global ~/.claude/ folder.
- * This is used to determine whether to show the special ".claude folder" permission option
+ * Check if a path is within the global ~/.teamcc/ folder.
+ * This is used to determine whether to show the special ".teamcc folder" permission option
  * for files in the user's home directory.
  */
-export function isInGlobalClaudeFolder(filePath: string): boolean {
+export function isInGlobalTeamCCFolder(filePath: string): boolean {
   const absolutePath = expandPath(filePath);
-  const globalClaudeFolderPath = join(homedir(), '.claude');
+  const globalTeamCCFolderPath = getTeamCCConfigHomeDir();
   const normalizedAbsolutePath = normalizeCaseForComparison(absolutePath);
-  const normalizedGlobalClaudeFolderPath = normalizeCaseForComparison(globalClaudeFolderPath);
-  return normalizedAbsolutePath.startsWith(normalizedGlobalClaudeFolderPath + sep.toLowerCase()) || normalizedAbsolutePath.startsWith(normalizedGlobalClaudeFolderPath + '/');
+  const normalizedGlobalTeamCCFolderPath = normalizeCaseForComparison(globalTeamCCFolderPath);
+  return normalizedAbsolutePath.startsWith(normalizedGlobalTeamCCFolderPath + sep.toLowerCase()) || normalizedAbsolutePath.startsWith(normalizedGlobalTeamCCFolderPath + '/');
 }
 export type PermissionOption = {
   type: 'accept-once';
 } | {
   type: 'accept-session';
-  scope?: 'claude-folder' | 'global-claude-folder';
+  scope?: 'teamcc-folder' | 'global-teamcc-folder';
 } | {
   type: 'reject';
 };
@@ -94,21 +94,21 @@ export function getFilePermissionOptions({
   }
   const inAllowedPath = pathInAllowedWorkingPath(filePath, toolPermissionContext);
 
-  // Check if this is a .claude/ folder path (project or global)
-  const inClaudeFolder = isInClaudeFolder(filePath);
-  const inGlobalClaudeFolder = isInGlobalClaudeFolder(filePath);
+  // Check if this is a .teamcc/ folder path (project or global)
+  const inTeamCCFolder = isInTeamCCFolder(filePath);
+  const inGlobalTeamCCFolder = isInGlobalTeamCCFolder(filePath);
 
-  // Option 2: For .claude/ folder, show special option instead of generic session option
+  // Option 2: For .teamcc/ folder, show special option instead of generic session option
   // Note: Session-level options are always shown since they only affect in-memory state,
   // not persisted settings. The allowManagedPermissionRulesOnly setting only restricts
   // persisted permission rules.
-  if ((inClaudeFolder || inGlobalClaudeFolder) && operationType !== 'read') {
+  if ((inTeamCCFolder || inGlobalTeamCCFolder) && operationType !== 'read') {
     options.push({
       label: 'Yes, and allow Claude to edit its own settings for this session',
-      value: 'yes-claude-folder',
+      value: 'yes-teamcc-folder',
       option: {
         type: 'accept-session',
-        scope: inGlobalClaudeFolder ? 'global-claude-folder' : 'claude-folder'
+        scope: inGlobalTeamCCFolder ? 'global-teamcc-folder' : 'teamcc-folder'
       }
     });
   } else {
