@@ -4,6 +4,8 @@ import fastifyCors from '@fastify/cors'
 import { initializeDatabase } from './db/index.js'
 import { registerAuthRoutes } from './api/auth.js'
 import { registerClientRoutes } from './api/client.js'
+import { registerAdminRoutes } from './api/admin.js'
+import { registerAuditRoutes } from './api/audit.js'
 
 const PORT = parseInt(process.env.PORT || '3000')
 const HOST = process.env.HOST || '127.0.0.1'
@@ -41,6 +43,10 @@ async function start() {
         identity: 'GET /identity/me',
         policy: 'GET /policy/bundle?projectId=N',
       },
+      audit: {
+        submit: 'POST /api/audit',
+        logs: 'GET /api/audit/logs',
+      },
     },
   }))
 
@@ -50,7 +56,8 @@ async function start() {
   // Register route groups
   await registerAuthRoutes(fastify)
   await registerClientRoutes(fastify)
-  // TODO: Register admin routes
+  await registerAdminRoutes(fastify)
+  await registerAuditRoutes(fastify)
 
   try {
     await fastify.listen({ port: PORT, host: HOST })

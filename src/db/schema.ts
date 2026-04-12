@@ -126,7 +126,32 @@ export const permissionTemplates = table(
     updatedAt: timestamp('updated_at', { withTimezone: true })
       .notNull()
       .default(sql`now()`),
-  }
+  },
+  (table) => ({
+    nameIdx: uniqueIndex('permission_templates_name_idx').on(table.name),
+  })
+)
+
+export const departmentPolicies = table(
+  'department_policies',
+  {
+    id: serial('id').primaryKey(),
+    departmentId: integer('department_id').notNull(),
+    policyType: varchar('policy_type').notNull().default('deny'), // deny, allow, ask
+    toolCategory: varchar('tool_category').notNull(), // Read, Write, Edit, Glob, Bash, WebFetch, WebSearch, etc.
+    resourcePattern: varchar('resource_pattern').notNull(), // glob pattern, supports {{VARIABLE}}
+    description: text('description'),
+    status: varchar('status').notNull().default('active'), // active, disabled
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .default(sql`now()`),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .default(sql`now()`),
+  },
+  (table) => ({
+    deptIdx: uniqueIndex('dept_policies_dept_idx').on(table.departmentId),
+  })
 )
 
 export const userAssignments = table(
@@ -161,6 +186,23 @@ export const auditLog = table('audit_log', {
   targetId: integer('target_id'),
   beforeJson: text('before_json'),
   afterJson: text('after_json'),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .notNull()
+    .default(sql`now()`),
+})
+
+/**
+ * TeamCC client audit logs (security audit trail)
+ */
+
+export const teamccAuditLogs = table('teamcc_audit_logs', {
+  id: serial('id').primaryKey(),
+  timestamp: timestamp('timestamp', { withTimezone: true })
+    .notNull(),
+  userId: integer('user_id').notNull(),
+  departmentId: integer('department_id'),
+  eventType: varchar('event_type').notNull(), // boot, login, bash_command, file_write
+  detailsJson: text('details_json').notNull(), // JSON object with command, exitCode, etc.
   createdAt: timestamp('created_at', { withTimezone: true })
     .notNull()
     .default(sql`now()`),
