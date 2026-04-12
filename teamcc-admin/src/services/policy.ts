@@ -1,6 +1,12 @@
 import { db } from '../db/index.js'
 import {
+  departments,
+  levels,
+  orgs,
   permissionTemplates,
+  projects,
+  roles,
+  teams,
   userAssignments,
   departmentPolicies,
 } from '../db/schema.js'
@@ -72,7 +78,7 @@ export async function buildIdentityEnvelope(
   userId: number
 ): Promise<IdentityEnvelope> {
   const user = await requireActiveUserById(userId)
-  const subject = buildIdentitySubject(user)
+  const subject = await buildIdentitySubject(user)
 
   const now = new Date()
   const expiresAt = new Date(now.getTime() + 60 * 60 * 1000) // 1 hour
@@ -90,9 +96,18 @@ export async function getDefaultProjectIdForUser(userId: number): Promise<number
   return user.defaultProjectId || 1
 }
 
-function buildIdentitySubject(
+async function buildIdentitySubject(
   user: Awaited<ReturnType<typeof requireActiveUserById>>
-): IdentitySubject {
+): Promise<IdentitySubject> {
+  const [org, department, team, role, level, defaultProject] = await Promise.all([
+    findNameById(orgs, user.orgId),
+    findNameById(departments, user.departmentId),
+    findNameById(teams, user.teamId),
+    findNameById(roles, user.roleId),
+    findNameById(levels, user.levelId),
+    findNameById(projects, user.defaultProjectId),
+  ])
+
   return {
     userId: user.id,
     username: user.username,
@@ -102,7 +117,37 @@ function buildIdentitySubject(
     roleId: user.roleId || 0,
     levelId: user.levelId || 0,
     defaultProjectId: user.defaultProjectId || 1,
+    display: {
+      org,
+      department,
+      team,
+      role,
+      level,
+      defaultProject,
+    },
   }
+}
+
+async function findNameById(
+  table:
+    | typeof orgs
+    | typeof departments
+    | typeof teams
+    | typeof roles
+    | typeof levels
+    | typeof projects,
+  id: number | null | undefined,
+): Promise<string | null> {
+  if (!id) return null
+
+  const row = await db
+    .select({ name: table.name })
+    .from(table)
+    .where(eq(table.id, id))
+    .limit(1)
+    .then((rows) => rows[0])
+
+  return row?.name ?? null
 }
 
 /**
@@ -139,7 +184,7 @@ export async function buildEffectivePolicyPreview(
 ): Promise<EffectivePolicyPreview> {
   const user = await requireActiveUserById(userId)
   const now = new Date()
-  const subject = buildIdentitySubject(user)
+  const subject = await buildIdentitySubject(user)
 
   const allCapabilities: Set<string> = new Set()
   const allEnvOverrides: Record<string, string> = {}

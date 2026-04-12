@@ -1,18 +1,9 @@
-.users-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 460px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
 .users-filter {
   min-width: 170px;
 }
 
 .users-table-card {
-  border-right: 1px solid var(--border);
+  overflow: hidden;
 }
 
 .users-empty {
@@ -25,14 +16,6 @@
 
 .users-table td {
   padding: 12px 12px;
-}
-
-.users-table tbody tr {
-  cursor: pointer;
-}
-
-.users-table tbody tr.users-row-selected {
-  background: rgba(30, 103, 232, 0.07);
 }
 
 .user-cell,
@@ -70,24 +53,29 @@
   gap: 8px;
 }
 
-.user-inspector {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.inspector-header {
+.user-detail-topbar {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
 }
 
-.inspector-header h4 {
+.user-detail-topbar h4 {
   font-family: var(--font-display);
   font-size: 1.2rem;
   letter-spacing: -0.04em;
+}
+
+.modal-user-detail {
+  width: min(1120px, calc(100vw - 32px));
+}
+
+.modal-user-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-height: min(78vh, 900px);
+  overflow: auto;
 }
 
 .detail-grid {
@@ -294,10 +282,6 @@
 }
 
 @media (max-width: 900px) {
-  .users-layout {
-    grid-template-columns: 1fr;
-  }
-
   .preview-split-grid {
     grid-template-columns: 1fr;
   }
@@ -308,7 +292,7 @@
     grid-template-columns: 1fr;
   }
 
-  .inspector-header {
+  .user-detail-topbar {
     flex-direction: column;
   }
 

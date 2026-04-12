@@ -1,307 +1,261 @@
-/**
- * Seed database with comprehensive test data
- */
+import { sql } from 'drizzle-orm'
 import { db } from '../src/db/index.js'
 import {
-  users,
   departments,
-  teams,
-  roles,
   levels,
-  projects,
   orgs,
   permissionTemplates,
+  projects,
+  roles,
+  teams,
   userAssignments,
+  users,
 } from '../src/db/schema.js'
 import { hashPassword } from '../src/services/auth.js'
 
+async function resetData() {
+  await db.execute(sql`
+    TRUNCATE TABLE
+      api_tokens,
+      audit_log,
+      teamcc_audit_logs,
+      department_policies,
+      user_assignments,
+      users,
+      permission_templates,
+      projects,
+      teams,
+      roles,
+      levels,
+      departments,
+      orgs
+    RESTART IDENTITY
+  `)
+}
+
 async function seed() {
   try {
-    console.log('🌱 Seeding database with comprehensive data...')
+    console.log('🌱 Resetting demo data...')
+    await resetData()
 
-    // Seed organizations
-    await db
-      .insert(orgs)
-      .values([
-        { id: 10, name: 'org_tech_hub', description: 'Technology Organization' },
-        { id: 20, name: 'org_business', description: 'Business Organization' },
-      ])
-      .onConflictDoNothing()
+    console.log('🌱 Seeding dictionaries...')
+    await db.insert(orgs).values([
+      { id: 1, name: 'teamcc', description: 'TeamCC Demo Organization' },
+    ])
 
-    console.log('✓ Organizations seeded')
+    await db.insert(departments).values([
+      { id: 101, name: 'frontend', description: '前端开发' },
+      { id: 102, name: 'backend', description: '后端开发' },
+      { id: 103, name: 'operations', description: '运营部门' },
+      { id: 104, name: 'outsourcing', description: '垃圾外包' },
+    ])
 
-    // Seed departments
-    await db
-      .insert(departments)
-      .values([
-        { id: 101, name: 'frontend', description: '前端开发部' },
-        { id: 102, name: 'backend', description: '后端开发部' },
-        { id: 103, name: 'qa', description: '测试部' },
-        { id: 104, name: 'sre', description: '可靠性工程部' },
-        { id: 105, name: 'data', description: '数据部' },
-        { id: 106, name: 'mobile', description: '移动开发部' },
-        { id: 107, name: 'product', description: '产品部' },
-        { id: 108, name: 'operations', description: '运营部' },
-      ])
-      .onConflictDoNothing()
+    await db.insert(roles).values([
+      { id: 201, name: 'frontend-developer', description: '前端开发工程师' },
+      { id: 202, name: 'backend-developer', description: '后端开发工程师' },
+      { id: 203, name: 'operations-admin', description: '运营管理员' },
+      { id: 204, name: 'outsourcing-contractor', description: '外包协作' },
+    ])
 
-    console.log('✓ Departments seeded')
+    await db.insert(levels).values([
+      { id: 301, name: 'p4', description: 'P4 - 独立执行' },
+      { id: 302, name: 'p5', description: 'P5 - 核心骨干' },
+      { id: 303, name: 'ops', description: '业务运营岗' },
+      { id: 304, name: 'vendor', description: '外包临时岗' },
+    ])
 
-    // Seed roles
-    await db
-      .insert(roles)
-      .values([
-        { id: 201, name: 'frontend-developer', description: '前端开发工程师' },
-        { id: 202, name: 'java-developer', description: '后端开发工程师' },
-        { id: 203, name: 'test-automation', description: '测试工程师' },
-        { id: 204, name: 'devops-sre', description: '运维工程师' },
-      ])
-      .onConflictDoNothing()
+    await db.insert(teams).values([
+      { id: 1001, name: 'teamcc-frontend', description: 'TeamCC Demo 前端组' },
+      { id: 1002, name: 'teamcc-backend', description: 'TeamCC Demo 后端组' },
+      { id: 1003, name: 'growth-ops', description: 'TeamCC Demo 运营组' },
+      { id: 1004, name: 'vendor-quarantine', description: '外包隔离组' },
+    ])
 
-    console.log('✓ Roles seeded')
+    await db.insert(projects).values([
+      { id: 1, name: 'teamcc-demoproject', code: 'teamcc-demoproject', status: 'active' },
+    ])
 
-    // Seed levels
-    await db
-      .insert(levels)
-      .values([
-        { id: 301, name: 'p3', description: 'P3 - 初级' },
-        { id: 302, name: 'p4', description: 'P4 - 中级' },
-        { id: 303, name: 'p5', description: 'P5 - 高级' },
-        { id: 304, name: 'p6', description: 'P6 - 资深' },
-        { id: 305, name: 'p7', description: 'P7 - 首席' },
-      ])
-      .onConflictDoNothing()
+    console.log('✓ Dictionaries seeded')
 
-    console.log('✓ Levels seeded')
-
-    // Seed teams
-    await db
-      .insert(teams)
-      .values([
-        { id: 1011, name: 'commerce-web', description: '商城Web团队' },
-        { id: 1012, name: 'growth-mobile', description: '增长移动团队' },
-        { id: 1013, name: 'admin-portal', description: '管理后台团队' },
-        { id: 1021, name: 'payment-infra', description: '支付基础设施' },
-        { id: 1022, name: 'order-service', description: '订单服务团队' },
-        { id: 1051, name: 'data-platform', description: '数据平台团队' },
-        { id: 1052, name: 'algorithm', description: '算法团队' },
-        { id: 1071, name: 'product-growth', description: '产品增长团队' },
-        { id: 1072, name: 'product-platform', description: '产品平台团队' },
-      ])
-      .onConflictDoNothing()
-
-    console.log('✓ Teams seeded')
-
-    // Seed projects
-    await db
-      .insert(projects)
-      .values([
-        { id: 1, name: 'TeamSkill ClaudeCode', code: 'teamcc' },
-        { id: 7, name: '商城平台', code: 'commerce' },
-        { id: 14, name: '支付系统', code: 'payment' },
-        { id: 21, name: '数据分析', code: 'analytics' },
-      ])
-      .onConflictDoNothing()
-
-    console.log('✓ Projects seeded')
-
-    // Seed users
-    const commonPassword = await hashPassword('password123')
-
-    const usersList = [
-      { username: 'admin', email: 'admin@example.com', deptId: 101, teamId: 1011, roleId: 201, levelId: 304 },
-      { username: 'alice', email: 'alice@example.com', deptId: 101, teamId: 1011, roleId: 201, levelId: 303 },
-      { username: 'bob', email: 'bob@example.com', deptId: 102, teamId: 1021, roleId: 202, levelId: 303 },
-      { username: 'carol', email: 'carol@example.com', deptId: 102, teamId: 1022, roleId: 202, levelId: 302 },
-      { username: 'david', email: 'david@example.com', deptId: 103, teamId: 1013, roleId: 203, levelId: 302 },
-      { username: 'emma', email: 'emma@example.com', deptId: 104, teamId: 1021, roleId: 204, levelId: 303 },
-      { username: 'frank', email: 'frank@example.com', deptId: 105, teamId: 1051, roleId: 202, levelId: 302 },
-      { username: 'grace', email: 'grace@example.com', deptId: 106, teamId: 1012, roleId: 201, levelId: 302 },
-      { username: 'henry', email: 'henry@example.com', deptId: 107, teamId: 1071, roleId: 202, levelId: 303 },
-    ]
-
-    for (const u of usersList) {
-      await db
-        .insert(users)
-        .values({
-          username: u.username,
-          email: u.email,
-          passwordHash: commonPassword,
-          departmentId: u.deptId,
-          teamId: u.teamId,
-          roleId: u.roleId,
-          levelId: u.levelId,
-          defaultProjectId: 1,
-          roles: u.username === 'admin' ? 'admin' : 'viewer',
-          status: 'active',
-        })
-        .onConflictDoNothing()
-    }
-
-    console.log(`✓ Users seeded (${usersList.length} users, all password: password123)`)
-
-    // Seed permission templates
+    console.log('🌱 Seeding templates...')
     const templatesData = [
       {
         name: '前端开发',
-        description: '前端开发人员标准权限',
-        rules: [
-          { behavior: 'deny' as const, tool: 'Read', content: '*src/server/**' },
-          { behavior: 'deny' as const, tool: 'Edit', content: '*src/server/**' },
-          { behavior: 'allow' as const, tool: 'Read', content: '*src/client/**' },
-          { behavior: 'allow' as const, tool: 'Edit', content: '*src/client/**' },
-        ],
-        capabilities: ['policy.read.crossProject:7'],
-        envOverrides: { BACKEND_DIR: 'src/server/', FRONTEND_DIR: 'src/client/' },
+        description: '可读写前端页面、组件与样式文件，禁止触碰后端代码与数据库脚本。',
+        rulesJson: JSON.stringify([
+          { behavior: 'allow', tool: 'Read', content: '*frontend/**' },
+          { behavior: 'allow', tool: 'Edit', content: '*frontend/**' },
+          { behavior: 'allow', tool: 'Grep', content: '*frontend/**' },
+          { behavior: 'allow', tool: 'Glob', content: '*frontend/**' },
+          { behavior: 'deny', tool: 'Read', content: '*src/api/**' },
+          { behavior: 'deny', tool: 'Edit', content: '*src/api/**' },
+          { behavior: 'deny', tool: 'Read', content: '*src/db/**' },
+          { behavior: 'deny', tool: 'Edit', content: '*src/db/**' },
+          { behavior: 'ask', tool: 'Bash', content: 'npm run lint,npm run build' },
+        ]),
+        capabilitiesJson: JSON.stringify(['ui.preview', 'policy.preview.self']),
+        envOverridesJson: JSON.stringify({
+          PROJECT_NAME: 'teamcc-demoproject',
+          WORKSPACE_SCOPE: 'frontend',
+        }),
       },
       {
         name: '后端开发',
-        description: '后端开发人员标准权限',
-        rules: [
-          { behavior: 'allow' as const, tool: 'Read', content: '*src/server/**' },
-          { behavior: 'allow' as const, tool: 'Edit', content: '*src/server/**' },
-          { behavior: 'deny' as const, tool: 'Read', content: '*src/client/**' },
-          { behavior: 'deny' as const, tool: 'Edit', content: '*src/client/**' },
-        ],
-        capabilities: ['policy.read.crossProject:14'],
-        envOverrides: { BACKEND_DIR: 'src/server/', DATABASE_HOST: 'db.internal' },
+        description: '可读写 API、服务与数据库相关目录，禁止改动前端页面资源。',
+        rulesJson: JSON.stringify([
+          { behavior: 'allow', tool: 'Read', content: '*src/api/**' },
+          { behavior: 'allow', tool: 'Edit', content: '*src/api/**' },
+          { behavior: 'allow', tool: 'Read', content: '*src/services/**' },
+          { behavior: 'allow', tool: 'Edit', content: '*src/services/**' },
+          { behavior: 'allow', tool: 'Read', content: '*src/db/**' },
+          { behavior: 'allow', tool: 'Edit', content: '*src/db/**' },
+          { behavior: 'deny', tool: 'Read', content: '*frontend/src/**' },
+          { behavior: 'deny', tool: 'Edit', content: '*frontend/src/**' },
+          { behavior: 'ask', tool: 'Bash', content: 'npm run dev,npm run typecheck' },
+        ]),
+        capabilitiesJson: JSON.stringify(['api.debug', 'policy.preview.self']),
+        envOverridesJson: JSON.stringify({
+          PROJECT_NAME: 'teamcc-demoproject',
+          WORKSPACE_SCOPE: 'backend',
+        }),
       },
       {
-        name: '测试工程师',
-        description: '测试人员只读权限',
-        rules: [
-          { behavior: 'allow' as const, tool: 'Read', content: '**' },
-          { behavior: 'deny' as const, tool: 'Edit', content: '**' },
-          { behavior: 'deny' as const, tool: 'Write', content: '**' },
-          { behavior: 'deny' as const, tool: 'Bash', content: '**' },
-        ],
-        capabilities: [],
-        envOverrides: { TEST_ENV: 'true' },
+        name: '运营部门',
+        description: '只能处理运营素材和说明文档，不能碰代码与命令行。',
+        rulesJson: JSON.stringify([
+          { behavior: 'allow', tool: 'Read', content: '*assets/marketing/**' },
+          { behavior: 'allow', tool: 'Edit', content: '*assets/marketing/**' },
+          { behavior: 'allow', tool: 'Read', content: '*docs/ops/**' },
+          { behavior: 'deny', tool: 'Read', content: '*src/**' },
+          { behavior: 'deny', tool: 'Edit', content: '*src/**' },
+          { behavior: 'deny', tool: 'Bash', content: '**' },
+          { behavior: 'deny', tool: 'Write', content: '*src/**' },
+        ]),
+        capabilitiesJson: JSON.stringify(['campaign.dashboard']),
+        envOverridesJson: JSON.stringify({
+          PROJECT_NAME: 'teamcc-demoproject',
+          WORKSPACE_SCOPE: 'operations',
+        }),
       },
       {
-        name: '运维工程师',
-        description: '基础设施和部署权限',
-        rules: [
-          { behavior: 'allow' as const, tool: 'Read', content: '**' },
-          { behavior: 'allow' as const, tool: 'Edit', content: '*infra/**' },
-          { behavior: 'allow' as const, tool: 'Bash', content: 'docker,kubectl,terraform' },
-          { behavior: 'ask' as const, tool: 'Bash', content: 'rm -rf' },
-        ],
-        capabilities: ['policy.read.crossProject:7,14,21'],
-        envOverrides: { CLUSTER: 'prod', NAMESPACE: 'default' },
-      },
-      {
-        name: '数据分析师',
-        description: '数据访问和分析权限',
-        rules: [
-          { behavior: 'allow' as const, tool: 'Read', content: '*data/**' },
-          { behavior: 'allow' as const, tool: 'Read', content: '*analytics/**' },
-          { behavior: 'deny' as const, tool: 'Edit', content: '*data/sensitive/**' },
-        ],
-        capabilities: [],
-        envOverrides: { DATABASE_READONLY: 'true' },
-      },
-      {
-        name: '外包',
-        description: '无任何权限',
-        rules: [
-          { behavior: 'deny' as const, tool: 'Read', content: '**' },
-          { behavior: 'deny' as const, tool: 'Edit', content: '**' },
-          { behavior: 'deny' as const, tool: 'Write', content: '**' },
-          { behavior: 'deny' as const, tool: 'Bash', content: '**' },
-        ],
-        capabilities: [],
-        envOverrides: {},
-      },
-      {
-        name: '运营',
-        description: '运营素材文件夹权限，对demo项目无权限',
-        rules: [
-          { behavior: 'allow' as const, tool: 'Read', content: '*assets/marketing/**' },
-          { behavior: 'allow' as const, tool: 'Edit', content: '*assets/marketing/**' },
-          { behavior: 'deny' as const, tool: 'Read', content: '**' },
-          { behavior: 'deny' as const, tool: 'Edit', content: '**' },
-        ],
-        capabilities: [],
-        envOverrides: { DEMO_PROJECT_BLOCK: 'true' },
+        name: '垃圾外包',
+        description: '演示最严限制账号，没有代码、命令或写入权限。',
+        rulesJson: JSON.stringify([
+          { behavior: 'deny', tool: 'Read', content: '**' },
+          { behavior: 'deny', tool: 'Edit', content: '**' },
+          { behavior: 'deny', tool: 'Write', content: '**' },
+          { behavior: 'deny', tool: 'Bash', content: '**' },
+          { behavior: 'deny', tool: 'WebFetch', content: '**' },
+          { behavior: 'deny', tool: 'WebSearch', content: '**' },
+        ]),
+        capabilitiesJson: JSON.stringify([]),
+        envOverridesJson: JSON.stringify({
+          PROJECT_NAME: 'teamcc-demoproject',
+          ACCOUNT_MODE: 'restricted',
+        }),
       },
     ]
 
-    const templateIds: Record<string, number> = {}
-    for (const t of templatesData) {
-      const res = await db
-        .insert(permissionTemplates)
-        .values({
-          name: t.name,
-          description: t.description,
-          rulesJson: JSON.stringify(t.rules),
-          capabilitiesJson: JSON.stringify(t.capabilities),
-          envOverridesJson: JSON.stringify(t.envOverrides),
+    const insertedTemplates = await db
+      .insert(permissionTemplates)
+      .values(
+        templatesData.map((template) => ({
+          ...template,
           status: 'active',
-        })
-        .onConflictDoUpdate({
-          target: permissionTemplates.name,
-          set: {
-            description: t.description,
-            rulesJson: JSON.stringify(t.rules),
-            capabilitiesJson: JSON.stringify(t.capabilities),
-            envOverridesJson: JSON.stringify(t.envOverrides),
-            status: 'active',
-            updatedAt: new Date(),
-          },
-        })
-        .returning({ id: permissionTemplates.id })
+        })),
+      )
+      .returning({ id: permissionTemplates.id, name: permissionTemplates.name })
 
-      if (res.length > 0) {
-        templateIds[t.name] = res[0].id
-      }
-    }
+    const templateIdMap = Object.fromEntries(insertedTemplates.map((template) => [template.name, template.id]))
+    console.log(`✓ Templates seeded (${insertedTemplates.length})`)
 
-    console.log(`✓ Permission templates seeded (${Object.keys(templateIds).length} templates)`)
-
-    // Seed user assignments
-    const assignmentsData = [
-      { username: 'admin', projectId: 1, templates: ['前端开发', '后端开发'] },
-      { username: 'alice', projectId: 1, templates: ['前端开发'] },
-      { username: 'alice', projectId: 7, templates: ['前端开发'] },
-      { username: 'bob', projectId: 1, templates: ['后端开发'] },
-      { username: 'bob', projectId: 14, templates: ['后端开发'] },
-      { username: 'carol', projectId: 14, templates: ['后端开发'] },
-      { username: 'david', projectId: 1, templates: ['测试工程师'] },
-      { username: 'david', projectId: 7, templates: ['测试工程师'] },
-      { username: 'emma', projectId: 14, templates: ['运维工程师'] },
-      { username: 'frank', projectId: 21, templates: ['数据分析师'] },
-      { username: 'grace', projectId: 7, templates: ['前端开发'] },
-      { username: 'henry', projectId: 1, templates: ['后端开发'] },
+    console.log('🌱 Seeding users...')
+    const passwordHash = await hashPassword('password123')
+    const usersData = [
+      {
+        username: 'frontend_dev',
+        email: 'frontend_dev@teamcc.local',
+        orgId: 1,
+        departmentId: 101,
+        teamId: 1001,
+        roleId: 201,
+        levelId: 302,
+        defaultProjectId: 1,
+        roles: 'viewer',
+        status: 'active',
+      },
+      {
+        username: 'backend_dev',
+        email: 'backend_dev@teamcc.local',
+        orgId: 1,
+        departmentId: 102,
+        teamId: 1002,
+        roleId: 202,
+        levelId: 302,
+        defaultProjectId: 1,
+        roles: 'viewer',
+        status: 'active',
+      },
+      {
+        username: 'ops_admin',
+        email: 'ops_admin@teamcc.local',
+        orgId: 1,
+        departmentId: 103,
+        teamId: 1003,
+        roleId: 203,
+        levelId: 303,
+        defaultProjectId: 1,
+        roles: 'admin',
+        status: 'active',
+      },
+      {
+        username: 'vendor_trash',
+        email: 'vendor_trash@teamcc.local',
+        orgId: 1,
+        departmentId: 104,
+        teamId: 1004,
+        roleId: 204,
+        levelId: 304,
+        defaultProjectId: 1,
+        roles: 'viewer',
+        status: 'active',
+      },
     ]
 
-    for (const a of assignmentsData) {
-      const user = await db.query.users.findFirst({
-        where: (u, { eq }) => eq(u.username, a.username),
-      })
+    const insertedUsers = await db
+      .insert(users)
+      .values(usersData.map((user) => ({ ...user, passwordHash })))
+      .returning({ id: users.id, username: users.username })
 
-      if (user) {
-        const tids = a.templates
-          .map((t) => templateIds[t])
-          .filter(Boolean)
-          .join(',')
+    const userIdMap = Object.fromEntries(insertedUsers.map((user) => [user.username, user.id]))
+    console.log(`✓ Users seeded (${insertedUsers.length}, password: password123)`)
 
-        if (tids) {
-          await db
-            .insert(userAssignments)
-            .values({
-              userId: user.id,
-              projectId: a.projectId,
-              templateIds: tids,
-            })
-            .onConflictDoNothing()
-        }
-      }
-    }
+    console.log('🌱 Seeding assignments...')
+    await db.insert(userAssignments).values([
+      {
+        userId: userIdMap.frontend_dev,
+        projectId: 1,
+        templateIds: String(templateIdMap['前端开发']),
+      },
+      {
+        userId: userIdMap.backend_dev,
+        projectId: 1,
+        templateIds: String(templateIdMap['后端开发']),
+      },
+      {
+        userId: userIdMap.ops_admin,
+        projectId: 1,
+        templateIds: String(templateIdMap['运营部门']),
+      },
+      {
+        userId: userIdMap.vendor_trash,
+        projectId: 1,
+        templateIds: String(templateIdMap['垃圾外包']),
+      },
+    ])
 
-    console.log(`✓ User assignments seeded (${assignmentsData.length} assignments)`)
-
-    console.log('✅ Database seeded successfully!')
+    console.log('✓ Assignments seeded (4)')
+    console.log('✅ Demo data ready for teamcc-demoproject')
   } catch (error) {
     console.error('❌ Seeding failed:', error)
     process.exit(1)

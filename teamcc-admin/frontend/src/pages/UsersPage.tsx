@@ -148,6 +148,7 @@ export default function UsersPage({ accessToken, onDataChange }: UsersPageProps)
         empty: '没有匹配的员工记录。',
         loading: '正在读取员工目录...',
         countLabel: '名员工',
+        detailAction: '详情',
         table: {
           user: '员工',
           org: '组织归属',
@@ -259,6 +260,7 @@ export default function UsersPage({ accessToken, onDataChange }: UsersPageProps)
         empty: 'No users match the current filter.',
         loading: 'Loading user directory...',
         countLabel: 'users',
+        detailAction: 'Details',
         table: {
           user: 'User',
           org: 'Org mapping',
@@ -647,12 +649,12 @@ export default function UsersPage({ accessToken, onDataChange }: UsersPageProps)
     }
   }
 
-  const handleRowClick = (user: User) => {
-    if (selectedUser?.id === user.id) {
-      setSelectedUser(null)
-    } else {
-      setSelectedUser(user)
-    }
+  const openDetail = (user: User) => {
+    setSelectedUser(user)
+  }
+
+  const closeDetail = () => {
+    setSelectedUser(null)
   }
 
   const selectedPreviewProject = previewProjectId
@@ -702,366 +704,378 @@ export default function UsersPage({ accessToken, onDataChange }: UsersPageProps)
       {loading ? (
         <div className="surface loading-state">{copy.loading}</div>
       ) : (
-        <div className="users-layout">
-          <section className="surface users-table-card">
-            {filteredUsers.length === 0 ? (
-              <div className="empty-state users-empty">{copy.empty}</div>
-            ) : (
-              <div className="table-shell">
-                <table className="data-table users-table">
-                  <thead>
-                    <tr>
-                      <th>{copy.table.user}</th>
-                      <th>{copy.table.org}</th>
-                      <th>{copy.table.position}</th>
-                      <th>{copy.table.level}</th>
-                      <th>{copy.table.systemRole}</th>
-                      <th>{copy.table.status}</th>
-                      <th>{copy.table.actions}</th>
+        <section className="surface users-table-card">
+          {filteredUsers.length === 0 ? (
+            <div className="empty-state users-empty">{copy.empty}</div>
+          ) : (
+            <div className="table-shell">
+              <table className="data-table users-table">
+                <thead>
+                  <tr>
+                    <th>{copy.table.user}</th>
+                    <th>{copy.table.org}</th>
+                    <th>{copy.table.position}</th>
+                    <th>{copy.table.level}</th>
+                    <th>{copy.table.systemRole}</th>
+                    <th>{copy.table.status}</th>
+                    <th>{copy.table.actions}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredUsers.map((user) => (
+                    <tr key={user.id}>
+                      <td>
+                        <div className="user-cell">
+                          <strong>{user.username}</strong>
+                          <span>{user.email}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="org-cell">
+                          <strong>{resolveName(dicts.orgs, user.orgId)}</strong>
+                          <span>{getOrgSummary(user)}</span>
+                        </div>
+                      </td>
+                      <td>{resolveName(dicts.roles, user.roleId)}</td>
+                      <td>
+                        <span className="level-chip">{resolveName(dicts.levels, user.levelId)}</span>
+                      </td>
+                      <td>
+                        <span className={`role-pill ${user.roles.includes('admin') ? 'admin' : 'viewer'}`}>
+                          {user.roles.includes('admin')
+                            ? isZh ? '管理员' : 'Admin'
+                            : isZh ? '查看者' : 'Viewer'}
+                        </span>
+                      </td>
+                      <td>
+                        <span className={`status-pill ${user.status}`}>{t(`status.${user.status}`)}</span>
+                      </td>
+                      <td>
+                        <div className="table-actions">
+                          <button className="button button-secondary button-sm" onClick={() => openDetail(user)}>
+                            {copy.detailAction}
+                          </button>
+                          <button className="button button-secondary button-sm" onClick={() => openEdit(user)}>
+                            {t('btn.edit')}
+                          </button>
+                          <button className="button button-danger button-sm" onClick={() => handleDelete(user)}>
+                            {t('btn.delete')}
+                          </button>
+                        </div>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {filteredUsers.map((user) => (
-                      <tr
-                        key={user.id}
-                        className={selectedUser?.id === user.id ? 'users-row-selected' : ''}
-                        onClick={() => handleRowClick(user)}
-                      >
-                        <td>
-                          <div className="user-cell">
-                            <strong>{user.username}</strong>
-                            <span>{user.email}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="org-cell">
-                            <strong>{resolveName(dicts.orgs, user.orgId)}</strong>
-                            <span>{getOrgSummary(user)}</span>
-                          </div>
-                        </td>
-                        <td>{resolveName(dicts.roles, user.roleId)}</td>
-                        <td>
-                          <span className="level-chip">{resolveName(dicts.levels, user.levelId)}</span>
-                        </td>
-                        <td>
-                          <span className={`role-pill ${user.roles.includes('admin') ? 'admin' : 'viewer'}`}>
-                            {user.roles.includes('admin')
-                              ? isZh ? '管理员' : 'Admin'
-                              : isZh ? '查看者' : 'Viewer'}
-                          </span>
-                        </td>
-                        <td>
-                          <span className={`status-pill ${user.status}`}>{t(`status.${user.status}`)}</span>
-                        </td>
-                        <td onClick={(e) => e.stopPropagation()}>
-                          <div className="table-actions">
-                            <button className="button button-secondary button-sm" onClick={() => openEdit(user)}>
-                              {t('btn.edit')}
-                            </button>
-                            <button className="button button-danger button-sm" onClick={() => handleDelete(user)}>
-                              {t('btn.delete')}
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </section>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      )}
 
-          <aside className="surface user-inspector">
-            <div className="stack-sm">
-              <span className="page-kicker">
-                <AppIcon name="shield" size={16} />
-                {copy.detail.title}
-              </span>
-              <h3>{copy.detail.title}</h3>
-              <p className="panel-subtitle">{copy.detail.subtitle}</p>
+      {selectedUser && (
+        <div className="modal-overlay" onClick={closeDetail}>
+          <div className="modal-panel modal-user-detail" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <div>
+                <h3 className="modal-title">{`${copy.detail.title} · ${selectedUser.username}`}</h3>
+                <p className="modal-subtitle">{copy.detail.subtitle}</p>
+              </div>
+              <button
+                className="button button-ghost icon-button"
+                onClick={closeDetail}
+                aria-label={isZh ? '关闭' : 'Close'}
+              >
+                <AppIcon name="close" size={16} />
+              </button>
             </div>
 
-            {selectedUser ? (
-              <>
-                <div className="inspector-header">
+            <div className="modal-body modal-user-detail-body">
+              <div className="user-detail-topbar">
+                <div className="stack-sm">
+                  <span className="page-kicker">
+                    <AppIcon name="shield" size={16} />
+                    {copy.detail.title}
+                  </span>
+                  <h4>{selectedUser.username}</h4>
+                  <p className="muted">{selectedUser.email}</p>
+                </div>
+                <div className="toolbar-group">
+                  <button
+                    className="button button-secondary button-sm"
+                    onClick={() => {
+                      closeDetail()
+                      openEdit(selectedUser)
+                    }}
+                  >
+                    {t('btn.edit')}
+                  </button>
+                </div>
+              </div>
+
+              <div className="detail-grid">
+                <div className="detail-card">
+                  <span>{copy.detail.organization}</span>
+                  <strong>{resolveName(dicts.orgs, selectedUser.orgId)}</strong>
+                </div>
+                <div className="detail-card">
+                  <span>{copy.detail.department}</span>
+                  <strong>{resolveName(dicts.departments, selectedUser.departmentId)}</strong>
+                </div>
+                <div className="detail-card">
+                  <span>{copy.detail.team}</span>
+                  <strong>{resolveName(dicts.teams, selectedUser.teamId)}</strong>
+                </div>
+                <div className="detail-card">
+                  <span>{copy.detail.role}</span>
+                  <strong>{resolveName(dicts.roles, selectedUser.roleId)}</strong>
+                </div>
+                <div className="detail-card">
+                  <span>{copy.detail.level}</span>
+                  <strong>{resolveName(dicts.levels, selectedUser.levelId)}</strong>
+                </div>
+                <div className="detail-card">
+                  <span>{copy.detail.defaultProject}</span>
+                  <strong>{resolveName(dicts.projects, selectedUser.defaultProjectId)}</strong>
+                </div>
+              </div>
+
+              <div className="effective-permissions-sandbox">
+                <div className="assignment-section-header">
                   <div className="stack-sm">
-                    <h4>{selectedUser.username}</h4>
-                    <p className="muted">{selectedUser.email}</p>
-                  </div>
-                  <div className="toolbar-group">
-                    <button className="button button-secondary button-sm" onClick={() => openEdit(selectedUser)}>
-                      {t('btn.edit')}
-                    </button>
+                    <h4>{copy.detail.previewTitle}</h4>
+                    <p className="panel-subtitle">{copy.detail.previewSubtitle}</p>
                   </div>
                 </div>
-
-                <div className="detail-grid">
-                  <div className="detail-card">
-                    <span>{copy.detail.organization}</span>
-                    <strong>{resolveName(dicts.orgs, selectedUser.orgId)}</strong>
+                <div className="policy-preview-toolbar">
+                  <div className="field preview-project-field">
+                    <label>{copy.detail.previewProject}</label>
+                    <select
+                      value={previewProjectId}
+                      onChange={(e) => setPreviewProjectId(e.target.value)}
+                      disabled={dicts.projects.length === 0}
+                    >
+                      {dicts.projects.length === 0 ? (
+                        <option value="">{copy.detail.noPreviewProject}</option>
+                      ) : (
+                        dicts.projects.map((project) => (
+                          <option key={project.id} value={project.id}>
+                            {project.name}
+                          </option>
+                        ))
+                      )}
+                    </select>
                   </div>
-                  <div className="detail-card">
-                    <span>{copy.detail.department}</span>
-                    <strong>{resolveName(dicts.departments, selectedUser.departmentId)}</strong>
-                  </div>
-                  <div className="detail-card">
-                    <span>{copy.detail.team}</span>
-                    <strong>{resolveName(dicts.teams, selectedUser.teamId)}</strong>
-                  </div>
-                  <div className="detail-card">
-                    <span>{copy.detail.role}</span>
-                    <strong>{resolveName(dicts.roles, selectedUser.roleId)}</strong>
-                  </div>
-                  <div className="detail-card">
-                    <span>{copy.detail.level}</span>
-                    <strong>{resolveName(dicts.levels, selectedUser.levelId)}</strong>
-                  </div>
-                  <div className="detail-card">
-                    <span>{copy.detail.defaultProject}</span>
-                    <strong>{resolveName(dicts.projects, selectedUser.defaultProjectId)}</strong>
-                  </div>
+                  {selectedPreviewProject && (
+                    <span className="chip preview-project-chip">
+                      {selectedPreviewProject.name}
+                    </span>
+                  )}
                 </div>
 
-                <div className="effective-permissions-sandbox">
-                  <div className="assignment-section-header">
-                    <div className="stack-sm">
-                      <h4>{copy.detail.previewTitle}</h4>
-                      <p className="panel-subtitle">{copy.detail.previewSubtitle}</p>
-                    </div>
-                  </div>
-                  <div className="policy-preview-toolbar">
-                    <div className="field preview-project-field">
-                      <label>{copy.detail.previewProject}</label>
-                      <select
-                        value={previewProjectId}
-                        onChange={(e) => setPreviewProjectId(e.target.value)}
-                        disabled={dicts.projects.length === 0}
-                      >
-                        {dicts.projects.length === 0 ? (
-                          <option value="">{copy.detail.noPreviewProject}</option>
-                        ) : (
-                          dicts.projects.map((project) => (
-                            <option key={project.id} value={project.id}>
-                              {project.name}
-                            </option>
-                          ))
-                        )}
-                      </select>
-                    </div>
-                    {selectedPreviewProject && (
-                      <span className="chip preview-project-chip">
-                        {selectedPreviewProject.name}
-                      </span>
+                {policyPreviewLoading ? (
+                  <div className="loading-state">{copy.detail.previewLoading}</div>
+                ) : policyPreviewError ? (
+                  <div className="error-banner">{policyPreviewError}</div>
+                ) : !previewProjectId ? (
+                  <div className="empty-state">{copy.detail.noPreviewProject}</div>
+                ) : policyPreview ? (
+                  <div className="policy-preview-stack">
+                    {!policyPreview.assignment && (
+                      <div className="surface-muted preview-note">
+                        {copy.detail.noActiveAssignment}
+                      </div>
                     )}
-                  </div>
 
-                  {policyPreviewLoading ? (
-                    <div className="loading-state">{copy.detail.previewLoading}</div>
-                  ) : policyPreviewError ? (
-                    <div className="error-banner">{policyPreviewError}</div>
-                  ) : !previewProjectId ? (
-                    <div className="empty-state">{copy.detail.noPreviewProject}</div>
-                  ) : policyPreview ? (
-                    <div className="policy-preview-stack">
-                      {!policyPreview.assignment && (
-                        <div className="surface-muted preview-note">
-                          {copy.detail.noActiveAssignment}
+                    <section className="preview-section">
+                      <div className="preview-section-header">
+                        <h5>{copy.detail.finalRules}</h5>
+                        <span className="chip">{policyPreview.effectiveRules.length}</span>
+                      </div>
+                      {policyPreview.effectiveRules.length === 0 ? (
+                        <div className="empty-state">{copy.detail.noRules}</div>
+                      ) : (
+                        <div className="preview-rule-list">
+                          {policyPreview.effectiveRules.map((rule) => (
+                            <article key={`${rule.key}-${rule.sourceType}-${rule.sourceId ?? 'na'}`} className="preview-rule-card">
+                              <div className="preview-rule-meta">
+                                <span className={`policy-behavior-pill ${rule.behavior}`}>{rule.behavior.toUpperCase()}</span>
+                                <span className="mono-pill">{formatRule(rule)}</span>
+                              </div>
+                              <div className="preview-rule-source">
+                                <span>{copy.detail.source}</span>
+                                <strong>{rule.sourceLabel}</strong>
+                              </div>
+                            </article>
+                          ))}
                         </div>
                       )}
+                    </section>
 
+                    <div className="preview-split-grid">
                       <section className="preview-section">
                         <div className="preview-section-header">
-                          <h5>{copy.detail.finalRules}</h5>
-                          <span className="chip">{policyPreview.effectiveRules.length}</span>
+                          <h5>{copy.detail.capabilitiesTitle}</h5>
+                          <span className="chip">{policyPreview.effective.capabilities.length}</span>
                         </div>
-                        {policyPreview.effectiveRules.length === 0 ? (
-                          <div className="empty-state">{copy.detail.noRules}</div>
+                        {policyPreview.effective.capabilities.length === 0 ? (
+                          <div className="empty-state">{copy.detail.noCapabilities}</div>
                         ) : (
-                          <div className="preview-rule-list">
-                            {policyPreview.effectiveRules.map((rule) => (
-                              <article key={`${rule.key}-${rule.sourceType}-${rule.sourceId ?? 'na'}`} className="preview-rule-card">
-                                <div className="preview-rule-meta">
-                                  <span className={`policy-behavior-pill ${rule.behavior}`}>{rule.behavior.toUpperCase()}</span>
-                                  <span className="mono-pill">{formatRule(rule)}</span>
-                                </div>
-                                <div className="preview-rule-source">
-                                  <span>{copy.detail.source}</span>
-                                  <strong>{rule.sourceLabel}</strong>
-                                </div>
-                              </article>
+                          <div className="preview-pill-list">
+                            {policyPreview.effective.capabilities.map((capability) => (
+                              <code key={capability} className="mono-pill">{capability}</code>
                             ))}
                           </div>
                         )}
                       </section>
 
-                      <div className="preview-split-grid">
-                        <section className="preview-section">
-                          <div className="preview-section-header">
-                            <h5>{copy.detail.capabilitiesTitle}</h5>
-                            <span className="chip">{policyPreview.effective.capabilities.length}</span>
-                          </div>
-                          {policyPreview.effective.capabilities.length === 0 ? (
-                            <div className="empty-state">{copy.detail.noCapabilities}</div>
-                          ) : (
-                            <div className="preview-pill-list">
-                              {policyPreview.effective.capabilities.map((capability) => (
-                                <code key={capability} className="mono-pill">{capability}</code>
-                              ))}
-                            </div>
-                          )}
-                        </section>
-
-                        <section className="preview-section">
-                          <div className="preview-section-header">
-                            <h5>{copy.detail.envTitle}</h5>
-                            <span className="chip">{Object.keys(policyPreview.effective.envOverrides).length}</span>
-                          </div>
-                          {Object.keys(policyPreview.effective.envOverrides).length === 0 ? (
-                            <div className="empty-state">{copy.detail.noEnv}</div>
-                          ) : (
-                            <div className="preview-env-list">
-                              {Object.entries(policyPreview.effective.envOverrides).map(([key, value]) => (
-                                <div key={key} className="preview-env-row">
-                                  <code>{key}</code>
-                                  <strong>{value}</strong>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                          <div className="preview-expiry">
-                            <span>{copy.detail.expiresAt}</span>
-                            <strong>{formatDateTime(policyPreview.effective.expiresAt)}</strong>
-                          </div>
-                        </section>
-                      </div>
-
                       <section className="preview-section">
                         <div className="preview-section-header">
-                          <h5>{copy.detail.assignmentPreviewTitle}</h5>
+                          <h5>{copy.detail.envTitle}</h5>
+                          <span className="chip">{Object.keys(policyPreview.effective.envOverrides).length}</span>
                         </div>
-                        {policyPreview.assignment ? (
-                          <div className="preview-assignment-card">
-                            <div className="preview-assignment-row">
-                              <span>{copy.detail.project}</span>
-                              <strong>{resolveName(dicts.projects, policyPreview.assignment.projectId)}</strong>
-                            </div>
-                            <div className="preview-assignment-row">
-                              <span>{copy.detail.templates}</span>
-                              <code className="mono-pill">{policyPreview.assignment.templateIds}</code>
-                            </div>
-                            <div className="preview-assignment-row">
-                              <span>{copy.detail.extraRules}</span>
-                              <strong>
-                                {policyPreview.assignment.extraRulesJson
-                                  ? `${JSON.parse(policyPreview.assignment.extraRulesJson).length}`
-                                  : '0'}
-                              </strong>
-                            </div>
-                            <div className="preview-assignment-row">
-                              <span>{copy.detail.expiresAt}</span>
-                              <strong>{formatDateTime(policyPreview.assignment.expiresAt)}</strong>
-                            </div>
-                          </div>
+                        {Object.keys(policyPreview.effective.envOverrides).length === 0 ? (
+                          <div className="empty-state">{copy.detail.noEnv}</div>
                         ) : (
-                          <div className="empty-state">{copy.detail.noAssignmentDetail}</div>
+                          <div className="preview-env-list">
+                            {Object.entries(policyPreview.effective.envOverrides).map(([key, value]) => (
+                              <div key={key} className="preview-env-row">
+                                <code>{key}</code>
+                                <strong>{value}</strong>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        <div className="preview-expiry">
+                          <span>{copy.detail.expiresAt}</span>
+                          <strong>{formatDateTime(policyPreview.effective.expiresAt)}</strong>
+                        </div>
+                      </section>
+                    </div>
+
+                    <section className="preview-section">
+                      <div className="preview-section-header">
+                        <h5>{copy.detail.assignmentPreviewTitle}</h5>
+                      </div>
+                      {policyPreview.assignment ? (
+                        <div className="preview-assignment-card">
+                          <div className="preview-assignment-row">
+                            <span>{copy.detail.project}</span>
+                            <strong>{resolveName(dicts.projects, policyPreview.assignment.projectId)}</strong>
+                          </div>
+                          <div className="preview-assignment-row">
+                            <span>{copy.detail.templates}</span>
+                            <code className="mono-pill">{policyPreview.assignment.templateIds}</code>
+                          </div>
+                          <div className="preview-assignment-row">
+                            <span>{copy.detail.extraRules}</span>
+                            <strong>
+                              {policyPreview.assignment.extraRulesJson
+                                ? `${JSON.parse(policyPreview.assignment.extraRulesJson).length}`
+                                : '0'}
+                            </strong>
+                          </div>
+                          <div className="preview-assignment-row">
+                            <span>{copy.detail.expiresAt}</span>
+                            <strong>{formatDateTime(policyPreview.assignment.expiresAt)}</strong>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="empty-state">{copy.detail.noAssignmentDetail}</div>
+                      )}
+                    </section>
+
+                    <div className="preview-split-grid">
+                      <section className="preview-section">
+                        <div className="preview-section-header">
+                          <h5>{copy.detail.templatesPreviewTitle}</h5>
+                          <span className="chip">{policyPreview.templates.length}</span>
+                        </div>
+                        {policyPreview.templates.length === 0 ? (
+                          <div className="empty-state">{copy.detail.noTemplates}</div>
+                        ) : (
+                          <div className="preview-source-list">
+                            {policyPreview.templates.map((template) => (
+                              <div key={`${template.id}-${template.status}`} className="preview-source-card">
+                                <div className="preview-source-head">
+                                  <strong>{template.name}</strong>
+                                  <span className={`status-pill ${template.status === 'missing' ? 'missing' : template.status}`}>
+                                    {template.status === 'missing'
+                                      ? copy.detail.statusMissing
+                                      : template.applied
+                                        ? copy.detail.statusApplied
+                                        : copy.detail.statusIgnored}
+                                  </span>
+                                </div>
+                                <p className="muted">
+                                  {template.description || (isZh ? '无描述' : 'No description')}
+                                </p>
+                                <div className="preview-source-meta">
+                                  <span>v{template.version}</span>
+                                  <span>{template.status}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         )}
                       </section>
 
-                      <div className="preview-split-grid">
-                        <section className="preview-section">
-                          <div className="preview-section-header">
-                            <h5>{copy.detail.templatesPreviewTitle}</h5>
-                            <span className="chip">{policyPreview.templates.length}</span>
-                          </div>
-                          {policyPreview.templates.length === 0 ? (
-                            <div className="empty-state">{copy.detail.noTemplates}</div>
-                          ) : (
-                            <div className="preview-source-list">
-                              {policyPreview.templates.map((template) => (
-                                <div key={`${template.id}-${template.status}`} className="preview-source-card">
-                                  <div className="preview-source-head">
-                                    <strong>{template.name}</strong>
-                                    <span className={`status-pill ${template.status === 'missing' ? 'missing' : template.status}`}>
-                                      {template.status === 'missing'
-                                        ? copy.detail.statusMissing
-                                        : template.applied
-                                          ? copy.detail.statusApplied
-                                          : copy.detail.statusIgnored}
-                                    </span>
-                                  </div>
-                                  <p className="muted">
-                                    {template.description || (isZh ? '无描述' : 'No description')}
-                                  </p>
-                                  <div className="preview-source-meta">
-                                    <span>v{template.version}</span>
-                                    <span>{template.status}</span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </section>
-
-                        <section className="preview-section">
-                          <div className="preview-section-header">
-                            <h5>{copy.detail.departmentPoliciesTitle}</h5>
-                            <span className="chip">{policyPreview.departmentPolicies.length}</span>
-                          </div>
-                          {policyPreview.departmentPolicies.length === 0 ? (
-                            <div className="empty-state">{copy.detail.noDepartmentPolicies}</div>
-                          ) : (
-                            <div className="preview-source-list">
-                              {policyPreview.departmentPolicies.map((policy) => (
-                                <div key={policy.id} className="preview-source-card">
-                                  <div className="preview-source-head">
-                                    <strong>{`${policy.policyType.toUpperCase()} · ${policy.toolCategory}`}</strong>
-                                    <span className={`policy-behavior-pill ${policy.policyType}`}>{policy.policyType.toUpperCase()}</span>
-                                  </div>
-                                  <code className="mono-pill">{policy.resourcePattern}</code>
-                                  {policy.description && <p className="muted">{policy.description}</p>}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </section>
-                      </div>
-
                       <section className="preview-section">
                         <div className="preview-section-header">
-                          <h5>{copy.detail.suppressedRulesTitle}</h5>
-                          <span className="chip">{policyPreview.suppressedRules.length}</span>
+                          <h5>{copy.detail.departmentPoliciesTitle}</h5>
+                          <span className="chip">{policyPreview.departmentPolicies.length}</span>
                         </div>
-                        {policyPreview.suppressedRules.length === 0 ? (
-                          <div className="empty-state">{copy.detail.noSuppressedRules}</div>
+                        {policyPreview.departmentPolicies.length === 0 ? (
+                          <div className="empty-state">{copy.detail.noDepartmentPolicies}</div>
                         ) : (
                           <div className="preview-source-list">
-                            {policyPreview.suppressedRules.map((rule, index) => (
-                              <div key={`${rule.key}-${rule.sourceType}-${index}`} className="preview-source-card">
+                            {policyPreview.departmentPolicies.map((policy) => (
+                              <div key={policy.id} className="preview-source-card">
                                 <div className="preview-source-head">
-                                  <strong>{formatRule(rule)}</strong>
-                                  <span className={`policy-behavior-pill ${rule.behavior}`}>{rule.behavior.toUpperCase()}</span>
+                                  <strong>{`${policy.policyType.toUpperCase()} · ${policy.toolCategory}`}</strong>
+                                  <span className={`policy-behavior-pill ${policy.policyType}`}>{policy.policyType.toUpperCase()}</span>
                                 </div>
-                                <p className="muted">
-                                  {copy.detail.source}: {rule.sourceLabel}
-                                </p>
-                                <p className="muted">
-                                  {copy.detail.suppressedBy}: {rule.suppressedBy.sourceLabel} · {rule.suppressedBy.behavior.toUpperCase()}
-                                </p>
+                                <code className="mono-pill">{policy.resourcePattern}</code>
+                                {policy.description && <p className="muted">{policy.description}</p>}
                               </div>
                             ))}
                           </div>
                         )}
                       </section>
                     </div>
-                  ) : (
-                    <div className="empty-state">{copy.detail.noRules}</div>
-                  )}
-                </div>
-              </>
-            ) : (
-              <div className="empty-state">{copy.detail.noSelection}</div>
-            )}
-          </aside>
+
+                    <section className="preview-section">
+                      <div className="preview-section-header">
+                        <h5>{copy.detail.suppressedRulesTitle}</h5>
+                        <span className="chip">{policyPreview.suppressedRules.length}</span>
+                      </div>
+                      {policyPreview.suppressedRules.length === 0 ? (
+                        <div className="empty-state">{copy.detail.noSuppressedRules}</div>
+                      ) : (
+                        <div className="preview-source-list">
+                          {policyPreview.suppressedRules.map((rule, index) => (
+                            <div key={`${rule.key}-${rule.sourceType}-${index}`} className="preview-source-card">
+                              <div className="preview-source-head">
+                                <strong>{formatRule(rule)}</strong>
+                                <span className={`policy-behavior-pill ${rule.behavior}`}>{rule.behavior.toUpperCase()}</span>
+                              </div>
+                              <p className="muted">
+                                {copy.detail.source}: {rule.sourceLabel}
+                              </p>
+                              <p className="muted">
+                                {copy.detail.suppressedBy}: {rule.suppressedBy.sourceLabel} · {rule.suppressedBy.behavior.toUpperCase()}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </section>
+                  </div>
+                ) : (
+                  <div className="empty-state">{copy.detail.noRules}</div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

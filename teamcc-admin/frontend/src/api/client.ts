@@ -157,10 +157,24 @@ export const deleteDepartmentPolicy = (token: string, id: number) =>
 
 // ─── Admin: Audit ─────────────────────────────────────────────────────────────
 
-export const getAuditLogs = (token: string, params?: { limit?: number; offset?: number }) => {
+export const getAuditLogs = (
+  token: string,
+  params?: {
+    limit?: number
+    offset?: number
+    action?: string
+    actions?: string[]
+    targetType?: string
+    severity?: 'info' | 'warning' | 'critical'
+  },
+) => {
   const qs = new URLSearchParams()
   if (params?.limit) qs.set('limit', String(params.limit))
   if (params?.offset) qs.set('offset', String(params.offset))
+  if (params?.action) qs.set('action', params.action)
+  if (params?.actions?.length) qs.set('actions', params.actions.join(','))
+  if (params?.targetType) qs.set('targetType', params.targetType)
+  if (params?.severity) qs.set('severity', params.severity)
   return apiFetch(`${API_BASE}/admin/audit?${qs}`, token)
 }
 

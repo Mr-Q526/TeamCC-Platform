@@ -322,7 +322,7 @@ async function logStartupTelemetry(): Promise<void> {
   });
 
   // TeamCC Audit Hook: Boot Event
-  reportAuditLog(process.cwd(), 'boot', {
+  reportAuditLog(process.cwd(), 'boot', 'session', {
     hasTrust: checkHasTrustDialogAccepted(),
     nodeVersion: process.version,
     ...getCertEnvVarTelemetry()

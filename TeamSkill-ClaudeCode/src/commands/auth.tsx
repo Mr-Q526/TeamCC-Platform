@@ -113,10 +113,10 @@ const call: LocalCommandCall = async (args, context) => {
       if (identity) {
         status += `👤 Identity:\n`
         status += `   User ID: ${identity.userId}\n`
-        status += `   Department: ${mapDepartment(identity.departmentId)}\n`
-        status += `   Team: ${mapTeam(identity.teamId)}\n`
-        status += `   Role: ${mapRole(identity.roleId)}\n`
-        status += `   Level: ${mapLevel(identity.levelId)}\n\n`
+        status += `   Department: ${mapDepartment(identity.departmentId, identity.departmentLabel)}\n`
+        status += `   Team: ${mapTeam(identity.teamId, identity.teamLabel)}\n`
+        status += `   Role: ${mapRole(identity.roleId, identity.roleLabel)}\n`
+        status += `   Level: ${mapLevel(identity.levelId, identity.levelLabel)}\n\n`
       }
 
       if (config?.accessToken) {

@@ -2,7 +2,12 @@
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
   min-height: 100vh;
-  background: var(--surface);
+  background: linear-gradient(180deg, #f9fbff 0%, #f3f7fd 100%);
+  transition: grid-template-columns 180ms ease;
+}
+
+.admin-shell.sidebar-collapsed {
+  grid-template-columns: 92px minmax(0, 1fr);
 }
 
 .admin-sidebar {
@@ -17,12 +22,51 @@
   color: #f8fafc;
   background: var(--panel-dark);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
+  transition: padding 180ms ease;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .brand-block {
   display: flex;
   align-items: center;
   gap: 14px;
+  min-width: 0;
+}
+
+.sidebar-toggle-button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  color: rgba(219, 228, 248, 0.82);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 180ms ease, color 150ms ease;
+}
+
+.sidebar-toggle-button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-toggle-button svg {
+  transition: transform 180ms ease;
+  transform: rotate(180deg);
+}
+
+.sidebar-toggle-button.collapsed svg {
+  transform: rotate(0deg);
 }
 
 .brand-mark {
@@ -109,28 +153,96 @@
   font-size: 12px;
 }
 
-.sidebar-panel {
+.sidebar-help-button {
   margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
   padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.06);
-}
-
-.sidebar-panel h3 {
   color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
 }
 
-.sidebar-panel p {
-  margin-top: 10px;
-  color: rgba(216, 225, 243, 0.76);
-  line-height: 1.7;
+.sidebar-help-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.sidebar-help-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.sidebar-help-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-help-copy strong {
+  font-size: 14px;
+}
+
+.sidebar-help-copy small {
+  color: rgba(200, 212, 238, 0.72);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.sidebar-collapsed .admin-sidebar {
+  padding-inline: 12px;
+}
+
+.sidebar-collapsed .sidebar-header {
+  justify-content: center;
+}
+
+.sidebar-collapsed .brand-block {
+  justify-content: center;
+}
+
+.sidebar-collapsed .brand-copy,
+.sidebar-collapsed .nav-copy,
+.sidebar-collapsed .sidebar-help-copy {
+  display: none;
+}
+
+.sidebar-collapsed .nav-button,
+.sidebar-collapsed .sidebar-help-button {
+  justify-content: center;
+  padding-inline: 10px;
+}
+
+.sidebar-collapsed .sidebar-toggle-button {
+  width: 38px;
+  height: 38px;
+}
+
+.sidebar-collapsed .sidebar-help-icon {
+  width: 38px;
+  height: 38px;
 }
 
 .admin-main {
   min-width: 0;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 250, 255, 0.96));
 }
 
 .admin-topbar {
@@ -140,7 +252,7 @@
   gap: 20px;
   padding: 32px 40px;
   border-bottom: 1px solid var(--border);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .topbar-copy h1 {
@@ -180,9 +292,10 @@
 }
 
 .overview-banner {
-  background: transparent;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 251, 255, 0.84));
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
+  border: 1px solid #dce5f2;
+  box-shadow: 0 14px 30px rgba(108, 135, 175, 0.08);
 }
 
 .overview-title {
@@ -222,7 +335,7 @@
   align-items: center;
   padding: 6px 10px;
   border-radius: var(--radius-sm);
-  background: var(--surface-soft);
+  background: rgba(255, 255, 255, 0.95);
   color: var(--text);
   font-size: 12px;
   font-weight: 600;
@@ -261,7 +374,8 @@
   padding: 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  background: var(--surface-strong);
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(148, 163, 184, 0.08);
 }
 
 .snapshot-item span {
@@ -346,6 +460,26 @@
   background: var(--text-soft);
 }
 
+.activity-dot.tone-boot,
+.activity-dot.tone-permission_allow {
+  background: var(--brand);
+}
+
+.activity-dot.tone-exit {
+  background: var(--text-soft);
+}
+
+.activity-dot.tone-permission_ask,
+.activity-dot.tone-command_execution_error,
+.activity-dot.tone-bash_command {
+  background: var(--warning);
+}
+
+.activity-dot.tone-permission_deny,
+.activity-dot.tone-policy_violation {
+  background: var(--danger);
+}
+
 .activity-copy {
   display: flex;
   flex-direction: column;
@@ -382,7 +516,8 @@
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  background: var(--surface);
+  background: linear-gradient(180deg, #ffffff, #f7faff);
+  box-shadow: 0 10px 22px rgba(148, 163, 184, 0.08);
   color: inherit;
   text-align: left;
   cursor: pointer;
@@ -391,6 +526,8 @@
 
 .quick-card:hover {
   border-color: var(--brand);
+  background: #ffffff;
+  box-shadow: 0 14px 28px rgba(96, 123, 162, 0.12);
 }
 
 .quick-card-icon {
@@ -428,8 +565,112 @@
   font-weight: 800;
 }
 
+.help-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.48);
+  backdrop-filter: blur(8px);
+}
+
+.help-modal {
+  width: min(760px, 100%);
+  max-height: min(88vh, 920px);
+  overflow: auto;
+  padding: 28px;
+  border-radius: 28px;
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.22);
+}
+
+.help-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.help-modal-header h2 {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  letter-spacing: -0.05em;
+}
+
+.help-modal-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.help-modal-intro {
+  margin-top: 18px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.help-section-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.help-section {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffffff, #f7faff);
+}
+
+.help-section h3,
+.help-notes h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: -0.03em;
+}
+
+.help-section p {
+  margin-top: 10px;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.help-notes {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 22px;
+  background: rgba(37, 99, 235, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+}
+
+.help-notes ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.help-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
 @media (max-width: 1000px) {
   .admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-shell.sidebar-collapsed {
     grid-template-columns: 1fr;
   }
 
@@ -446,6 +687,18 @@
 
   .nav-button {
     min-width: 180px;
+  }
+
+  .sidebar-collapsed .brand-copy,
+  .sidebar-collapsed .nav-copy,
+  .sidebar-collapsed .sidebar-help-copy {
+    display: flex;
+  }
+
+  .sidebar-collapsed .nav-button,
+  .sidebar-collapsed .sidebar-help-button,
+  .sidebar-collapsed .brand-block {
+    justify-content: flex-start;
   }
 }
 
@@ -486,5 +739,14 @@
   .activity-time,
   .quick-card-link {
     justify-self: start;
+  }
+
+  .help-modal {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .help-modal-footer .button {
+    width: 100%;
   }
 }

@@ -30,6 +30,7 @@ import type { PermissionUpdate } from '../../../utils/permissions/PermissionUpda
 import { hasPermissionsToUseTool } from '../../../utils/permissions/permissions.js'
 import type { PermissionContext } from '../PermissionContext.js'
 import { createResolveOnce } from '../PermissionContext.js'
+import { logPermissionAsk } from '../permissionLogging.js'
 
 type InteractivePermissionParams = {
   ctx: PermissionContext
@@ -82,6 +83,18 @@ function handleInteractivePermission(
 
   const permissionPromptStartTimeMs = Date.now()
   const displayInput = result.updatedInput ?? ctx.input
+
+  logPermissionAsk(
+    {
+      tool: ctx.tool,
+      input: ctx.input,
+      toolUseContext: ctx.toolUseContext,
+      messageId: ctx.messageId,
+      toolUseID: ctx.toolUseID,
+    },
+    result.decisionReason,
+    displayInput,
+  )
 
   function clearClassifierIndicator(): void {
     if (feature('BASH_CLASSIFIER')) {
