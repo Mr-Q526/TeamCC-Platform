@@ -7,6 +7,7 @@
   "scripts": {
     "eval:skills": "bun run ./scripts/skillRetrievalEval.ts",
     "skills:facts:aggregate": "bun run ./scripts/buildSkillFactAggregates.ts",
+    "skills:facts:build-retrieval-features": "bun run ./scripts/buildSkillRetrievalFeatures.ts",
     "skills:facts:db:init": "bun run ./scripts/initSkillFactsDb.ts",
     "skills:graph:build-update-input": "bun run ./scripts/buildSkillAggregateGraphUpdateInput.ts",
     "skills:graph:apply-aggregates": "bun run ./scripts/applySkillAggregateGraphUpdate.ts",

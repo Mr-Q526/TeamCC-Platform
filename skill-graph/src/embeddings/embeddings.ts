@@ -207,6 +207,12 @@ export async function readGeneratedSkillEmbeddings(
   }
 }
 
+export async function readSkillEmbeddings(
+  projectRoot = process.cwd(),
+): Promise<SkillEmbeddingsManifest | null> {
+  return readGeneratedSkillEmbeddings(join(projectRoot, 'skills-flat'))
+}
+
 export async function requestArkEmbeddings(
   texts: string[],
 ): Promise<{
