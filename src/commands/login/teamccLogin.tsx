@@ -7,6 +7,7 @@ import {
   fetchIdentityFromTeamCC,
   cacheIdentity,
 } from '../../bootstrap/teamccAuth.js'
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js'
 
 export function TeamCCLogin({
   onDone,
@@ -49,6 +50,9 @@ export function TeamCCLogin({
       const identity = await fetchIdentityFromTeamCC(config)
       // 4. Cache it for offline capabilities
       await cacheIdentity(process.cwd(), identity)
+      
+      // 5. Fire Audit Log
+      reportAuditLog(process.cwd(), 'login', { username: identity.subject.username })
 
       onDone(true)
     } catch (err) {

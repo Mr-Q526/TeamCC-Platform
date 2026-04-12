@@ -11,6 +11,7 @@ import { profileCheckpoint, profileReport } from './utils/startupProfiler.js';
 // eslint-disable-next-line custom-rules/no-top-level-side-effects
 profileCheckpoint('main_tsx_entry');
 import { startMdmRawRead } from './utils/settings/mdm/rawRead.js';
+import { reportAuditLog } from './bootstrap/teamccAudit.js';
 
 // eslint-disable-next-line custom-rules/no-top-level-side-effects
 startMdmRawRead();
@@ -316,6 +317,13 @@ async function logStartupTelemetry(): Promise<void> {
     is_auto_bash_allowed_if_sandbox_enabled: SandboxManager.isAutoAllowBashIfSandboxedEnabled(),
     auto_updater_disabled: isAutoUpdaterDisabled(),
     prefers_reduced_motion: getInitialSettings().prefersReducedMotion ?? false,
+    ...getCertEnvVarTelemetry()
+  });
+
+  // TeamCC Audit Hook: Boot Event
+  reportAuditLog(process.cwd(), 'boot', {
+    hasTrust: checkHasTrustDialogAccepted(),
+    nodeVersion: process.version,
     ...getCertEnvVarTelemetry()
   });
 }

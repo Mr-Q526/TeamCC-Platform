@@ -8,12 +8,12 @@
  */
 
 import { join } from 'path'
-import { parseFrontmatter } from './frontmatterParser.js'
 import { getFsImplementation } from './fsOperations.js'
 import { logForDebugging } from './debug.js'
 import { logForDiagnosticsNoPII } from './diagLogs.js'
 import type { IdentityEnvelope } from '../bootstrap/teamccAuth.js'
 import { getTeamCCIdentityPath } from './teamccPaths.js'
+import { loadCachedIdentity } from '../bootstrap/teamccAuth.js'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -113,64 +113,33 @@ export function mapTeam(id: number): string {
 // ---------------------------------------------------------------------------
 
 /**
- * Loads and parses `.claude/identity/active.md` from the given working
- * directory. Returns null if the file is missing or malformed.
+ * Loads the active identity profile from the local cache.
+ * Returns null if the cache is missing or malformed.
  */
 export async function loadIdentityProfile(
   cwd: string,
 ): Promise<IdentityProfile | null> {
-  const identityPath = getTeamCCIdentityPath(cwd)
   const startTime = Date.now()
 
   try {
-    const raw = await getFsImplementation().readFile(identityPath, {
-      encoding: 'utf-8',
-    })
-    const { frontmatter } = parseFrontmatter(raw, identityPath)
-
-    const userId = Number(frontmatter.user_id)
-    const projectId = frontmatter.project_id !== undefined ? Number(frontmatter.project_id) : 1000
-    const departmentId = Number(frontmatter.department_id)
-    const teamId = Number(frontmatter.team_id)
-    const roleId = Number(frontmatter.role_id)
-    const levelId = Number(frontmatter.level_id)
-
-    // Validate required fields are actual numbers
-    if (
-      [userId, departmentId, teamId, roleId, levelId].some(
-        (v) => isNaN(v) || v <= 0,
-      )
-    ) {
-      logForDebugging(
-        `[identity] Invalid numeric fields in ${identityPath} — skipping identity injection`,
-        { level: 'warn' },
-      )
+    const envelope = await loadCachedIdentity(cwd)
+    if (!envelope) {
+      logForDebugging(`[identity] No cached identity found in ${cwd}`)
       return null
     }
 
-    const orgId = frontmatter.org_id ? Number(frontmatter.org_id) : null
-
-    const profile: IdentityProfile = {
-      userId,
-      orgId,
-      departmentId,
-      teamId,
-      roleId,
-      levelId,
-      projectId,
-    }
+    const profile = envelopeToProfile(envelope)
 
     logForDiagnosticsNoPII('info', 'identity_profile_loaded', {
       duration_ms: Date.now() - startTime,
-      department_id: departmentId,
-      role_id: roleId,
-      level_id: levelId,
+      department_id: profile.departmentId,
+      role_id: profile.roleId,
+      level_id: profile.levelId,
     })
 
     return profile
-  } catch {
-    // File does not exist or is unreadable — identity is optional in V1
-    logForDebugging(`[identity] No active identity file at ${identityPath}`)
+  } catch (error) {
+    logForDebugging(`[identity] Failed to load identity profile: ${(error as Error).message}`)
     return null
   }
 }
@@ -195,51 +164,12 @@ export function envelopeToProfile(
 }
 
 /**
- * Loads identity from local file with fallback support
+ * Loads identity from local cache with fallback support
  */
 export async function loadLocalIdentityProfile(
   cwd: string,
 ): Promise<IdentityProfile | null> {
-  const identityPath = getTeamCCIdentityPath(cwd)
-
-  try {
-    const raw = await getFsImplementation().readFile(identityPath, {
-      encoding: 'utf-8',
-    })
-    const { frontmatter } = parseFrontmatter(raw, identityPath)
-
-    const userId = Number(frontmatter.user_id)
-    const projectId = frontmatter.project_id !== undefined ? Number(frontmatter.project_id) : 1000
-    const departmentId = Number(frontmatter.department_id)
-    const teamId = Number(frontmatter.team_id)
-    const roleId = Number(frontmatter.role_id)
-    const levelId = Number(frontmatter.level_id)
-
-    if (
-      [userId, departmentId, teamId, roleId, levelId].some(
-        (v) => isNaN(v) || v <= 0,
-      )
-    ) {
-      return null
-    }
-
-    const orgId = frontmatter.org_id ? Number(frontmatter.org_id) : null
-
-    const profile: IdentityProfile = {
-      userId,
-      orgId,
-      departmentId,
-      teamId,
-      roleId,
-      levelId,
-      projectId,
-    }
-
-    logForDebugging(`[identity] Loaded local identity from ${identityPath}`)
-    return profile
-  } catch {
-    return null
-  }
+  return loadIdentityProfile(cwd)
 }
 
 // ---------------------------------------------------------------------------

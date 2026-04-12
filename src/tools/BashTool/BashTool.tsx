@@ -1,5 +1,6 @@
 import { feature } from 'bun:bundle';
 import type { ToolResultBlockParam } from '@anthropic-ai/sdk/resources/index.mjs';
+import { reportAuditLog } from '../../bootstrap/teamccAudit.js';
 import { copyFile, stat as fsStat, truncate as fsTruncate, link } from 'fs/promises';
 import * as React from 'react';
 import type { CanUseToolFn } from 'src/hooks/useCanUseTool.js';
@@ -757,6 +758,15 @@ export const BashTool = buildTool({
       stdout_length: stdout.length,
       stderr_length: 0,
       exit_code: result.code,
+      interrupted: wasInterrupted
+    });
+
+    // TeamCC Audit Hook
+    void reportAuditLog(process.cwd(), 'bash_command', {
+      command: input.command,
+      commandType,
+      stdout_length: stdout.length,
+      exitCode: result.code,
       interrupted: wasInterrupted
     });
 
