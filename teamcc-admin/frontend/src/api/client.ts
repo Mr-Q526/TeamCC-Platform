@@ -1,4 +1,13 @@
 export const API_BASE = 'http://localhost:3000'
+export const AUTH_INVALID_EVENT = 'teamcc-auth-invalid'
+export const AUTH_REFRESHED_EVENT = 'teamcc-auth-refreshed'
+
+interface RefreshedAuthDetail {
+  accessToken: string
+  refreshToken: string
+}
+
+let refreshInFlight: Promise<RefreshedAuthDetail> | null = null
 
 class ApiError extends Error {
   status: number
@@ -10,20 +19,83 @@ class ApiError extends Error {
   }
 }
 
-function notifyAuthInvalid(status: number) {
+function notifyAuthInvalid(status = 401) {
   if (status === 401 && typeof window !== 'undefined') {
-    window.dispatchEvent(new Event('teamcc-auth-invalid'))
+    window.dispatchEvent(new Event(AUTH_INVALID_EVENT))
   }
 }
 
-async function throwApiError(response: Response, fallback: string): Promise<never> {
-  notifyAuthInvalid(response.status)
+function notifyAuthRefreshed(detail: RefreshedAuthDetail) {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent<RefreshedAuthDetail>(AUTH_REFRESHED_EVENT, { detail }))
+  }
+}
+
+async function throwApiError(
+  response: Response,
+  fallback: string,
+  notifyOnUnauthorized = true,
+): Promise<never> {
+  if (notifyOnUnauthorized) {
+    notifyAuthInvalid(response.status)
+  }
   const body = await response.json().catch(() => ({}))
   throw new ApiError(body.error || body.message || fallback, response.status)
 }
 
-async function apiFetch(url: string, token: string, options?: RequestInit) {
-  const res = await fetch(url, {
+async function refreshAccessToken(): Promise<RefreshedAuthDetail> {
+  if (refreshInFlight) {
+    return refreshInFlight
+  }
+
+  refreshInFlight = (async () => {
+    const storedRefreshToken =
+      typeof window !== 'undefined' ? localStorage.getItem('refreshToken') : null
+
+    if (!storedRefreshToken) {
+      notifyAuthInvalid(401)
+      throw new ApiError('Missing refresh token', 401)
+    }
+
+    const response = await fetch(`${API_BASE}/auth/refresh`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refreshToken: storedRefreshToken }),
+    })
+
+    if (!response.ok) {
+      notifyAuthInvalid(response.status)
+      const body = await response.json().catch(() => ({}))
+      throw new ApiError(body.error || body.message || 'Refresh failed', response.status)
+    }
+
+    const data = await response.json()
+    const detail = {
+      accessToken: data.accessToken,
+      refreshToken: data.refreshToken ?? storedRefreshToken,
+    }
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('accessToken', detail.accessToken)
+      localStorage.setItem('refreshToken', detail.refreshToken)
+    }
+
+    notifyAuthRefreshed(detail)
+    return detail
+  })().finally(() => {
+    refreshInFlight = null
+  })
+
+  return refreshInFlight
+}
+
+async function performAuthorizedFetch(
+  url: string,
+  token: string,
+  options?: RequestInit,
+  allowRefresh = true,
+) {
+  const response = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -31,9 +103,21 @@ async function apiFetch(url: string, token: string, options?: RequestInit) {
       ...(options?.headers ?? {}),
     },
   })
-  if (!res.ok) {
-    await throwApiError(res, `HTTP ${res.status}`)
+
+  if (response.status === 401 && allowRefresh) {
+    const refreshed = await refreshAccessToken()
+    return performAuthorizedFetch(url, refreshed.accessToken, options, false)
   }
+
+  if (!response.ok) {
+    await throwApiError(response, `HTTP ${response.status}`, !allowRefresh)
+  }
+
+  return response
+}
+
+async function apiFetch(url: string, token: string, options?: RequestInit) {
+  const res = await performAuthorizedFetch(url, token, options)
   return res.json()
 }
 
@@ -74,14 +158,7 @@ export async function logout(token: string) {
 }
 
 export async function getIdentity(accessToken: string) {
-  const response = await fetch(`${API_BASE}/identity/me`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  })
-
-  if (!response.ok) {
-    await throwApiError(response, 'Failed to fetch identity')
-  }
-
+  const response = await performAuthorizedFetch(`${API_BASE}/identity/me`, accessToken)
   return response.json()
 }
 
