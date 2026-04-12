@@ -46,6 +46,41 @@
   background: rgba(217, 138, 44, 0.16);
 }
 
+.action-badge.tone-boot,
+.action-badge.tone-exit,
+.action-badge.tone-permission_allow {
+  color: var(--brand-strong);
+  background: rgba(30, 103, 232, 0.12);
+}
+
+.action-badge.tone-bash_command,
+.action-badge.tone-command_execution_error,
+.action-badge.tone-permission_ask {
+  color: #9b6117;
+  background: rgba(217, 138, 44, 0.18);
+}
+
+.action-badge.tone-file_write {
+  color: var(--success);
+  background: rgba(31, 138, 103, 0.12);
+}
+
+.action-badge.tone-permission_deny,
+.action-badge.tone-policy_violation {
+  color: var(--danger);
+  background: rgba(204, 83, 74, 0.14);
+}
+
+.audit-detail-cell {
+  align-items: flex-start;
+}
+
+.audit-summary {
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .audit-row-expanded {
   background: rgba(30, 103, 232, 0.05);
 }

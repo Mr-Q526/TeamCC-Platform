@@ -39,6 +39,7 @@ interface OverviewState {
   templateArchived: number
   assignmentTotal: number
   auditTotal: number
+  securityViolationTotal: number
   recentLogs: RecentActivity[]
 }
 
@@ -51,19 +52,52 @@ const EMPTY_OVERVIEW: OverviewState = {
   templateArchived: 0,
   assignmentTotal: 0,
   auditTotal: 0,
+  securityViolationTotal: 0,
   recentLogs: [],
 }
 
 export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
-  const { t, i18n } = useTranslation()
-  const isZh = i18n.language === 'zh'
+      const { t, i18n } = useTranslation()
+      const isZh = i18n.language === 'zh'
 
   const copy = isZh
     ? {
         brandLabel: 'Access Control Command',
         brandBody: '用更清晰的节奏管理身份、模板与审计。',
-        sidebarCardTitle: '治理节奏',
-        sidebarCardBody: '把高风险权限操作、模板维护和审计追踪放进同一条工作流。',
+        sidebarHelpLabel: '平台说明',
+        sidebarHelpHint: '查看如何配置权限',
+        sidebarToggleShow: '展开导航',
+        sidebarToggleHide: '隐藏导航',
+        help: {
+          title: 'TeamCC 管理平台使用说明',
+          intro:
+            '这个平台用于维护员工身份、权限模板、部门基线策略和项目授权，最终生成用户在具体项目下的生效权限。',
+          sections: [
+            {
+              title: '1. 先维护员工身份',
+              body: '在“员工管理”里维护部门、团队、角色、职级、默认项目和账号状态。这里决定身份基线和默认取哪个项目查看权限。',
+            },
+            {
+              title: '2. 再维护权限模板',
+              body: '在“权限模板”里配置规则、能力和环境变量。模板适合复用，避免为每个人重复手工配置。',
+            },
+            {
+              title: '3. 按项目做授权绑定',
+              body: '在“项目授权”里把员工、项目和模板绑定起来。需要例外时，再追加额外规则，不要直接把所有差异都写进模板。',
+            },
+            {
+              title: '4. 用生效权限预览验收',
+              body: '回到员工详情，查看指定项目下的最终生效规则、能力、环境变量和规则来源，确认实际权限是否符合预期。',
+            },
+          ],
+          notesTitle: '结算规则',
+          notes: [
+            '权限按“部门策略 -> 项目授权 -> 模板 -> 额外规则”合成。',
+            '冲突优先级是 deny > ask > allow。',
+            '停用用户、过期授权和已归档模板不会参与最终生效结果。',
+          ],
+          close: '知道了',
+        },
         pages: {
           home: {
             eyebrow: 'Control Tower',
@@ -117,7 +151,7 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
           users: '员工账户',
           templates: '权限模板',
           assignments: '项目授权',
-          audit: '审计事件',
+          securityViolations: '安全违反',
           activeUsers: '活跃帐号',
           archivedTemplates: '归档模板',
           activeAssignments: '已配置授权',
@@ -141,8 +175,40 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
     : {
         brandLabel: 'Access Control Command',
         brandBody: 'Run identity, templates, and audit flow with more clarity.',
-        sidebarCardTitle: 'Governance Rhythm',
-        sidebarCardBody: 'Keep privileged access, template maintenance, and audit tracing in one operating loop.',
+        sidebarHelpLabel: 'Platform Help',
+        sidebarHelpHint: 'How to configure permissions',
+        sidebarToggleShow: 'Show Navigation',
+        sidebarToggleHide: 'Hide Navigation',
+        help: {
+          title: 'How to use the TeamCC admin console',
+          intro:
+            'This platform manages employee identity, permission templates, department baselines, and project assignments to produce the effective policy for a user in a specific project.',
+          sections: [
+            {
+              title: '1. Maintain employee identity first',
+              body: 'Use Users to keep department, team, role, level, default project, and account status accurate. These fields establish the subject baseline.',
+            },
+            {
+              title: '2. Create reusable permission templates',
+              body: 'Use Templates to define rules, capabilities, and env overrides. Keep reusable policy logic here instead of duplicating per-user setup.',
+            },
+            {
+              title: '3. Bind users to templates per project',
+              body: 'Use Assignments to connect a user, a project, and one or more templates. Add extra rules only for exceptions, not as the main source of policy.',
+            },
+            {
+              title: '4. Validate in effective policy preview',
+              body: 'Open a user detail panel and inspect the effective rules, capabilities, env overrides, and rule sources for the selected project before finalizing changes.',
+            },
+          ],
+          notesTitle: 'Resolution rules',
+          notes: [
+            'Policies are merged in the order: department policy -> assignment -> template -> extra rules.',
+            'Conflicts resolve with deny > ask > allow.',
+            'Suspended users, expired assignments, and archived templates do not contribute to the final effective result.',
+          ],
+          close: 'Close',
+        },
         pages: {
           home: {
             eyebrow: 'Control Tower',
@@ -196,7 +262,7 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
           users: 'User Accounts',
           templates: 'Templates',
           assignments: 'Assignments',
-          audit: 'Audit Events',
+          securityViolations: 'Security Violations',
           activeUsers: 'Active accounts',
           archivedTemplates: 'Archived templates',
           activeAssignments: 'Configured assignments',
@@ -219,6 +285,8 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
       }
 
   const [currentPage, setCurrentPage] = useState<ViewKey>('home')
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [helpOpen, setHelpOpen] = useState(false)
   const [overview, setOverview] = useState<OverviewState>(EMPTY_OVERVIEW)
   const [overviewLoading, setOverviewLoading] = useState(true)
   const [overviewError, setOverviewError] = useState('')
@@ -230,12 +298,18 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
   }
 
   const collectOverviewSnapshot = async () => {
-    const [usersResult, templatesResult, assignmentsResult, auditResult] =
+    const [usersResult, templatesResult, assignmentsResult, auditResult, securityAuditResult] =
       await Promise.allSettled([
         getUsers(accessToken),
         getTemplates(accessToken),
         getAllAssignments(accessToken),
         getAuditLogs(accessToken, { limit: 5, offset: 0 }),
+        getAuditLogs(accessToken, {
+          limit: 1,
+          offset: 0,
+          actions: ['permission_deny', 'policy_violation'],
+          severity: 'critical',
+        }),
       ])
 
     const nextOverview: OverviewState = { ...EMPTY_OVERVIEW }
@@ -268,8 +342,13 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
       successCount += 1
     }
 
+    if (securityAuditResult.status === 'fulfilled') {
+      nextOverview.securityViolationTotal = securityAuditResult.value.total ?? 0
+      successCount += 1
+    }
+
     return {
-      failed: successCount === 0 || successCount < 4,
+      failed: successCount === 0 || successCount < 5,
       overview: nextOverview,
     }
   }
@@ -292,12 +371,18 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
     let cancelled = false
 
     const syncOverview = async () => {
-      const [usersResult, templatesResult, assignmentsResult, auditResult] =
+      const [usersResult, templatesResult, assignmentsResult, auditResult, securityAuditResult] =
         await Promise.allSettled([
           getUsers(accessToken),
           getTemplates(accessToken),
           getAllAssignments(accessToken),
           getAuditLogs(accessToken, { limit: 5, offset: 0 }),
+          getAuditLogs(accessToken, {
+            limit: 1,
+            offset: 0,
+            actions: ['permission_deny', 'policy_violation'],
+            severity: 'critical',
+          }),
         ])
 
       const nextOverview: OverviewState = { ...EMPTY_OVERVIEW }
@@ -330,9 +415,14 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
         successCount += 1
       }
 
+      if (securityAuditResult.status === 'fulfilled') {
+        nextOverview.securityViolationTotal = securityAuditResult.value.total ?? 0
+        successCount += 1
+      }
+
       if (cancelled) return
       setOverview(nextOverview)
-      setOverviewError(successCount === 0 || successCount < 4 ? partialErrorText : '')
+      setOverviewError(successCount === 0 || successCount < 5 ? partialErrorText : '')
       setOverviewLoading(false)
     }
 
@@ -351,6 +441,15 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
         delete: '删除',
         login: '登录',
         logout: '登出',
+        boot: '客户端启动',
+        exit: '会话退出',
+        permission_allow: '已放行工具使用',
+        permission_ask: '触发权限确认',
+        permission_deny: '尝试使用被禁止的工具',
+        policy_violation: '策略违反',
+        bash_command: '终端命令',
+        file_write: '文件写入',
+        command_execution_error: '命令错误',
       }
     : {
         create: 'Created',
@@ -358,6 +457,15 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
         delete: 'Deleted',
         login: 'Login',
         logout: 'Logout',
+        boot: 'Boot',
+        exit: 'Session Exit',
+        permission_allow: 'Tool Allowed',
+        permission_ask: 'Permission Prompted',
+        permission_deny: 'Blocked Tool Attempt',
+        policy_violation: 'Policy Violation',
+        bash_command: 'Bash Command',
+        file_write: 'File Write',
+        command_execution_error: 'Command Error',
       }
 
   const targetLabels = isZh
@@ -365,11 +473,23 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
         user: '员工',
         template: '模板',
         assignment: '授权',
+        department_policy: '部门策略',
+        session: '会话',
+        command: '命令',
+        file: '文件',
+        tool: '工具',
+        policy: '策略',
       }
     : {
         user: 'User',
         template: 'Template',
         assignment: 'Assignment',
+        department_policy: 'Department Policy',
+        session: 'Session',
+        command: 'Command',
+        file: 'File',
+        tool: 'Tool',
+        policy: 'Policy',
       }
 
   const navItems: Array<{ key: ViewKey; icon: 'dashboard' | 'users' | 'templates' | 'audit' | 'shield' | 'spark'; label: string }> = [
@@ -488,10 +608,10 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
           </div>
         </article>
         <article className="surface metric-card">
-          <div className="metric-label">{copy.metrics.audit}</div>
-          <div className="metric-value">{overview.auditTotal}</div>
+          <div className="metric-label">{copy.metrics.securityViolations}</div>
+          <div className="metric-value">{overview.securityViolationTotal}</div>
           <div className="metric-meta">
-            {isZh ? '所有关键动作均纳入审计轨迹。' : 'Every critical action stays on the audit trail.'}
+            {isZh ? '统计 critical 的策略违反与高风险 deny。' : 'Critical policy violations and blocked high-risk tools.'}
           </div>
         </article>
       </section>
@@ -576,81 +696,153 @@ export default function Dashboard({ accessToken, onLogout }: DashboardProps) {
   )
 
   return (
-    <div className="admin-shell">
-      <aside className="admin-sidebar">
-        <div className="brand-block">
-          <div className="brand-mark">TC</div>
-          <div>
-            <strong>{t('app.title')}</strong>
-            <p>{copy.brandLabel}</p>
-          </div>
-        </div>
-
-        <nav className="admin-nav">
-          {navItems.map((item) => (
+    <>
+      <div className={`admin-shell ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+        <aside className="admin-sidebar">
+          <div className="sidebar-header">
+            <div className="brand-block">
+              <div className="brand-mark">TC</div>
+              <div className="brand-copy">
+                <strong>{t('app.title')}</strong>
+                <p>{copy.brandLabel}</p>
+              </div>
+            </div>
             <button
-              key={item.key}
-              className={`nav-button ${currentPage === item.key ? 'active' : ''}`}
-              onClick={() => navigateTo(item.key)}
+              type="button"
+              onClick={() => setSidebarCollapsed((value) => !value)}
+              className={`sidebar-toggle-button ${sidebarCollapsed ? 'collapsed' : ''}`}
+              aria-label={sidebarCollapsed ? copy.sidebarToggleShow : copy.sidebarToggleHide}
+              title={sidebarCollapsed ? copy.sidebarToggleShow : copy.sidebarToggleHide}
             >
-              <span className="nav-icon">
-                <AppIcon name={item.icon} size={18} />
-              </span>
-              <span className="nav-copy">
-                <strong>{item.label}</strong>
-                <small>{copy.navHints[item.key]}</small>
-              </span>
+              <AppIcon name="arrowRight" size={16} />
             </button>
-          ))}
-        </nav>
+          </div>
 
-        <div className="sidebar-panel">
-          <span className="page-kicker">
-            <AppIcon name="spark" size={16} />
-            {copy.sidebarCardTitle}
-          </span>
-          <h3>{copy.sidebarCardTitle}</h3>
-          <p>{copy.sidebarCardBody}</p>
+          <nav className="admin-nav">
+            {navItems.map((item) => (
+              <button
+                key={item.key}
+                className={`nav-button ${currentPage === item.key ? 'active' : ''}`}
+                onClick={() => navigateTo(item.key)}
+                title={item.label}
+              >
+                <span className="nav-icon">
+                  <AppIcon name={item.icon} size={18} />
+                </span>
+                <span className="nav-copy">
+                  <strong>{item.label}</strong>
+                  <small>{copy.navHints[item.key]}</small>
+                </span>
+              </button>
+            ))}
+          </nav>
+
+          <button
+            type="button"
+            className="sidebar-help-button"
+            onClick={() => setHelpOpen(true)}
+            aria-label={copy.sidebarHelpLabel}
+            title={copy.sidebarHelpLabel}
+          >
+            <span className="sidebar-help-icon" aria-hidden="true">?</span>
+            <span className="sidebar-help-copy">
+              <strong>{copy.sidebarHelpLabel}</strong>
+              <small>{copy.sidebarHelpHint}</small>
+            </span>
+          </button>
+        </aside>
+
+        <div className="admin-main">
+          <header className="admin-topbar">
+            <div className="topbar-copy">
+              <span className="page-kicker">{pageMeta.eyebrow}</span>
+              <h1>{pageMeta.title}</h1>
+              <p>{pageMeta.description}</p>
+            </div>
+
+            <div className="topbar-actions">
+              <button onClick={toggleLanguage} className="button button-secondary">
+                <AppIcon name="globe" size={16} />
+                {isZh ? 'English' : '中文'}
+              </button>
+              <button onClick={onLogout} className="button button-danger">
+                <AppIcon name="logout" size={16} />
+                {t('nav.logout')}
+              </button>
+            </div>
+          </header>
+
+          <main className="admin-stage">
+            {currentPage === 'home' && renderHome()}
+            {currentPage === 'users' && (
+              <UsersPage accessToken={accessToken} onDataChange={loadOverview} />
+            )}
+            {currentPage === 'assignments' && (
+              <AssignmentsPage accessToken={accessToken} onDataChange={loadOverview} />
+            )}
+            {currentPage === 'templates' && (
+              <TemplatesPage accessToken={accessToken} onDataChange={loadOverview} />
+            )}
+            {currentPage === 'policies' && (
+              <PoliciesPage accessToken={accessToken} onDataChange={loadOverview} />
+            )}
+            {currentPage === 'audit' && <AuditPage accessToken={accessToken} />}
+          </main>
         </div>
-      </aside>
-
-      <div className="admin-main">
-        <header className="admin-topbar">
-          <div className="topbar-copy">
-            <span className="page-kicker">{pageMeta.eyebrow}</span>
-            <h1>{pageMeta.title}</h1>
-            <p>{pageMeta.description}</p>
-          </div>
-
-          <div className="topbar-actions">
-            <button onClick={toggleLanguage} className="button button-secondary">
-              <AppIcon name="globe" size={16} />
-              {isZh ? 'English' : '中文'}
-            </button>
-            <button onClick={onLogout} className="button button-danger">
-              <AppIcon name="logout" size={16} />
-              {t('nav.logout')}
-            </button>
-          </div>
-        </header>
-
-        <main className="admin-stage">
-          {currentPage === 'home' && renderHome()}
-          {currentPage === 'users' && (
-            <UsersPage accessToken={accessToken} onDataChange={loadOverview} />
-          )}
-          {currentPage === 'assignments' && (
-            <AssignmentsPage accessToken={accessToken} onDataChange={loadOverview} />
-          )}
-          {currentPage === 'templates' && (
-            <TemplatesPage accessToken={accessToken} onDataChange={loadOverview} />
-          )}
-          {currentPage === 'policies' && (
-            <PoliciesPage accessToken={accessToken} onDataChange={loadOverview} />
-          )}
-          {currentPage === 'audit' && <AuditPage accessToken={accessToken} />}
-        </main>
       </div>
-    </div>
+
+      {helpOpen ? (
+        <div className="help-modal-backdrop" role="presentation" onClick={() => setHelpOpen(false)}>
+          <div
+            className="help-modal surface"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="platform-help-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="help-modal-header">
+              <div>
+                <span className="page-kicker">{copy.sidebarHelpLabel}</span>
+                <h2 id="platform-help-title">{copy.help.title}</h2>
+              </div>
+              <button
+                type="button"
+                className="help-modal-close"
+                onClick={() => setHelpOpen(false)}
+                aria-label={copy.help.close}
+              >
+                <AppIcon name="close" size={18} />
+              </button>
+            </div>
+
+            <p className="help-modal-intro">{copy.help.intro}</p>
+
+            <div className="help-section-list">
+              {copy.help.sections.map((section) => (
+                <section key={section.title} className="help-section">
+                  <h3>{section.title}</h3>
+                  <p>{section.body}</p>
+                </section>
+              ))}
+            </div>
+
+            <section className="help-notes">
+              <h3>{copy.help.notesTitle}</h3>
+              <ul>
+                {copy.help.notes.map((note) => (
+                  <li key={note}>{note}</li>
+                ))}
+              </ul>
+            </section>
+
+            <div className="help-modal-footer">
+              <button type="button" className="button button-primary" onClick={() => setHelpOpen(false)}>
+                {copy.help.close}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
   )
 }

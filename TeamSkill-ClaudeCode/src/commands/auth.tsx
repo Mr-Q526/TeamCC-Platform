@@ -7,8 +7,16 @@ const call: LocalCommandCall = async (args, context) => {
   const arg = args.trim().toLowerCase()
 
   // Import required modules
-  const { loginToTeamCC, saveTeamCCConfig, loadTeamCCConfig, logoutFromTeamCC } =
+  const {
+    loginToTeamCC,
+    saveTeamCCConfig,
+    loadTeamCCConfig,
+    logoutFromTeamCC,
+    fetchIdentityFromTeamCC,
+    cacheIdentity,
+  } =
     await import('../bootstrap/teamccAuth.js')
+  const { reportAuditLog } = await import('../bootstrap/teamccAudit.js')
   const { getCwd } = await import('../utils/cwd.js')
   const { loadAndMergeAllPermissionRules } =
     await import('../utils/permissions/teamccIntegration.js')
@@ -79,10 +87,10 @@ const call: LocalCommandCall = async (args, context) => {
       if (identity) {
         status += `👤 Identity:\n`
         status += `   User ID: ${identity.userId}\n`
-        status += `   Department: ${mapDepartment(identity.departmentId)}\n`
-        status += `   Team: ${mapTeam(identity.teamId)}\n`
-        status += `   Role: ${mapRole(identity.roleId)}\n`
-        status += `   Level: ${mapLevel(identity.levelId)}\n\n`
+        status += `   Department: ${mapDepartment(identity.departmentId, identity.departmentLabel)}\n`
+        status += `   Team: ${mapTeam(identity.teamId, identity.teamLabel)}\n`
+        status += `   Role: ${mapRole(identity.roleId, identity.roleLabel)}\n`
+        status += `   Level: ${mapLevel(identity.levelId, identity.levelLabel)}\n\n`
       }
 
       if (config?.accessToken) {
@@ -174,6 +182,13 @@ const call: LocalCommandCall = async (args, context) => {
         // Save config
         await saveTeamCCConfig(cwd, newConfig)
         logForDebugging(`[auth] Login successful, config saved`)
+
+        const identity = await fetchIdentityFromTeamCC(newConfig)
+        await cacheIdentity(cwd, identity)
+
+        void reportAuditLog(cwd, 'login', 'session', {
+          username: identity.subject.username,
+        })
 
         // Reload permissions
         const merged = await loadAndMergeAllPermissionRules(1)

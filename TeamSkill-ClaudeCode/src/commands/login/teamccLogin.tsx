@@ -52,7 +52,9 @@ export function TeamCCLogin({
       await cacheIdentity(process.cwd(), identity)
       
       // 5. Fire Audit Log
-      reportAuditLog(process.cwd(), 'login', { username: identity.subject.username })
+      reportAuditLog(process.cwd(), 'login', 'session', {
+        username: identity.subject.username,
+      })
 
       onDone(true)
     } catch (err) {

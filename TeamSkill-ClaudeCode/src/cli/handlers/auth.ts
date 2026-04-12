@@ -55,6 +55,10 @@ export async function authLogin({
 
     const identity = await fetchIdentityFromTeamCC(config)
     await cacheIdentity(process.cwd(), identity)
+    const { reportAuditLog } = await import('../../bootstrap/teamccAudit.js')
+    void reportAuditLog(process.cwd(), 'login', 'session', {
+      username: identity.subject.username,
+    })
 
     process.stdout.write('Login successful.\n')
     process.exit(0)

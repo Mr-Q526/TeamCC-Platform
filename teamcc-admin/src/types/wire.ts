@@ -12,6 +12,14 @@ export interface IdentitySubject {
   roleId: number
   levelId: number
   defaultProjectId: number
+  display?: {
+    org?: string | null
+    department?: string | null
+    team?: string | null
+    role?: string | null
+    level?: string | null
+    defaultProject?: string | null
+  }
 }
 
 export interface IdentityEnvelope {

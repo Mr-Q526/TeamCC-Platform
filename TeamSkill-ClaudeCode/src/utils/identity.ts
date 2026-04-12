@@ -27,6 +27,12 @@ export type IdentityProfile = {
   roleId: number
   levelId: number
   projectId: number
+  orgLabel?: string | null
+  departmentLabel?: string | null
+  teamLabel?: string | null
+  roleLabel?: string | null
+  levelLabel?: string | null
+  projectLabel?: string | null
 }
 
 // ---------------------------------------------------------------------------
@@ -88,24 +94,24 @@ const TEAM_MAP: Record<number, string> = {
 // Mapping helpers (cache-friendly — the maps ARE the cache)
 // ---------------------------------------------------------------------------
 
-export function mapDepartment(id: number): string {
-  return DEPARTMENT_MAP[id] ?? `unknown_dept(${id})`
+export function mapDepartment(id: number, explicitLabel?: string | null): string {
+  return explicitLabel ?? DEPARTMENT_MAP[id] ?? `unknown_dept(${id})`
 }
 
-export function mapRole(id: number): string {
-  return ROLE_MAP[id] ?? `unknown_role(${id})`
+export function mapRole(id: number, explicitLabel?: string | null): string {
+  return explicitLabel ?? ROLE_MAP[id] ?? `unknown_role(${id})`
 }
 
-export function mapLevel(id: number): string {
-  return LEVEL_MAP[id] ?? `unknown_level(${id})`
+export function mapLevel(id: number, explicitLabel?: string | null): string {
+  return explicitLabel ?? LEVEL_MAP[id] ?? `unknown_level(${id})`
 }
 
-export function mapOrg(id: number): string {
-  return ORG_MAP[id] ?? `unknown_org(${id})`
+export function mapOrg(id: number, explicitLabel?: string | null): string {
+  return explicitLabel ?? ORG_MAP[id] ?? `unknown_org(${id})`
 }
 
-export function mapTeam(id: number): string {
-  return TEAM_MAP[id] ?? `unknown_team(${id})`
+export function mapTeam(id: number, explicitLabel?: string | null): string {
+  return explicitLabel ?? TEAM_MAP[id] ?? `unknown_team(${id})`
 }
 
 // ---------------------------------------------------------------------------
@@ -152,6 +158,8 @@ export function envelopeToProfile(
   projectId?: number,
 ): IdentityProfile {
   const subject = envelope.subject
+  const display = subject.display
+
   return {
     userId: subject.userId,
     orgId: subject.orgId ?? null,
@@ -160,6 +168,12 @@ export function envelopeToProfile(
     roleId: subject.roleId,
     levelId: subject.levelId,
     projectId: projectId ?? subject.defaultProjectId ?? 1,
+    orgLabel: display?.org ?? null,
+    departmentLabel: display?.department ?? null,
+    teamLabel: display?.team ?? null,
+    roleLabel: display?.role ?? null,
+    levelLabel: display?.level ?? null,
+    projectLabel: display?.defaultProject ?? null,
   }
 }
 
@@ -184,13 +198,13 @@ export function buildIdentityContextString(
   profile: IdentityProfile,
 ): string {
   const parts = [
-    `department=${mapDepartment(profile.departmentId)}`,
-    `team=${mapTeam(profile.teamId)}`,
-    `role=${mapRole(profile.roleId)}`,
-    `level=${mapLevel(profile.levelId)}`,
+    `department=${mapDepartment(profile.departmentId, profile.departmentLabel)}`,
+    `team=${mapTeam(profile.teamId, profile.teamLabel)}`,
+    `role=${mapRole(profile.roleId, profile.roleLabel)}`,
+    `level=${mapLevel(profile.levelId, profile.levelLabel)}`,
   ]
   if (profile.orgId !== null) {
-    parts.unshift(`org=${mapOrg(profile.orgId)}`)
+    parts.unshift(`org=${mapOrg(profile.orgId, profile.orgLabel)}`)
   }
   return `Current operator identity: ${parts.join(', ')} (user_id=${profile.userId}, project_id=${profile.projectId})`
 }

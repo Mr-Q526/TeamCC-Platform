@@ -1,9 +1,8 @@
-version: '3.9'
-
 services:
   postgres:
     image: postgres:16-alpine
     container_name: teamcc-admin-db
+    restart: unless-stopped
     environment:
       POSTGRES_USER: teamcc_admin
       POSTGRES_PASSWORD: teamcc_admin_dev_password
@@ -17,6 +16,46 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: teamcc-admin-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DATABASE_URL: postgresql://teamcc_admin:teamcc_admin_dev_password@postgres:5432/teamcc_admin
+      JWT_SECRET: dev-secret-change-in-production
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - teamcc_admin_node_modules:/app/node_modules
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.web
+    container_name: teamcc-admin-web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_started
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      VITE_API_PROXY_TARGET: http://api:3000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - teamcc_admin_frontend_node_modules:/app/node_modules
 
 volumes:
   postgres_data:
+  teamcc_admin_node_modules:
+  teamcc_admin_frontend_node_modules:

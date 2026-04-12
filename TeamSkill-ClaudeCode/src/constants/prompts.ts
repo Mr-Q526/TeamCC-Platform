@@ -680,7 +680,7 @@ export async function computeSimpleEnvInfo(
 
   let identityItem: string | null = null
   if (profile) {
-    identityItem = `Your Active Identity / Context: Department: ${mapDepartment(profile.departmentId)}, Team: ${mapTeam(profile.teamId)}, Role: ${mapRole(profile.roleId)}, Level: ${mapLevel(profile.levelId)}. You are strictly serving in the above organizational role. Do not offer to perform tasks outside your domain.`
+    identityItem = `Your Active Identity / Context: Department: ${mapDepartment(profile.departmentId, profile.departmentLabel)}, Team: ${mapTeam(profile.teamId, profile.teamLabel)}, Role: ${mapRole(profile.roleId, profile.roleLabel)}, Level: ${mapLevel(profile.levelId, profile.levelLabel)}. You are strictly serving in the above organizational role. Do not offer to perform tasks outside your domain.`
   }
 
   const envItems = [

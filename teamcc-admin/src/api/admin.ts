@@ -13,7 +13,7 @@ import {
   levels,
   projects,
 } from '../db/schema.js'
-import { eq, and, desc, sql } from 'drizzle-orm'
+import { eq, and, desc, sql, inArray } from 'drizzle-orm'
 import { JWT_SECRET, hashPassword, requireActiveUserById } from '../services/auth.js'
 import {
   buildEffectivePolicyPreview,
@@ -543,14 +543,48 @@ export async function registerAdminRoutes(fastify: FastifyInstance) {
 
   /** GET /admin/audit?limit=50&offset=0&action=&targetType= */
   fastify.get<{
-    Querystring: { limit?: string; offset?: string; action?: string; targetType?: string }
+    Querystring: {
+      limit?: string
+      offset?: string
+      action?: string
+      actions?: string
+      targetType?: string
+      severity?: string
+    }
   }>('/admin/audit', async (request, reply) => {
     try {
       await requireAdmin(request)
       const limit = Math.min(parseInt(request.query.limit || '50'), 200)
       const offset = parseInt(request.query.offset || '0')
+      const conditions: any[] = []
 
-      const logs = await db.select({
+      if (request.query.action) {
+        conditions.push(eq(auditLog.action, request.query.action))
+      }
+
+      if (request.query.actions) {
+        const actions = request.query.actions
+          .split(',')
+          .map((action) => action.trim())
+          .filter(Boolean)
+        if (actions.length > 0) {
+          conditions.push(inArray(auditLog.action, actions))
+        }
+      }
+
+      if (request.query.targetType) {
+        conditions.push(eq(auditLog.targetType, request.query.targetType))
+      }
+
+      if (request.query.severity) {
+        conditions.push(
+          sql`coalesce(${auditLog.afterJson}::jsonb ->> 'severity', 'info') = ${request.query.severity}`,
+        )
+      }
+
+      const whereClause = conditions.length > 0 ? and(...conditions) : undefined
+
+      const auditQuery = db.select({
         id: auditLog.id,
         actorUserId: auditLog.actorUserId,
         action: auditLog.action,
@@ -567,7 +601,10 @@ export async function registerAdminRoutes(fastify: FastifyInstance) {
         .limit(limit)
         .offset(offset)
 
-      const [{ count }] = await db.select({ count: sql<number>`count(*)` }).from(auditLog)
+      const logs = whereClause ? await auditQuery.where(whereClause) : await auditQuery
+
+      const countQuery = db.select({ count: sql<number>`count(*)` }).from(auditLog)
+      const [{ count }] = whereClause ? await countQuery.where(whereClause) : await countQuery
 
       return reply.send({ logs, total: Number(count), limit, offset })
     } catch (e) {
