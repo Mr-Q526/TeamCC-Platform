@@ -13,9 +13,10 @@ import {
   vectorSearchAvailable,
 } from './vectorSearch.js'
 import {
+  buildSkillFactEvent,
+  createSkillFactAttribution,
   createSkillTelemetryTraceId,
-  logSkillSearchTelemetry,
-  type SkillCandidateTelemetry,
+  logSkillFactEvent,
 } from './telemetry.js'
 
 type IndexedSkill = {
@@ -64,6 +65,8 @@ type LocalSkillSearchOptions = {
   limit?: number
   queryContext?: string
   traceId?: string
+  taskId?: string
+  retrievalRoundId?: string
   telemetry?: boolean
 }
 
@@ -588,9 +591,7 @@ function scoreSkill(
   }
 }
 
-function toTelemetryCandidate(
-  skill: LocalSkillSearchResult,
-): SkillCandidateTelemetry {
+function toTelemetryCandidate(skill: LocalSkillSearchResult) {
   return {
     skillId: skill.skillId,
     name: skill.name,
@@ -614,6 +615,8 @@ export async function localSkillSearch({
   limit = 5,
   queryContext = '',
   traceId = createSkillTelemetryTraceId(),
+  taskId,
+  retrievalRoundId,
   telemetry = true,
 }: LocalSkillSearchOptions): Promise<LocalSkillSearchResult[]> {
   const trimmedQuery = query.trim()
@@ -705,30 +708,75 @@ export async function localSkillSearch({
   }))
 
   if (telemetry) {
-    await logSkillSearchTelemetry({
-      eventName: 'skill_retrieval_run',
-      traceId,
-      cwd,
-      department: departmentTag,
-      payload: {
-        query: trimmedQuery,
-        queryContext,
-        enhancedQuery: enrichedQuery,
-        limit,
-        indexSkillCount: skills.length,
-        returnedSkillCount: results.length,
-        queryTokens,
-        vectorEnabled,
-        vectorCandidateCount: vectorResults.length,
-        hintedDomains: [...hintedDomains],
-        hintedScenes: [...hintedScenes],
-        registryLocations: getSkillRegistryLocations(cwd).map(location => ({
-          kind: location.kind,
-          dir: location.dir,
-        })),
-        candidates: results.map(toTelemetryCandidate),
-      },
-    })
+    const attribution = createSkillFactAttribution(taskId, traceId, retrievalRoundId)
+
+    await logSkillFactEvent(
+      buildSkillFactEvent({
+        factKind: 'retrieval_run',
+        source: 'system',
+        cwd,
+        department: departmentTag,
+        domain: [...hintedDomains][0] ?? null,
+        scene: [...hintedScenes][0] ?? null,
+        taskId: attribution.taskId,
+        traceId: attribution.traceId,
+        retrievalRoundId: attribution.retrievalRoundId,
+        retrieval: {
+          candidateCount: results.length,
+          retrievalSource: vectorEnabled ? 'local_hybrid' : 'local_lexical',
+        },
+        payload: {
+          query: trimmedQuery,
+          queryContext,
+          enhancedQuery: enrichedQuery,
+          limit,
+          indexSkillCount: skills.length,
+          returnedSkillCount: results.length,
+          queryTokens,
+          vectorEnabled,
+          vectorCandidateCount: vectorResults.length,
+          hintedDomains: [...hintedDomains],
+          hintedScenes: [...hintedScenes],
+          registryLocations: getSkillRegistryLocations(cwd).map(location => ({
+            kind: location.kind,
+            dir: location.dir,
+          })),
+          candidates: results.map(toTelemetryCandidate),
+        },
+      }),
+    )
+
+    await Promise.all(
+      results.map(result =>
+        logSkillFactEvent(
+          buildSkillFactEvent({
+            factKind: 'skill_exposed',
+            source: 'system',
+            cwd,
+            department: departmentTag,
+            scene: result.sceneTags[0] ?? [...hintedScenes][0] ?? null,
+            domain: result.domain,
+            taskId: attribution.taskId,
+            traceId: attribution.traceId,
+            retrievalRoundId: attribution.retrievalRoundId,
+            skillId: result.skillId,
+            skillName: result.name,
+            skillVersion: result.version,
+            sourceHash: result.sourceHash,
+            retrieval: {
+              rank: result.rank,
+              candidateCount: results.length,
+              retrievalSource: result.retrievalSource,
+              score: result.score,
+              scoreBreakdown: result.scoreBreakdown,
+            },
+            payload: {
+              query: trimmedQuery,
+            },
+          }),
+        ),
+      ),
+    )
   }
 
   return results

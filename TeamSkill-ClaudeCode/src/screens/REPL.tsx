@@ -1997,6 +1997,11 @@ export function REPL({
   // before onQuery builds its own context, and discovery on turn N must
   // still attribute a SkillTool call on turn N+k. Cleared in clearConversation.
   const discoveredSkillNamesRef = useRef(new Set<string>());
+  const discoveredSkillAttributionsRef = useRef(new Map<string, {
+    traceId: string;
+    taskId: string;
+    retrievalRoundId: string;
+  }>());
   // Session-level dedup for nested_memory CLAUDE.md attachments.
   // readFileState is a 100-entry LRU; once it evicts a CLAUDE.md path,
   // the next discovery cycle re-injects it. Cleared in clearConversation.
@@ -2517,6 +2522,7 @@ export function REPL({
       loadedNestedMemoryPaths: loadedNestedMemoryPathsRef.current,
       dynamicSkillDirTriggers: new Set<string>(),
       discoveredSkillNames: discoveredSkillNamesRef.current,
+      discoveredSkillAttributions: discoveredSkillAttributionsRef.current,
       setResponseLength,
       pushApiMetricsEntry: "external" === 'ant' ? (ttftMs: number) => {
         const now = Date.now();
@@ -3081,6 +3087,7 @@ export function REPL({
           setMessages,
           readFileState: readFileState.current,
           discoveredSkillNames: discoveredSkillNamesRef.current,
+          discoveredSkillAttributions: discoveredSkillAttributionsRef.current,
           loadedNestedMemoryPaths: loadedNestedMemoryPathsRef.current,
           getAppState: () => store.getState(),
           setAppState,
@@ -4847,6 +4854,7 @@ export function REPL({
                 setMessages,
                 readFileState: readFileState.current,
                 discoveredSkillNames: discoveredSkillNamesRef.current,
+                discoveredSkillAttributions: discoveredSkillAttributionsRef.current,
                 loadedNestedMemoryPaths: loadedNestedMemoryPathsRef.current,
                 getAppState: () => store.getState(),
                 setAppState,

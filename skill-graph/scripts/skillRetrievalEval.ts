@@ -4,6 +4,10 @@ import { basename, dirname, join, resolve } from 'path'
 import { fileURLToPath } from 'url'
 import YAML from 'yaml'
 import { localSkillSearch } from '../../TeamSkill-ClaudeCode/src/services/skillSearch/localSearch.js'
+import {
+  buildSkillFactEvent,
+  logSkillFactEvent,
+} from '../../TeamSkill-ClaudeCode/src/services/skillSearch/telemetry.js'
 
 type SkillEvalCase = {
   caseId: string
@@ -193,6 +197,8 @@ async function evaluateCase(
     queryContext,
     limit: options.topK,
     traceId,
+    taskId: `eval:${evalCase.caseId}`,
+    retrievalRoundId: traceId,
     telemetry: options.telemetry === 'local',
   })
 
@@ -278,6 +284,32 @@ async function main(): Promise<void> {
   for (const { evalCase, file } of selectedCases) {
     const result = await evaluateCase(evalCase, file, options)
     results.push(result)
+    await logSkillFactEvent(
+      buildSkillFactEvent({
+        factKind: 'eval_outcome',
+        source: 'eval_runner',
+        cwd: resolve(options.cwd),
+        taskId: `eval:${result.caseId}`,
+        traceId: result.traceId,
+        retrievalRoundId: result.traceId,
+        payload: {
+          caseId: result.caseId,
+          caseVersion: result.caseVersion ?? null,
+          caseFile: result.caseFile,
+          topK: result.topK,
+          retrievedSkillIds: result.retrievedSkillIds,
+          expectedSkillIds: result.expectedSkillIds,
+          acceptableSkillIds: result.acceptableSkillIds,
+          forbiddenSkillIds: result.forbiddenSkillIds,
+          firstExpectedRank: result.firstExpectedRank,
+          recallAt1: result.recallAt1,
+          recallAt3: result.recallAt3,
+          mrr: result.mrr,
+          ndcgAt3: result.ndcgAt3,
+          forbiddenInTop3: result.forbiddenInTop3,
+        },
+      }),
+    )
     await appendFile(
       join(runDir, 'results.jsonl'),
       `${JSON.stringify(result)}\n`,

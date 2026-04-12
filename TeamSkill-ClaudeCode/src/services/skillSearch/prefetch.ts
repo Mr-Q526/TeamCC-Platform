@@ -1,4 +1,8 @@
-import { getInvokedSkillsForAgent, getProjectRoot } from '../../bootstrap/state.js'
+import {
+  getInvokedSkillsForAgent,
+  getProjectRoot,
+  getSessionId,
+} from '../../bootstrap/state.js'
 import type { ToolUseContext } from '../../Tool.js'
 import type { Message } from '../../types/message.js'
 import type { Attachment } from '../../utils/attachments.js'
@@ -10,8 +14,9 @@ import {
   type DiscoverySignal,
 } from './signals.js'
 import {
+  createSkillFactAttribution,
   createSkillTelemetryTraceId,
-  logSkillSearchTelemetry,
+  rememberDiscoveredSkillAttribution,
 } from './telemetry.js'
 
 export type SkillDiscoveryPrefetchHandle = {
@@ -167,13 +172,16 @@ async function buildSkillDiscoveryAttachments(
   }
 
   const traceId = createSkillTelemetryTraceId()
+  const attribution = createSkillFactAttribution(getSessionId(), traceId, traceId)
   const queryContext = buildQueryContext(messages)
   const results = await localSkillSearch({
     cwd: getProjectRoot(),
     query: trimmedQuery,
     limit: 3,
     queryContext,
-    traceId,
+    traceId: attribution.traceId,
+    taskId: attribution.taskId,
+    retrievalRoundId: attribution.retrievalRoundId,
   })
 
   if (results.length === 0) {
@@ -202,44 +210,17 @@ async function buildSkillDiscoveryAttachments(
 
   for (const result of newResults) {
     toolUseContext.discoveredSkillNames?.add(result.name)
-  }
-
-  await logSkillSearchTelemetry({
-    eventName: 'skill_exposed',
-    traceId,
-    cwd: getProjectRoot(),
-    payload: {
-      query: trimmedQuery,
-      queryContext,
-      signal,
-      source: 'native',
-      topK: newResults.length,
-      candidates: newResults.map(result => ({
+    rememberDiscoveredSkillAttribution(
+      toolUseContext.discoveredSkillAttributions,
+      {
         skillId: result.skillId,
         name: result.name,
         displayName: result.displayName,
         aliases: result.aliases,
-        version: result.version,
-        sourceHash: result.sourceHash,
-        domain: result.domain,
-        departmentTags: result.departmentTags,
-        sceneTags: result.sceneTags,
-        rank: result.rank,
-        score: result.score,
-        scoreBreakdown: result.scoreBreakdown,
-        retrievalSource: result.retrievalSource,
-      })),
-      suppressedCandidates: results
-        .filter(result => !newResults.includes(result))
-        .map(result => ({
-          skillId: result.skillId,
-          name: result.name,
-          reason: alreadyDiscovered.has(result.name.toLowerCase())
-            ? 'already_discovered'
-            : 'already_invoked',
-        })),
-    },
-  })
+      },
+      attribution,
+    )
+  }
 
   return [
     {

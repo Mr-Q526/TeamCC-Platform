@@ -13,7 +13,14 @@ import { type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS, type A
 import { getDumpPromptsPath } from '../../services/api/dumpPrompts.js';
 import { buildPostCompactMessages } from '../../services/compact/compact.js';
 import { resetMicrocompactState } from '../../services/compact/microCompact.js';
-import { logSkillSearchTelemetry, resolveSkillTelemetryMetadata } from '../../services/skillSearch/telemetry.js';
+import {
+  buildSkillFactEvent,
+  createSkillFactAttribution,
+  logSkillFactEvent,
+  resolveDiscoveredSkillAttribution,
+  resolveSkillTelemetryMetadataWithError,
+  type SkillFactAttribution,
+} from '../../services/skillSearch/telemetry.js';
 import type { Progress as AgentProgress } from '../../tools/AgentTool/AgentTool.js';
 import { runAgent } from '../../tools/AgentTool/runAgent.js';
 import { renderToolUseProgressMessage } from '../../tools/AgentTool/UI.js';
@@ -815,7 +822,7 @@ function formatCommandLoadingMetadata(command: CommandBase & PromptCommand, args
   }
   return formatSlashCommandLoadingMetadata(command.name, args);
 }
-export async function processPromptSlashCommand(commandName: string, args: string, commands: Command[], context: ToolUseContext, imageContentBlocks: ContentBlockParam[] = []): Promise<SlashCommandResult> {
+export async function processPromptSlashCommand(commandName: string, args: string, commands: Command[], context: ToolUseContext, imageContentBlocks: ContentBlockParam[] = [], attribution?: SkillFactAttribution): Promise<SlashCommandResult> {
   const command = findCommand(commandName, commands);
   if (!command) {
     throw new MalformedCommandError(`Unknown command: ${commandName}`);
@@ -823,9 +830,9 @@ export async function processPromptSlashCommand(commandName: string, args: strin
   if (command.type !== 'prompt') {
     throw new Error(`Unexpected ${command.type} command. Expected 'prompt' command. Use /${commandName} directly in the main conversation.`);
   }
-  return getMessagesForPromptSlashCommand(command, args, context, [], imageContentBlocks, undefined, 'model');
+  return getMessagesForPromptSlashCommand(command, args, context, [], imageContentBlocks, undefined, 'model', attribution);
 }
-async function getMessagesForPromptSlashCommand(command: CommandBase & PromptCommand, args: string, context: ToolUseContext, precedingInputBlocks: ContentBlockParam[] = [], imageContentBlocks: ContentBlockParam[] = [], uuid?: string, selectedBy: 'model' | 'user' = 'user'): Promise<SlashCommandResult> {
+async function getMessagesForPromptSlashCommand(command: CommandBase & PromptCommand, args: string, context: ToolUseContext, precedingInputBlocks: ContentBlockParam[] = [], imageContentBlocks: ContentBlockParam[] = [], uuid?: string, selectedBy: 'model' | 'user' = 'user', attributionOverride?: SkillFactAttribution): Promise<SlashCommandResult> {
   // In coordinator mode (main thread only), skip loading the full skill content
   // and permissions. The coordinator only has Agent + TaskStop tools, so the
   // skill content and allowedTools are useless. Instead, send a brief summary
@@ -883,46 +890,103 @@ async function getMessagesForPromptSlashCommand(command: CommandBase & PromptCom
   // agent are restored during compaction (preventing cross-agent leaks).
   const skillPath = command.source ? `${command.source}:${command.name}` : command.name;
   const skillContent = result.filter((b): b is TextBlockParam => b.type === 'text').map(b => b.text).join('\n\n');
-  addInvokedSkill(command.name, skillPath, skillContent, getAgentContext()?.agentId ?? null);
+  const cwd = getProjectRoot();
+  const { metadata: skillMetadata, resolutionError } =
+    await resolveSkillTelemetryMetadataWithError(cwd, command.name);
+  const attribution =
+    attributionOverride ??
+    resolveDiscoveredSkillAttribution(
+      context.discoveredSkillAttributions,
+      command.name,
+    ) ??
+    createSkillFactAttribution(getSessionId());
+
+  addInvokedSkill(
+    command.name,
+    skillPath,
+    skillContent,
+    getAgentContext()?.agentId ?? null,
+    {
+      skillId: skillMetadata?.skillId ?? null,
+      version: skillMetadata?.version ?? null,
+      sourceHash: skillMetadata?.sourceHash ?? null,
+      traceId: attribution.traceId,
+      taskId: attribution.taskId,
+      retrievalRoundId: attribution.retrievalRoundId,
+      resolutionError,
+    },
+  );
+
   if (selectedBy === 'user') {
-    const cwd = getProjectRoot();
-    const skillMetadata = await resolveSkillTelemetryMetadata(cwd, command.name);
-    const telemetryBase = {
-      cwd,
-      skillId: skillMetadata?.skillId,
-      skillName: skillMetadata?.name ?? command.name,
-      skillVersion: skillMetadata?.version,
-      sourceHash: skillMetadata?.sourceHash,
-      payload: {
-        commandName: command.name,
-        commandSource: command.source,
-        loadedFrom: command.loadedFrom,
-        kind: command.kind,
-        selectionSource: 'slash_command'
-      }
+    const payload = {
+      commandName: command.name,
+      commandSource: command.source,
+      loadedFrom: command.loadedFrom,
+      kind: command.kind,
+      selectionSource: 'slash_command'
     };
-    await logSkillSearchTelemetry({
-      ...telemetryBase,
-      eventName: 'skill_selected',
-      selectedBy: 'user'
-    });
-    await logSkillSearchTelemetry({
-      ...telemetryBase,
-      eventName: 'skill_invoked',
-      payload: {
-        ...telemetryBase.payload,
-        executionContext: command.context ?? 'inline'
-      }
-    });
-    await logSkillSearchTelemetry({
-      ...telemetryBase,
-      eventName: 'skill_completed',
-      payload: {
-        ...telemetryBase.payload,
-        executionContext: command.context ?? 'inline',
-        status: command.context ?? 'inline'
-      }
-    });
+
+    await logSkillFactEvent(
+      buildSkillFactEvent({
+        factKind: 'skill_selected',
+        source: 'user',
+        cwd,
+        taskId: attribution.taskId,
+        traceId: attribution.traceId,
+        retrievalRoundId: attribution.retrievalRoundId,
+        metadata: skillMetadata,
+        skillName: command.name,
+        retrieval: {
+          selectedBy: 'user'
+        },
+        payload,
+        resolutionError,
+      }),
+    );
+    await logSkillFactEvent(
+      buildSkillFactEvent({
+        factKind: 'skill_invoked',
+        source: 'user',
+        cwd,
+        taskId: attribution.taskId,
+        traceId: attribution.traceId,
+        retrievalRoundId: attribution.retrievalRoundId,
+        metadata: skillMetadata,
+        skillName: command.name,
+        retrieval: {
+          selectedBy: 'user'
+        },
+        payload: {
+          ...payload,
+          executionContext: command.context ?? 'inline'
+        },
+        resolutionError,
+      }),
+    );
+    await logSkillFactEvent(
+      buildSkillFactEvent({
+        factKind: 'skill_completed',
+        source: 'user',
+        cwd,
+        taskId: attribution.taskId,
+        traceId: attribution.traceId,
+        retrievalRoundId: attribution.retrievalRoundId,
+        metadata: skillMetadata,
+        skillName: command.name,
+        retrieval: {
+          selectedBy: 'user'
+        },
+        outcome: {
+          success: true
+        },
+        payload: {
+          ...payload,
+          executionContext: command.context ?? 'inline',
+          status: command.context ?? 'inline'
+        },
+        resolutionError,
+      }),
+    );
   }
   const metadata = formatCommandLoadingMetadata(command, args);
   const additionalAllowedTools = parseToolListFromCLI(command.allowedTools ?? []);
