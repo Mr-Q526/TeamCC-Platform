@@ -2,6 +2,7 @@ import type { ReactNode, SVGProps } from 'react'
 
 type IconName =
   | 'activity'
+  | 'arrowDown'
   | 'arrowRight'
   | 'audit'
   | 'close'
@@ -26,6 +27,12 @@ const icons: Record<IconName, ReactNode> = {
     <>
       <path d="M4 13.5h3l2.2-5 3.6 9 2.2-4H20" />
       <path d="M4 6.5h5" />
+    </>
+  ),
+  arrowDown: (
+    <>
+      <path d="M12 5v14" />
+      <path d="m6 13 6 6 6-6" />
     </>
   ),
   arrowRight: (

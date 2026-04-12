@@ -74,6 +74,13 @@ export const getDictionaries = (token: string) =>
 export const getUsers = (token: string) =>
   apiFetch(`${API_BASE}/admin/users`, token)
 
+export const getEffectivePolicyPreview = (token: string, userId: number, projectId?: number) => {
+  const qs = new URLSearchParams()
+  if (projectId !== undefined) qs.set('projectId', String(projectId))
+  const suffix = qs.size > 0 ? `?${qs}` : ''
+  return apiFetch(`${API_BASE}/admin/users/${userId}/effective-policy${suffix}`, token)
+}
+
 export const createUser = (token: string, body: Record<string, unknown>) =>
   apiFetch(`${API_BASE}/admin/users`, token, { method: 'POST', body: JSON.stringify(body) })
 

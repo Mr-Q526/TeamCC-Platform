@@ -14,7 +14,11 @@ import {
   projects,
 } from '../db/schema.js'
 import { eq, and, desc, sql } from 'drizzle-orm'
-import { JWT_SECRET, hashPassword } from '../services/auth.js'
+import { JWT_SECRET, hashPassword, requireActiveUserById } from '../services/auth.js'
+import {
+  buildEffectivePolicyPreview,
+  getDefaultProjectIdForUser,
+} from '../services/policy.js'
 import crypto from 'crypto'
 
 /**
@@ -45,8 +49,7 @@ async function requireAdmin(request: any): Promise<number> {
   if (decoded.exp && decoded.exp < now) throw new Error('Token expired')
 
   const userId = decoded.userId
-  const user = await db.select().from(users).where(eq(users.id, userId)).limit(1).then((r) => r[0])
-  if (!user) throw new Error('User not found')
+  const user = await requireActiveUserById(userId)
 
   const userRoles = (user.roles || '').split(',').map((r: string) => r.trim())
   if (!userRoles.includes('admin')) throw new Error('Admin role required')
@@ -418,6 +421,37 @@ export async function registerAdminRoutes(fastify: FastifyInstance) {
 
       const list = await db.select().from(userAssignments).where(eq(userAssignments.userId, userId))
       return reply.send({ assignments: list })
+    } catch (e) {
+      return reply.status(401).send({ error: (e as Error).message })
+    }
+  })
+
+  /** GET /admin/users/:id/effective-policy?projectId=1 */
+  fastify.get<{
+    Params: { id: string }
+    Querystring: { projectId?: string }
+  }>('/admin/users/:id/effective-policy', async (request, reply) => {
+    try {
+      await requireAdmin(request)
+      const userId = parseInt(request.params.id)
+      if (isNaN(userId)) return reply.status(400).send({ error: 'Invalid user id' })
+
+      const existing = await db.select().from(users).where(eq(users.id, userId)).limit(1).then((rows) => rows[0])
+      if (!existing) return reply.status(404).send({ error: 'User not found' })
+      if (existing.status !== 'active') {
+        return reply.status(400).send({ error: 'User must be active to preview policy' })
+      }
+
+      const projectId = request.query.projectId
+        ? parseInt(request.query.projectId, 10)
+        : await getDefaultProjectIdForUser(userId)
+
+      if (isNaN(projectId)) {
+        return reply.status(400).send({ error: 'Invalid projectId' })
+      }
+
+      const preview = await buildEffectivePolicyPreview(userId, projectId)
+      return reply.send(preview)
     } catch (e) {
       return reply.status(401).send({ error: (e as Error).message })
     }

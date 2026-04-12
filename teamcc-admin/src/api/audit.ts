@@ -1,8 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { db } from '../db/index.js'
-import { auditLog, users } from '../db/schema.js'
-import { eq, desc, sql, and } from 'drizzle-orm'
-import { JWT_SECRET } from '../services/auth.js'
+import { auditLog } from '../db/schema.js'
+import { JWT_SECRET, requireActiveUserById } from '../services/auth.js'
 import crypto from 'crypto'
 
 /**
@@ -113,8 +112,7 @@ export async function registerAuditRoutes(fastify: FastifyInstance) {
       }
 
       // ── 3. Verify user exists ─────────────────────────────────────────
-      const user = await db.select().from(users).where(eq(users.id, tokenData.userId)).limit(1).then((r) => r[0])
-      if (!user) return reply.status(401).send({ error: 'User not found' })
+      const user = await requireActiveUserById(tokenData.userId)
 
       // ── 4. Persist into shared audit_log ─────────────────────────────
       const { timestamp, userId, eventType, details, severity } = request.body
