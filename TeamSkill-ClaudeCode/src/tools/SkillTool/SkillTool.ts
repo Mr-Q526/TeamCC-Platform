@@ -64,6 +64,7 @@ import {
   buildSkillFactEvent,
   createSkillFactAttribution,
   logSkillFactEvent,
+  metadataFromDiscoveredSkill,
   resolveDiscoveredSkillAttribution,
   resolveSkillTelemetryMetadataWithError,
   type SkillFactAttribution,
@@ -120,17 +121,20 @@ async function resolveSkillToolFactContext(
   context: ToolUseContext,
 ): Promise<ResolvedSkillToolFactContext> {
   const cwd = getProjectRoot()
-  const { metadata, resolutionError } =
-    await resolveSkillTelemetryMetadataWithError(cwd, commandName)
-  const attribution =
-    resolveDiscoveredSkillAttribution(
-      context.discoveredSkillAttributions,
-      commandName,
-    ) ?? createSkillFactAttribution(getSessionId())
+  const discovered = resolveDiscoveredSkillAttribution(
+    context.discoveredSkillAttributions,
+    commandName,
+  )
+  const discoveredMetadata = metadataFromDiscoveredSkill(discovered, commandName)
+  const { metadata: resolvedMetadata, resolutionError } =
+    discoveredMetadata
+      ? { metadata: discoveredMetadata, resolutionError: null }
+      : await resolveSkillTelemetryMetadataWithError(cwd, commandName)
+  const attribution = discovered ?? createSkillFactAttribution(getSessionId())
 
   return {
     cwd,
-    metadata,
+    metadata: resolvedMetadata,
     resolutionError,
     attribution,
   }

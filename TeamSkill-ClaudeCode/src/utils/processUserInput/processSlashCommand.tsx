@@ -17,6 +17,7 @@ import {
   buildSkillFactEvent,
   createSkillFactAttribution,
   logSkillFactEvent,
+  metadataFromDiscoveredSkill,
   resolveDiscoveredSkillAttribution,
   resolveSkillTelemetryMetadataWithError,
   type SkillFactAttribution,
@@ -891,14 +892,19 @@ async function getMessagesForPromptSlashCommand(command: CommandBase & PromptCom
   const skillPath = command.source ? `${command.source}:${command.name}` : command.name;
   const skillContent = result.filter((b): b is TextBlockParam => b.type === 'text').map(b => b.text).join('\n\n');
   const cwd = getProjectRoot();
-  const { metadata: skillMetadata, resolutionError } =
-    await resolveSkillTelemetryMetadataWithError(cwd, command.name);
-  const attribution =
-    attributionOverride ??
+  const discovered =
     resolveDiscoveredSkillAttribution(
       context.discoveredSkillAttributions,
       command.name,
-    ) ??
+    )
+  const discoveredMetadata = metadataFromDiscoveredSkill(discovered, command.name)
+  const { metadata: skillMetadata, resolutionError } =
+    discoveredMetadata
+      ? { metadata: discoveredMetadata, resolutionError: null }
+      : await resolveSkillTelemetryMetadataWithError(cwd, command.name);
+  const attribution =
+    attributionOverride ??
+    discovered ??
     createSkillFactAttribution(getSessionId());
 
   addInvokedSkill(

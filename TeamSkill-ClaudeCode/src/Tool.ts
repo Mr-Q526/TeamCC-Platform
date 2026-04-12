@@ -60,6 +60,7 @@ import type { FileStateCache } from './utils/fileStateCache.js'
 import type { DenialTrackingState } from './utils/permissions/denialTracking.js'
 import type { SystemPrompt } from './utils/systemPromptType.js'
 import type { ContentReplacementState } from './utils/toolResultStorage.js'
+import type { DiscoveredSkillAttribution } from './services/skillSearch/telemetry.js'
 
 // Re-export progress types for backwards compatibility
 export type {
@@ -224,14 +225,7 @@ export type ToolUseContext = {
   /** Skill names surfaced via skill_discovery this session. Telemetry only (feeds was_discovered). */
   discoveredSkillNames?: Set<string>
   /** Latest retrieval attribution per discovered skill name/id/alias. */
-  discoveredSkillAttributions?: Map<
-    string,
-    {
-      traceId: string
-      taskId: string
-      retrievalRoundId: string
-    }
-  >
+  discoveredSkillAttributions?: Map<string, DiscoveredSkillAttribution>
   userModified?: boolean
   setInProgressToolUseIDs: (f: (prev: Set<string>) => Set<string>) => void
   /** Only wired in interactive (REPL) contexts; SDK/QueryEngine don't set this. */

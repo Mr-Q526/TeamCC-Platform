@@ -67,6 +67,7 @@ import { SkillImprovementSurvey } from '../components/SkillImprovementSurvey.js'
 import { useSkillImprovementSurvey } from '../hooks/useSkillImprovementSurvey.js';
 import { SkillFeedbackSurvey } from '../components/SkillFeedbackSurvey.js';
 import { useSkillFeedbackSurvey } from '../hooks/useSkillFeedbackSurvey.js';
+import type { DiscoveredSkillAttribution } from '../services/skillSearch/telemetry.js';
 import { useMoreRight } from '../moreright/useMoreRight.js';
 import { SpinnerWithVerb, BriefIdleStatus, type SpinnerMode } from '../components/Spinner.js';
 import { getSystemPrompt } from '../constants/prompts.js';
@@ -1997,11 +1998,7 @@ export function REPL({
   // before onQuery builds its own context, and discovery on turn N must
   // still attribute a SkillTool call on turn N+k. Cleared in clearConversation.
   const discoveredSkillNamesRef = useRef(new Set<string>());
-  const discoveredSkillAttributionsRef = useRef(new Map<string, {
-    traceId: string;
-    taskId: string;
-    retrievalRoundId: string;
-  }>());
+  const discoveredSkillAttributionsRef = useRef(new Map<string, DiscoveredSkillAttribution>());
   // Session-level dedup for nested_memory CLAUDE.md attachments.
   // readFileState is a 100-entry LRU; once it evicts a CLAUDE.md path,
   // the next discovery cycle re-injects it. Cleared in clearConversation.

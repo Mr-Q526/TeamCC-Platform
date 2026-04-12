@@ -100,6 +100,11 @@ const clearSkillIndexCache = feature('EXPERIMENTAL_SKILL_SEARCH')
       require('./services/skillSearch/localSearch.js') as typeof import('./services/skillSearch/localSearch.js')
     ).clearSkillIndexCache
   : null
+const clearSkillGraphProviderCache = feature('EXPERIMENTAL_SKILL_SEARCH')
+  ? (
+      require('./services/skillSearch/skillGraphProvider.js') as typeof import('./services/skillSearch/skillGraphProvider.js')
+    ).clearSkillGraphProviderCache
+  : null
 const subscribePr = feature('KAIROS_GITHUB_WEBHOOKS')
   ? require('./commands/subscribe-pr.js').default
   : null
@@ -533,6 +538,7 @@ export function clearCommandMemoizationCaches(): void {
   // caches is a no-op for the outer — lodash memoize returns the cached result
   // without ever reaching the cleared inners. Must clear it explicitly.
   clearSkillIndexCache?.()
+  clearSkillGraphProviderCache?.()
 }
 
 export function clearCommandsCache(): void {

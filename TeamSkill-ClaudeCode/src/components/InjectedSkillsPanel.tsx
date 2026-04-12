@@ -6,8 +6,12 @@ import type { Message } from '../types/message.js'
 type InjectedSkillStatus = 'discovered' | 'invoked'
 
 type InjectedSkillEntry = {
+  skillId?: string
   name: string
   status: InjectedSkillStatus
+  rank?: number
+  finalScore?: number
+  retrievalSource?: string
 }
 
 type Props = {
@@ -19,38 +23,83 @@ function getInjectedSkills(messages: Message[]): InjectedSkillEntry[] {
   const skillByKey = new Map<string, InjectedSkillEntry>()
   const orderedKeys: string[] = []
 
-  const ensureSkill = (name: string, status: InjectedSkillStatus): void => {
+  const ensureSkill = (
+    skill: Omit<InjectedSkillEntry, 'status'> & { status: InjectedSkillStatus },
+  ): void => {
+    const { name, status } = skill
     const trimmed = name.trim()
     if (!trimmed) return
-    const key = trimmed.toLowerCase()
+    const key = (skill.skillId?.trim() || trimmed).toLowerCase()
     const existing = skillByKey.get(key)
     if (existing) {
       if (status === 'invoked' && existing.status !== 'invoked') {
         existing.status = status
       }
+      if (existing.rank === undefined && skill.rank !== undefined) {
+        existing.rank = skill.rank
+      }
+      if (existing.finalScore === undefined && skill.finalScore !== undefined) {
+        existing.finalScore = skill.finalScore
+      }
+      if (!existing.retrievalSource && skill.retrievalSource) {
+        existing.retrievalSource = skill.retrievalSource
+      }
       return
     }
     skillByKey.set(key, {
+      skillId: skill.skillId,
       name: trimmed,
       status,
+      rank: skill.rank,
+      finalScore: skill.finalScore,
+      retrievalSource: skill.retrievalSource,
     })
     orderedKeys.push(key)
   }
 
   for (const message of messages) {
     if (message.type !== 'attachment') continue
-    const attachment = message.attachment
+    const attachment = message.attachment as
+      | {
+          type: 'skill_discovery'
+          skills: Array<{
+            skillId?: string
+            name: string
+            rank?: number
+            finalScore?: number
+            retrievalSource?: string
+          }>
+        }
+      | {
+          type: 'invoked_skills'
+          skills: Array<{
+            name: string
+          }>
+        }
+      | {
+          type: string
+        }
 
-    if (attachment.type === 'skill_discovery') {
+    if (attachment.type === 'skill_discovery' && 'skills' in attachment) {
       for (const skill of attachment.skills) {
-        ensureSkill(skill.name, 'discovered')
+        ensureSkill({
+          skillId: skill.skillId,
+          name: skill.name,
+          status: 'discovered',
+          rank: skill.rank,
+          finalScore: skill.finalScore,
+          retrievalSource: skill.retrievalSource,
+        })
       }
       continue
     }
 
-    if (attachment.type === 'invoked_skills') {
+    if (attachment.type === 'invoked_skills' && 'skills' in attachment) {
       for (const skill of attachment.skills) {
-        ensureSkill(skill.name, 'invoked')
+        ensureSkill({
+          name: skill.name,
+          status: 'invoked',
+        })
       }
     }
   }
@@ -60,7 +109,11 @@ function getInjectedSkills(messages: Message[]): InjectedSkillEntry[] {
   // invoked_skills attachments during compaction/recovery, so relying on
   // messages alone would miss normal in-session skill usage.
   for (const skill of getInvokedSkillsForAgent(null).values()) {
-    ensureSkill(skill.skillName, 'invoked')
+    ensureSkill({
+      skillId: skill.skillId ?? undefined,
+      name: skill.skillName,
+      status: 'invoked',
+    })
   }
 
   return orderedKeys.map(key => skillByKey.get(key)!)
@@ -87,6 +140,11 @@ export function InjectedSkillsPanel({ messages, maxVisibleSkills = 6 }: Props): 
           <Text>
             {skill.status === 'invoked' ? '[invoked] ' : '[discovered] '}
             <Text bold>{skill.name}</Text>
+            {skill.rank !== undefined ? ` #${skill.rank}` : ''}
+            {typeof skill.finalScore === 'number'
+              ? ` · ${skill.finalScore.toFixed(2)}`
+              : ''}
+            {skill.retrievalSource ? ` · ${skill.retrievalSource}` : ''}
           </Text>
         </Box>
       ))}

@@ -18,6 +18,7 @@ import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
 } from '../services/analytics/index.js'
+import type { DiscoveredSkillAttribution } from '../services/skillSearch/telemetry.js'
 import { accumulateUsage, updateUsage } from '../services/api/claude.js'
 import { EMPTY_USAGE, type NonNullableUsage } from '../services/api/logging.js'
 import type { ToolUseContext } from '../Tool.js'
@@ -384,11 +385,7 @@ export function createSubagentContext(
     dynamicSkillDirTriggers: new Set<string>(),
     // Per-subagent: tracks skills surfaced by discovery for was_discovered telemetry (SkillTool.ts:116)
     discoveredSkillNames: new Set<string>(),
-    discoveredSkillAttributions: new Map<string, {
-      traceId: string
-      taskId: string
-      retrievalRoundId: string
-    }>(),
+    discoveredSkillAttributions: new Map<string, DiscoveredSkillAttribution>(),
     toolDecisions: undefined,
     // Budget decisions: override > clone of parent > undefined (feature off).
     //
