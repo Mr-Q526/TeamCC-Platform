@@ -6,6 +6,9 @@ import {
   type SkillFactQueryFilter,
 } from '../events/storage.js'
 import type { SkillFactEvent } from '../events/skillFacts.js'
+import {
+  replaceSkillFeedbackAggregatesForWindow,
+} from './storage.js'
 
 export type SkillAggregateScopeType =
   | 'global'
@@ -523,15 +526,25 @@ export async function readSkillFactEventsForAggregation(
 export async function buildAndWriteSkillFactAggregates(
   options: BuildSkillFactAggregatesOptions & {
     outputFile?: string
+    writeJson?: boolean
+    writePg?: boolean
   } = {},
 ): Promise<SkillFeedbackAggregateManifest> {
   const events =
     options.sourceEvents ?? (await readSkillFactEventsForAggregation(options))
   const manifest = buildSkillFactAggregates(events, options)
   const outputFile = options.outputFile ?? DEFAULT_OUTPUT_FILE
+  const writeJson = options.writeJson ?? true
+  const writePg = options.writePg ?? true
 
-  await mkdir(dirname(outputFile), { recursive: true })
-  await writeFile(`${outputFile}`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf-8')
+  if (writeJson) {
+    await mkdir(dirname(outputFile), { recursive: true })
+    await writeFile(`${outputFile}`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf-8')
+  }
+
+  if (writePg) {
+    await replaceSkillFeedbackAggregatesForWindow(manifest.window, manifest)
+  }
 
   return manifest
 }
