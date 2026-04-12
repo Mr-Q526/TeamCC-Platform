@@ -8,7 +8,6 @@ import type { Message } from '../../types/message.js'
 import type { Attachment } from '../../utils/attachments.js'
 import { basename, dirname } from 'path'
 import { isSkillSearchEnabled } from './featureCheck.js'
-import { localSkillSearch } from './localSearch.js'
 import {
   createSkillSearchSignal,
   type DiscoverySignal,
@@ -18,6 +17,7 @@ import {
   createSkillTelemetryTraceId,
   rememberDiscoveredSkillAttribution,
 } from './telemetry.js'
+import { retrieveSkills } from './retrieve.js'
 
 export type SkillDiscoveryPrefetchHandle = {
   promise: Promise<Attachment[]>
@@ -174,34 +174,40 @@ async function buildSkillDiscoveryAttachments(
   const traceId = createSkillTelemetryTraceId()
   const attribution = createSkillFactAttribution(getSessionId(), traceId, traceId)
   const queryContext = buildQueryContext(messages)
-  const results = await localSkillSearch({
+  const response = await retrieveSkills({
     cwd: getProjectRoot(),
-    query: trimmedQuery,
+    queryText: trimmedQuery,
     limit: 3,
     queryContext,
     traceId: attribution.traceId,
     taskId: attribution.taskId,
     retrievalRoundId: attribution.retrievalRoundId,
+    telemetry: true,
   })
+  const results = response.candidates
 
   if (results.length === 0) {
     return []
   }
 
-  const alreadyDiscovered = new Set(
-    [...(toolUseContext.discoveredSkillNames ?? [])].map(name =>
-      name.toLowerCase(),
-    ),
+  const alreadyDiscovered = new Set(toolUseContext.discoveredSkillNames ?? [])
+  const alreadyDiscoveredIds = new Set(
+    [...(toolUseContext.discoveredSkillAttributions?.values() ?? [])]
+      .map(item => item.skillId)
+      .filter((value): value is string => Boolean(value)),
   )
   const alreadyInvoked = new Set(
     [...getInvokedSkillsForAgent(toolUseContext.agentId ?? null).values()].map(
-      skill => skill.skillName.toLowerCase(),
+      skill => skill.skillId ?? skill.skillName,
     ),
   )
 
   const newResults = results.filter(result => {
-    const key = result.name.toLowerCase()
-    return !alreadyDiscovered.has(key) && !alreadyInvoked.has(key)
+    return (
+      !alreadyDiscovered.has(result.name) &&
+      !alreadyDiscoveredIds.has(result.skillId) &&
+      !alreadyInvoked.has(result.skillId)
+    )
   })
 
   if (newResults.length === 0) {
@@ -219,6 +225,17 @@ async function buildSkillDiscoveryAttachments(
         aliases: result.aliases,
       },
       attribution,
+      {
+        version: result.version,
+        sourceHash: result.sourceHash,
+        description: result.description,
+        domain: result.domain,
+        departmentTags: result.departmentTags,
+        sceneTags: result.sceneTags,
+        retrievalSource: result.retrievalSource,
+        rank: result.rank,
+        finalScore: result.finalScore,
+      },
     )
   }
 
@@ -226,11 +243,21 @@ async function buildSkillDiscoveryAttachments(
     {
       type: 'skill_discovery',
       skills: newResults.map(result => ({
+        skillId: result.skillId,
         name: result.name,
+        displayName: result.displayName,
         description: result.description,
+        version: result.version,
+        sourceHash: result.sourceHash,
+        rank: result.rank,
+        retrievalSource: result.retrievalSource,
+        finalScore: result.finalScore,
+        scoreBreakdown: result.finalScoreBreakdown,
       })),
       signal,
       source: 'native',
+      retrievalMode: response.retrievalMode,
+      dataVersions: response.dataVersions,
     },
   ]
 }

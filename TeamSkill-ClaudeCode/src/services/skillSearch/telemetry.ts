@@ -44,6 +44,22 @@ export type SkillFactAttribution = {
   retrievalRoundId: string
 }
 
+export type DiscoveredSkillAttribution = SkillFactAttribution & {
+  skillId?: string | null
+  name?: string
+  displayName?: string
+  aliases?: string[]
+  version?: string | null
+  sourceHash?: string | null
+  description?: string
+  domain?: string
+  departmentTags?: string[]
+  sceneTags?: string[]
+  retrievalSource?: string | null
+  rank?: number | null
+  finalScore?: number | null
+}
+
 type SkillFactBuildInput = {
   factKind: SkillFactKind
   source?: SkillFactSource | null
@@ -197,28 +213,61 @@ export function createSkillFactAttribution(
 }
 
 export function rememberDiscoveredSkillAttribution(
-  map: Map<string, SkillFactAttribution> | undefined,
+  map: Map<string, DiscoveredSkillAttribution> | undefined,
   metadata: Pick<SkillTelemetryMetadata, 'skillId' | 'name' | 'displayName' | 'aliases'>,
   attribution: SkillFactAttribution,
+  extra: Omit<DiscoveredSkillAttribution, keyof SkillFactAttribution> = {},
 ): void {
   if (!map) {
     return
   }
 
+  const value: DiscoveredSkillAttribution = {
+    ...attribution,
+    ...extra,
+    skillId: extra.skillId ?? metadata.skillId,
+    name: extra.name ?? metadata.name,
+    displayName: extra.displayName ?? metadata.displayName,
+    aliases: extra.aliases ?? metadata.aliases,
+  }
+
   for (const key of lookupKeysForMetadata(metadata)) {
-    map.set(key, attribution)
+    map.set(key, value)
   }
 }
 
 export function resolveDiscoveredSkillAttribution(
-  map: Map<string, SkillFactAttribution> | undefined,
+  map: Map<string, DiscoveredSkillAttribution> | undefined,
   skillName: string,
-): SkillFactAttribution | null {
+): DiscoveredSkillAttribution | null {
   if (!map) {
     return null
   }
 
   return map.get(normalizeSkillLookupKey(skillName)) ?? null
+}
+
+export function metadataFromDiscoveredSkill(
+  discovered: DiscoveredSkillAttribution | null,
+  fallbackName: string,
+): SkillTelemetryMetadata | null {
+  if (!discovered?.skillId || !discovered.version || !discovered.sourceHash) {
+    return null
+  }
+
+  return {
+    skillId: discovered.skillId,
+    name: discovered.name ?? fallbackName,
+    displayName: discovered.displayName ?? discovered.name ?? fallbackName,
+    description: discovered.description ?? '',
+    aliases: discovered.aliases ?? [],
+    version: discovered.version,
+    sourceHash: discovered.sourceHash,
+    domain: discovered.domain ?? 'general',
+    departmentTags: discovered.departmentTags ?? [],
+    sceneTags: discovered.sceneTags ?? [],
+    skillPath: '',
+  }
 }
 
 export function buildSkillFactEvent(

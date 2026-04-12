@@ -8,6 +8,10 @@ import {
   readGeneratedSkillRegistry,
 } from './registry.js'
 import {
+  readSkillEmbeddings,
+  readSkillRegistry,
+} from './skillGraphProvider.js'
+import {
   hasGeneratedSkillEmbeddings,
   searchSkillVectors,
   vectorSearchAvailable,
@@ -57,6 +61,23 @@ export type LocalSkillSearchResult = {
   departmentTags: string[]
   sceneTags: string[]
   retrievalSource: 'local_lexical' | 'local_hybrid'
+}
+
+export type SkillRecallCandidate = LocalSkillSearchResult & {
+  recallScore: number
+  recallScoreBreakdown: SkillScoreBreakdown
+}
+
+export type SkillRecallResponse = {
+  schemaVersion: '2026-04-12'
+  generatedAt: string
+  queryText: string
+  retrievalMode: 'bm25' | 'bm25_vector'
+  candidates: SkillRecallCandidate[]
+  dataVersions: {
+    registryVersion: string | null
+    embeddingsGeneratedAt: string | null
+  }
 }
 
 type LocalSkillSearchOptions = {
@@ -771,4 +792,33 @@ export async function localSkillSearch({
   }
 
   return results
+}
+
+export async function recallSkills(
+  options: LocalSkillSearchOptions,
+): Promise<SkillRecallResponse> {
+  const [results, registry, embeddings] = await Promise.all([
+    localSkillSearch({
+      ...options,
+      telemetry: false,
+    }),
+    readSkillRegistry(options.cwd),
+    readSkillEmbeddings(options.cwd),
+  ])
+
+  return {
+    schemaVersion: '2026-04-12',
+    generatedAt: new Date().toISOString(),
+    queryText: options.query.trim(),
+    retrievalMode: embeddings ? 'bm25_vector' : 'bm25',
+    candidates: results.map(result => ({
+      ...result,
+      recallScore: result.score,
+      recallScoreBreakdown: result.scoreBreakdown,
+    })),
+    dataVersions: {
+      registryVersion: registry?.registryVersion ?? null,
+      embeddingsGeneratedAt: embeddings?.generatedAt ?? null,
+    },
+  }
 }

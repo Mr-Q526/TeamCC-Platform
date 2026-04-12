@@ -525,9 +525,30 @@ export type Attachment =
     }
   | {
       type: 'skill_discovery'
-      skills: { name: string; description: string; shortId?: string }[]
+      skills: {
+        skillId: string
+        name: string
+        displayName: string
+        description: string
+        version: string
+        sourceHash: string
+        rank: number
+        retrievalSource: 'local_lexical' | 'local_hybrid'
+        finalScore: number
+        scoreBreakdown: {
+          recallNormalized: number
+          graphFeatureScore: number
+        }
+        shortId?: string
+      }[]
       signal: DiscoverySignal
       source: 'native' | 'aki' | 'both'
+      retrievalMode?: 'bm25' | 'bm25_vector' | 'bm25_vector_graph'
+      dataVersions?: {
+        registryVersion: string | null
+        embeddingsGeneratedAt: string | null
+        aggregateGeneratedAt: string | null
+      }
     }
   | {
       type: 'queued_command'
