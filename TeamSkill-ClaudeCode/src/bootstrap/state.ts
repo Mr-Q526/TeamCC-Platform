@@ -183,6 +183,13 @@ type State = {
       content: string
       invokedAt: number
       agentId: string | null
+      skillId: string | null
+      version: string | null
+      sourceHash: string | null
+      traceId: string | null
+      taskId: string | null
+      retrievalRoundId: string | null
+      resolutionError: string | null
     }
   >
   // Track slow operations for dev bar display (ant-only)
@@ -1550,6 +1557,13 @@ export type InvokedSkillInfo = {
   content: string
   invokedAt: number
   agentId: string | null
+  skillId: string | null
+  version: string | null
+  sourceHash: string | null
+  traceId: string | null
+  taskId: string | null
+  retrievalRoundId: string | null
+  resolutionError: string | null
 }
 
 export function addInvokedSkill(
@@ -1557,6 +1571,15 @@ export function addInvokedSkill(
   skillPath: string,
   content: string,
   agentId: string | null = null,
+  metadata?: {
+    skillId?: string | null
+    version?: string | null
+    sourceHash?: string | null
+    traceId?: string | null
+    taskId?: string | null
+    retrievalRoundId?: string | null
+    resolutionError?: string | null
+  },
 ): void {
   const key = `${agentId ?? ''}:${skillName}`
   STATE.invokedSkills.set(key, {
@@ -1565,6 +1588,13 @@ export function addInvokedSkill(
     content,
     invokedAt: Date.now(),
     agentId,
+    skillId: metadata?.skillId ?? null,
+    version: metadata?.version ?? null,
+    sourceHash: metadata?.sourceHash ?? null,
+    traceId: metadata?.traceId ?? null,
+    taskId: metadata?.taskId ?? null,
+    retrievalRoundId: metadata?.retrievalRoundId ?? null,
+    resolutionError: metadata?.resolutionError ?? null,
   })
 }
 

@@ -223,6 +223,15 @@ export type ToolUseContext = {
   dynamicSkillDirTriggers?: Set<string>
   /** Skill names surfaced via skill_discovery this session. Telemetry only (feeds was_discovered). */
   discoveredSkillNames?: Set<string>
+  /** Latest retrieval attribution per discovered skill name/id/alias. */
+  discoveredSkillAttributions?: Map<
+    string,
+    {
+      traceId: string
+      taskId: string
+      retrievalRoundId: string
+    }
+  >
   userModified?: boolean
   setInProgressToolUseIDs: (f: (prev: Set<string>) => Set<string>) => void
   /** Only wired in interactive (REPL) contexts; SDK/QueryEngine don't set this. */

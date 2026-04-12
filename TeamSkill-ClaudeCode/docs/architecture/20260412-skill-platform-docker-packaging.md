@@ -1050,10 +1050,10 @@ teamcc-platform/TeamSkill-ClaudeCode/docker/graph-entrypoint.sh
 建议复用或升级：
 
 ```text
-teamcc-platform/TeamSkill-ClaudeCode/docker-compose.skill-data.yml
+teamcc-platform/skill-graph/docker-compose.skill-data.yml
 ```
 
-当前已有 `docker-compose.skill-data.yml` 包含 Postgres / pgvector 和 Neo4j，V1 可以基于它扩展出平台 compose，避免重复维护数据服务配置。
+当前已有 `skill-graph/docker-compose.skill-data.yml` 包含 Postgres / pgvector 和 Neo4j，V1 可以基于它扩展出平台 compose，避免重复维护数据服务配置。
 
 ## 18. 分阶段实施
 

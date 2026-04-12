@@ -6,13 +6,21 @@ import {
 } from '../bootstrap/state.js'
 import { logEvent } from '../services/analytics/index.js'
 import { randomUUID } from 'crypto'
+import {
+  buildSkillFactEvent,
+  logSkillFactEvent,
+} from '../services/skillSearch/telemetry.js'
 
 export type SkillInfo = {
   skillName: string
-  skillId: string
-  version: string
-  sourceHash: string
+  skillId: string | null
+  version: string | null
+  sourceHash: string | null
   invokedAt: number
+  traceId: string | null
+  taskId: string | null
+  retrievalRoundId: string | null
+  resolutionError: string | null
 }
 
 // Simple list of profanity triggers for implicit negative feedback
@@ -36,10 +44,14 @@ function getLatestInvokedAt(): number {
 function toSkillInfo(skill: InvokedSkillInfo): SkillInfo {
   return {
     skillName: skill.skillName,
-    skillId: skill.skillName,
-    version: 'unknown',
-    sourceHash: 'unknown',
+    skillId: skill.skillId,
+    version: skill.version,
+    sourceHash: skill.sourceHash,
     invokedAt: skill.invokedAt,
+    traceId: skill.traceId,
+    taskId: skill.taskId,
+    retrievalRoundId: skill.retrievalRoundId,
+    resolutionError: skill.resolutionError,
   }
 }
 
@@ -124,12 +136,12 @@ export function useSkillFeedbackSurvey(
   }, [feedbackQueue, hasActivePrompt, isLoading, pendingSkill])
 
   const recordFeedback = useCallback(
-    (
+    async (
       skill: SkillInfo,
       feedbackKind: 'explicit-rating' | 'explicit-comment' | 'implicit-skip',
       rating?: number,
       sentiment?: 'positive' | 'negative' | 'neutral',
-    ) => {
+    ): Promise<void> => {
       logEvent('tengu_skill_execution_feedback' as any, {
         eventType: 'skill.feedback.recorded',
         eventId: randomUUID(),
@@ -143,6 +155,31 @@ export function useSkillFeedbackSurvey(
         ...(rating !== undefined && { rating }),
         ...(sentiment && { sentiment }),
       })
+
+      await logSkillFactEvent(
+        buildSkillFactEvent({
+          factKind: 'skill_feedback',
+          source: 'user',
+          taskId: skill.taskId ?? sessionId,
+          traceId: skill.traceId ?? sessionId,
+          retrievalRoundId:
+            skill.retrievalRoundId ?? skill.traceId ?? sessionId,
+          skillId: skill.skillId,
+          skillName: skill.skillName,
+          skillVersion: skill.version,
+          sourceHash: skill.sourceHash,
+          feedback: {
+            rating: rating ?? null,
+            sentiment: sentiment ?? null,
+            comment: null,
+          },
+          resolutionError: skill.resolutionError,
+          payload: {
+            feedbackKind,
+            invokedAt: skill.invokedAt,
+          },
+        }),
+      )
     },
     [sessionId],
   )
@@ -155,9 +192,9 @@ export function useSkillFeedbackSurvey(
       if (!pendingSkill) return
 
       if (rating === 5 && !sentiment) {
-        recordFeedback(pendingSkill, 'implicit-skip')
+        void recordFeedback(pendingSkill, 'implicit-skip')
       } else {
-        recordFeedback(
+        void recordFeedback(
           pendingSkill,
           sentiment ? 'explicit-comment' : 'explicit-rating',
           rating === 5 ? undefined : explicitRatingToScore[rating],
@@ -181,7 +218,7 @@ export function useSkillFeedbackSurvey(
         return false
       }
 
-      recordFeedback(skill, 'explicit-comment', 1, 'negative')
+      void recordFeedback(skill, 'explicit-comment', 1, 'negative')
       setPendingSkill(null)
       return true
     },

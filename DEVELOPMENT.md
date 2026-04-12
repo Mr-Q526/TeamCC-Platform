@@ -2,27 +2,35 @@
 
 ## 1. 仓库定位
 
-本仓库是 TeamCC 平台 monorepo，当前包含两个实际项目：
+本仓库是 TeamCC 平台 monorepo，当前包含三个实际项目：
 
 ```text
 teamcc-platform/
   teamcc-admin/          # 身份、权限、审计管理后台
-  TeamSkill-ClaudeCode/  # TeamSkill CLI、Skill 检索、评测、Neo4j 图谱脚本
+  TeamSkill-ClaudeCode/  # TeamSkill CLI、runtime Skill 检索/调用、终端 UI
+  skill-graph/           # Skill 数据、registry/embedding/eval/seed、Neo4j 图谱资产
 ```
 
-当前没有独立的 `skill-graph/` 项目。Skill 图谱能力目前由以下内容承载：
+当前 Skill 图谱能力已经拆分为两层：
 
 ```text
-TeamSkill-ClaudeCode/docker-compose.skill-data.yml
-TeamSkill-ClaudeCode/scripts/seedNeo4jSkillGraphV1.ts
-TeamSkill-ClaudeCode/docs/architecture/20260411-skill-neo4j-schema-v1.md
+skill-graph/
+  skills-flat/
+  docker-compose.skill-data.yml
+  scripts/
+  docs/
+
+TeamSkill-ClaudeCode/
+  src/services/skillSearch/
+  src/skills/
+  src/tools/SkillTool/
 ```
 
-也就是说，现阶段的图谱是：
+也就是说，现阶段的职责是：
 
 ```text
-Neo4j Docker 容器
-+ TeamSkill-ClaudeCode 内的 schema / seed 脚本
+skill-graph/           持有 Skill 数据和图谱资产
++ TeamSkill-ClaudeCode/ 消费这些产物提供 runtime 能力
 ```
 
 ## 2. Git 分支规范
@@ -171,7 +179,7 @@ docker compose up -d
 Skill 数据库和 Neo4j：
 
 ```bash
-cd /Users/minruiqing/MyProjects/teamcc-platform/TeamSkill-ClaudeCode
+cd /Users/minruiqing/MyProjects/teamcc-platform/skill-graph
 bun run skills:db:up
 ```
 
@@ -211,7 +219,7 @@ npm run seed
 Skill 图谱 seed：
 
 ```bash
-cd /Users/minruiqing/MyProjects/teamcc-platform/TeamSkill-ClaudeCode
+cd /Users/minruiqing/MyProjects/teamcc-platform/skill-graph
 bun run skills:graph:seed-v1
 ```
 

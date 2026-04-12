@@ -1,0 +1,25 @@
+{
+  "name": "@teamcc/skill-graph",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.5",
+  "scripts": {
+    "eval:skills": "bun run ./scripts/skillRetrievalEval.ts",
+    "skills:refresh-aliases": "bun run ./scripts/skillMetadataAliasRefresh.ts",
+    "skills:build-registry": "bun run ./scripts/buildSkillRegistry.ts",
+    "skills:build-embeddings": "bun run ./scripts/buildSkillEmbeddings.ts",
+    "skills:normalize-registry": "bun run ./scripts/skillMetadataAliasRefresh.ts && bun run ./scripts/buildSkillRegistry.ts",
+    "skills:db:up": "docker compose -p teamskill-claudecode -f docker-compose.skill-data.yml up -d",
+    "skills:db:down": "docker compose -p teamskill-claudecode -f docker-compose.skill-data.yml down",
+    "skills:db:import-embeddings": "bun run ./scripts/importSkillEmbeddingsToPg.ts",
+    "skills:graph:seed-mock": "bun run ./scripts/seedNeo4jSkillGraphV1.ts",
+    "skills:graph:seed-v1": "bun run ./scripts/seedNeo4jSkillGraphV1.ts"
+  },
+  "dependencies": {
+    "yaml": "*"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.12"
+  }
+}
