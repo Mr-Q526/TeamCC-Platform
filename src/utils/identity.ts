@@ -264,10 +264,3 @@ export function buildIdentityContextString(
   }
   return `Current operator identity: ${parts.join(', ')} (user_id=${profile.userId}, project_id=${profile.projectId})`
 }
-
-/**
- * Identify if a profile has cross-project privileges
- */
-export function isCrossProject(profile: IdentityProfile): boolean {
-  return profile.projectId === 0
-}

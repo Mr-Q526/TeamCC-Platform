@@ -181,19 +181,40 @@ export async function fetchPermissionBundleFromTeamCC(
 // ---------------------------------------------------------------------------
 
 /**
+ * Replace all `{{VAR_NAME}}` occurrences in a rule string with values from
+ * the envOverrides map. Unknown variables are left as-is so policy authors
+ * get a warning rather than a silent mismatch.
+ */
+function interpolate(rule: string, env: Record<string, string>): string {
+  return rule.replace(/\{\{([A-Z0-9_]+)\}\}/g, (match, key: string) => {
+    if (key in env) {
+      return env[key]
+    }
+    logForDebugging(
+      `[teamcc-loader] Unknown template variable ${match} in rule "${rule}" – leaving as-is`,
+      { level: 'warn' },
+    )
+    return match
+  })
+}
+
+/**
  * Convert TeamCC PermissionBundleRule to Claude Code PermissionRule
  */
 function bundleRuleToPermissionRule(
   bundleRule: PermissionBundleRule,
   source: 'teamccAdmin',
   projectId?: number,
+  envOverrides?: Record<string, string>,
 ): RuleWithSource {
   return {
     source,
     ruleBehavior: bundleRule.behavior,
     ruleValue: {
       toolName: bundleRule.tool,
-      ruleContent: bundleRule.content,
+      ruleContent: bundleRule.content && envOverrides 
+        ? interpolate(bundleRule.content, envOverrides)
+        : bundleRule.content,
     },
     projectId,
     context: `from teamcc-admin bundle for project ${projectId}`,
@@ -208,7 +229,7 @@ export function bundleToRules(
 ): RuleWithSource[] {
   const projectId = getBundleProjectId(bundle)
   return bundle.rules.map((rule) =>
-    bundleRuleToPermissionRule(rule, 'teamccAdmin', projectId),
+    bundleRuleToPermissionRule(rule, 'teamccAdmin', projectId, bundle.envOverrides),
   )
 }
 

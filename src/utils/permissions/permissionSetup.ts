@@ -27,7 +27,8 @@ import {
 } from './PermissionMode.js'
 import { applyPermissionRulesToPermissionContext } from './permissions.js'
 import { loadAllPermissionRulesFromDisk } from './permissionsLoader.js'
-import { loadIdentityPolicyRules } from './identityPolicyLoader.js'
+import { getTeamCCPermissionRules } from './teamccLoader.js'
+import { loadTeamCCConfig } from '../../bootstrap/teamccAuth.js'
 import { getIdentityProfile } from '../../bootstrap/state.js'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
@@ -992,19 +993,19 @@ export async function initializeToolPermissionContext({
     rulesFromDisk,
   )
 
-  // Inject identity-based policy rules (department + level deny rules).
+  // Inject TeamCC Admin PBAC permission bundle.
   // These are merged AFTER disk rules so they always win — deny is absolute.
   const identityProfile = getIdentityProfile()
+  const cwd = getCwd()
   if (identityProfile) {
-    const identityRules = await loadIdentityPolicyRules(getCwd(), {
-      departmentId: identityProfile.departmentId,
-      levelId: identityProfile.levelId,
-      roleId: identityProfile.roleId,
-    })
-    if (identityRules.length > 0) {
+    const config = await loadTeamCCConfig(cwd)
+    const projectId = identityProfile.projectId ?? 1
+    
+    const teamccRules = await getTeamCCPermissionRules(cwd, config, projectId)
+    if (teamccRules.length > 0) {
       toolPermissionContext = applyPermissionRulesToPermissionContext(
         toolPermissionContext,
-        identityRules,
+        teamccRules,
       )
     }
   }
