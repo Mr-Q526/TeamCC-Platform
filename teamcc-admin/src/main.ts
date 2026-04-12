@@ -47,6 +47,12 @@ async function start() {
         submit: 'POST /api/audit',
         logs: 'GET /api/audit/logs',
       },
+      skillGraph: {
+        capabilities: 'GET /admin/skills/capabilities',
+        import: 'POST /admin/skills/import',
+        weightExport: 'GET /admin/skills/weights/export',
+        executionStats: 'GET /admin/skills/execution-stats',
+      },
     },
   }))
 
