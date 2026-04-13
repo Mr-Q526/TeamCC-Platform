@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_graphql_api_implementation_004
+title: 实现GraphQL API
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - architecture
+  - test
+query:
+  queryText: 要实现一个GraphQL API，包括schemas、resolvers、mutations等，需关注schema清晰度和N+1问题。
+  queryContext: 后端 GraphQL API 架构 测试 schema清晰度 N+1问题
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/graphql-api-implementation
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+    - backend/backend-api-architecture
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_general_bug_fix_debugging_001
+title: 修复代码中的运行时错误
+dataset: retrieval-benchmark-v1
+tags:
+  - general
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - debug
+  - test
+query:
+  queryText: 我在代码中遇到了运行时错误，帮我诊断并修复一下。
+  queryContext: 运行时错误 诊断 修复 代码 workflow planning execution
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/bug-fix-debugging
+  acceptableSkillIds:
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

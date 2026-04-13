@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_vercel_deploy_002
+title: 将应用部署到Vercel
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-mixed
+  - deploy
+  - release
+query:
+  queryText: 我要把我的React应用部署到Vercel上，并且希望能够生成一个预览链接。
+  queryContext: 部署 React应用 Vercel 预览链接
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:deploy
+    - scene:release
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/vercel-deploy
+  acceptableSkillIds:
+    - infra/observability-backend
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

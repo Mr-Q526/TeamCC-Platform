@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_pricing_page_001
+title: SaaS 产品定价页设计
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - pricing
+  - marketing
+query:
+  queryText: SaaS 产品定价页设计 年付月付 套餐对比 FAQ
+  queryContext: pricing page annual monthly pricing tiers faq conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:pricing
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/pricing-page-pro
+  acceptableSkillIds:
+    - frontend/pricing-page-basic
+    - frontend/marketing-landing-page
+  forbiddenSkillIds:
+    - tools/spreadsheet
+modeOverrides: {}

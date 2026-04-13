@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_design_jimeng_002
+title: 用AI生成设计图像
+dataset: retrieval-benchmark-v1
+tags:
+  - design
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-mixed
+  - content-generation
+  - design
+query:
+  queryText: 我想用AI生成一些设计图像，用于产品宣传，要符合品牌风格。
+  queryContext: 设计 图像生成 AI 品牌风格 宣传
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/jimeng
+  acceptableSkillIds:
+    - design/ppt-maker
+    - design/motion-video-maker
+  forbiddenSkillIds:
+    - backend/database-schema-design
+    - frontend/website-homepage-design
+modeOverrides: {}

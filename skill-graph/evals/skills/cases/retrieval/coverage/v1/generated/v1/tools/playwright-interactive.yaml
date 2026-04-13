@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_tools_playwright_interactive_001
+title: 工具Playwright Interactive使用
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - tools
+  - generated
+  - debug
+  - test
+query:
+  queryText: Playwright Interactive 自动化 测试 截图 文档
+  queryContext: 工具 Playwright Interactive tool workflow automation
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/playwright-interactive
+  acceptableSkillIds:
+    - tools/playwright
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - frontend/website-homepage-design-pro
+modeOverrides: {}

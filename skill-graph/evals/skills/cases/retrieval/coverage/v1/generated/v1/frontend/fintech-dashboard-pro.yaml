@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_frontend_fintech_dashboard_pro_001
+title: 前端Fintech Dashboard PRO检索
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - generated
+  - design
+query:
+  queryText: Fintech Dashboard PRO 适合做什么样的页面和界面
+  queryContext: 前端 Fintech Dashboard PRO design system page flow
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/fintech-dashboard-pro
+  acceptableSkillIds:
+    - frontend/fintech-dashboard-basic
+    - frontend/admin-dashboard-design
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

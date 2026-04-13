@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_design_motion_video_maker_005
+title: 制作动画讲解视频
+dataset: retrieval-benchmark-v1
+tags:
+  - design
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - content-generation
+  - design
+query:
+  queryText: 根据这个文本制作一个动画讲解视频，要有AE/PR风格的动效
+  queryContext: 动画 视频 制作 讲解 文本 动效 AE PR
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/motion-video-maker
+  acceptableSkillIds:
+    - design/ppt-maker
+  forbiddenSkillIds:
+    - backend/database-schema-design
+    - frontend/website-homepage-design
+modeOverrides: {}

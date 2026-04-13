@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_database_schema_design_002
+title: 数据库架构设计方案
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - architecture
+query:
+  queryText: 设计一个数据库架构，包括表结构、索引和约束
+  queryContext: 数据库 架构设计 表结构 索引 约束
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/database-schema-design
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

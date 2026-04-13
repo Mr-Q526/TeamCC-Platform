@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_tools_spreadsheet_004
+title: 处理电子表格数据
+dataset: retrieval-benchmark-v1
+tags:
+  - tools
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - content-generation
+  - data-analysis
+query:
+  queryText: 我需要处理一些电子表格数据，包括创建、编辑、分析和格式化，还要使用公式和函数进行计算。
+  queryContext: 工具 电子表格 数据处理 创建 编辑 分析 格式化 公式 函数 workflow automation tool
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:content-generation
+    - scene:data-analysis
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/playwright
+    - tools/screenshot
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - frontend/website-homepage-design-pro
+modeOverrides: {}

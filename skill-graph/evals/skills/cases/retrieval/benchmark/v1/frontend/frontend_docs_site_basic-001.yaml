@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_docs_site_basic_001
+title: 设计基础文档网站
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我要设计一个文档网站，要有好的布局和导航，方便用户查找内容。
+  queryContext: 文档网站 设计 布局 导航 查找内容 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/docs-site-basic
+  acceptableSkillIds:
+    - frontend/docs-site-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

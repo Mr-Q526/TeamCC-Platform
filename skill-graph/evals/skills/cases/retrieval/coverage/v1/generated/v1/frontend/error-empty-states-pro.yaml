@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_frontend_error_empty_states_pro_001
+title: 前端Error Empty States PRO需求
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - generated
+  - design
+query:
+  queryText: Error Empty States PRO 前端页面 组件 布局 转化率
+  queryContext: 前端 Error Empty States PRO landing page hero CTA responsive design
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/error-empty-states-pro
+  acceptableSkillIds:
+    - frontend/error-empty-states-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

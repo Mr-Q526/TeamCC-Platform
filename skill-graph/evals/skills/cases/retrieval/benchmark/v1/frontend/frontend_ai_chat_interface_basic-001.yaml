@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_ai_chat_interface_basic_001
+title: 设计 聊天界面基础版
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - design
+query:
+  queryText: 帮我设计一个 聊天界面的基础版，要有对话流程和安全提示。
+  queryContext: AI聊天界面 基础版 设计 对话流程 安全提示
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/ai-chat-interface-basic
+  acceptableSkillIds:
+    - frontend/ai-chat-interface-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

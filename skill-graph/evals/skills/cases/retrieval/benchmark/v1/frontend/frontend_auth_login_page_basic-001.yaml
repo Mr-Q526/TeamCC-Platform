@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_auth_login_page_basic_001
+title: 设计简洁的登录注册页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我需要设计一个登录、注册、密码重置和多因素认证的页面，要注重信任、清晰、错误恢复和低摩擦的账户访问，强调快速布局、明显的标签、最小的部分设置和简短的清单。
+  queryContext: 前端 设计 登录 注册 密码重置 MFA
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/auth-login-page-basic
+  acceptableSkillIds:
+    - frontend/auth-login-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_docs_site_001
+title: 技术文档站与导航侧边栏
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - docs
+  - portal
+query:
+  queryText: 技术文档站 侧边栏 搜索 代码示例 API 文档
+  queryContext: docs site sidebar search code examples api reference
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:docs
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/docs-site-pro
+  acceptableSkillIds:
+    - frontend/docs-site-basic
+    - frontend/developer-portal-pro
+  forbiddenSkillIds:
+    - tools/doc
+modeOverrides: {}

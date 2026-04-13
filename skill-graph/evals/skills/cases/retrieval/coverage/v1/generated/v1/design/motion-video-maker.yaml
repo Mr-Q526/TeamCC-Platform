@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_design_motion_video_maker_001
+title: 设计Motion Video Maker制作
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - design
+  - generated
+  - content-generation
+  - design
+query:
+  queryText: Motion Video Maker 视觉设计 演示 物料
+  queryContext: 设计 Motion Video Maker presentation visual design
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/motion-video-maker
+  acceptableSkillIds:
+    - design/ppt-maker
+  forbiddenSkillIds:
+    - backend/database-schema-design
+    - frontend/website-homepage-design
+modeOverrides: {}

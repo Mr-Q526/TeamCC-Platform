@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_frontend_marketing_landing_page_001
+title: 前端Marketing Landing Page方案
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - generated
+  - design
+query:
+  queryText: marketing-landing-page 用户体验 信息架构 交互设计
+  queryContext: 前端 design frontend-platform component layout navigation
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/marketing-landing-page
+  acceptableSkillIds:
+    - frontend/website-homepage-design
+    - frontend/admin-dashboard-design
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

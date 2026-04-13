@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_general_development_plan_doc_basic_005
+title: 制定开发计划文档
+dataset: retrieval-benchmark-v1
+tags:
+  - general
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - architecture
+  - planning
+query:
+  queryText: 我要制定一个开发计划文档，包括大致的步骤、文件和验证方法，有没有模板可以参考？
+  queryContext: 开发计划 文档 步骤 文件 验证 workflow planning execution
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:architecture
+    - scene:planning
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/development-plan-doc-basic
+  acceptableSkillIds:
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

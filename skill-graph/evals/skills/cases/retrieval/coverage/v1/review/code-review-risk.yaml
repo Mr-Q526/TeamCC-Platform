@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_review_code_review_risk_001
+title: 风险导向代码审查
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - review
+  - code-review
+  - risk
+query:
+  queryText: 风险导向代码审查 找回归 高风险变更 安全 性能
+  queryContext: risk based code review regression security performance changes
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - review
+    - backend
+  sceneHints:
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+    - security/security-best-practices
+  forbiddenSkillIds:
+    - design/ppt-maker
+modeOverrides: {}

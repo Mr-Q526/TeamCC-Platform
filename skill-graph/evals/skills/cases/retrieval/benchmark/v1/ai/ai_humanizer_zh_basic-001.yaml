@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_ai_humanizer_zh_basic_001
+title: 让这段中文听起来更自然
+dataset: retrieval-benchmark-v1
+tags:
+  - ai
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - content-generation
+  - writing
+query:
+  queryText: 我有一段中文，感觉有点生硬，帮我优化一下，让它听起来更自然。
+  queryContext: 中文 优化 自然 写作
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:content-generation
+    - scene:writing
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/humanizer-zh-basic
+  acceptableSkillIds:
+    - ai/humanizer-zh-pro
+  forbiddenSkillIds:
+    - tools/playwright
+    - frontend/admin-dashboard-design
+modeOverrides: {}

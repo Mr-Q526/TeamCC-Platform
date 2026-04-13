@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_observability_backend_002
+title: 后端系统的监控与调试
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-mixed
+  - debug
+  - incident
+query:
+  queryText: 我需要一个工具来监控和调试后端系统，包括日志、指标、追踪和仪表盘等功能。
+  queryContext: 后端 监控 调试 日志 指标 追踪 仪表盘 deploy observability release
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:debug
+    - scene:incident
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/observability-backend
+  acceptableSkillIds:
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

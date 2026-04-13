@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_graphql_api_implementation_002
+title: 后端 实现
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - architecture
+  - test
+query:
+  queryText: 我需要实现一个后端的 ，包括模式、解析器、变异、订阅和数据加载器模式，要注意模式清晰、避免 +1问题、认证边界和客户端易用性。
+  queryContext: 后端 GraphQL API 实现 架构 测试
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/graphql-api-implementation
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+    - backend/backend-api-architecture
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

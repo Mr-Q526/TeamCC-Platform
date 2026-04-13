@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_responsive_navigation_basic_001
+title: 设计响应式导航栏
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 帮忙设计一个响应式的导航栏，要考虑到不同设备的屏幕尺寸，包括桌面端、移动端和 tablet，导航栏要有清晰的层次结构和易于操作的交互方式。
+  queryContext: 前端 设计 响应式导航栏 屏幕尺寸 层次结构 交互方式 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/responsive-navigation-basic
+  acceptableSkillIds:
+    - frontend/responsive-navigation-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

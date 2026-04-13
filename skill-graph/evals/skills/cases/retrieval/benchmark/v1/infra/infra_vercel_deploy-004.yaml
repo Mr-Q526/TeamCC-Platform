@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_vercel_deploy_004
+title: 部署应用到Vercel
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - deploy
+  - release
+query:
+  queryText: 帮我把这个项目部署到Vercel，给我部署链接
+  queryContext: 部署 Vercel 应用 链接 发布
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:deploy
+    - scene:release
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/vercel-deploy
+  acceptableSkillIds:
+    - infra/observability-backend
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

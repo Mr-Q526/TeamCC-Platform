@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_security_threat_model_001
+title: 威胁建模与攻击面分析
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - security
+  - architecture
+  - review
+query:
+  queryText: 威胁建模 攻击面分析 数据流 信任边界 STRIDE
+  queryContext: threat modeling attack surface data flow trust boundary stride
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/security-threat-model
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-ownership-map
+  forbiddenSkillIds:
+    - tools/screenshot
+modeOverrides: {}

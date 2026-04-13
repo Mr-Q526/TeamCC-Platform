@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "2026-04-12",
+  "rubricId": "sandbox-default",
+  "dimensions": [
+    "taskOutcomeScore",
+    "retrievalQualityScore",
+    "skillSelectionScore",
+    "executionQualityScore",
+    "attributionIntegrityScore",
+    "feedbackLoopScore"
+  ],
+  "scale": "0-100",
+  "passRule": "overallPass requires task outcome, execution, and attribution to all be acceptable"
+}

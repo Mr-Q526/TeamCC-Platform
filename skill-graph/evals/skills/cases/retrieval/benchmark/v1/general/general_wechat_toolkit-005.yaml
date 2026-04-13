@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_general_wechat_toolkit_005
+title: 微信公众号文章处理
+dataset: retrieval-benchmark-v1
+tags:
+  - general
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - content-generation
+  - release
+query:
+  queryText: 我要搜索、下载、改写一篇微信公众号文章，然后发布到我的公众号上。
+  queryContext: 微信公众号 文章搜索 下载 改写 发布 workflow planning execution
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:content-generation
+    - scene:release
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/wechat-toolkit
+  acceptableSkillIds:
+    - general/bug-fix-debugging
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

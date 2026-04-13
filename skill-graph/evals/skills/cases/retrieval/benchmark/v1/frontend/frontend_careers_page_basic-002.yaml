@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_careers_page_basic_002
+title: 设计基础的职业页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 帮忙设计一个基础的职业页面，要突出角色发现、文化证明、福利和申请清晰度，布局要快，标签要明显，要有最少的部分设置和简短的清单。
+  queryContext: 前端 设计 职业页面 基础 角色发现 申请清晰度 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/careers-page-basic
+  acceptableSkillIds:
+    - frontend/careers-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

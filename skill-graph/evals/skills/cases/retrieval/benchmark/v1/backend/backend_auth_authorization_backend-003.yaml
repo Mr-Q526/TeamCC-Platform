@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_auth_authorization_backend_003
+title: 后端授权架构设计
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - architecture
+  - security-audit
+query:
+  queryText: 我要设计一个后端授权架构，包括RBAC和ABAC等，怎么设计比较安全？
+  queryContext: 后端 授权 架构 RBAC ABAC 安全
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/auth-authorization-backend
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

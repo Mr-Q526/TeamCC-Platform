@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_backend_api_architecture_001
+title: 后端 架构设计
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - architecture
+query:
+  queryText: 帮忙设计后端服务架构，包括 边界、模块分解、服务契约和数据流设计，要注重清晰的所有权、稳定的接口、故障隔离和可维护性。
+  queryContext: 后端 架构 API 服务 模块 契约 数据流 可维护性
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/backend-api-architecture
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

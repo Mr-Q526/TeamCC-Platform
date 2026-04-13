@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_general_xiaohongshu_ops_001
+title: 小红书运营全流程服务
+dataset: retrieval-benchmark-v1
+tags:
+  - general
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - content-generation
+  - data-analysis
+query:
+  queryText: 我需要小红书全流程运营服务，包括定位、选题、内容制作、发布执行和事后复盘，最好有模板，能复用。
+  queryContext: 小红书 运营 全流程 内容制作 数据分析 workflow planning execution
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:content-generation
+    - scene:data-analysis
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/xiaohongshu-ops
+  acceptableSkillIds:
+    - general/bug-fix-debugging
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

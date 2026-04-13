@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_backend_api_architecture_003
+title: 设计后端API架构
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - architecture
+query:
+  queryText: 我要设计一个后端API的架构，包括模块分解、服务合同和数据流向，需要注意哪些方面？
+  queryContext: 后端API 架构 模块分解 服务合同 数据流向
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/backend-api-architecture
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

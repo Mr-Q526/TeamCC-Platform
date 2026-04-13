@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_auth_authorization_backend_001
+title: 实现后端的认证和授权
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - architecture
+  - security-audit
+query:
+  queryText: 我要在后端实现认证和授权功能，包括但不限于身份验证、授权、会话、API密钥、RBAC、ABAC和租户边界，要注意最小权限、安全默认值、会话安全和可审计的权限检查。
+  queryContext: 后端 认证 授权 安全 架构 api service architecture
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/auth-authorization-backend
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_review_code_review_risk_based_002
+title: 高风险代码审查与架构评估
+dataset: retrieval-benchmark-v1
+tags:
+  - review
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-mixed
+  - review
+  - architecture
+query:
+  queryText: 我要对一个涉及支付、并发和API的代码进行审查，看看有没有风险，还要评估一下架构。
+  queryContext: 代码审查 风险评估 架构 支付 并发 API
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+  forbiddenSkillIds:
+    - frontend/website-homepage-design
+    - backend/rest-api-implementation
+modeOverrides: {}

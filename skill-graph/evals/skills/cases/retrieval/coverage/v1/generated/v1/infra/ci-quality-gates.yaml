@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_infra_ci_quality_gates_001
+title: 基础设施CI Quality Gates方案
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - infra
+  - generated
+  - release
+  - test
+query:
+  queryText: ci-quality-gates CI/CD 质量门禁 发布流程
+  queryContext: 基础设施 release / test pipeline monitoring alerting
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:release
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/ci-quality-gates
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

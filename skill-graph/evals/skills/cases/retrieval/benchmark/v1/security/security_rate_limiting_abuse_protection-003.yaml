@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_security_rate_limiting_abuse_protection_003
+title: 设计防滥用限流架构
+dataset: retrieval-benchmark-v1
+tags:
+  - security
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - architecture
+  - security-audit
+query:
+  queryText: 我需要设计一个架构，能防止恶意请求滥用，同时进行限流，确保系统稳定。
+  queryContext: 防滥用 限流 架构 安全 稳定 恶意请求 security hardening abuse protection
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:architecture
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/rate-limiting-abuse-protection
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

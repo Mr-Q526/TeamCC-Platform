@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_ai_humanizer_001
+title: 中文文案润色与去 AI 味
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - ai
+  - writing
+  - content
+query:
+  queryText: 中文文案润色 去 AI 味 更自然 更像真人表达
+  queryContext: chinese copy rewrite natural tone humanized writing
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:writing
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/humanizer-zh-pro
+  acceptableSkillIds:
+    - ai/humanizer-zh-basic
+    - tools/doc
+  forbiddenSkillIds:
+    - design/ppt-maker
+modeOverrides: {}

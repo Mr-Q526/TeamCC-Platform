@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_stress_testing_001
+title: 系统压力测试方案
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-mixed
+  - performance
+  - test
+query:
+  queryText: 我要对生产系统进行压力测试，看看它在高负载下的表现，比如性能瓶颈、资源饱和情况等，该怎么设计测试方案？
+  queryContext: 压力测试 性能 测试 生产系统 负载 瓶颈 资源饱和 deploy observability release
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:performance
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/stress-testing
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_performance_001
+title: 后端性能分析与热点定位
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - performance
+  - debug
+query:
+  queryText: 后端性能分析 CPU hotspot 慢查询 profiling 火焰图
+  queryContext: backend performance profiling hotspots slow queries flamegraph
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:performance
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/backend-performance-profiling
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/load-testing
+  forbiddenSkillIds:
+    - frontend/analytics-dashboard-design
+modeOverrides: {}

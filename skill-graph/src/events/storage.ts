@@ -1,4 +1,10 @@
-import { Pool, type PoolConfig, type QueryConfig, type QueryResultRow } from 'pg'
+import {
+  Pool,
+  type PoolClient,
+  type PoolConfig,
+  type QueryConfig,
+  type QueryResultRow,
+} from 'pg'
 import {
   createSkillFactEvent,
   type SkillFactEvent,
@@ -59,7 +65,7 @@ type SkillFactRow = {
   resolution_error: string | null
 }
 
-type SkillFactInsertRow = {
+export type SkillFactInsertRow = {
   eventId: string
   schemaVersion: string
   factKind: SkillFactKind
@@ -399,12 +405,11 @@ export function mapSkillFactRowToEvent(row: SkillFactRow): SkillFactEvent {
   })
 }
 
-export async function insertSkillFactEvent(event: SkillFactEvent): Promise<void> {
-  await ensureSkillFactEventsTable()
-  const row = mapSkillFactEventToInsertRow(event)
-
-  await getPool().query(
-    `
+export function buildInsertSkillFactEventQuery(
+  row: SkillFactInsertRow,
+): QueryConfig {
+  return {
+    text: `
 INSERT INTO skill_fact_events (
   event_id,
   schema_version,
@@ -447,7 +452,7 @@ VALUES (
 )
 ON CONFLICT (event_id) DO NOTHING
 `,
-    [
+    values: [
       row.eventId,
       row.schemaVersion,
       row.factKind,
@@ -482,7 +487,23 @@ ON CONFLICT (event_id) DO NOTHING
       row.payload,
       row.resolutionError,
     ],
-  )
+  }
+}
+
+export async function insertSkillFactEvent(
+  event: SkillFactEvent,
+  client?: PoolClient,
+): Promise<void> {
+  await ensureSkillFactEventsTable()
+  const row = mapSkillFactEventToInsertRow(event)
+  const query = buildInsertSkillFactEventQuery(row)
+
+  if (client) {
+    await client.query(query)
+    return
+  }
+
+  await getPool().query(query)
 }
 
 function normalizedQueryLimit(limit: number | null | undefined): number {

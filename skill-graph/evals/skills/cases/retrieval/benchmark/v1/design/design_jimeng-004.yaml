@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_design_jimeng_004
+title: 用即梦生成设计图片
+dataset: retrieval-benchmark-v1
+tags:
+  - design
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - content-generation
+  - design
+query:
+  queryText: 我想用即梦AI生成一些设计图片，用于我的项目。
+  queryContext: 设计 即梦 图片生成 内容生成 presentation storytelling visual
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/jimeng
+  acceptableSkillIds:
+    - design/ppt-maker
+    - design/motion-video-maker
+  forbiddenSkillIds:
+    - backend/database-schema-design
+    - frontend/website-homepage-design
+modeOverrides: {}

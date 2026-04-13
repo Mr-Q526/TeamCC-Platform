@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_api_integration_testing_001
+title: 后端 集成测试相关工作
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - test
+query:
+  queryText: 我要做后端 的集成测试，涉及多个服务、数据库、认证和外部依赖，要确保合同正确，有真实的测试数据，还要有隔离和确定性的断言。
+  queryContext: 后端 测试 API 集成 合同 测试数据 隔离
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/api-integration-testing
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+    - backend/backend-api-architecture
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

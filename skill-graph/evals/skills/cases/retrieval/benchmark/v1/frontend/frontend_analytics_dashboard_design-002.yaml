@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_analytics_dashboard_design_002
+title: 设计数据分析仪表盘
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我需要设计一个数据分析仪表盘，要以问题为导向，注重信息层次结构、图表选择、筛选清晰度、指标上下文和决策就绪布局。
+  queryContext: 前端 设计 数据分析 仪表盘 问题导向 信息层次 图表选择 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/analytics-dashboard-design
+  acceptableSkillIds:
+    - frontend/admin-dashboard-design
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_component_library_pro_002
+title: 设计组件库的专业方案
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我要设计一个专业的组件库，需要考虑API清晰、变体、状态和使用一致性，还要注重信息架构、层次结构、明确的状态、响应行为、可访问性和验证检查。
+  queryContext: 前端 组件库 设计 专业 架构 状态 验证 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/component-library-pro
+  acceptableSkillIds:
+    - frontend/component-library-basic
+    - frontend/design-system-builder-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

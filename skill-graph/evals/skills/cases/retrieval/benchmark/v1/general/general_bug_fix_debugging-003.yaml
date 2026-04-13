@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_general_bug_fix_debugging_003
+title: 调试代码并修复问题
+dataset: retrieval-benchmark-v1
+tags:
+  - general
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - debug
+  - test
+query:
+  queryText: 帮我调试下代码，看看哪里有问题并修复，代码在这个 repo 里。
+  queryContext: 调试 代码 修复 repo
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/bug-fix-debugging
+  acceptableSkillIds:
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

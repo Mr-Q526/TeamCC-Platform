@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_data_migration_001
+title: 数据迁移与回填任务
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - migration
+  - release
+query:
+  queryText: 数据迁移 回填 脚本 分批执行 校验 回滚预案
+  queryContext: data migration backfill batch validation rollback release
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:release
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/data-migration-backfill
+  acceptableSkillIds:
+    - backend/database-schema-design
+    - backend/background-jobs-queues
+  forbiddenSkillIds:
+    - infra/ci-quality-gates
+modeOverrides: {}

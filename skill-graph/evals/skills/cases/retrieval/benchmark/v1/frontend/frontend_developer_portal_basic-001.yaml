@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_developer_portal_basic_001
+title: 开发者门户基础设计
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - design
+query:
+  queryText: 我要设计一个开发者门户，包括 文档、快速入门和操作反馈等，怎么设计比较好？
+  queryContext: 开发者门户 设计 API文档 快速入门 操作反馈
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/developer-portal-basic
+  acceptableSkillIds:
+    - frontend/developer-portal-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

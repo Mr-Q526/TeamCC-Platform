@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_tools_playwright_e2e_001
+title: Playwright 端到端测试编写
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - tools
+  - test
+  - e2e
+query:
+  queryText: Playwright 端到端测试 登录 流程回归 截图 断言
+  queryContext: playwright e2e login flow regression screenshot assertions
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+    - frontend
+  sceneHints:
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/playwright
+  acceptableSkillIds:
+    - tools/playwright-interactive
+    - tools/screenshot
+  forbiddenSkillIds:
+    - infra/vercel-deploy
+modeOverrides: {}

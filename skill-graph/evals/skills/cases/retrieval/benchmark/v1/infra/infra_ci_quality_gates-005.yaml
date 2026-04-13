@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_ci_quality_gates_005
+title: 流水线质量门设置
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - release
+  - test
+query:
+  queryText: 我要设置 流水线的质量门，包括覆盖率和代码检查等，怎么操作？
+  queryContext: CI流水线 质量门 覆盖率 代码检查 部署 测试
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:release
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/ci-quality-gates
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

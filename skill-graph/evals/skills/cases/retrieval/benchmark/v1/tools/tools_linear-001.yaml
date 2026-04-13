@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_tools_linear_001
+title: 线性工作流问题审查
+dataset: retrieval-benchmark-v1
+tags:
+  - tools
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - review
+query:
+  queryText: 帮我审查一下项目里的问题和工作流
+  queryContext: 问题 审查 工作流 工具 项目 workflow automation tool
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/linear
+  acceptableSkillIds:
+    - tools/playwright
+    - tools/screenshot
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - frontend/website-homepage-design-pro
+modeOverrides: {}

@@ -71,6 +71,29 @@ const recallCandidates: SkillRecallCandidate[] = [
   },
 ]
 
+function graphExplanation(score: number): SkillGraphFeatures['graphFeatureExplanation'] {
+  return {
+    formula:
+      'graphFeatureScore = 0.35 * version(qualityScore * confidence) + 0.25 * global(qualityScore * confidence) + 0.20 * department(qualityScore * confidence) + 0.20 * scene(qualityScore * confidence)',
+    signals: [
+      {
+        scope: 'global',
+        weight: 0.25,
+        matched: true,
+        matchedKey: 'global',
+        qualityScore: score,
+        confidence: score,
+        sampleCount: 1,
+        invocationCount: 1,
+        successRate: score,
+        weightedContribution: score,
+        reason: 'matched global aggregate',
+      },
+    ],
+    missingSignals: [],
+  }
+}
+
 const graphItems: SkillGraphFeatures[] = [
   {
     skillId: 'frontend/basic',
@@ -93,6 +116,7 @@ const graphItems: SkillGraphFeatures[] = [
       department: 0.02,
       scene: 0.02,
     },
+    graphFeatureExplanation: graphExplanation(0.2),
   },
   {
     skillId: 'frontend/pro',
@@ -115,6 +139,7 @@ const graphItems: SkillGraphFeatures[] = [
       department: 0.128,
       scene: 0.128,
     },
+    graphFeatureExplanation: graphExplanation(0.82),
   },
 ]
 
@@ -134,6 +159,19 @@ describe('rerank skills', () => {
         registryVersion: 'sha256:test',
         aggregateGeneratedAt: '2026-04-12T00:00:00.000Z',
         window: '30d',
+        scoring: {
+          graphFeatureScoreFormula:
+            'graphFeatureScore = 0.35 * version(qualityScore * confidence) + 0.25 * global(qualityScore * confidence) + 0.20 * department(qualityScore * confidence) + 0.20 * scene(qualityScore * confidence)',
+          finalScoreFormula:
+            'finalScore = graphFeatures ? 0.70 * recallNormalized + 0.30 * graphFeatureScore : recallNormalized',
+          graphFeatureWeights: {
+            version: 0.35,
+            global: 0.25,
+            department: 0.2,
+            scene: 0.2,
+          },
+          graphFeatureInputs: [],
+        },
         itemCount: 2,
         items: [],
       },
@@ -152,5 +190,8 @@ describe('rerank skills', () => {
     expect(result.graphApplied).toBe(false)
     expect(result.candidates[0]?.skillId).toBe('frontend/basic')
     expect(result.candidates[0]?.finalScoreBreakdown.graphFeatureScore).toBe(0)
+    expect(result.candidates[0]?.finalScoreBreakdown.formula).toBe(
+      'finalScore = recallNormalized',
+    )
   })
 })

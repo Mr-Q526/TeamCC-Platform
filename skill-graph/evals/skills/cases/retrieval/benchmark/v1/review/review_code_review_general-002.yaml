@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_review_code_review_general_002
+title: 代码审查与问题发现
+dataset: retrieval-benchmark-v1
+tags:
+  - review
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-pure
+  - review
+query:
+  queryText: 我要对一段代码进行审查，看看有没有潜在的问题，比如 、维护风险、缺少测试等，该从哪些方面入手？
+  queryContext: 代码审查 问题 审查 维护风险 测试 前端 后端 脚本
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-general
+  acceptableSkillIds:
+    - review/code-review-risk-based
+  forbiddenSkillIds:
+    - frontend/website-homepage-design
+    - backend/rest-api-implementation
+modeOverrides: {}

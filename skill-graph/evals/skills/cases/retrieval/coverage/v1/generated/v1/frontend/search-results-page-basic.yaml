@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_frontend_search_results_page_basic_001
+title: 前端Search Results Page Basic需求
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - generated
+  - design
+query:
+  queryText: Search Results Page Basic 前端页面 组件 布局 转化率
+  queryContext: 前端 Search Results Page Basic landing page hero CTA responsive design
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/search-results-page-basic
+  acceptableSkillIds:
+    - frontend/search-results-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

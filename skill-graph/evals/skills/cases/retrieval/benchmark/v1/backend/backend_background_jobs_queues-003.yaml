@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_background_jobs_queues_003
+title: 后端异步任务队列设计
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - architecture
+  - debug
+query:
+  queryText: 我需要设计后端的异步任务队列，包括重试策略和死信处理，还要考虑操作可见性。
+  queryContext: 后端 异步任务 队列 重试策略 死信处理 操作可见性 api service architecture
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:debug
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/background-jobs-queues
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

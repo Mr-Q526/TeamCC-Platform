@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_component_library_basic_002
+title: 设计基础的组件库
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 帮忙设计一个基础的组件库，要注重API清晰度、变体、状态和使用一致性，布局要快，标签要明显，要有最少的部分设置和简短的清单。
+  queryContext: 前端 设计 组件库 基础 API清晰度 使用一致性
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/component-library-basic
+  acceptableSkillIds:
+    - frontend/component-library-pro
+    - frontend/design-system-builder-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_checkout_flow_pro_001
+title: 设计结账流程页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - design
+query:
+  queryText: 帮我设计一个结账流程的页面，包括购物车、支付、地址等。
+  queryContext: 设计 结账流程 页面 购物车 支付 地址
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/checkout-flow-pro
+  acceptableSkillIds:
+    - frontend/checkout-flow-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

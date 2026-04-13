@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_login_page_001
+title: 登录注册页与忘记密码流程
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - auth
+  - design
+query:
+  queryText: 登录注册页设计 忘记密码 社交登录 双栏布局
+  queryContext: auth login signup forgot password oauth design
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:auth
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/auth-login-page-pro
+  acceptableSkillIds:
+    - frontend/auth-login-page-basic
+    - frontend/onboarding-flow-pro
+  forbiddenSkillIds:
+    - security/security-best-practices
+modeOverrides: {}

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_observability_backend_001
+title: 后端系统的可观测性
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-pure
+  - debug
+  - incident
+query:
+  queryText: 我要为后端系统设置日志、指标、追踪、仪表盘、警报和生产调试，要注重可诊断性、信号质量、服务水平目标和事件响应。
+  queryContext: 基础设施 可观测性 后端 日志 指标 追踪 仪表盘 警报 调试
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:debug
+    - scene:incident
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/observability-backend
+  acceptableSkillIds:
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

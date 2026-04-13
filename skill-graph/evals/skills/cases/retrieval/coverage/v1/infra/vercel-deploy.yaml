@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_infra_vercel_deploy_001
+title: 前端项目 Vercel 部署排障
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - infra
+  - deploy
+  - frontend
+query:
+  queryText: Vercel 部署 预览环境 环境变量 构建失败 排障
+  queryContext: vercel deploy preview env vars build failure debugging
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+    - frontend
+  sceneHints:
+    - scene:deploy
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/vercel-deploy
+  acceptableSkillIds:
+    - infra/ci-quality-gates
+    - frontend/nextjs-app-router
+  forbiddenSkillIds:
+    - tools/playwright
+modeOverrides: {}

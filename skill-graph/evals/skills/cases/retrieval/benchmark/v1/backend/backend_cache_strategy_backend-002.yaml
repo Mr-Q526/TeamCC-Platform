@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_backend_cache_strategy_backend_002
+title: 后端缓存策略设计
+dataset: retrieval-benchmark-v1
+tags:
+  - backend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - architecture
+  - performance
+query:
+  queryText: 我要设计后端的缓存策略，包括服务器端缓存、 、 协调、失效和新鲜度规则。要确保正确性、失效控制、缓存击穿控制和延迟降低。另外，还要考虑后端 架构和 实现。
+  queryContext: 后端 缓存策略 架构 性能 API 实现
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:performance
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/cache-strategy-backend
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

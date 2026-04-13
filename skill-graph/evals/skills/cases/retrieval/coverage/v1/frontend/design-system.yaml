@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_design_system_001
+title: 设计系统与组件规范建设
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - design-system
+  - component
+query:
+  queryText: 设计系统建设 token 组件规范 主题变量 文档站
+  queryContext: design system tokens component guidelines theming documentation
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design-system
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/design-system-builder-pro
+  acceptableSkillIds:
+    - frontend/design-system-builder-basic
+    - frontend/component-library-pro
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-basic
+modeOverrides: {}

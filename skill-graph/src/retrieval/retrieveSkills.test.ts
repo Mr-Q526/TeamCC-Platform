@@ -85,6 +85,19 @@ const retrievalFeaturesManifest: SkillRetrievalFeaturesManifest = {
   registryVersion: 'sha256:registry',
   aggregateGeneratedAt: '2026-04-12T12:17:34.311Z',
   window: '30d',
+  scoring: {
+    graphFeatureScoreFormula:
+      'graphFeatureScore = 0.35 * version(qualityScore * confidence) + 0.25 * global(qualityScore * confidence) + 0.20 * department(qualityScore * confidence) + 0.20 * scene(qualityScore * confidence)',
+    finalScoreFormula:
+      'finalScore = graphFeatures ? 0.70 * recallNormalized + 0.30 * graphFeatureScore : recallNormalized',
+    graphFeatureWeights: {
+      version: 0.35,
+      global: 0.25,
+      department: 0.2,
+      scene: 0.2,
+    },
+    graphFeatureInputs: [],
+  },
   itemCount: 2,
   items: [
     {

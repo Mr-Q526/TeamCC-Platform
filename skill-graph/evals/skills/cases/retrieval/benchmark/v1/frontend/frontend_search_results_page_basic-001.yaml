@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_search_results_page_basic_001
+title: 设计基础版搜索结果页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 帮忙设计一个基础版的搜索结果页面，要考虑到查询反馈、相关性、过滤器和结果扫描等方面，同时要保证页面的快速加载和易于阅读。
+  queryContext: 前端 设计 基础版 搜索结果页面 查询反馈 相关性 过滤器 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/search-results-page-basic
+  acceptableSkillIds:
+    - frontend/search-results-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_ai_humanizer_zh_pro_004
+title: 润色文章使其更自然
+dataset: retrieval-benchmark-v1
+tags:
+  - ai
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - content-generation
+  - writing
+query:
+  queryText: 帮我把这篇文章润色一下，让它读起来更自然，不要有 写作的痕迹。
+  queryContext: 润色 文章 自然 写作
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:content-generation
+    - scene:writing
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/humanizer-zh-pro
+  acceptableSkillIds:
+    - ai/humanizer-zh-basic
+  forbiddenSkillIds:
+    - tools/playwright
+    - frontend/admin-dashboard-design
+modeOverrides: {}

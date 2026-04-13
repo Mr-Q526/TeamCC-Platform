@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_component_library_pro_001
+title: 设计组件库的API和使用示例
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我要设计一个组件库，需要考虑API的清晰度、变体和状态，还要有使用示例。
+  queryContext: 组件库 API 变体 状态 使用示例 设计
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/component-library-pro
+  acceptableSkillIds:
+    - frontend/component-library-basic
+    - frontend/design-system-builder-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

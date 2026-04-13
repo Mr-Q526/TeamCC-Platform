@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_infra_observability_001
+title: 服务监控告警与链路追踪
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - infra
+  - observability
+  - debug
+query:
+  queryText: 服务监控 告警 tracing metrics logs dashboard
+  queryContext: observability tracing metrics logs alerts backend incident
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+    - backend
+  sceneHints:
+    - scene:incident
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/observability-backend
+  acceptableSkillIds:
+    - backend/backend-performance-profiling
+    - infra/load-testing
+  forbiddenSkillIds:
+    - frontend/notification-center-pro
+modeOverrides: {}

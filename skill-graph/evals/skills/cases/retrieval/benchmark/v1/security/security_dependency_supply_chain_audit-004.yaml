@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_security_dependency_supply_chain_audit_004
+title: 发布前依赖准入审查
+dataset: retrieval-benchmark-v1
+tags:
+  - security
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - security-audit
+  - review
+query:
+  queryText: 我们准备做发布前依赖准入，想检查第三方包来源、锁文件漂移、许可证冲突和恶意投毒风险。
+  queryContext: 依赖准入 package provenance lockfile license malicious package supply chain
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:security-audit
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/dependency-supply-chain-audit
+  acceptableSkillIds:
+    - security/security-vulnerability-check
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

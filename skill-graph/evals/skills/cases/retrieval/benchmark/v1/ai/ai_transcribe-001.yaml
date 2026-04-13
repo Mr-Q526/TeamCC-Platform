@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_ai_transcribe_001
+title: 音频转文字并标注说话人
+dataset: retrieval-benchmark-v1
+tags:
+  - ai
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - content-generation
+  - data-analysis
+query:
+  queryText: 帮我把这个音频文件转成文字，还要标注一下说话人是谁。
+  queryContext: 音频转文字 标注说话人 录音 访谈 会议
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:content-generation
+    - scene:data-analysis
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/transcribe
+  acceptableSkillIds:
+    - ai/humanizer-zh-pro
+  forbiddenSkillIds:
+    - tools/playwright
+    - frontend/admin-dashboard-design
+modeOverrides: {}

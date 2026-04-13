@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_frontend_nextjs_app_router_001
+title: 前端Next.js App Router检索
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - generated
+  - architecture
+query:
+  queryText: Next.js App Router 适合做什么样的页面和界面
+  queryContext: 前端 Next.js App Router design system page flow
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/nextjs-app-router
+  acceptableSkillIds:
+    - frontend/website-homepage-design
+    - frontend/admin-dashboard-design
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_tools_playwright_interactive_003
+title: 交互调试
+dataset: retrieval-benchmark-v1
+tags:
+  - tools
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - debug
+  - test
+query:
+  queryText: 我需要通过 进行持久的浏览器和 交互，用于快速迭代的 调试。
+  queryContext: 工具 Playwright 交互 调试 测试
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/playwright-interactive
+  acceptableSkillIds:
+    - tools/playwright
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - frontend/website-homepage-design-pro
+modeOverrides: {}

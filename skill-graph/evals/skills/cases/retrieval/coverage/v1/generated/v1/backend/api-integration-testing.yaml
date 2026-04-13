@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_backend_api_integration_testing_001
+title: 后端API Integration Testing实现
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - generated
+  - test
+query:
+  queryText: api-integration-testing 需要后端实现 设计 接口
+  queryContext: 后端 test service database api
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/api-integration-testing
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+    - backend/backend-api-architecture
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - tools/playwright
+modeOverrides: {}

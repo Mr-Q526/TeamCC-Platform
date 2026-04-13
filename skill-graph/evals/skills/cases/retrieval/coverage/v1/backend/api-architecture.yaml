@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_api_architecture_001
+title: 后端 API 架构设计
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - architecture
+  - api
+query:
+  queryText: 后端 API 架构设计 服务分层 鉴权 错误码 版本化
+  queryContext: backend api architecture layering auth error codes versioning
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/backend-api-architecture
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+    - backend/graphql-api-implementation
+  forbiddenSkillIds:
+    - frontend/developer-portal-pro
+modeOverrides: {}

@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_analytics_dashboard_design_001
+title: 设计数据大屏和 仪表盘
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - design
+query:
+  queryText: 我要设计一个数据大屏和 仪表盘，用于展示业务数据和 ，要突出重点，方便决策。
+  queryContext: 数据大屏 BI仪表盘 设计 数据展示 KPI
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/analytics-dashboard-design
+  acceptableSkillIds:
+    - frontend/admin-dashboard-design
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

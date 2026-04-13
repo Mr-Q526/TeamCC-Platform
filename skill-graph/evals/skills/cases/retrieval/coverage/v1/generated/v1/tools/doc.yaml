@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_tools_doc_001
+title: 工具Doc使用
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - tools
+  - generated
+  - content-generation
+  - review
+query:
+  queryText: Doc 自动化 测试 截图 文档
+  queryContext: 工具 Doc tool workflow automation
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:content-generation
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/doc
+  acceptableSkillIds:
+    - tools/playwright
+    - tools/screenshot
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - frontend/website-homepage-design-pro
+modeOverrides: {}

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_general_xiaohongshu_ops_001
+title: 通用Xiaohongshu Ops检索
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - general
+  - generated
+  - content-generation
+  - data-analysis
+query:
+  queryText: Xiaohongshu Ops 通用任务 方案 处理
+  queryContext: 通用 Xiaohongshu Ops general workflow planning debugging
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:content-generation
+    - scene:data-analysis
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/xiaohongshu-ops
+  acceptableSkillIds:
+    - general/bug-fix-debugging
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

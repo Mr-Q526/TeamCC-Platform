@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_tools_spreadsheet_analysis_001
+title: Excel 数据清洗与透视分析
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - tools
+  - data-analysis
+  - spreadsheet
+query:
+  queryText: Excel 数据清洗 透视表 函数统计 报表分析
+  queryContext: spreadsheet data cleaning pivot table formulas reporting analysis
+  cwd: /tmp/skill-eval
+  department: dept:data-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:data-analysis
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/doc
+    - tools/pdf
+  forbiddenSkillIds:
+    - frontend/data-table-pro
+modeOverrides: {}

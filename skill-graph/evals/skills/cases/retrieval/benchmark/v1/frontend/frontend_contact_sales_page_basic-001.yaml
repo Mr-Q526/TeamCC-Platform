@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_contact_sales_page_basic_001
+title: 设计销售联系页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我要设计一个contact sales page，要求form清晰，next-step有信心，routing正确，trust度高。
+  queryContext: 前端 设计 销售 联系 页面 表单 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/contact-sales-page-basic
+  acceptableSkillIds:
+    - frontend/contact-sales-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

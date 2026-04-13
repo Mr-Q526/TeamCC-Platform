@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_security_security_ownership_map_001
+title: 安全Security Ownership Map治理
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - security
+  - generated
+  - data-analysis
+  - security-audit
+query:
+  queryText: security-ownership-map 安全检查 依赖风险 供应链
+  queryContext: 安全 data-analysis / security-audit vulnerability review compliance
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:data-analysis
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/security-ownership-map
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

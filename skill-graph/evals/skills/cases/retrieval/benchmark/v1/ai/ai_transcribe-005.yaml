@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_ai_transcribe_005
+title: 音频转录为文本
+dataset: retrieval-benchmark-v1
+tags:
+  - ai
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-pure
+  - content-generation
+  - data-analysis
+query:
+  queryText: 把这个音频文件转录成文本，并且标注说话人。
+  queryContext: 音频 转录 文本 标注 说话人
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:content-generation
+    - scene:data-analysis
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/transcribe
+  acceptableSkillIds:
+    - ai/humanizer-zh-pro
+  forbiddenSkillIds:
+    - tools/playwright
+    - frontend/admin-dashboard-design
+modeOverrides: {}

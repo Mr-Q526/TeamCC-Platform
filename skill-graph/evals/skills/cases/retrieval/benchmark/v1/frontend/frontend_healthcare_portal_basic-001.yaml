@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_healthcare_portal_basic_001
+title: 基础版医疗门户设计
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 设计一个patient portal，要注重clarity、privacy、accessibility，支持敏感任务，布局要快，标签要明显。
+  queryContext: patient portal 设计 clarity privacy accessibility
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/healthcare-portal-basic
+  acceptableSkillIds:
+    - frontend/healthcare-portal-pro
+    - frontend/developer-portal-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_load_testing_003
+title: API性能测试与优化
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-mixed
+  - performance
+  - test
+query:
+  queryText: 我想对API进行性能测试，看看有没有瓶颈，你能帮忙吗？
+  queryContext: API 性能测试 瓶颈
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:performance
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/load-testing
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

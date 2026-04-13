@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_auth_login_page_basic_002
+title: 设计基本的登录页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 帮忙设计一个基本的登录页面，要注重信任度、清晰度、错误恢复和低摩擦的账户访问，同时要快速布局、有明显的标签和简洁的界面。
+  queryContext: 前端 设计 登录页面 基本版 信任度 清晰度 错误恢复 账户访问 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/auth-login-page-basic
+  acceptableSkillIds:
+    - frontend/auth-login-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

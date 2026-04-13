@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_education_course_page_pro_001
+title: 设计教育课程页面（专业版）
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我需要设计一个教育课程页面，要注重学习层次、进度、实践和激励，还要有良好的信息架构和响应式设计。
+  queryContext: 前端 设计 教育课程页面 专业版 学习层次 进度 实践 激励 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/education-course-page-pro
+  acceptableSkillIds:
+    - frontend/education-course-page-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

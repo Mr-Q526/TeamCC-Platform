@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_vercel_deploy_003
+title: 将应用部署到
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - deploy
+  - release
+query:
+  queryText: 我想把我的应用部署到 上，你能帮我吗？
+  queryContext: 应用 部署 Vercel 链接 预览
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:deploy
+    - scene:release
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/vercel-deploy
+  acceptableSkillIds:
+    - infra/observability-backend
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

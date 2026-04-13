@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_frontend_fintech_dashboard_basic_001
+title: 前端Fintech Dashboard Basic方案
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - generated
+  - design
+query:
+  queryText: fintech-dashboard-basic 用户体验 信息架构 交互设计
+  queryContext: 前端 design frontend-platform component layout navigation
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/fintech-dashboard-basic
+  acceptableSkillIds:
+    - frontend/fintech-dashboard-pro
+    - frontend/admin-dashboard-design
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

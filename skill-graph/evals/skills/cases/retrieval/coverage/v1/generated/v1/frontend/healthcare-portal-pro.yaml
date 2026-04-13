@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_frontend_healthcare_portal_pro_001
+title: 前端Healthcare Portal PRO需求
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - generated
+  - design
+query:
+  queryText: Healthcare Portal PRO 前端页面 组件 布局 转化率
+  queryContext: 前端 Healthcare Portal PRO landing page hero CTA responsive design
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/healthcare-portal-pro
+  acceptableSkillIds:
+    - frontend/healthcare-portal-basic
+    - frontend/developer-portal-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

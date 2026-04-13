@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_responsive_navigation_pro_001
+title: 设计专业版响应式导航
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我想设计一个专业版的响应式导航，需要考虑到信息架构、状态设计、可访问性和验证检查等方面，同时要保证导航的快速响应和流畅性。
+  queryContext: 前端 设计 专业版 响应式导航 信息架构 可访问性 验证检查 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/responsive-navigation-pro
+  acceptableSkillIds:
+    - frontend/responsive-navigation-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_education_course_page_basic_001
+title: 设计基础课程页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我要设计一个课程页面，包括课程层级、进度、练习和激励，要快速布局、标签明显、板块少，有没有基础版的设计工具？
+  queryContext: 课程页面 设计 基础版 层级 进度 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/education-course-page-basic
+  acceptableSkillIds:
+    - frontend/education-course-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

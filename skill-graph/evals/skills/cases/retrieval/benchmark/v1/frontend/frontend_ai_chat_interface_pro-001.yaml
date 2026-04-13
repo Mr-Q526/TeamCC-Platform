@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_ai_chat_interface_pro_001
+title: 设计AI聊天界面的专业版
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我需要设计一个专业版的AI聊天界面，要注重对话流程、工具状态、引用、安全性和信任度，同时要考虑到深层信息架构、强层次结构、明确的状态、响应式行为、可访问性和验证检查。
+  queryContext: 前端 设计 AI聊天界面 专业版 对话流程 安全性
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/ai-chat-interface-pro
+  acceptableSkillIds:
+    - frontend/ai-chat-interface-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

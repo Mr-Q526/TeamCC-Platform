@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_stress_testing_004
+title: 基础设施压力测试
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - performance
+  - test
+query:
+  queryText: 我要对类生产系统进行压力、浸泡、尖峰和容量测试，要关注断点、降级行为、恢复和资源饱和。
+  queryContext: 基础设施 压力测试 性能 测试
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:performance
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/stress-testing
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

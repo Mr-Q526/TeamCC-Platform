@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_form_builder_basic_001
+title: 设计表单，注重标签和验证
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我要设计一个表单，要有明显的标签和验证功能，还要有渐进式披露和完成提示，布局要快，尽量简洁。
+  queryContext: 前端 表单设计 标签 验证 渐进式披露 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/form-builder-basic
+  acceptableSkillIds:
+    - frontend/form-builder-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

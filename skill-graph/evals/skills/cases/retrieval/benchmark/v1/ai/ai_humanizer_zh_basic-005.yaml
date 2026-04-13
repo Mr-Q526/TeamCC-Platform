@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_ai_humanizer_zh_basic_005
+title: 优化中文 生成文本的自然度
+dataset: retrieval-benchmark-v1
+tags:
+  - ai
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - content-generation
+  - writing
+query:
+  queryText: 帮我把这段 生成的中文文本改得更自然一些，不要太生硬。
+  queryContext: 中文AI生成文本 自然度 优化 改写
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:content-generation
+    - scene:writing
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/humanizer-zh-basic
+  acceptableSkillIds:
+    - ai/humanizer-zh-pro
+  forbiddenSkillIds:
+    - tools/playwright
+    - frontend/admin-dashboard-design
+modeOverrides: {}
