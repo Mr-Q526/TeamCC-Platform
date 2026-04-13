@@ -17,6 +17,11 @@ import {
   insertSkillFactEvent,
   type SkillFactSinkMode,
 } from '../../../../skill-graph/src/events/storage.js'
+import { publishRefreshRequest } from '../../../../skill-graph/src/refresh/redis.js'
+import {
+  insertSkillFactEventAndRequestRefresh,
+  resolveSkillGraphRefreshMode,
+} from '../../../../skill-graph/src/refresh/storage.js'
 import { parseFrontmatter } from '../../utils/frontmatterParser.js'
 import { logForDebugging } from '../../utils/debug.js'
 import {
@@ -322,7 +327,25 @@ export async function logSkillFactEvent(event: SkillFactEvent): Promise<void> {
 
   if (sinkMode === 'postgres') {
     try {
-      await insertSkillFactEvent(event)
+      const refreshMode = resolveSkillGraphRefreshMode()
+      if (refreshMode === 'legacy') {
+        await insertSkillFactEvent(event)
+        return
+      }
+
+      const { request } = await insertSkillFactEventAndRequestRefresh(event)
+
+      try {
+        await publishRefreshRequest(request)
+      } catch (error) {
+        logForDebugging(
+          `[skill-telemetry] failed to publish refresh request ${request.jobKey}: ${error}`,
+          {
+            level: 'warn',
+          },
+        )
+      }
+
       return
     } catch (error) {
       logForDebugging(

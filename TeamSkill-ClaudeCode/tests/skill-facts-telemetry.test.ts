@@ -3,7 +3,16 @@ import { mkdtemp, readFile, rm } from 'fs/promises'
 import { tmpdir } from 'os'
 import { join } from 'path'
 import { createSkillFactEvent } from '../../skill-graph/src/events/skillFacts.js'
-import { closeSkillFactPgPool } from '../../skill-graph/src/events/storage.js'
+import {
+  closeSkillFactPgPool,
+  querySkillFactEvents,
+  querySkillFactPg,
+} from '../../skill-graph/src/events/storage.js'
+import { closeSkillRedisClient } from '../../skill-graph/src/refresh/redis.js'
+import {
+  ensureSkillGraphRefreshRequestsTable,
+  querySkillGraphRefreshRequests,
+} from '../../skill-graph/src/refresh/storage.js'
 import {
   logSkillFactEvent,
   resolveSkillFactSinkMode,
@@ -30,11 +39,15 @@ function restoreEnv(): void {
 describe('skill fact telemetry sink mode', () => {
   beforeEach(async () => {
     restoreEnv()
+    await ensureSkillGraphRefreshRequestsTable().catch(() => {})
+    await querySkillFactPg('DELETE FROM skill_graph_refresh_requests').catch(() => {})
+    await querySkillFactPg('DELETE FROM skill_fact_events').catch(() => {})
     await closeSkillFactPgPool().catch(() => {})
   })
 
   afterEach(async () => {
     restoreEnv()
+    await closeSkillRedisClient().catch(() => {})
     await closeSkillFactPgPool().catch(() => {})
   })
 
@@ -87,6 +100,48 @@ describe('skill fact telemetry sink mode', () => {
 
     const contents = await readFile(filePath, 'utf-8')
     expect(contents).toContain('"eventId":"evt-fallback"')
+
+    await rm(tempDir, { recursive: true, force: true })
+  })
+
+  test('shadow mode keeps PG as source of truth when redis publish fails', async () => {
+    const tempDir = await mkdtemp(join(tmpdir(), 'skill-facts-shadow-'))
+    const filePath = join(tempDir, 'events.jsonl')
+
+    process.env.SKILL_FACT_SINK = 'postgres'
+    process.env.SKILL_GRAPH_REFRESH_MODE = 'shadow'
+    process.env.SKILL_REDIS_PORT = '1'
+    process.env.SKILL_FACT_EVENTS_PATH = filePath
+
+    const event = createSkillFactEvent({
+      eventId: 'evt-shadow',
+      factKind: 'skill_feedback',
+      source: 'user',
+      traceId: 'trace-shadow',
+      taskId: 'task-shadow',
+      retrievalRoundId: 'retrieval-shadow',
+      skillId: 'frontend/admin-dashboard-design',
+      skillName: 'admin-dashboard-design',
+      skillVersion: '2.2.0-pro',
+      sourceHash: 'sha256:shadow',
+      feedback: {
+        rating: 5,
+        sentiment: 'positive',
+        comment: 'shadow',
+      },
+    })
+
+    await logSkillFactEvent(event)
+
+    const requests = await querySkillGraphRefreshRequests({ limit: 10 })
+    const events = await querySkillFactEvents({
+      factKinds: ['skill_feedback'],
+      limit: 10,
+    })
+
+    expect(events.some(item => item.eventId === 'evt-shadow')).toBe(true)
+    expect(requests[0]?.status).toBe('pending')
+    await expect(readFile(filePath, 'utf-8')).rejects.toBeDefined()
 
     await rm(tempDir, { recursive: true, force: true })
   })
