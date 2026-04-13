@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "2026-04-12",
+  "judgeType": "human",
+  "overallPass": true,
+  "taskOutcomeScore": 86,
+  "retrievalQualityScore": 90,
+  "skillSelectionScore": 92,
+  "executionQualityScore": 80,
+  "attributionIntegrityScore": 88,
+  "feedbackLoopScore": 70,
+  "summary": "fixture run passed baseline sandbox blind eval checks",
+  "issues": [],
+  "evidence": [
+    "retrieval request and response were captured",
+    "chosen skill identity is stable",
+    "verification command passed"
+  ]
+}

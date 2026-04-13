@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_background_jobs_001
+title: 异步任务队列与重试补偿
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - queue
+  - architecture
+query:
+  queryText: 异步任务队列 重试 死信 幂等 补偿机制
+  queryContext: background jobs queue retry dlq idempotency compensation
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/background-jobs-queues
+  acceptableSkillIds:
+    - backend/data-migration-backfill
+    - infra/observability-backend
+  forbiddenSkillIds:
+    - frontend/notification-center-pro
+modeOverrides: {}

@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_infra_ci_quality_gates_001
+title: 流水线质量门相关工作
+dataset: retrieval-benchmark-v1
+tags:
+  - infra
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-pure
+  - release
+  - test
+query:
+  queryText: 我要做 流水线的工作，包括必要的检查、覆盖率门、代码检查门和发布验证工作流，要关注快速反馈、必要的检查、可重复性和安全的发布标准。
+  queryContext: 基础设施 CI 质量门 流水线 检查 覆盖率 发布
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:release
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/ci-quality-gates
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

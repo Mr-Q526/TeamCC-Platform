@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_security_security_ownership_map_001
+title: 安全代码的归属分析
+dataset: retrieval-benchmark-v1
+tags:
+  - security
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - data-analysis
+  - security-audit
+query:
+  queryText: 我想分析一下 仓库中安全相关代码的归属情况，看看哪些人负责哪些文件，以及计算一下总线因子，该怎么做？
+  queryContext: 安全 代码归属 总线因子 git仓库 数据分析 安全审计
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:data-analysis
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/security-ownership-map
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_search_results_001
+title: 搜索结果页与过滤面板
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - search
+  - design
+query:
+  queryText: 搜索结果页设计 过滤面板 排序 空状态 推荐词
+  queryContext: search results filters sorting empty states recommendations
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:search
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/search-results-page-pro
+  acceptableSkillIds:
+    - frontend/search-results-page-basic
+    - frontend/error-empty-states-pro
+  forbiddenSkillIds:
+    - review/code-review-general
+modeOverrides: {}

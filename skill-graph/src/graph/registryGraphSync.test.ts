@@ -39,6 +39,7 @@ describe('registry graph sync', () => {
       domainCount: 1,
       departmentCount: 1,
       sceneCount: 2,
+      genericAliasCount: 1,
     })
   })
 
@@ -50,6 +51,10 @@ describe('registry graph sync', () => {
     expect(cypher).toContain('MERGE (sv:SkillVersion {versionKey:')
     expect(cypher).toContain('MERGE (s)-[r:HAS_VERSION]->(sv)')
     expect(cypher).toContain('MERGE (a)-[r:ALIASES_SKILL]->(s)')
+    expect(cypher).toContain('r.aliasType =')
+    expect(cypher).toContain('r.weight =')
+    expect(cypher).toContain('r.isGeneric =')
+    expect(cypher).toContain('a.skillCount =')
     expect(cypher).toContain('MERGE (s)-[r:IN_DOMAIN]->(d)')
     expect(cypher).toContain('MERGE (s)-[r:BELONGS_TO_DEPARTMENT]->(d)')
     expect(cypher).toContain('MERGE (s)-[r:APPLIES_TO_SCENE]->(sc)')

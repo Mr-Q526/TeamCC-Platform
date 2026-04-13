@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_contact_sales_page_basic_002
+title: 基础联系销售页面设计
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 帮忙设计一个基础的联系销售页面，要让表单清晰，下一步有信心，还要考虑路由和信任，布局要快，标签要明显，尽量少的部分和简短的清单。
+  queryContext: 前端 联系销售 页面设计 基础 表单 路由 信任 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/contact-sales-page-basic
+  acceptableSkillIds:
+    - frontend/contact-sales-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

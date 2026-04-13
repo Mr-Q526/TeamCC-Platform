@@ -1,0 +1,15 @@
+{
+  "retrievalMode": "bm25_vector_graph",
+  "candidates": [
+    {
+      "skillId": "frontend/website-homepage-design-pro",
+      "rank": 1,
+      "finalScore": 0.824518
+    },
+    {
+      "skillId": "frontend/website-homepage-design",
+      "rank": 2,
+      "finalScore": 0.710925
+    }
+  ]
+}

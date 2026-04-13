@@ -380,6 +380,10 @@ describe('retrieval features', () => {
     expect(manifest.registryVersion).toBe('sha256:registry')
     expect(manifest.aggregateGeneratedAt).toBe('2026-04-12T12:00:00.000Z')
     expect(manifest.window).toBe('30d')
+    expect(manifest.scoring.graphFeatureWeights.version).toBe(0.35)
+    expect(manifest.scoring.graphFeatureScoreFormula).toContain(
+      'version(qualityScore * confidence)',
+    )
 
     const homepageBasic = manifest.items.find(
       item => item.skillId === 'frontend/website-homepage-design-basic',
@@ -466,11 +470,20 @@ describe('retrieval features', () => {
     expect(pro.departmentScore).toBe(0.93)
     expect(pro.sceneScore).toBe(0.95)
     expect(pro.graphFeatureScore).toBeGreaterThan(basic.graphFeatureScore)
+    expect(pro.graphFeatureExplanation.signals).toHaveLength(4)
+    expect(pro.graphFeatureExplanation.missingSignals).toEqual([])
+    expect(pro.graphFeatureExplanation.signals.find(signal => signal.scope === 'scene')).toMatchObject({
+      matched: true,
+      matchedKey: 'homepage',
+      weight: 0.2,
+      sampleCount: 11,
+    })
 
     expect(admin.globalQualityScore).toBeNull()
     expect(admin.versionQualityScore).toBeNull()
     expect(admin.departmentScore).toBeNull()
     expect(admin.sceneScore).toBeNull()
     expect(admin.graphFeatureScore).toBe(0)
+    expect(admin.graphFeatureExplanation.missingSignals.length).toBeGreaterThan(0)
   })
 })

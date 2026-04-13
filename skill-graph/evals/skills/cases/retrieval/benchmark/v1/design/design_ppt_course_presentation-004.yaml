@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_design_ppt_course_presentation_004
+title: 制作课程展示PPT
+dataset: retrieval-benchmark-v1
+tags:
+  - design
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - content-generation
+  - design
+query:
+  queryText: 我要做一个课程展示的PPT，要有问题引入、案例讲解、团队观点和课堂讨论，还要有良好的设计和排版。
+  queryContext: 设计 PPT 课程展示 问题引入 案例讲解 团队观点 课堂讨论
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/ppt-course-presentation
+  acceptableSkillIds:
+    - design/ppt-maker
+  forbiddenSkillIds:
+    - backend/database-schema-design
+    - frontend/website-homepage-design
+modeOverrides: {}

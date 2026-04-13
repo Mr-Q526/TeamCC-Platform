@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_design_ppt_course_presentation_001
+title: 设计PPT Course Presentation方案
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - design
+  - generated
+  - content-generation
+  - design
+query:
+  queryText: PPT Course Presentation 统一风格 讲故事 信息表达
+  queryContext: 设计 PPT Course Presentation deck motion illustration
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/ppt-course-presentation
+  acceptableSkillIds:
+    - design/ppt-maker
+  forbiddenSkillIds:
+    - backend/database-schema-design
+    - frontend/website-homepage-design
+modeOverrides: {}

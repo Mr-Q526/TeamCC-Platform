@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: sandbox
+caseId: sandbox_homepage_blind_fixture_001
+title: 半成品品牌官网首页盲测 fixture
+dataset: fixtures
+tags:
+  - sandbox
+  - frontend
+  - homepage
+sandboxId: homepage-blind-fixture
+taskBrief: 把这个半成品官网首页补完整，要求更像大厂品牌官网。
+projectSeed:
+  rootDir: project
+  description: 半成品官网首页项目，预置 TeamCC artifact fixture
+expected:
+  goodSkillIds:
+    - frontend/website-homepage-design-pro
+    - frontend/website-homepage-design
+  forbiddenSkillIds:
+    - tools/spreadsheet
+  deliverables:
+    - homepage
+    - hero section
+verification:
+  commands:
+    - test -f index.html
+execution:
+  command:
+  artifactsDir: artifacts-fixture
+judge:
+  type: human
+  rubricPath: ../../rubrics/sandbox-default.json
+  resultPath: judge-result.json
+  command:

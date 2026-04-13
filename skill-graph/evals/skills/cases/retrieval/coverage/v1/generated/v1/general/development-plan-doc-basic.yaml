@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_general_development_plan_doc_basic_001
+title: 通用Development Plan Document Basic检索
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - general
+  - generated
+  - architecture
+  - planning
+query:
+  queryText: Development Plan Document Basic 通用任务 方案 处理
+  queryContext: 通用 Development Plan Document Basic general workflow planning debugging
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:architecture
+    - scene:planning
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/development-plan-doc-basic
+  acceptableSkillIds:
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

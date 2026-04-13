@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_database_schema_001
+title: 数据库表结构与索引设计
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - database
+  - architecture
+query:
+  queryText: 数据库表结构设计 索引 唯一约束 分库分表 关联关系
+  queryContext: database schema indexes constraints sharding relations
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/database-schema-design
+  acceptableSkillIds:
+    - backend/data-migration-backfill
+    - backend/cache-strategy-backend
+  forbiddenSkillIds:
+    - tools/spreadsheet
+modeOverrides: {}

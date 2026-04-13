@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_design_system_builder_basic_002
+title: 基础设计系统构建方案
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我要构建一个基础的设计系统，包括令牌系统、UI基础和可重用组件标准，要注重令牌、一致性、可访问性和组件治理，布局要快，标签要明显，尽量少的部分和简短的清单。
+  queryContext: 前端 设计系统 构建 基础 令牌 一致性 治理 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/design-system-builder-basic
+  acceptableSkillIds:
+    - frontend/design-system-builder-pro
+    - frontend/component-library-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_security_rate_limiting_abuse_protection_001
+title: 安全Rate Limiting Abuse Protection策略
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - security
+  - generated
+  - architecture
+  - security-audit
+query:
+  queryText: Rate Limiting Abuse Protection 保护策略 最佳实践
+  queryContext: 安全 Rate Limiting Abuse Protection security baseline hardening
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:architecture
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/rate-limiting-abuse-protection
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

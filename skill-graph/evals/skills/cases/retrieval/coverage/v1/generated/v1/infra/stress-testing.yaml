@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_infra_stress_testing_001
+title: 基础设施Stress Testing排障
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - infra
+  - generated
+  - performance
+  - test
+query:
+  queryText: Stress Testing 部署 监控 构建失败 排查
+  queryContext: 基础设施 Stress Testing deploy observability release
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:performance
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/stress-testing
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

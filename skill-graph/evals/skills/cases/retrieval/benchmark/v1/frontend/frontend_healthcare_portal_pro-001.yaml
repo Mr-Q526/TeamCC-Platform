@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_healthcare_portal_pro_001
+title: 专业版医疗门户设计
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 设计一个provider dashboard，要有deep information architecture、strong
+    hierarchy、explicit states，还要考虑responsive behavior和accessibility。
+  queryContext: provider dashboard 设计 hierarchy behavior accessibility
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/healthcare-portal-pro
+  acceptableSkillIds:
+    - frontend/healthcare-portal-basic
+    - frontend/developer-portal-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

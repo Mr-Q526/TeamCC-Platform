@@ -1,0 +1,6 @@
+*** Begin Patch
+*** Update File: index.html
+@@
+-      <p>这是 TeamCC 沙盒盲测的 fixture 项目。</p>
++      <p>这是 TeamCC 沙盒盲测的 fixture 项目，已经补齐品牌官网首页方向。</p>
+*** End Patch

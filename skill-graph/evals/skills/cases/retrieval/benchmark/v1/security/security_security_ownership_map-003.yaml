@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_security_security_ownership_map_003
+title: 分析安全所有权拓扑
+dataset: retrieval-benchmark-v1
+tags:
+  - security
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - data-analysis
+  - security-audit
+query:
+  queryText: 我要分析git仓库，构建安全所有权拓扑（人员到文件），计算总线因子和敏感代码所有权，并导出CSV/JSON用于图数据库和可视化。另外，还要考虑安全最佳实践和安全威胁模型。
+  queryContext: 安全 所有权拓扑 数据分析 安全审计 最佳实践 威胁模型 security hardening abuse protection
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:data-analysis
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/security-ownership-map
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

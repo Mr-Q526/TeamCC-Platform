@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_website_homepage_design_basic_001
+title: 简单官网首页设计
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+  - homepage
+query:
+  queryText: 帮我设计一个简单的官网首页，主要关注常见的首页部分和快速布局建议，研究、差异化和实施深度有限。
+  queryContext: 前端 官网首页 设计 简单 布局 部分 建议 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+    - scene:homepage
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/website-homepage-design-basic
+  acceptableSkillIds:
+    - frontend/website-homepage-design-pro
+    - frontend/marketing-landing-page
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_frontend_healthcare_portal_basic_001
+title: 前端Healthcare Portal Basic检索
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - generated
+  - design
+query:
+  queryText: Healthcare Portal Basic 适合做什么样的页面和界面
+  queryContext: 前端 Healthcare Portal Basic design system page flow
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/healthcare-portal-basic
+  acceptableSkillIds:
+    - frontend/healthcare-portal-pro
+    - frontend/developer-portal-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_security_rate_limiting_abuse_protection_004
+title: 安全防护与速率限制
+dataset: retrieval-benchmark-v1
+tags:
+  - security
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - architecture
+  - security-audit
+query:
+  queryText: 如何设计速率限制、滥用预防、反爬虫和配额保护，以确保系统的安全性？
+  queryContext: 安全防护 速率限制 滥用预防 反爬虫 配额 设计
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:architecture
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/rate-limiting-abuse-protection
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_data_table_001
+title: 企业后台数据表格与筛选器
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - table
+  - admin
+query:
+  queryText: 企业后台数据表格 筛选 排序 批量操作 冻结列
+  queryContext: data table filters sorting bulk actions sticky columns admin
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:admin
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/data-table-pro
+  acceptableSkillIds:
+    - frontend/data-table-basic
+    - frontend/admin-dashboard-design
+  forbiddenSkillIds:
+    - tools/pdf
+modeOverrides: {}

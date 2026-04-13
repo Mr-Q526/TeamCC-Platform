@@ -1,0 +1,30 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_homepage_brand_001
+title: 品牌官网首页前端设计
+dataset: default
+tags:
+  - frontend
+  - homepage
+  - marketing
+query:
+  queryText: 品牌官网首页homepage前端设计
+  queryContext: marketing landing homepage hero
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:homepage
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/website-homepage-design-pro
+  acceptableSkillIds:
+    - frontend/website-homepage-design
+    - frontend/marketing-landing-page
+  forbiddenSkillIds:
+    - tools/spreadsheet
+modeOverrides: {}

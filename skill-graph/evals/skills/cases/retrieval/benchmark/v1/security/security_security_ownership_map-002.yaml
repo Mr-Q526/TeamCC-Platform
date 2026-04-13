@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_security_security_ownership_map_002
+title: 安全所有权拓扑分析
+dataset: retrieval-benchmark-v1
+tags:
+  - security
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - data-analysis
+  - security-audit
+query:
+  queryText: 我想分析一下代码库的安全所有权拓扑，看看哪些人负责哪些文件，以及计算一下总线因子和敏感代码的所有权。
+  queryContext: 安全 所有权拓扑 代码库 总线因子 敏感代码
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:data-analysis
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/security-ownership-map
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

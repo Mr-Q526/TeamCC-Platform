@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_cache_strategy_001
+title: 后端缓存策略与失效治理
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - cache
+  - performance
+query:
+  queryText: 后端缓存策略 失效 预热 热点 key 一致性
+  queryContext: cache strategy invalidation warmup hot keys consistency backend
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:performance
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/cache-strategy-backend
+  acceptableSkillIds:
+    - backend/backend-performance-profiling
+    - backend/database-schema-design
+  forbiddenSkillIds:
+    - infra/vercel-deploy
+modeOverrides: {}

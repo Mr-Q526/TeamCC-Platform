@@ -63,6 +63,18 @@ export type SkillRetrievalVersionFeature = {
   updatedAt: string
 }
 
+export type SkillRetrievalFeatureScoring = {
+  graphFeatureScoreFormula: string
+  finalScoreFormula: string
+  graphFeatureWeights: {
+    version: number
+    global: number
+    department: number
+    scene: number
+  }
+  graphFeatureInputs: string[]
+}
+
 export type SkillRetrievalFeatures = {
   skillId: string
   name: string
@@ -86,8 +98,29 @@ export type SkillRetrievalFeaturesManifest = {
   registryVersion: string | null
   aggregateGeneratedAt: string | null
   window: string | null
+  scoring: SkillRetrievalFeatureScoring
   itemCount: number
   items: SkillRetrievalFeatures[]
+}
+
+export type SkillGraphFeatureSignalExplanation = {
+  scope: 'global' | 'version' | 'department' | 'scene'
+  weight: number
+  matched: boolean
+  matchedKey: string | null
+  qualityScore: number | null
+  confidence: number | null
+  sampleCount: number | null
+  invocationCount: number | null
+  successRate: number | null
+  weightedContribution: number
+  reason: string
+}
+
+export type SkillGraphFeatureExplanation = {
+  formula: string
+  signals: SkillGraphFeatureSignalExplanation[]
+  missingSignals: string[]
 }
 
 export type SkillGraphFeatures = {
@@ -111,6 +144,7 @@ export type SkillGraphFeatures = {
     department: number
     scene: number
   }
+  graphFeatureExplanation: SkillGraphFeatureExplanation
 }
 
 export type SkillGraphFeatureRequest = Pick<
@@ -131,6 +165,29 @@ export type SkillGraphFeatureResponse = {
 
 export const GENERATED_SKILL_RETRIEVAL_FEATURES_FILE =
   'skill-retrieval-features.json'
+
+const GRAPH_FEATURE_WEIGHTS = {
+  version: 0.35,
+  global: 0.25,
+  department: 0.2,
+  scene: 0.2,
+} as const
+
+const GRAPH_FEATURE_SCORE_FORMULA =
+  'graphFeatureScore = 0.35 * version(qualityScore * confidence) + 0.25 * global(qualityScore * confidence) + 0.20 * department(qualityScore * confidence) + 0.20 * scene(qualityScore * confidence)'
+
+export const RETRIEVAL_FEATURE_SCORING: SkillRetrievalFeatureScoring = {
+  graphFeatureScoreFormula: GRAPH_FEATURE_SCORE_FORMULA,
+  finalScoreFormula:
+    'finalScore = graphFeatures ? 0.70 * recallNormalized + 0.30 * graphFeatureScore : recallNormalized',
+  graphFeatureWeights: { ...GRAPH_FEATURE_WEIGHTS },
+  graphFeatureInputs: [
+    'version aggregate keyed by skillId + version + sourceHash',
+    'global aggregate keyed by skillId',
+    'department aggregate matched from request.department',
+    'scene aggregate matched from request.sceneHints in order',
+  ],
+}
 
 const PROJECT_ROOT = fileURLToPath(new URL('../..', import.meta.url))
 const DEFAULT_AGGREGATE_FILE = join(
@@ -467,6 +524,7 @@ export function buildSkillRetrievalFeatures(
     registryVersion: registryManifest?.registryVersion ?? null,
     aggregateGeneratedAt: aggregateManifest?.generatedAt ?? null,
     window: aggregateManifest?.window ?? null,
+    scoring: RETRIEVAL_FEATURE_SCORING,
     itemCount: items.length,
     items: items.sort((left, right) => left.skillId.localeCompare(right.skillId)),
   }
@@ -496,6 +554,7 @@ export async function readSkillRetrievalFeatures(
       registryVersion: toStringValue(parsed.registryVersion) || null,
       aggregateGeneratedAt: toStringValue(parsed.aggregateGeneratedAt) || null,
       window: toStringValue(parsed.window) || null,
+      scoring: RETRIEVAL_FEATURE_SCORING,
       itemCount:
         typeof parsed.itemCount === 'number' ? parsed.itemCount : items.length,
       items,
@@ -541,25 +600,6 @@ function normalizeCandidateVersionLookup(
   return null
 }
 
-function firstSceneMatch(
-  item: SkillRetrievalFeatures,
-  sceneHints: string[] | undefined,
-): SkillRetrievalAggregateMetric | null {
-  for (const sceneHint of sceneHints ?? []) {
-    const normalized = normalizeSceneKey(sceneHint)
-    if (!normalized) {
-      continue
-    }
-
-    const match = item.scenes[normalized]
-    if (match) {
-      return match
-    }
-  }
-
-  return null
-}
-
 function graphFeatureScoreFromBreakdown(breakdown: {
   global: number
   version: number
@@ -572,6 +612,133 @@ function graphFeatureScoreFromBreakdown(breakdown: {
       breakdown.department +
       breakdown.scene,
   )
+}
+
+function signalExplanation(options: {
+  scope: SkillGraphFeatureSignalExplanation['scope']
+  weight: number
+  matchedKey: string | null
+  qualityScore: number | null
+  confidence: number | null
+  sampleCount: number | null
+  invocationCount: number | null
+  successRate: number | null
+  weightedContribution: number
+  reason: string
+}): SkillGraphFeatureSignalExplanation {
+  return {
+    scope: options.scope,
+    weight: options.weight,
+    matched: options.matchedKey !== null,
+    matchedKey: options.matchedKey,
+    qualityScore: options.qualityScore,
+    confidence: options.confidence,
+    sampleCount: options.sampleCount,
+    invocationCount: options.invocationCount,
+    successRate: options.successRate,
+    weightedContribution: roundMetric(options.weightedContribution),
+    reason: options.reason,
+  }
+}
+
+function aggregateMetricExplanation(options: {
+  scope: SkillGraphFeatureSignalExplanation['scope']
+  weight: number
+  matchedKey: string | null
+  metric: SkillRetrievalAggregateMetric | null
+  contribution: number
+  reason: string
+}): SkillGraphFeatureSignalExplanation {
+  return signalExplanation({
+    scope: options.scope,
+    weight: options.weight,
+    matchedKey: options.matchedKey,
+    qualityScore: options.metric?.score ?? null,
+    confidence: options.metric?.confidence ?? null,
+    sampleCount: options.metric?.sampleCount ?? null,
+    invocationCount: options.metric?.invocationCount ?? null,
+    successRate: options.metric?.successRate ?? null,
+    weightedContribution: options.contribution,
+    reason: options.reason,
+  })
+}
+
+function versionFeatureExplanation(options: {
+  feature: SkillRetrievalVersionFeature | null
+  contribution: number
+  requestedVersion: string | null
+  requestedSourceHash: string | null
+  featureItemExists: boolean
+}): SkillGraphFeatureSignalExplanation {
+  const requestedIdentity = [
+    options.requestedVersion ? `version=${options.requestedVersion}` : null,
+    options.requestedSourceHash ? `sourceHash=${options.requestedSourceHash}` : null,
+  ]
+    .filter(Boolean)
+    .join(', ')
+
+  return signalExplanation({
+    scope: 'version',
+    weight: GRAPH_FEATURE_WEIGHTS.version,
+    matchedKey: options.feature?.versionKey ?? null,
+    qualityScore: options.feature?.qualityScore ?? null,
+    confidence: options.feature?.confidence ?? null,
+    sampleCount: options.feature?.sampleCount ?? null,
+    invocationCount: options.feature?.invocationCount ?? null,
+    successRate: options.feature?.successRate ?? null,
+    weightedContribution: options.contribution,
+    reason: options.feature
+      ? `matched exact SkillVersion aggregate ${options.feature.versionKey}`
+      : options.featureItemExists
+        ? `missing SkillVersion aggregate for ${requestedIdentity || 'candidate identity'}`
+        : 'missing retrieval feature item for candidate skillId',
+  })
+}
+
+function sceneMatchDetails(
+  item: SkillRetrievalFeatures | undefined,
+  sceneHints: string[] | undefined,
+): {
+  key: string | null
+  metric: SkillRetrievalAggregateMetric | null
+  reason: string
+} {
+  const normalizedHints = (sceneHints ?? [])
+    .map(normalizeSceneKey)
+    .filter((hint): hint is string => hint !== null)
+
+  if (!item) {
+    return {
+      key: null,
+      metric: null,
+      reason: 'missing retrieval feature item for candidate skillId',
+    }
+  }
+
+  if (normalizedHints.length === 0) {
+    return {
+      key: null,
+      metric: null,
+      reason: 'request did not provide sceneHints',
+    }
+  }
+
+  for (const hint of normalizedHints) {
+    const match = item.scenes[hint]
+    if (match) {
+      return {
+        key: hint,
+        metric: match,
+        reason: `matched scene aggregate ${hint}`,
+      }
+    }
+  }
+
+  return {
+    key: null,
+    metric: null,
+    reason: `no scene aggregate matched hints: ${normalizedHints.join(', ')}`,
+  }
 }
 
 export async function getSkillGraphFeatures(
@@ -593,22 +760,70 @@ export async function getSkillGraphFeatures(
       : null
     const departmentFeature =
       featureItem && department ? featureItem.departments[department] ?? null : null
-    const sceneFeature = featureItem ? firstSceneMatch(featureItem, request.sceneHints) : null
+    const sceneDetails = sceneMatchDetails(featureItem, request.sceneHints)
+    const sceneFeature = sceneDetails.metric
 
     const breakdown = {
       version: roundMetric(
-        0.35 * ((versionFeature?.qualityScore ?? 0) * (versionFeature?.confidence ?? 0)),
+        GRAPH_FEATURE_WEIGHTS.version *
+          ((versionFeature?.qualityScore ?? 0) * (versionFeature?.confidence ?? 0)),
       ),
       global: roundMetric(
-        0.25 * ((globalFeature?.score ?? 0) * (globalFeature?.confidence ?? 0)),
+        GRAPH_FEATURE_WEIGHTS.global *
+          ((globalFeature?.score ?? 0) * (globalFeature?.confidence ?? 0)),
       ),
       department: roundMetric(
-        0.2 * ((departmentFeature?.score ?? 0) * (departmentFeature?.confidence ?? 0)),
+        GRAPH_FEATURE_WEIGHTS.department *
+          ((departmentFeature?.score ?? 0) * (departmentFeature?.confidence ?? 0)),
       ),
       scene: roundMetric(
-        0.2 * ((sceneFeature?.score ?? 0) * (sceneFeature?.confidence ?? 0)),
+        GRAPH_FEATURE_WEIGHTS.scene *
+          ((sceneFeature?.score ?? 0) * (sceneFeature?.confidence ?? 0)),
       ),
     }
+    const signals: SkillGraphFeatureSignalExplanation[] = [
+      versionFeatureExplanation({
+        feature: versionFeature,
+        contribution: breakdown.version,
+        requestedVersion: toStringValue(candidate.version ?? '') || null,
+        requestedSourceHash: toStringValue(candidate.sourceHash ?? '') || null,
+        featureItemExists: Boolean(featureItem),
+      }),
+      aggregateMetricExplanation({
+        scope: 'global',
+        weight: GRAPH_FEATURE_WEIGHTS.global,
+        matchedKey: globalFeature ? 'global' : null,
+        metric: globalFeature,
+        contribution: breakdown.global,
+        reason: globalFeature
+          ? 'matched global aggregate'
+          : featureItem
+            ? 'missing global aggregate for candidate skillId'
+            : 'missing retrieval feature item for candidate skillId',
+      }),
+      aggregateMetricExplanation({
+        scope: 'department',
+        weight: GRAPH_FEATURE_WEIGHTS.department,
+        matchedKey: departmentFeature && department ? department : null,
+        metric: departmentFeature,
+        contribution: breakdown.department,
+        reason: departmentFeature && department
+          ? `matched department aggregate ${department}`
+          : !featureItem
+            ? 'missing retrieval feature item for candidate skillId'
+            : department
+              ? `no department aggregate matched ${department}`
+              : 'request did not provide department',
+      }),
+      aggregateMetricExplanation({
+        scope: 'scene',
+        weight: GRAPH_FEATURE_WEIGHTS.scene,
+        matchedKey: sceneDetails.key,
+        metric: sceneFeature,
+        contribution: breakdown.scene,
+        reason: sceneDetails.reason,
+      }),
+    ]
 
     return {
       skillId: candidate.skillId,
@@ -627,6 +842,13 @@ export async function getSkillGraphFeatures(
       successRate: versionFeature?.successRate ?? globalFeature?.successRate ?? null,
       graphFeatureScore: graphFeatureScoreFromBreakdown(breakdown),
       graphFeatureBreakdown: breakdown,
+      graphFeatureExplanation: {
+        formula: GRAPH_FEATURE_SCORE_FORMULA,
+        signals,
+        missingSignals: signals
+          .filter(signal => !signal.matched)
+          .map(signal => `${signal.scope}: ${signal.reason}`),
+      },
     }
   })
 

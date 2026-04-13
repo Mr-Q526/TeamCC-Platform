@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_contact_sales_page_pro_001
+title: 设计专业的销售联系页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我需要设计一个专业的销售联系页面，要注重表单的清晰度，让用户对下一步操作有信心，还要考虑页面的路由和信任度。另外，页面的信息架构要深入，层次结构要清晰，状态要明确，响应式行为要好，还要有可访问性和验证检查。
+  queryContext: 前端 设计 销售联系页面 表单 路由 信任度 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/contact-sales-page-pro
+  acceptableSkillIds:
+    - frontend/contact-sales-page-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

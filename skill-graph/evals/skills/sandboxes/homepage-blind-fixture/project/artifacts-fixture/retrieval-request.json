@@ -1,0 +1,9 @@
+{
+  "queryText": "品牌官网首页homepage前端设计",
+  "queryContext": "marketing landing homepage hero",
+  "cwd": "/sandbox/homepage-blind-fixture/project",
+  "department": "dept:frontend-platform",
+  "domainHints": ["frontend"],
+  "sceneHints": ["scene:homepage"],
+  "limit": 5
+}

@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_review_code_review_general_001
+title: 审查General Code Review策略
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - review
+  - generated
+  - review
+query:
+  queryText: code-review-general 测试 策略 覆盖 边界
+  queryContext: 审查 review review strategy unit test
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-general
+  acceptableSkillIds:
+    - review/code-review-risk-based
+  forbiddenSkillIds:
+    - frontend/website-homepage-design
+    - backend/rest-api-implementation
+modeOverrides: {}

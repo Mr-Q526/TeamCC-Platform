@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_security_rate_limiting_abuse_protection_002
+title: 设计安全防护机制
+dataset: retrieval-benchmark-v1
+tags:
+  - security
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-pure
+  - architecture
+  - security-audit
+query:
+  queryText: 我要设计一个防止滥用和限制访问频率的安全机制，以确保系统的稳定性和公平性。
+  queryContext: 安全 防护 滥用 频率 限制 稳定 公平
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:architecture
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/rate-limiting-abuse-protection
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

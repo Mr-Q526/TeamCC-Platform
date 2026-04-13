@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_tools_doc_004
+title: 用docx生成内容并检查格式
+dataset: retrieval-benchmark-v1
+tags:
+  - tools
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - content-generation
+  - review
+query:
+  queryText: 我需要用docx生成一些内容，并且要检查格式是否正确，有什么工具可以帮助我？
+  queryContext: docx 内容生成 格式检查 工具
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:content-generation
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/doc
+  acceptableSkillIds:
+    - tools/playwright
+    - tools/screenshot
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - frontend/website-homepage-design-pro
+modeOverrides: {}

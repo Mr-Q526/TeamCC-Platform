@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_checkout_flow_basic_002
+title: 设计基础的结账流程
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 请设计一个基础的结账流程，要注重支付信心、减少摩擦、错误恢复和完成度，布局要快，标签要明显，要有最少的部分设置和简短的清单。
+  queryContext: 前端 设计 结账流程 基础 支付信心 错误恢复 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/checkout-flow-basic
+  acceptableSkillIds:
+    - frontend/checkout-flow-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

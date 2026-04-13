@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_auth_authorization_001
+title: 权限系统与角色授权模型
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - auth
+  - security
+query:
+  queryText: RBAC 权限系统 角色授权 资源级权限 审计日志
+  queryContext: rbac authorization permissions resource scope audit backend
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:security
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/auth-authorization-backend
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/auth-login-page-pro
+modeOverrides: {}

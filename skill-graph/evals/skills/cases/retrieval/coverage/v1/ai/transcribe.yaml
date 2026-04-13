@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_ai_transcribe_001
+title: 音视频转写与字幕整理
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - ai
+  - audio
+  - content
+query:
+  queryText: 会议录音转文字 字幕整理 发言人区分 时间戳
+  queryContext: audio transcription subtitles speaker diarization timestamps
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/transcribe
+  acceptableSkillIds:
+    - tools/doc
+    - ai/humanizer-zh-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-basic
+modeOverrides: {}

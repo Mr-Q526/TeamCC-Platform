@@ -18,6 +18,7 @@ export type SkillRegistryGraphSyncManifest = {
   domainCount: number
   departmentCount: number
   sceneCount: number
+  genericAliasCount: number
 }
 
 const PROJECT_ROOT = fileURLToPath(new URL('../..', import.meta.url))
@@ -80,6 +81,110 @@ function qualityTierZh(value: string): string {
   }
 }
 
+type AliasUsage = {
+  alias: string
+  normalizedName: string
+  skillCount: number
+  isGeneric: boolean
+}
+
+type AliasLink = AliasUsage & {
+  aliasType: 'name' | 'displayName' | 'alias'
+  weight: number
+}
+
+const ALWAYS_GENERIC_ALIASES = new Set(
+  [
+    'ai',
+    'api',
+    'architecture',
+    'backend',
+    'backend-platform',
+    'basic',
+    'content-generation',
+    'data',
+    'design',
+    'frontend',
+    'frontend-platform',
+    'growth',
+    'page',
+    'pro',
+    'review',
+    'security',
+    'security-audit',
+    'server side',
+    'test',
+    'tools',
+    'ui',
+    'web 前端',
+    '专业版',
+    '人工智能',
+    '代码审查',
+    '前端',
+    '后端',
+    '基础版',
+    '安全',
+    '安全审计',
+    '数据',
+    '服务端',
+    '架构',
+    '架构设计',
+    '模块边界',
+    '测试',
+    '设计',
+    '评审',
+    '验证',
+    '视觉设计',
+    '页面',
+    '页面开发',
+  ].map(normalizeName),
+)
+
+function buildAliasUsageMap(registry: SkillRegistryManifest): Map<string, AliasUsage> {
+  const aliasToSkills = new Map<string, Set<string>>()
+  const aliasDisplay = new Map<string, string>()
+
+  for (const skill of registry.skills) {
+    for (const alias of new Set([skill.name, skill.displayName, ...skill.aliases])) {
+      const trimmed = alias.trim()
+      if (!trimmed) continue
+      const normalized = normalizeName(trimmed)
+      aliasDisplay.set(normalized, trimmed)
+      const skills = aliasToSkills.get(normalized) ?? new Set<string>()
+      skills.add(skill.skillId)
+      aliasToSkills.set(normalized, skills)
+    }
+  }
+
+  return new Map(
+    [...aliasToSkills.entries()].map(([normalizedName, skills]) => {
+      const skillCount = skills.size
+      const isGeneric = skillCount >= 5 || ALWAYS_GENERIC_ALIASES.has(normalizedName)
+      return [
+        normalizedName,
+        {
+          alias: aliasDisplay.get(normalizedName) ?? normalizedName,
+          normalizedName,
+          skillCount,
+          isGeneric,
+        },
+      ]
+    }),
+  )
+}
+
+function aliasWeight(aliasType: AliasLink['aliasType'], usage: AliasUsage): number {
+  if (aliasType === 'name') return 1
+  if (aliasType === 'displayName') return 0.9
+  if (usage.isGeneric) {
+    if (usage.skillCount >= 50) return 0.05
+    if (usage.skillCount >= 20) return 0.1
+    if (usage.skillCount >= 10) return 0.18
+    return 0.25
+  }
+  return usage.skillCount > 1 ? 0.65 : 0.8
+}
+
 function constraintsCypher(): string[] {
   return [
     'CREATE CONSTRAINT skill_id_v1 IF NOT EXISTS FOR (s:Skill) REQUIRE s.skillId IS UNIQUE;',
@@ -88,10 +193,22 @@ function constraintsCypher(): string[] {
     'CREATE CONSTRAINT domain_id_v1 IF NOT EXISTS FOR (d:Domain) REQUIRE d.domainId IS UNIQUE;',
     'CREATE CONSTRAINT scene_id_v1 IF NOT EXISTS FOR (sc:Scene) REQUIRE sc.sceneId IS UNIQUE;',
     'CREATE CONSTRAINT department_id_v1 IF NOT EXISTS FOR (d:Department) REQUIRE d.departmentId IS UNIQUE;',
+    `
+MATCH (:Alias)-[r:ALIASES_SKILL]->(:Skill)
+WHERE r.weight IS NULL
+SET r.aliasType = coalesce(r.aliasType, 'legacy'),
+    r.weight = 0.1,
+    r.isGeneric = true,
+    r.skillCount = coalesce(r.skillCount, 1),
+    r.updatedAt = datetime();
+`,
   ]
 }
 
-function skillCypher(skill: SkillRegistryEntry): string[] {
+function skillCypher(
+  skill: SkillRegistryEntry,
+  aliasUsageMap: Map<string, AliasUsage>,
+): string[] {
   const versionKey = makeVersionKey(skill.skillId, skill.version, skill.sourceHash)
   const tier = qualityTier(skill)
   const statements: string[] = [
@@ -138,19 +255,45 @@ SET r.labelZh = '所属领域',
 `,
   ]
 
-  for (const alias of new Set([skill.name, skill.displayName, ...skill.aliases])) {
-    if (!alias.trim()) {
+  const aliasLinks: AliasLink[] = [
+    { alias: skill.name, aliasType: 'name' as const },
+    { alias: skill.displayName, aliasType: 'displayName' as const },
+    ...skill.aliases.map(alias => ({ alias, aliasType: 'alias' as const })),
+  ]
+    .map(item => {
+      const normalizedName = normalizeName(item.alias)
+      const usage = aliasUsageMap.get(normalizedName)
+      if (!usage) return null
+      return {
+        ...usage,
+        alias: item.alias,
+        aliasType: item.aliasType,
+        weight: aliasWeight(item.aliasType, usage),
+      }
+    })
+    .filter((item): item is AliasLink => item !== null)
+
+  const seenAliases = new Set<string>()
+  for (const alias of aliasLinks) {
+    if (seenAliases.has(alias.normalizedName)) {
       continue
     }
+    seenAliases.add(alias.normalizedName)
 
     statements.push(`
-MERGE (a:Alias {name: ${cypherLiteral(alias)}})
-SET a.normalizedName = ${cypherLiteral(normalizeName(alias))},
+MERGE (a:Alias {name: ${cypherLiteral(alias.alias)}})
+SET a.normalizedName = ${cypherLiteral(alias.normalizedName)},
+    a.skillCount = ${alias.skillCount},
+    a.isGeneric = ${alias.isGeneric ? 'true' : 'false'},
     a.updatedAt = datetime()
 WITH a
 MATCH (s:Skill {skillId: ${cypherLiteral(skill.skillId)}})
 MERGE (a)-[r:ALIASES_SKILL]->(s)
 SET r.labelZh = '别名',
+    r.aliasType = ${cypherLiteral(alias.aliasType)},
+    r.weight = ${alias.weight},
+    r.isGeneric = ${alias.isGeneric ? 'true' : 'false'},
+    r.skillCount = ${alias.skillCount},
     r.updatedAt = datetime();
 `)
   }
@@ -193,9 +336,10 @@ export function buildSkillRegistryGraphSyncCypher(
   registry: SkillRegistryManifest,
 ): string {
   const statements = constraintsCypher()
+  const aliasUsageMap = buildAliasUsageMap(registry)
 
   for (const skill of registry.skills) {
-    statements.push(...skillCypher(skill))
+    statements.push(...skillCypher(skill, aliasUsageMap))
   }
 
   return statements.join('\n')
@@ -208,6 +352,8 @@ export function summarizeSkillRegistryGraphSync(
   const domains = new Set<string>()
   const departments = new Set<string>()
   const scenes = new Set<string>()
+  let genericAliasCount = 0
+  const aliasUsageMap = buildAliasUsageMap(registry)
 
   for (const skill of registry.skills) {
     aliases.add(skill.name)
@@ -216,6 +362,9 @@ export function summarizeSkillRegistryGraphSync(
     domains.add(skill.domain)
     for (const department of skill.departmentTags) departments.add(department)
     for (const scene of skill.sceneTags) scenes.add(scene)
+  }
+  for (const alias of aliasUsageMap.values()) {
+    if (alias.isGeneric) genericAliasCount += 1
   }
 
   return {
@@ -228,6 +377,7 @@ export function summarizeSkillRegistryGraphSync(
     domainCount: domains.size,
     departmentCount: departments.size,
     sceneCount: scenes.size,
+    genericAliasCount,
   }
 }
 

@@ -1,0 +1,938 @@
+{
+  "sampleSize": 36,
+  "sample": [
+    {
+      "caseId": "retrieval_benchmark_frontend_about_company_page_basic_001",
+      "title": "设计公司相关页面基础版",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "我要设计关于公司的页面，包括公司故事、团队和使命，要让人信任，布局要快，标签要明显，板块要少，还要有个简短的清单。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/about-company-page-basic"
+        ],
+        "acceptableSkillIds": [
+          "frontend/about-company-page-pro"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_contact_sales_page_basic_001",
+      "title": "设计销售联系页面",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "我要设计一个contact sales page，要求form清晰，next-step有信心，routing正确，trust度高。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/contact-sales-page-basic"
+        ],
+        "acceptableSkillIds": [
+          "frontend/contact-sales-page-pro"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_component_library_pro_001",
+      "title": "设计组件库的API和使用示例",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "我要设计一个组件库，需要考虑API的清晰度、变体和状态，还要有使用示例。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic",
+          "frontend/design-system-builder-basic"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_backend_api_integration_testing_004",
+      "title": "后端API集成测试方案",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "backend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "test"
+      ],
+      "queryText": "我需要设计一个后端API集成测试方案，要测试不同服务、数据库、认证和外部依赖之间的交互，确保合同正确，使用真实的测试数据，保证测试的隔离性和确定性。",
+      "expected": {
+        "mustHitSkillIds": [
+          "backend/api-integration-testing"
+        ],
+        "acceptableSkillIds": [
+          "backend/rest-api-implementation",
+          "backend/backend-api-architecture"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "tools/playwright"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_backend_auth_authorization_backend_001",
+      "title": "实现后端的认证和授权",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "backend",
+        "set:benchmark",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "architecture",
+        "security-audit"
+      ],
+      "queryText": "我要在后端实现认证和授权功能，包括但不限于身份验证、授权、会话、API密钥、RBAC、ABAC和租户边界，要注意最小权限、安全默认值、会话安全和可审计的权限检查。",
+      "expected": {
+        "mustHitSkillIds": [
+          "backend/auth-authorization-backend"
+        ],
+        "acceptableSkillIds": [
+          "backend/backend-api-architecture",
+          "backend/rest-api-implementation"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "tools/playwright"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_backend_background_jobs_queues_002",
+      "title": "设计后台任务队列",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "backend",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-pure",
+        "architecture",
+        "debug"
+      ],
+      "queryText": "我需要设计一个后台任务队列，包括 、 、 、 、 和 。",
+      "expected": {
+        "mustHitSkillIds": [
+          "backend/background-jobs-queues"
+        ],
+        "acceptableSkillIds": [
+          "backend/backend-api-architecture",
+          "backend/rest-api-implementation"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "tools/playwright"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_design_motion_video_maker_005",
+      "title": "制作动画讲解视频",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "design",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "content-generation",
+        "design"
+      ],
+      "queryText": "根据这个文本制作一个动画讲解视频，要有AE/PR风格的动效",
+      "expected": {
+        "mustHitSkillIds": [
+          "design/motion-video-maker"
+        ],
+        "acceptableSkillIds": [
+          "design/ppt-maker"
+        ],
+        "forbiddenSkillIds": [
+          "backend/database-schema-design",
+          "frontend/website-homepage-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_design_jimeng_003",
+      "title": "用AI生成设计图片",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "design",
+        "set:benchmark",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "content-generation",
+        "design"
+      ],
+      "queryText": "我需要用AI生成一些设计图片，用于内容创作，比如PPT或动态视频。",
+      "expected": {
+        "mustHitSkillIds": [
+          "design/jimeng"
+        ],
+        "acceptableSkillIds": [
+          "design/ppt-maker",
+          "design/motion-video-maker"
+        ],
+        "forbiddenSkillIds": [
+          "backend/database-schema-design",
+          "frontend/website-homepage-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_design_jimeng_001",
+      "title": "用即梦API生成图片",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "design",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-mixed",
+        "content-generation",
+        "design"
+      ],
+      "queryText": "我想用即梦AI生成图片，给我一个API，我可以输入一些描述，它能给我生成相应的图片。",
+      "expected": {
+        "mustHitSkillIds": [
+          "design/jimeng"
+        ],
+        "acceptableSkillIds": [
+          "design/ppt-maker",
+          "design/motion-video-maker"
+        ],
+        "forbiddenSkillIds": [
+          "backend/database-schema-design",
+          "frontend/website-homepage-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_tools_doc_002",
+      "title": "生成并编辑docx文档",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "tools",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "content-generation",
+        "review"
+      ],
+      "queryText": "我需要一个工具来创建和编辑docx文档，并且要确保格式和排版的准确性。",
+      "expected": {
+        "mustHitSkillIds": [
+          "tools/doc"
+        ],
+        "acceptableSkillIds": [
+          "tools/playwright",
+          "tools/screenshot"
+        ],
+        "forbiddenSkillIds": [
+          "backend/rest-api-implementation",
+          "frontend/website-homepage-design-pro"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_tools_doc_004",
+      "title": "用docx生成内容并检查格式",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "tools",
+        "set:benchmark",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "content-generation",
+        "review"
+      ],
+      "queryText": "我需要用docx生成一些内容，并且要检查格式是否正确，有什么工具可以帮助我？",
+      "expected": {
+        "mustHitSkillIds": [
+          "tools/doc"
+        ],
+        "acceptableSkillIds": [
+          "tools/playwright",
+          "tools/screenshot"
+        ],
+        "forbiddenSkillIds": [
+          "backend/rest-api-implementation",
+          "frontend/website-homepage-design-pro"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_tools_spreadsheet_002",
+      "title": "创建和编辑电子表格",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "tools",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-pure",
+        "content-generation",
+        "data-analysis"
+      ],
+      "queryText": "我要创建一个电子表格，用来记录数据，还要能进行数据分析和格式化。",
+      "expected": {
+        "mustHitSkillIds": [
+          "tools/spreadsheet"
+        ],
+        "acceptableSkillIds": [
+          "tools/playwright",
+          "tools/screenshot"
+        ],
+        "forbiddenSkillIds": [
+          "backend/rest-api-implementation",
+          "frontend/website-homepage-design-pro"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_security_rate_limiting_abuse_protection_003",
+      "title": "设计防滥用限流架构",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "security",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "architecture",
+        "security-audit"
+      ],
+      "queryText": "我需要设计一个架构，能防止恶意请求滥用，同时进行限流，确保系统稳定。",
+      "expected": {
+        "mustHitSkillIds": [
+          "security/rate-limiting-abuse-protection"
+        ],
+        "acceptableSkillIds": [
+          "security/security-best-practices",
+          "security/security-threat-model"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/marketing-landing-page",
+          "backend/backend-api-architecture"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_security_dependency_supply_chain_audit_001",
+      "title": "安全领域依赖供应链审计",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "security",
+        "set:benchmark",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "security-audit",
+        "review"
+      ],
+      "queryText": "我要做安全方面的依赖审查，看看有没有漏洞的包，还要检查锁文件的风险、许可证的问题和供应链的卫生情况，重点关注已知的CVE、拼写错误的风险、锁文件的完整性和更新的安全性。",
+      "expected": {
+        "mustHitSkillIds": [
+          "security/dependency-supply-chain-audit"
+        ],
+        "acceptableSkillIds": [
+          "security/security-vulnerability-check"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/marketing-landing-page",
+          "backend/backend-api-architecture"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_security_security_best_practices_003",
+      "title": "安全最佳实践审查",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "security",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-mixed",
+        "review",
+        "security-audit"
+      ],
+      "queryText": "对我的代码进行安全最佳实践审查，并提供改进建议。",
+      "expected": {
+        "mustHitSkillIds": [
+          "security/security-best-practices"
+        ],
+        "acceptableSkillIds": [
+          "security/security-threat-model"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/marketing-landing-page",
+          "backend/backend-api-architecture"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_infra_observability_backend_005",
+      "title": "后端系统的可观测性设置",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "infra",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "debug",
+        "incident"
+      ],
+      "queryText": "我要为后端系统设置logs、metrics和traces，还要创建dashboards和alerts。",
+      "expected": {
+        "mustHitSkillIds": [
+          "infra/observability-backend"
+        ],
+        "acceptableSkillIds": [
+          "infra/vercel-deploy"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/component-library-basic",
+          "backend/rest-api-implementation"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_infra_load_testing_005",
+      "title": "对API进行负载测试",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "infra",
+        "set:benchmark",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "performance",
+        "test"
+      ],
+      "queryText": "我要对一个API进行负载测试，看看它在高并发情况下的性能表现，需要用什么工具？",
+      "expected": {
+        "mustHitSkillIds": [
+          "infra/load-testing"
+        ],
+        "acceptableSkillIds": [
+          "infra/observability-backend",
+          "infra/vercel-deploy"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/component-library-basic",
+          "backend/rest-api-implementation"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_infra_ci_quality_gates_002",
+      "title": "CI 流程质量把关",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "infra",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-mixed",
+        "release",
+        "test"
+      ],
+      "queryText": "我要确保这次的 CI 流程能通过所有必要的检查，保证代码质量。",
+      "expected": {
+        "mustHitSkillIds": [
+          "infra/ci-quality-gates"
+        ],
+        "acceptableSkillIds": [
+          "infra/observability-backend",
+          "infra/vercel-deploy"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/component-library-basic",
+          "backend/rest-api-implementation"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_general_bug_fix_debugging_001",
+      "title": "修复代码中的运行时错误",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "general",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "debug",
+        "test"
+      ],
+      "queryText": "我在代码中遇到了运行时错误，帮我诊断并修复一下。",
+      "expected": {
+        "mustHitSkillIds": [
+          "general/bug-fix-debugging"
+        ],
+        "acceptableSkillIds": [
+          "general/development-plan-doc-pro"
+        ],
+        "forbiddenSkillIds": [
+          "security/security-threat-model",
+          "frontend/admin-dashboard-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_general_bug_fix_debugging_004",
+      "title": "排查代码问题并修复",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "general",
+        "set:benchmark",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "debug",
+        "test"
+      ],
+      "queryText": "最近代码运行有问题，帮我debug一下，看看哪里出了bug，然后给我个patch修复一下，最后写个test验证下。",
+      "expected": {
+        "mustHitSkillIds": [
+          "general/bug-fix-debugging"
+        ],
+        "acceptableSkillIds": [
+          "general/development-plan-doc-pro"
+        ],
+        "forbiddenSkillIds": [
+          "security/security-threat-model",
+          "frontend/admin-dashboard-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_general_wechat_toolkit_003",
+      "title": "微信公众号文章处理",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "general",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-mixed",
+        "content-generation",
+        "release"
+      ],
+      "queryText": "我想搜索、下载、改写和发布微信公众号文章，有没有一站式的工具包可以使用？",
+      "expected": {
+        "mustHitSkillIds": [
+          "general/wechat-toolkit"
+        ],
+        "acceptableSkillIds": [
+          "general/bug-fix-debugging",
+          "general/development-plan-doc-pro"
+        ],
+        "forbiddenSkillIds": [
+          "security/security-threat-model",
+          "frontend/admin-dashboard-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_ai_humanizer_zh_basic_006",
+      "title": "优化中文 文本使其更自然",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "ai",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "content-generation",
+        "writing"
+      ],
+      "queryText": "帮我把这段 生成的中文内容处理一下，让它听起来不那么生硬，更像人写的。",
+      "expected": {
+        "mustHitSkillIds": [
+          "ai/humanizer-zh-basic"
+        ],
+        "acceptableSkillIds": [
+          "ai/humanizer-zh-pro"
+        ],
+        "forbiddenSkillIds": [
+          "tools/playwright",
+          "frontend/admin-dashboard-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_ai_humanizer_zh_basic_002",
+      "title": "让中文AI文本更自然",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "ai",
+        "set:benchmark",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "content-generation",
+        "writing"
+      ],
+      "queryText": "我有一段中文AI生成的文本，感觉有点生硬，有没有简单的方法让它听起来更自然一些？",
+      "expected": {
+        "mustHitSkillIds": [
+          "ai/humanizer-zh-basic"
+        ],
+        "acceptableSkillIds": [
+          "ai/humanizer-zh-pro"
+        ],
+        "forbiddenSkillIds": [
+          "tools/playwright",
+          "frontend/admin-dashboard-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_ai_transcribe_005",
+      "title": "音频转录为文本",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "ai",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-pure",
+        "content-generation",
+        "data-analysis"
+      ],
+      "queryText": "把这个音频文件转录成文本，并且标注说话人。",
+      "expected": {
+        "mustHitSkillIds": [
+          "ai/transcribe"
+        ],
+        "acceptableSkillIds": [
+          "ai/humanizer-zh-pro"
+        ],
+        "forbiddenSkillIds": [
+          "tools/playwright",
+          "frontend/admin-dashboard-design"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_review_code_review_general_001",
+      "title": "对代码进行全面审查",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "review",
+        "set:benchmark",
+        "difficulty:ambiguous",
+        "lang:zh-mixed",
+        "review"
+      ],
+      "queryText": "我需要对这段代码进行审查，看看有没有问题，包括但不限于bug、可维护性风险和缺失的测试。",
+      "expected": {
+        "mustHitSkillIds": [
+          "review/code-review-general"
+        ],
+        "acceptableSkillIds": [
+          "review/code-review-risk-based"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design",
+          "backend/rest-api-implementation"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_about_company_page_basic_002",
+      "title": "公司介绍页面基础设计",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "设计一个公司介绍页面，要体现信任、叙述、人员、价值观和公司证据，强调快速布局、明显标签、最少的部分设置和简短清单。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/about-company-page-basic"
+        ],
+        "acceptableSkillIds": [
+          "frontend/about-company-page-pro"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_about_company_page_pro_001",
+      "title": "设计专业的公司介绍页面",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "design"
+      ],
+      "queryText": "我要设计一个公司介绍页面，要体现公司的信任、故事、团队、价值观和证明，还要考虑信息架构、层次结构、状态、响应式行为、可访问性和验证检查。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/about-company-page-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/about-company-page-basic"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_about_company_page_pro_002",
+      "title": "设计公司介绍页面（专业版）",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "我需要设计一个专业的公司介绍页面，要体现公司的信任度、价值观和发展历程，同时要考虑信息架构、层次结构、响应式设计和可访问性。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/about-company-page-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/about-company-page-basic"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_admin_dashboard_design_001",
+      "title": "设计管理控制台的界面",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "我需要设计一个管理后台的界面，要注重操作效率，以表格布局为主，有筛选、批量操作和状态可见性，产品UI要简洁。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/admin-dashboard-design"
+        ],
+        "acceptableSkillIds": [
+          "frontend/analytics-dashboard-design"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_admin_dashboard_design_002",
+      "title": "设计管理后台的仪表盘",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "帮忙设计一个管理后台的仪表盘，要注重操作员效率、表格布局、筛选功能、批量操作和状态可见性。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/admin-dashboard-design"
+        ],
+        "acceptableSkillIds": [
+          "frontend/analytics-dashboard-design"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_ai_chat_interface_basic_001",
+      "title": "设计 聊天界面基础版",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "design"
+      ],
+      "queryText": "帮我设计一个 聊天界面的基础版，要有对话流程和安全提示。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/ai-chat-interface-basic"
+        ],
+        "acceptableSkillIds": [
+          "frontend/ai-chat-interface-pro"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_ai_chat_interface_basic_002",
+      "title": "设计基本的AI聊天界面",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "我想设计一个基本的AI聊天界面，要考虑对话流程、工具状态、引用和安全性，同时要快速布局、有明显的标签和简洁的界面。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/ai-chat-interface-basic"
+        ],
+        "acceptableSkillIds": [
+          "frontend/ai-chat-interface-pro"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_ai_chat_interface_pro_001",
+      "title": "设计AI聊天界面的专业版",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "我需要设计一个专业版的AI聊天界面，要注重对话流程、工具状态、引用、安全性和信任度，同时要考虑到深层信息架构、强层次结构、明确的状态、响应式行为、可访问性和验证检查。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/ai-chat-interface-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/ai-chat-interface-basic"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_ai_chat_interface_pro_002",
+      "title": "设计专业的AI聊天界面",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "请设计一个专业的AI聊天界面，要注重对话流程、工具状态、引用、安全性和信任度，同时要考虑信息架构、层次结构、响应式设计和可访问性。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/ai-chat-interface-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/ai-chat-interface-basic"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_analytics_dashboard_design_001",
+      "title": "设计数据大屏和 仪表盘",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "design"
+      ],
+      "queryText": "我要设计一个数据大屏和 仪表盘，用于展示业务数据和 ，要突出重点，方便决策。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/analytics-dashboard-design"
+        ],
+        "acceptableSkillIds": [
+          "frontend/admin-dashboard-design"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    },
+    {
+      "caseId": "retrieval_benchmark_frontend_analytics_dashboard_design_002",
+      "title": "设计数据分析仪表盘",
+      "dataset": "retrieval-benchmark-v1",
+      "tags": [
+        "frontend",
+        "set:benchmark",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design"
+      ],
+      "queryText": "我需要设计一个数据分析仪表盘，要以问题为导向，注重信息层次结构、图表选择、筛选清晰度、指标上下文和决策就绪布局。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/analytics-dashboard-design"
+        ],
+        "acceptableSkillIds": [
+          "frontend/admin-dashboard-design"
+        ],
+        "forbiddenSkillIds": [
+          "tools/spreadsheet",
+          "security/security-threat-model"
+        ]
+      }
+    }
+  ]
+}

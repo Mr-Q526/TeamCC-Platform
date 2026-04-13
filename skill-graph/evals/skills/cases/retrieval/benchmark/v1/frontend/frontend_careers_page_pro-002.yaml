@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_careers_page_pro_002
+title: 设计专业的职业页面
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我想设计一个专业的职业页面，要强调角色发现、文化证明、福利和申请清晰度，同时要注重信息架构、层次结构、明确的状态、响应行为、可访问性和验证检查。
+  queryContext: 前端 设计 职业页面 专业 信息架构 可访问性 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/careers-page-pro
+  acceptableSkillIds:
+    - frontend/careers-page-basic
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_review_code_review_risk_based_001
+title: 高风险代码审查要点
+dataset: retrieval-benchmark-v1
+tags:
+  - review
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-pure
+  - review
+  - architecture
+query:
+  queryText: 我要审查一些高风险的代码，需要注意哪些方面？
+  queryContext: 代码审查 高风险 审查 架构 风险
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+  forbiddenSkillIds:
+    - frontend/website-homepage-design
+    - backend/rest-api-implementation
+modeOverrides: {}

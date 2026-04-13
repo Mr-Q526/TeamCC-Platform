@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_review_code_review_risk_based_004
+title: 高风险代码审查
+dataset: retrieval-benchmark-v1
+tags:
+  - review
+  - set:benchmark
+  - difficulty:ambiguous
+  - lang:zh-mixed
+  - review
+  - architecture
+query:
+  queryText: 帮我审查下这段代码，看看有没有高风险的问题，比如 auth、payments 等。
+  queryContext: 代码审查 高风险 auth payments
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+  forbiddenSkillIds:
+    - frontend/website-homepage-design
+    - backend/rest-api-implementation
+modeOverrides: {}

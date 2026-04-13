@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_general_wechat_toolkit_001
+title: 通用WeChat Toolkit实践
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - general
+  - generated
+  - content-generation
+  - release
+query:
+  queryText: WeChat Toolkit 配合项目流程如何使用
+  queryContext: 通用 WeChat Toolkit content ops collaboration
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:content-generation
+    - scene:release
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/wechat-toolkit
+  acceptableSkillIds:
+    - general/bug-fix-debugging
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

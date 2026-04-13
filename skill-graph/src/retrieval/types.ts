@@ -34,6 +34,27 @@ export type SkillGraphFeatures = {
     department: number
     scene: number
   }
+  graphFeatureExplanation: SkillGraphFeatureExplanation
+}
+
+export type SkillGraphFeatureSignalExplanation = {
+  scope: 'global' | 'version' | 'department' | 'scene'
+  weight: number
+  matched: boolean
+  matchedKey: string | null
+  qualityScore: number | null
+  confidence: number | null
+  sampleCount: number | null
+  invocationCount: number | null
+  successRate: number | null
+  weightedContribution: number
+  reason: string
+}
+
+export type SkillGraphFeatureExplanation = {
+  formula: string
+  signals: SkillGraphFeatureSignalExplanation[]
+  missingSignals: string[]
 }
 
 export type SkillRetrievalRequest = {
@@ -73,6 +94,11 @@ export type SkillRetrievalCandidate = SkillRecallCandidate & {
   finalScoreBreakdown: {
     recallNormalized: number
     graphFeatureScore: number
+    recallWeight: number
+    graphWeight: number
+    recallContribution: number
+    graphContribution: number
+    formula: string
   }
   rank: number
 }

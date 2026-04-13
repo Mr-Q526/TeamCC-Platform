@@ -1,0 +1,30 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_admin_dashboard_001
+title: 管理后台首页设计
+dataset: default
+tags:
+  - frontend
+  - dashboard
+  - admin
+query:
+  queryText: 管理后台首页设计 数据卡片 趋势图
+  queryContext: admin dashboard analytics cards trends
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/admin-dashboard-design
+  acceptableSkillIds:
+    - frontend/analytics-dashboard-design
+    - frontend/saas-workspace-design
+  forbiddenSkillIds:
+    - security/security-best-practices
+modeOverrides: {}

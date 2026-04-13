@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_security_security_best_practices_001
+title: 安全Security Best Practices审计
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - security
+  - generated
+  - review
+  - security-audit
+query:
+  queryText: Security Best Practices 漏洞 风险 威胁 建模
+  queryContext: 安全 Security Best Practices audit threat modeling attack surface
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:review
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/security-best-practices
+  acceptableSkillIds:
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

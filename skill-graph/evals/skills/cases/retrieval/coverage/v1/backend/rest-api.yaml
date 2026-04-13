@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_rest_api_001
+title: REST API 设计与资源建模
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - api
+  - rest
+query:
+  queryText: REST API 设计 资源建模 分页 过滤 幂等
+  queryContext: rest api resource modeling pagination filtering idempotency
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/rest-api-implementation
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+    - backend/api-integration-testing
+  forbiddenSkillIds:
+    - frontend/search-results-page-pro
+modeOverrides: {}

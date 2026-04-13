@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_backend_graphql_api_001
+title: GraphQL API schema 与 resolver 设计
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - backend
+  - api
+  - graphql
+query:
+  queryText: GraphQL API schema 设计 resolver dataloader 权限
+  queryContext: graphql schema resolver dataloader authorization backend
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/graphql-api-implementation
+  acceptableSkillIds:
+    - backend/backend-api-architecture
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - frontend/docs-site-pro
+modeOverrides: {}

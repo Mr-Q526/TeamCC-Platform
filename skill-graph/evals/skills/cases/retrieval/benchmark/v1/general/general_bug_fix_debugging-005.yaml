@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_general_bug_fix_debugging_005
+title: 调试并修复代码Bug
+dataset: retrieval-benchmark-v1
+tags:
+  - general
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - debug
+  - test
+query:
+  queryText: 我的代码有个Bug，帮我调试一下，看看怎么修复。另外，给我写个测试用例来验证修复。
+  queryContext: Bug修复 调试 代码 测试用例 验证
+  cwd: /tmp/skill-eval
+  department: null
+  domainHints:
+    - general
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/bug-fix-debugging
+  acceptableSkillIds:
+    - general/development-plan-doc-pro
+  forbiddenSkillIds:
+    - security/security-threat-model
+    - frontend/admin-dashboard-design
+modeOverrides: {}

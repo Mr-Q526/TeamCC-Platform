@@ -1,0 +1,31 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_frontend_notification_center_001
+title: 通知中心与消息列表设计
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - frontend
+  - notification
+  - dashboard
+query:
+  queryText: 通知中心设计 消息列表 已读未读 筛选 tabs
+  queryContext: notification center inbox read unread tabs filters dashboard
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:dashboard
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/notification-center-pro
+  acceptableSkillIds:
+    - frontend/notification-center-basic
+    - frontend/settings-page-pro
+  forbiddenSkillIds:
+    - tools/linear
+modeOverrides: {}

@@ -1,0 +1,33 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_ai_humanizer_zh_basic_001
+title: AIHumanizer ZH Basic任务
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - ai
+  - generated
+  - content-generation
+  - writing
+query:
+  queryText: Humanizer ZH Basic 内容生成 转写 润色
+  queryContext: AI Humanizer ZH Basic content generation writing
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:content-generation
+    - scene:writing
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/humanizer-zh-basic
+  acceptableSkillIds:
+    - ai/humanizer-zh-pro
+  forbiddenSkillIds:
+    - tools/playwright
+    - frontend/admin-dashboard-design
+modeOverrides: {}

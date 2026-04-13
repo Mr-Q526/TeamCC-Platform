@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_tools_spreadsheet_003
+title: 创建和分析电子表格
+dataset: retrieval-benchmark-v1
+tags:
+  - tools
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-pure
+  - content-generation
+  - data-analysis
+query:
+  queryText: 帮我创建一个电子表格，要能做数据分析和格式调整
+  queryContext: 工具 电子表格 创建 分析 格式调整
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:content-generation
+    - scene:data-analysis
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/playwright
+    - tools/screenshot
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - frontend/website-homepage-design-pro
+modeOverrides: {}

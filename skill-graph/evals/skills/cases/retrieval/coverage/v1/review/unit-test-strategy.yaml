@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_review_unit_test_strategy_001
+title: 单元测试策略与覆盖边界
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - review
+  - test
+  - strategy
+query:
+  queryText: 单元测试策略 边界条件 mock 集成测试 分层
+  queryContext: unit test strategy edge cases mocks integration layering
+  cwd: /tmp/skill-eval
+  department: dept:backend-platform
+  domainHints:
+    - review
+    - backend
+  sceneHints:
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/unit-test-strategy
+  acceptableSkillIds:
+    - review/code-review-general
+    - backend/api-integration-testing
+  forbiddenSkillIds:
+    - tools/screenshot
+modeOverrides: {}

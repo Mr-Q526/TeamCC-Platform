@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_infra_load_testing_001
+title: 基础设施Load Testing实践
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - infra
+  - generated
+  - performance
+  - test
+query:
+  queryText: Load Testing 稳定性 压测 告警 运行手册
+  queryContext: 基础设施 Load Testing SLO incident tracing
+  cwd: /tmp/skill-eval
+  department: dept:infra-platform
+  domainHints:
+    - infra
+  sceneHints:
+    - scene:performance
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - infra/load-testing
+  acceptableSkillIds:
+    - infra/observability-backend
+    - infra/vercel-deploy
+  forbiddenSkillIds:
+    - frontend/component-library-basic
+    - backend/rest-api-implementation
+modeOverrides: {}

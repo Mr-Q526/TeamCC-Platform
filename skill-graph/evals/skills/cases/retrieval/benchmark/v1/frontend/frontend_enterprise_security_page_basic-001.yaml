@@ -1,0 +1,32 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_frontend_enterprise_security_page_basic_001
+title: 设计企业安全页面（基础版）
+dataset: retrieval-benchmark-v1
+tags:
+  - frontend
+  - set:benchmark
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - design
+query:
+  queryText: 我要设计一个企业安全页面，要注重可信度、证据、政策清晰度和买家信心，还要有快速的布局和明显的标签。
+  queryContext: 前端 设计 企业安全页面 基础版 可信度 证据 政策清晰度 买家信心 landing page UX conversion
+  cwd: /tmp/skill-eval
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/enterprise-security-page-basic
+  acceptableSkillIds:
+    - frontend/enterprise-security-page-pro
+  forbiddenSkillIds:
+    - tools/spreadsheet
+    - security/security-threat-model
+modeOverrides: {}

@@ -1,0 +1,35 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_security_security_ownership_map_004
+title: 分析代码库安全所有权
+dataset: retrieval-benchmark-v1
+tags:
+  - security
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - data-analysis
+  - security-audit
+query:
+  queryText: 我想分析一下代码库的安全所有权，看看哪些人负责哪些文件，以及是否存在安全风险。
+  queryContext: 代码库 安全所有权 分析 风险 security hardening abuse protection
+  cwd: /tmp/skill-eval
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:data-analysis
+    - scene:security-audit
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/security-ownership-map
+  acceptableSkillIds:
+    - security/security-best-practices
+    - security/security-threat-model
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - backend/backend-api-architecture
+modeOverrides: {}

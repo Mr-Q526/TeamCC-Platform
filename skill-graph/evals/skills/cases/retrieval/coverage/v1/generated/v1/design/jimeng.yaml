@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_generated_design_jimeng_001
+title: 设计Jimeng方案
+dataset: retrieval-coverage-v1
+tags:
+  - set:coverage
+  - design
+  - generated
+  - content-generation
+  - design
+query:
+  queryText: Jimeng 统一风格 讲故事 信息表达
+  queryContext: 设计 Jimeng deck motion illustration
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/jimeng
+  acceptableSkillIds:
+    - design/ppt-maker
+    - design/motion-video-maker
+  forbiddenSkillIds:
+    - backend/database-schema-design
+    - frontend/website-homepage-design
+modeOverrides: {}

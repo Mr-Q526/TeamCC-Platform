@@ -2,6 +2,8 @@ node_modules
 dist
 build
 coverage
+!skill-graph/evals/skills/cases/retrieval/coverage/
+!skill-graph/evals/skills/cases/retrieval/coverage/**
 .next
 .turbo
 .cache
@@ -12,3 +14,5 @@ coverage
 *.log
 .DS_Store
 worktrees/
+skill-graph/evals/skills/runs/*
+!skill-graph/evals/skills/runs/.gitkeep

@@ -1,0 +1,34 @@
+schemaVersion: "2026-04-12"
+caseType: retrieval
+caseId: retrieval_benchmark_design_ppt_course_presentation_005
+title: 制作课程展示PPT，强调节奏感
+dataset: retrieval-benchmark-v1
+tags:
+  - design
+  - set:benchmark
+  - difficulty:direct
+  - lang:zh-mixed
+  - content-generation
+  - design
+query:
+  queryText: 我要做一个小组作业的PPT，要有问题引入、案例讲解、团队观点和课堂讨论，强调节奏感。
+  queryContext: 设计 PPT 课程展示 节奏感 案例
+  cwd: /tmp/skill-eval
+  department: dept:ai-platform
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/ppt-course-presentation
+  acceptableSkillIds:
+    - design/ppt-maker
+  forbiddenSkillIds:
+    - backend/database-schema-design
+    - frontend/website-homepage-design
+modeOverrides: {}

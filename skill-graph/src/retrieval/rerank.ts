@@ -88,11 +88,11 @@ export async function rerankSkills(
       const recallNormalized =
         maxRecall > 0 ? roundMetric(Math.max(candidate.recallScore, 0) / maxRecall) : 0
       const graphFeatureScore = graphFeatures?.graphFeatureScore ?? 0
-      const finalScore = roundMetric(
-        graphFeatures
-          ? 0.7 * recallNormalized + 0.3 * graphFeatureScore
-          : recallNormalized,
-      )
+      const recallWeight = graphFeatures ? 0.7 : 1
+      const graphWeight = graphFeatures ? 0.3 : 0
+      const recallContribution = roundMetric(recallWeight * recallNormalized)
+      const graphContribution = roundMetric(graphWeight * graphFeatureScore)
+      const finalScore = roundMetric(recallContribution + graphContribution)
 
       return {
         ...candidate,
@@ -101,6 +101,13 @@ export async function rerankSkills(
         finalScoreBreakdown: {
           recallNormalized,
           graphFeatureScore: roundMetric(graphFeatureScore),
+          recallWeight,
+          graphWeight,
+          recallContribution,
+          graphContribution,
+          formula: graphFeatures
+            ? 'finalScore = 0.70 * recallNormalized + 0.30 * graphFeatureScore'
+            : 'finalScore = recallNormalized',
         },
         rank: 0,
       }
