@@ -288,7 +288,6 @@ function logPermissionDecision(
   void reportAuditLog(
     process.cwd(),
     args.decision === 'accept' ? 'permission_allow' : 'permission_deny',
-    'tool',
     {
       toolName: tool.name,
       decision: args.decision === 'accept' ? 'allow' : 'deny',
@@ -309,7 +308,7 @@ function logPermissionAsk(
   const target = getAuditTarget(ctx.tool, input)
   const { ruleSource, rulePattern } = getRuleMetadata(decisionReason)
 
-  void reportAuditLog(process.cwd(), 'permission_ask', 'tool', {
+  void reportAuditLog(process.cwd(), 'permission_ask', {
     toolName: ctx.tool.name,
     decision: 'ask',
     ruleSource: ruleSource ?? 'interactive_prompt',

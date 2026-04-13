@@ -47,6 +47,15 @@ export function isTeamCCAuthEntrypoint(argv: string[] = process.argv): boolean {
   return argv.some(arg => authCommands.has(arg))
 }
 
+export function isTeamCCAuthInput(input: string): boolean {
+  const trimmed = input.trim()
+  if (!trimmed.startsWith('/')) return false
+
+  const command = trimmed.slice(1).split(/\s+/)[0]
+
+  return command === 'auth' || command === 'login' || command === 'logout'
+}
+
 export function getTeamCCLoginRequiredMessage(reason?: string | null): string {
   const detail = reason ? `\n原因: ${reason}` : ''
   return `❌ TeamCC 身份鉴权未通过，无法进入企业运行态。${detail}\n请先使用 TeamCC 登录入口（login/auth）完成认证。`

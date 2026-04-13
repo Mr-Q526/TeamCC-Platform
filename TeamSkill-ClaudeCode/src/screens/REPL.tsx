@@ -2,7 +2,7 @@ import { c as _c } from "react/compiler-runtime";
 // biome-ignore-all assist/source/organizeImports: ANT-ONLY import markers must not be reordered
 import { feature } from 'bun:bundle';
 import { spawnSync } from 'child_process';
-import { snapshotOutputTokensForTurn, getCurrentTurnTokenBudget, getTurnOutputTokens, getBudgetContinuationCount, getTotalInputTokens } from '../bootstrap/state.js';
+import { snapshotOutputTokensForTurn, getCurrentTurnTokenBudget, getTurnOutputTokens, getBudgetContinuationCount, getTotalInputTokens, getTeamCCSessionState } from '../bootstrap/state.js';
 import { parseTokenBudget } from '../utils/tokenBudget.js';
 import { count } from '../utils/array.js';
 import { dirname, join } from 'path';
@@ -68,6 +68,7 @@ import { useSkillImprovementSurvey } from '../hooks/useSkillImprovementSurvey.js
 import { SkillFeedbackSurvey } from '../components/SkillFeedbackSurvey.js';
 import { useSkillFeedbackSurvey } from '../hooks/useSkillFeedbackSurvey.js';
 import type { DiscoveredSkillAttribution } from '../services/skillSearch/telemetry.js';
+import { isTeamCCAuthInput } from '../bootstrap/teamccSession.js';
 import { useMoreRight } from '../moreright/useMoreRight.js';
 import { SpinnerWithVerb, BriefIdleStatus, type SpinnerMode } from '../components/Spinner.js';
 import { getSystemPrompt } from '../constants/prompts.js';
@@ -3326,6 +3327,25 @@ export function REPL({
 
     // Remote mode: skip empty input early before any state mutations
     if (activeRemote.isRemoteMode && !input.trim()) {
+      return;
+    }
+
+    if (
+      getTeamCCSessionState() === 'unauthenticated' &&
+      input.trim() &&
+      !isTeamCCAuthInput(input)
+    ) {
+      addNotification({
+        key: 'teamcc-auth-required',
+        text:
+          'TeamCC 身份鉴权未通过，无法进入企业运行态。请先运行 /login 或 /auth 完成认证。',
+        priority: 'high',
+      });
+      if (!options?.fromKeybinding) {
+        setInputValue('');
+        helpers.setCursorOffset(0);
+        helpers.clearBuffer();
+      }
       return;
     }
 

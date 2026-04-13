@@ -21,11 +21,16 @@ export type AuditEventType =
   | 'bash_command'
   | 'file_write'
   | 'tool_permission_decision'
+  | 'permission_allow'
+  | 'permission_deny'
+  | 'permission_ask'
 
 type AuditOptions = {
   allowCachedConfigFallback?: boolean
   refreshToken?: boolean
 }
+
+type AuditPayload = Record<string, unknown>
 
 type AuditIdentitySnapshot = {
   userId: number
@@ -35,6 +40,51 @@ type AuditIdentitySnapshot = {
 
 let lastKnownAuditConfig: TeamCCConfig | null = null
 let lastKnownAuditIdentity: AuditIdentitySnapshot | null = null
+
+function isAuditOptions(value: unknown): value is AuditOptions {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return false
+  }
+
+  return (
+    'allowCachedConfigFallback' in value || 'refreshToken' in value
+  )
+}
+
+function isAuditPayload(value: unknown): value is AuditPayload {
+  return !!value && typeof value === 'object' && !Array.isArray(value)
+}
+
+export function normalizeAuditPayloadArgs(
+  payloadOrCategory: AuditPayload | string,
+  payloadOrOptions?: AuditPayload | AuditOptions,
+  maybeOptions?: AuditOptions,
+): {
+  payload: AuditPayload
+  options: AuditOptions
+} {
+  if (typeof payloadOrCategory === 'string') {
+    const payload = isAuditPayload(payloadOrOptions)
+      ? {
+          category: payloadOrCategory,
+          ...payloadOrOptions,
+        }
+      : { category: payloadOrCategory }
+
+    const options = isAuditOptions(maybeOptions)
+      ? maybeOptions
+      : isAuditOptions(payloadOrOptions)
+        ? payloadOrOptions
+        : {}
+
+    return { payload, options }
+  }
+
+  return {
+    payload: payloadOrCategory,
+    options: isAuditOptions(payloadOrOptions) ? payloadOrOptions : {},
+  }
+}
 
 function rememberAuditConfig(config: TeamCCConfig | null): void {
   if (!config?.apiBase) {
@@ -67,10 +117,33 @@ function rememberAuditIdentity(identity: ReturnType<typeof getIdentityProfile>):
 export async function reportAuditLog(
   cwd: string,
   eventType: AuditEventType,
-  payload: Record<string, unknown>,
-  options: AuditOptions = {},
+  payload: AuditPayload,
+  options?: AuditOptions,
+): Promise<void>
+export async function reportAuditLog(
+  cwd: string,
+  eventType: AuditEventType,
+  category: string,
+  payload?: AuditPayload,
+  options?: AuditOptions,
+): Promise<void>
+export async function reportAuditLog(
+  cwd: string,
+  eventType: AuditEventType,
+  payloadOrCategory: AuditPayload | string,
+  payloadOrOptions?: AuditPayload | AuditOptions,
+  maybeOptions?: AuditOptions,
 ): Promise<void> {
   try {
+    const {
+      payload,
+      options,
+    } = normalizeAuditPayloadArgs(
+      payloadOrCategory,
+      payloadOrOptions,
+      maybeOptions,
+    )
+
     const loadedConfig = await loadTeamCCConfig(cwd)
     const config =
       loadedConfig?.apiBase

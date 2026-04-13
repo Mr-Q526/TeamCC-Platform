@@ -762,7 +762,7 @@ export const BashTool = buildTool({
     });
 
     // TeamCC Audit Hook
-    void reportAuditLog(process.cwd(), 'bash_command', 'command', {
+    void reportAuditLog(process.cwd(), 'bash_command', {
       command: input.command,
       commandType,
       stdout_length: stdout.length,
