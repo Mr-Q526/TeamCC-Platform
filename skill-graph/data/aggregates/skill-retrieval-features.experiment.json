@@ -1,8 +1,8 @@
 {
   "schemaVersion": "2026-04-12",
-  "generatedAt": "2026-04-15T02:01:17.039Z",
+  "generatedAt": "2026-04-15T15:22:51.695Z",
   "registryVersion": "sha256:ffa6bd8d1a92bd5c2a2bff3de590bf5ff6df6551a11d2494cf0a2ac979e22e7b",
-  "aggregateGeneratedAt": "2026-04-15T02:01:17.032Z",
+  "aggregateGeneratedAt": "2026-04-15T15:22:51.686Z",
   "window": "30d",
   "scoring": {
     "graphFeatureScoreFormula": "qualityRawScore = contextMatched ? 0.40 * project(qualityScore * confidence) + 0.25 * scene(qualityScore * confidence) + 0.15 * department(qualityScore * confidence) + 0.10 * version(qualityScore * confidence) + 0.10 * global(qualityScore * confidence) : 0; preferenceRawScore = contextMatched ? 0.40 * project(preferenceScore) + 0.25 * scene(preferenceScore) + 0.15 * department(preferenceScore) + 0.10 * version(preferenceScore) + 0.10 * global(preferenceScore) : 0",
@@ -41,7 +41,7 @@
         "writing"
       ],
       "global": {
-        "score": 0.704106,
+        "score": 0.702251,
         "confidence": 1,
         "sampleCount": 40,
         "invocationCount": 6,
@@ -50,14 +50,14 @@
         "explicitPositiveCount": 6,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:7daec2e6437d48057453ce63a8b06147c2d35e020560fb7fabfd62703bf86713",
           "versionKey": "ai/humanizer-zh-basic@0.1.0#sha256:7daec",
-          "qualityScore": 0.704106,
+          "qualityScore": 0.702251,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 6,
@@ -66,12 +66,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:humanizer-zh": {
-          "score": 0.704106,
+          "score": 0.702251,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 6,
@@ -80,12 +80,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "ai-platform": {
-          "score": 0.704106,
+          "score": 0.702251,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 6,
@@ -94,12 +94,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "writing": {
-          "score": 0.704106,
+          "score": 0.702251,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 6,
@@ -108,7 +108,7 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -129,7 +129,7 @@
         "writing"
       ],
       "global": {
-        "score": 0.959089,
+        "score": 0.957233,
         "confidence": 1,
         "sampleCount": 40,
         "invocationCount": 34,
@@ -138,14 +138,14 @@
         "explicitPositiveCount": 34,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:7336bb4589acd2cb6d036edbbb99154a8f0e9582809ffdb8b9a6fbd2a05ef6d5",
           "versionKey": "ai/humanizer-zh-pro@0.1.0#sha256:7336b",
-          "qualityScore": 0.959089,
+          "qualityScore": 0.957233,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 34,
@@ -154,12 +154,12 @@
           "explicitPositiveCount": 34,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:humanizer-zh": {
-          "score": 0.959089,
+          "score": 0.957233,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 34,
@@ -168,12 +168,12 @@
           "explicitPositiveCount": 34,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "ai-platform": {
-          "score": 0.959089,
+          "score": 0.957233,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 34,
@@ -182,12 +182,12 @@
           "explicitPositiveCount": 34,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "writing": {
-          "score": 0.959089,
+          "score": 0.957233,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 34,
@@ -196,7 +196,7 @@
           "explicitPositiveCount": 34,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -303,7 +303,7 @@
         "performance"
       ],
       "global": {
-        "score": 0.890755,
+        "score": 0.8889,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 12,
@@ -312,14 +312,14 @@
         "explicitPositiveCount": 12,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.930594,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:c0350215c0c4f70e4896b2095f7faa56415ccafd71adf131733f6a077a9cbef9",
           "versionKey": "backend/backend-performance-profiling@0.1.0#sha256:c0350",
-          "qualityScore": 0.890755,
+          "qualityScore": 0.8889,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -328,12 +328,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:backend-performance": {
-          "score": 0.890755,
+          "score": 0.8889,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -342,12 +342,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.890755,
+          "score": 0.8889,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -356,12 +356,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "debug": {
-          "score": 0.890755,
+          "score": 0.8889,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -370,7 +370,7 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -391,7 +391,7 @@
         "debug"
       ],
       "global": {
-        "score": 0.887422,
+        "score": 0.885567,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 12,
@@ -400,14 +400,14 @@
         "explicitPositiveCount": 12,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.930594,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:69ecb0b3257ce3ca6cc0be667b7d06c65fd213ff942954e24ac0c2282c85fe30",
           "versionKey": "backend/background-jobs-queues@0.1.0#sha256:69ecb",
-          "qualityScore": 0.887422,
+          "qualityScore": 0.885567,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -416,12 +416,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:background-jobs": {
-          "score": 0.887422,
+          "score": 0.885567,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -430,12 +430,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.887422,
+          "score": 0.885567,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -444,12 +444,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "architecture": {
-          "score": 0.887422,
+          "score": 0.885567,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -458,7 +458,7 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -566,7 +566,7 @@
         "test"
       ],
       "global": {
-        "score": 0.682439,
+        "score": 0.680584,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 4,
@@ -575,14 +575,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.769683,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:79bed197e42dc6a9a9b51e948c21076aca736a67a02c830ce6566fcfc59bb131",
           "versionKey": "backend/rest-api-implementation@0.1.0#sha256:79bed",
-          "qualityScore": 0.682439,
+          "qualityScore": 0.680584,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -591,12 +591,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:background-jobs": {
-          "score": 0.682439,
+          "score": 0.680584,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -605,12 +605,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.682439,
+          "score": 0.680584,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -619,12 +619,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "architecture": {
-          "score": 0.682439,
+          "score": 0.680584,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -633,7 +633,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -654,7 +654,7 @@
         "design"
       ],
       "global": {
-        "score": 0.653511,
+        "score": 0.651655,
         "confidence": 0.889483,
         "sampleCount": 14,
         "invocationCount": 3,
@@ -663,14 +663,14 @@
         "explicitPositiveCount": 3,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.63368,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:4321838a05911bdac874f0585db8aec99f29a4cc0188f21c2957e9ca15dac21d",
           "versionKey": "design/jimeng@0.1.0#sha256:43218",
-          "qualityScore": 0.653511,
+          "qualityScore": 0.651655,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 3,
@@ -679,12 +679,12 @@
           "explicitPositiveCount": 3,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.63368,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:motion-video": {
-          "score": 0.653511,
+          "score": 0.651655,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 3,
@@ -693,12 +693,12 @@
           "explicitPositiveCount": 3,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.63368,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "ai-platform": {
-          "score": 0.653511,
+          "score": 0.651655,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 3,
@@ -707,12 +707,12 @@
           "explicitPositiveCount": 3,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.63368,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "content-generation": {
-          "score": 0.653511,
+          "score": 0.651655,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 3,
@@ -721,7 +721,7 @@
           "explicitPositiveCount": 3,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.63368,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -742,7 +742,7 @@
         "design"
       ],
       "global": {
-        "score": 0.876351,
+        "score": 0.874495,
         "confidence": 0.889483,
         "sampleCount": 14,
         "invocationCount": 11,
@@ -751,14 +751,14 @@
         "explicitPositiveCount": 11,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.889483,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:b19cd9526584828eed448b70b74e921a6665dc027c643116464e83c9d51c2947",
           "versionKey": "design/motion-video-maker@0.1.0#sha256:b19cd",
-          "qualityScore": 0.876351,
+          "qualityScore": 0.874495,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 11,
@@ -767,12 +767,12 @@
           "explicitPositiveCount": 11,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:motion-video": {
-          "score": 0.876351,
+          "score": 0.874495,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 11,
@@ -781,12 +781,12 @@
           "explicitPositiveCount": 11,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "growth": {
-          "score": 0.876351,
+          "score": 0.874495,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 11,
@@ -795,12 +795,12 @@
           "explicitPositiveCount": 11,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "content-generation": {
-          "score": 0.876351,
+          "score": 0.874495,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 11,
@@ -809,7 +809,7 @@
           "explicitPositiveCount": 11,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -852,7 +852,7 @@
         "design"
       ],
       "global": {
-        "score": 0.665773,
+        "score": 0.663917,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 4,
@@ -861,14 +861,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.769683,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:12162eb8ddcb49c389c547823f70c28ff0e0bf51431e775086043491964bff21",
           "versionKey": "design/ppt-course-presentation@0.1.0#sha256:12162",
-          "qualityScore": 0.665773,
+          "qualityScore": 0.663917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -877,12 +877,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:operations-ppt": {
-          "score": 0.665773,
+          "score": 0.663917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -891,12 +891,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "growth": {
-          "score": 0.665773,
+          "score": 0.663917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -905,12 +905,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "content-generation": {
-          "score": 0.665773,
+          "score": 0.663917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -919,7 +919,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -984,7 +984,7 @@
         "design"
       ],
       "global": {
-        "score": 0.914737,
+        "score": 0.912881,
         "confidence": 1,
         "sampleCount": 54,
         "invocationCount": 50,
@@ -993,14 +993,14 @@
         "explicitPositiveCount": 50,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:3537e7d6152ddfb370a7e8300527ccaaa34867717f40b0c37ec2eace6f892966",
           "versionKey": "design/ppt-maker@0.1.0#sha256:3537e",
-          "qualityScore": 0.914737,
+          "qualityScore": 0.912881,
           "confidence": 1,
           "sampleCount": 54,
           "invocationCount": 50,
@@ -1009,12 +1009,12 @@
           "explicitPositiveCount": 50,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:operations-ppt": {
-          "score": 0.8777,
+          "score": 0.875844,
           "confidence": 0.967127,
           "sampleCount": 18,
           "invocationCount": 14,
@@ -1023,10 +1023,10 @@
           "explicitPositiveCount": 14,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.967127,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         },
         "seed:ppt-maker": {
-          "score": 0.926606,
+          "score": 0.924751,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 36,
@@ -1035,12 +1035,12 @@
           "explicitPositiveCount": 36,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "growth": {
-          "score": 0.914737,
+          "score": 0.912881,
           "confidence": 1,
           "sampleCount": 54,
           "invocationCount": 50,
@@ -1049,12 +1049,12 @@
           "explicitPositiveCount": 50,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "content-generation": {
-          "score": 0.914737,
+          "score": 0.912881,
           "confidence": 1,
           "sampleCount": 54,
           "invocationCount": 50,
@@ -1063,7 +1063,7 @@
           "explicitPositiveCount": 50,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -1147,7 +1147,7 @@
         "design"
       ],
       "global": {
-        "score": 0.995162,
+        "score": 0.993307,
         "confidence": 0.949368,
         "sampleCount": 17,
         "invocationCount": 16,
@@ -1156,14 +1156,14 @@
         "explicitPositiveCount": 17,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.949368,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:ef09102679aff2ff0be066a14f6c9c4402a79e79e36fec7e22a319a51ddeea14",
           "versionKey": "frontend/admin-dashboard-design@0.1.0#sha256:ef091",
-          "qualityScore": 0.923273,
+          "qualityScore": 0.921417,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 16,
@@ -1172,13 +1172,13 @@
           "explicitPositiveCount": 16,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         },
         {
           "version": "2.2.0-pro",
           "sourceHash": "sha256:manualrefreshabcdef",
           "versionKey": "frontend/admin-dashboard-design@2.2.0-pro#sha256:manua",
-          "qualityScore": 0.295162,
+          "qualityScore": 0.293307,
           "confidence": 0.22767,
           "sampleCount": 1,
           "invocationCount": 0,
@@ -1187,12 +1187,12 @@
           "explicitPositiveCount": 1,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.081098,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:admin-dashboard": {
-          "score": 0.923273,
+          "score": 0.921417,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 16,
@@ -1201,12 +1201,12 @@
           "explicitPositiveCount": 16,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.923273,
+          "score": 0.921417,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 16,
@@ -1215,12 +1215,12 @@
           "explicitPositiveCount": 16,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "admin-dashboard": {
-          "score": 0.923273,
+          "score": 0.921417,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 16,
@@ -1229,7 +1229,7 @@
           "explicitPositiveCount": 16,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -1312,7 +1312,7 @@
         "design"
       ],
       "global": {
-        "score": 0.686814,
+        "score": 0.684959,
         "confidence": 1,
         "sampleCount": 32,
         "invocationCount": 6,
@@ -1321,14 +1321,14 @@
         "explicitPositiveCount": 6,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:60703e65b83410ddd9622a32c3fd486954d6a7215c3badf0bd6a22de35b50d74",
           "versionKey": "frontend/auth-login-page-basic@0.1.0#sha256:60703",
-          "qualityScore": 0.686814,
+          "qualityScore": 0.684959,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 6,
@@ -1337,12 +1337,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:auth-login-page": {
-          "score": 0.686814,
+          "score": 0.684959,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 6,
@@ -1351,12 +1351,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.686814,
+          "score": 0.684959,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 6,
@@ -1365,12 +1365,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "login": {
-          "score": 0.686814,
+          "score": 0.684959,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 6,
@@ -1379,7 +1379,7 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -1399,23 +1399,23 @@
         "design"
       ],
       "global": {
-        "score": 0.923047,
+        "score": 0.897702,
         "confidence": 1,
-        "sampleCount": 32,
+        "sampleCount": 34,
         "invocationCount": 26,
         "successRate": 1,
         "feedbackCount": 26,
         "explicitPositiveCount": 26,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:c81708d0b0aea7a08df7a258cd9c074f6c227f4c591800ad19b14cbde3da08de",
           "versionKey": "frontend/auth-login-page-pro@0.1.0#sha256:c8170",
-          "qualityScore": 0.923047,
+          "qualityScore": 0.921192,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 26,
@@ -1424,12 +1424,39 @@
           "explicitPositiveCount": 26,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:f1ee04f7a239c45fd181d0eb87ab4f514e2f4d66002e5871b7ea3742369c1a4f",
+          "versionKey": "frontend/auth-login-page-pro@0.1.0#sha256:f1ee0",
+          "qualityScore": 0.199974,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
+        "1": {
+          "score": 0.199974,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
         "seed:auth-login-page": {
-          "score": 0.923047,
+          "score": 0.921192,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 26,
@@ -1438,12 +1465,12 @@
           "explicitPositiveCount": 26,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.923047,
+          "score": 0.921192,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 26,
@@ -1452,12 +1479,24 @@
           "explicitPositiveCount": 26,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
+        "design": {
+          "score": 0.199974,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
         "login": {
-          "score": 0.923047,
+          "score": 0.921192,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 26,
@@ -1466,7 +1505,7 @@
           "explicitPositiveCount": 26,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -1570,7 +1609,7 @@
         "design"
       ],
       "global": {
-        "score": 0.705495,
+        "score": 0.70364,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 8,
@@ -1579,14 +1618,14 @@
         "explicitPositiveCount": 8,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:688e9146b3958167cfd543d54b219f4e3ba2fde849333c1ac155387a1d8ade9f",
           "versionKey": "frontend/component-library-basic@0.1.0#sha256:688e9",
-          "qualityScore": 0.705495,
+          "qualityScore": 0.70364,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 8,
@@ -1595,12 +1634,12 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:component-library": {
-          "score": 0.705495,
+          "score": 0.70364,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 8,
@@ -1609,12 +1648,12 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.705495,
+          "score": 0.70364,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 8,
@@ -1623,12 +1662,12 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "component-library": {
-          "score": 0.705495,
+          "score": 0.70364,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 8,
@@ -1637,7 +1676,7 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -1657,7 +1696,7 @@
         "design"
       ],
       "global": {
-        "score": 0.924367,
+        "score": 0.922511,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 28,
@@ -1666,14 +1705,14 @@
         "explicitPositiveCount": 28,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:6f573f0e8020ec25cb893acf175a8dd92b8724e6f925c6d27c51922853b5d2af",
           "versionKey": "frontend/component-library-pro@0.1.0#sha256:6f573",
-          "qualityScore": 0.924367,
+          "qualityScore": 0.922511,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 28,
@@ -1682,12 +1721,12 @@
           "explicitPositiveCount": 28,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:component-library": {
-          "score": 0.924367,
+          "score": 0.922511,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 28,
@@ -1696,12 +1735,12 @@
           "explicitPositiveCount": 28,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.924367,
+          "score": 0.922511,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 28,
@@ -1710,12 +1749,12 @@
           "explicitPositiveCount": 28,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "component-library": {
-          "score": 0.924367,
+          "score": 0.922511,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 28,
@@ -1724,7 +1763,7 @@
           "explicitPositiveCount": 28,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -1764,11 +1803,64 @@
       "sceneTags": [
         "design"
       ],
-      "global": null,
-      "versions": [],
-      "projects": {},
+      "global": {
+        "score": 0.199974,
+        "confidence": 0.360849,
+        "sampleCount": 2,
+        "invocationCount": 0,
+        "successRate": 0,
+        "feedbackCount": 0,
+        "explicitPositiveCount": 0,
+        "explicitNegativeCount": 0,
+        "preferenceScore": 0,
+        "updatedAt": "2026-04-15T15:22:51.686Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:1a489fa136cda84439abc6f75085a35c1d7622de981696ce7340a9f375ad9136",
+          "versionKey": "frontend/contact-sales-page-pro@0.1.0#sha256:1a489",
+          "qualityScore": 0.199974,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        }
+      ],
+      "projects": {
+        "1": {
+          "score": 0.199974,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        }
+      },
       "departments": {},
-      "scenes": {}
+      "scenes": {
+        "design": {
+          "score": 0.199974,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        }
+      }
     },
     {
       "skillId": "frontend/data-table-basic",
@@ -1828,7 +1920,7 @@
         "design"
       ],
       "global": {
-        "score": 0.695773,
+        "score": 0.693917,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 4,
@@ -1837,14 +1929,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.769683,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:1ea57d0ca329335b414263aaab4b3eb6032793b2ed2df5b76a4b0cb53060af32",
           "versionKey": "frontend/design-system-builder-basic@0.1.0#sha256:1ea57",
-          "qualityScore": 0.695773,
+          "qualityScore": 0.693917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -1853,12 +1945,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:design-system-builder": {
-          "score": 0.695773,
+          "score": 0.693917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -1867,12 +1959,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.695773,
+          "score": 0.693917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -1881,12 +1973,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "design-system": {
-          "score": 0.695773,
+          "score": 0.693917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -1895,7 +1987,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -1915,7 +2007,7 @@
         "design"
       ],
       "global": {
-        "score": 0.900755,
+        "score": 0.8989,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 12,
@@ -1924,14 +2016,14 @@
         "explicitPositiveCount": 12,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.930594,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:2352d624410aa8d31adff2875b615ad317d0e14034678e546dcca244cd19d12a",
           "versionKey": "frontend/design-system-builder-pro@0.1.0#sha256:2352d",
-          "qualityScore": 0.900755,
+          "qualityScore": 0.8989,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -1940,12 +2032,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:design-system-builder": {
-          "score": 0.900755,
+          "score": 0.8989,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -1954,12 +2046,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.900755,
+          "score": 0.8989,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -1968,12 +2060,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "design-system": {
-          "score": 0.900755,
+          "score": 0.8989,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -1982,7 +2074,7 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -2024,7 +2116,7 @@
         "design"
       ],
       "global": {
-        "score": 0.699106,
+        "score": 0.697251,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 4,
@@ -2033,14 +2125,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.769683,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:016796c7236dd35875200b690ca16df6f67f8162b7976e2acda9af4887545627",
           "versionKey": "frontend/developer-portal-basic@0.1.0#sha256:01679",
-          "qualityScore": 0.699106,
+          "qualityScore": 0.697251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -2049,12 +2141,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:developer-portal": {
-          "score": 0.699106,
+          "score": 0.697251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -2063,12 +2155,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.699106,
+          "score": 0.697251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -2077,12 +2169,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "developer-portal": {
-          "score": 0.699106,
+          "score": 0.697251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -2091,7 +2183,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -2111,7 +2203,7 @@
         "design"
       ],
       "global": {
-        "score": 0.904089,
+        "score": 0.902233,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 12,
@@ -2120,14 +2212,14 @@
         "explicitPositiveCount": 12,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.930594,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:e4d2303226f56f800769895abcf8404c81927327b18e6258f6971551aba220f6",
           "versionKey": "frontend/developer-portal-pro@0.1.0#sha256:e4d23",
-          "qualityScore": 0.904089,
+          "qualityScore": 0.902233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -2136,12 +2228,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:developer-portal": {
-          "score": 0.904089,
+          "score": 0.902233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -2150,12 +2242,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.904089,
+          "score": 0.902233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -2164,12 +2256,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "developer-portal": {
-          "score": 0.904089,
+          "score": 0.902233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -2178,7 +2270,7 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -2198,7 +2290,7 @@
         "design"
       ],
       "global": {
-        "score": 0.693481,
+        "score": 0.691626,
         "confidence": 1,
         "sampleCount": 32,
         "invocationCount": 6,
@@ -2207,14 +2299,14 @@
         "explicitPositiveCount": 6,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:6a21a5d96513ee3e914619c1a122939378ccbaff48d6c0c4826d19fd312cc52c",
           "versionKey": "frontend/docs-site-basic@0.1.0#sha256:6a21a",
-          "qualityScore": 0.693481,
+          "qualityScore": 0.691626,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 6,
@@ -2223,12 +2315,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:docs-site": {
-          "score": 0.693481,
+          "score": 0.691626,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 6,
@@ -2237,12 +2329,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.693481,
+          "score": 0.691626,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 6,
@@ -2251,12 +2343,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "docs-site": {
-          "score": 0.693481,
+          "score": 0.691626,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 6,
@@ -2265,7 +2357,7 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -2285,7 +2377,7 @@
         "design"
       ],
       "global": {
-        "score": 0.929714,
+        "score": 0.927858,
         "confidence": 1,
         "sampleCount": 32,
         "invocationCount": 26,
@@ -2294,14 +2386,14 @@
         "explicitPositiveCount": 26,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:0d96e05660e468212bd439b8e60cebe46e74149f98a8feee5658587e1bf47980",
           "versionKey": "frontend/docs-site-pro@0.1.0#sha256:0d96e",
-          "qualityScore": 0.929714,
+          "qualityScore": 0.927858,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 26,
@@ -2310,12 +2402,12 @@
           "explicitPositiveCount": 26,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:docs-site": {
-          "score": 0.929714,
+          "score": 0.927858,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 26,
@@ -2324,12 +2416,12 @@
           "explicitPositiveCount": 26,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.929714,
+          "score": 0.927858,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 26,
@@ -2338,12 +2430,12 @@
           "explicitPositiveCount": 26,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "docs-site": {
-          "score": 0.929714,
+          "score": 0.927858,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 26,
@@ -2352,7 +2444,7 @@
           "explicitPositiveCount": 26,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -2665,11 +2757,79 @@
       "sceneTags": [
         "design"
       ],
-      "global": null,
-      "versions": [],
-      "projects": {},
+      "global": {
+        "score": 0.199974,
+        "confidence": 0.45534,
+        "sampleCount": 3,
+        "invocationCount": 0,
+        "successRate": 0,
+        "feedbackCount": 0,
+        "explicitPositiveCount": 0,
+        "explicitNegativeCount": 0,
+        "preferenceScore": 0,
+        "updatedAt": "2026-04-15T15:22:51.686Z"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:717fae828ee3b313a73569cc331ee88c0f7479b9e44e0a06652593d6ef19df50",
+          "versionKey": "frontend/marketing-landing-page@0.1.0#sha256:717fa",
+          "qualityScore": 0.19996,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
+        {
+          "version": "0.1.0",
+          "sourceHash": "sha256:f29a2e7e33b6fdba19ed3754bdf489967d4bfb0c88506fe6ec2b73f308a064c2",
+          "versionKey": "frontend/marketing-landing-page@0.1.0#sha256:f29a2",
+          "qualityScore": 0.199974,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        }
+      ],
+      "projects": {
+        "1": {
+          "score": 0.199974,
+          "confidence": 0.45534,
+          "sampleCount": 3,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        }
+      },
       "departments": {},
-      "scenes": {}
+      "scenes": {
+        "design": {
+          "score": 0.199974,
+          "confidence": 0.45534,
+          "sampleCount": 3,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        }
+      }
     },
     {
       "skillId": "frontend/nextjs-app-router",
@@ -2792,7 +2952,7 @@
         "design"
       ],
       "global": {
-        "score": 0.701606,
+        "score": 0.699751,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 6,
@@ -2801,14 +2961,14 @@
         "explicitPositiveCount": 6,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:f3af15b989d9a24be96637438062d2ecc49f72c29fb494586d04345cbd5d05c0",
           "versionKey": "frontend/pricing-page-basic@0.1.0#sha256:f3af1",
-          "qualityScore": 0.701606,
+          "qualityScore": 0.699751,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -2817,12 +2977,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:pricing-page": {
-          "score": 0.701606,
+          "score": 0.699751,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -2831,12 +2991,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.701606,
+          "score": 0.699751,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -2845,12 +3005,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "pricing": {
-          "score": 0.701606,
+          "score": 0.699751,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -2859,7 +3019,7 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -2879,7 +3039,7 @@
         "design"
       ],
       "global": {
-        "score": 0.948255,
+        "score": 0.9464,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 30,
@@ -2888,14 +3048,14 @@
         "explicitPositiveCount": 30,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:6b79558dfe858c67bba1f47d2c073bd26f597324ad7d43408313b9ef1c7b3d9e",
           "versionKey": "frontend/pricing-page-pro@0.1.0#sha256:6b795",
-          "qualityScore": 0.948255,
+          "qualityScore": 0.9464,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -2904,12 +3064,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:pricing-page": {
-          "score": 0.948255,
+          "score": 0.9464,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -2918,12 +3078,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.948255,
+          "score": 0.9464,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -2932,12 +3092,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "pricing": {
-          "score": 0.948255,
+          "score": 0.9464,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -2946,7 +3106,7 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3008,7 +3168,7 @@
         "design"
       ],
       "global": {
-        "score": 0.694939,
+        "score": 0.693084,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 6,
@@ -3017,14 +3177,14 @@
         "explicitPositiveCount": 6,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:81b4a3c09da2023a82be5f65db8e73f47b5daaaa0c79fe38edeb5d7386ed4255",
           "versionKey": "frontend/responsive-navigation-basic@0.1.0#sha256:81b4a",
-          "qualityScore": 0.694939,
+          "qualityScore": 0.693084,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3033,12 +3193,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:responsive-navigation": {
-          "score": 0.694939,
+          "score": 0.693084,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3047,12 +3207,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.694939,
+          "score": 0.693084,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3061,12 +3221,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "navigation": {
-          "score": 0.694939,
+          "score": 0.693084,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3075,7 +3235,7 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3095,7 +3255,7 @@
         "design"
       ],
       "global": {
-        "score": 0.941589,
+        "score": 0.939733,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 30,
@@ -3104,14 +3264,14 @@
         "explicitPositiveCount": 30,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:0abf137735c185d1eb55a7694300326e05327eb8b3ad29b45d27bd425219cfef",
           "versionKey": "frontend/responsive-navigation-pro@0.1.0#sha256:0abf1",
-          "qualityScore": 0.941589,
+          "qualityScore": 0.939733,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3120,12 +3280,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:responsive-navigation": {
-          "score": 0.941589,
+          "score": 0.939733,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3134,12 +3294,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.941589,
+          "score": 0.939733,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3148,12 +3308,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "navigation": {
-          "score": 0.941589,
+          "score": 0.939733,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3162,7 +3322,7 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3203,7 +3363,7 @@
         "design"
       ],
       "global": {
-        "score": 0.698273,
+        "score": 0.696417,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 6,
@@ -3212,14 +3372,14 @@
         "explicitPositiveCount": 6,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:3a9472ea28e604a2124cd8dec874437565441c1f198fc4d4be6ed477082fbbdd",
           "versionKey": "frontend/search-results-page-basic@0.1.0#sha256:3a947",
-          "qualityScore": 0.698273,
+          "qualityScore": 0.696417,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3228,12 +3388,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:search-results-page": {
-          "score": 0.698273,
+          "score": 0.696417,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3242,12 +3402,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.698273,
+          "score": 0.696417,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3256,12 +3416,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "search-results": {
-          "score": 0.698273,
+          "score": 0.696417,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3270,7 +3430,7 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3290,7 +3450,7 @@
         "design"
       ],
       "global": {
-        "score": 0.944922,
+        "score": 0.943067,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 30,
@@ -3299,14 +3459,14 @@
         "explicitPositiveCount": 30,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:269307372a0a54374b6fa54afa0d61f8df9a30f037dbd843c3d18927de3edb02",
           "versionKey": "frontend/search-results-page-pro@0.1.0#sha256:26930",
-          "qualityScore": 0.944922,
+          "qualityScore": 0.943067,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3315,12 +3475,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:search-results-page": {
-          "score": 0.944922,
+          "score": 0.943067,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3329,12 +3489,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.944922,
+          "score": 0.943067,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3343,12 +3503,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "search-results": {
-          "score": 0.944922,
+          "score": 0.943067,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3357,7 +3517,7 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3377,7 +3537,7 @@
         "design"
       ],
       "global": {
-        "score": 0.704939,
+        "score": 0.703084,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 6,
@@ -3386,14 +3546,14 @@
         "explicitPositiveCount": 6,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:9f6fa8fe7ab8ed5346bb357ff878356a8def2916ebd9301ebb7b67c61b5694ed",
           "versionKey": "frontend/settings-page-basic@0.1.0#sha256:9f6fa",
-          "qualityScore": 0.704939,
+          "qualityScore": 0.703084,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3402,12 +3562,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:settings-page": {
-          "score": 0.704939,
+          "score": 0.703084,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3416,12 +3576,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.704939,
+          "score": 0.703084,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3430,12 +3590,12 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "settings": {
-          "score": 0.704939,
+          "score": 0.703084,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 6,
@@ -3444,7 +3604,7 @@
           "explicitPositiveCount": 6,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3464,7 +3624,7 @@
         "design"
       ],
       "global": {
-        "score": 0.951589,
+        "score": 0.949733,
         "confidence": 1,
         "sampleCount": 36,
         "invocationCount": 30,
@@ -3473,14 +3633,14 @@
         "explicitPositiveCount": 30,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:e6b186ae991eed07360233f2fffc7410dc542bf688f417bf90b3efb36b73eb7d",
           "versionKey": "frontend/settings-page-pro@0.1.0#sha256:e6b18",
-          "qualityScore": 0.951589,
+          "qualityScore": 0.949733,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3489,12 +3649,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:settings-page": {
-          "score": 0.951589,
+          "score": 0.949733,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3503,12 +3663,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.951589,
+          "score": 0.949733,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3517,12 +3677,12 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "settings": {
-          "score": 0.951589,
+          "score": 0.949733,
           "confidence": 1,
           "sampleCount": 36,
           "invocationCount": 30,
@@ -3531,7 +3691,7 @@
           "explicitPositiveCount": 30,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3551,37 +3711,64 @@
         "design"
       ],
       "global": {
-        "score": 0.677101,
+        "score": 0.675778,
         "confidence": 1,
-        "sampleCount": 24,
+        "sampleCount": 27,
         "invocationCount": 1,
         "successRate": 1,
         "feedbackCount": 1,
         "explicitPositiveCount": 1,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.356207,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
+          "sourceHash": "sha256:3870a8b4041802741ed872451e4b21de51c9107c4109a9938f32bc6809945608",
+          "versionKey": "frontend/website-homepage-design@0.1.0#sha256:3870a",
+          "qualityScore": 0.199964,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
+        {
+          "version": "0.1.0",
           "sourceHash": "sha256:f4e8366bdec59c6430819340ef2eabbdc2f6abf34adf25f5286c965af00a0d96",
           "versionKey": "frontend/website-homepage-design@0.1.0#sha256:f4e83",
-          "qualityScore": 0.677101,
+          "qualityScore": 0.679576,
           "confidence": 1,
-          "sampleCount": 24,
+          "sampleCount": 25,
           "invocationCount": 1,
           "successRate": 1,
           "feedbackCount": 1,
           "explicitPositiveCount": 1,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.356207,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
+        "1": {
+          "score": 0.199964,
+          "confidence": 0.45534,
+          "sampleCount": 3,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
         "seed:homepage-refresh": {
-          "score": 0.677101,
+          "score": 0.675246,
           "confidence": 1,
           "sampleCount": 24,
           "invocationCount": 1,
@@ -3590,12 +3777,12 @@
           "explicitPositiveCount": 1,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.356207,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.677101,
+          "score": 0.675246,
           "confidence": 1,
           "sampleCount": 24,
           "invocationCount": 1,
@@ -3604,12 +3791,24 @@
           "explicitPositiveCount": 1,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.356207,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
+        "design": {
+          "score": 0.199964,
+          "confidence": 0.45534,
+          "sampleCount": 3,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
         "homepage": {
-          "score": 0.677101,
+          "score": 0.675246,
           "confidence": 1,
           "sampleCount": 24,
           "invocationCount": 1,
@@ -3618,7 +3817,7 @@
           "explicitPositiveCount": 1,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.356207,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3639,7 +3838,7 @@
         "homepage"
       ],
       "global": {
-        "score": 0.694939,
+        "score": 0.693084,
         "confidence": 1,
         "sampleCount": 40,
         "invocationCount": 4,
@@ -3648,14 +3847,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.827087,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:13ddbdcc7c003f7379fed574cb1e2dbccae9eb992d03f43511ff653acc0f2eb6",
           "versionKey": "frontend/website-homepage-design-basic@0.1.0#sha256:13ddb",
-          "qualityScore": 0.694939,
+          "qualityScore": 0.693084,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 4,
@@ -3664,12 +3863,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.827087,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:homepage-refresh": {
-          "score": 0.694939,
+          "score": 0.693084,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 4,
@@ -3678,12 +3877,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.827087,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.694939,
+          "score": 0.693084,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 4,
@@ -3692,12 +3891,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.827087,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "homepage": {
-          "score": 0.694939,
+          "score": 0.693084,
           "confidence": 1,
           "sampleCount": 40,
           "invocationCount": 4,
@@ -3706,7 +3905,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.827087,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3727,37 +3926,64 @@
         "homepage"
       ],
       "global": {
-        "score": 0.982973,
+        "score": 0.927394,
         "confidence": 1,
-        "sampleCount": 58,
-        "invocationCount": 55,
+        "sampleCount": 61,
+        "invocationCount": 57,
         "successRate": 1,
-        "feedbackCount": 55,
-        "explicitPositiveCount": 55,
+        "feedbackCount": 56,
+        "explicitPositiveCount": 56,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
+          "sourceHash": "sha256:bef7757ba41ed2bbb44b9675acd16397ed1ed03002a34673ee56776a641be2f2",
+          "versionKey": "frontend/website-homepage-design-pro@0.1.0#sha256:bef77",
+          "qualityScore": 0.629376,
+          "confidence": 0.360849,
+          "sampleCount": 2,
+          "invocationCount": 2,
+          "successRate": 1,
+          "feedbackCount": 1,
+          "explicitPositiveCount": 1,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0.128537,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
+        {
+          "version": "0.1.0",
           "sourceHash": "sha256:fb2f7922811f6125f36e2cb770d34b259e9cb5bb6f82f97175fec7d6b2fc87c8",
           "versionKey": "frontend/website-homepage-design-pro@0.1.0#sha256:fb2f7",
-          "qualityScore": 0.982973,
+          "qualityScore": 0.97537,
           "confidence": 1,
-          "sampleCount": 58,
+          "sampleCount": 59,
           "invocationCount": 55,
           "successRate": 1,
           "feedbackCount": 55,
           "explicitPositiveCount": 55,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
+        "1": {
+          "score": 0.199964,
+          "confidence": 0.45534,
+          "sampleCount": 3,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
         "seed:homepage-refresh": {
-          "score": 0.982973,
+          "score": 0.981117,
           "confidence": 1,
           "sampleCount": 58,
           "invocationCount": 55,
@@ -3766,12 +3992,12 @@
           "explicitPositiveCount": 55,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.982973,
+          "score": 0.981117,
           "confidence": 1,
           "sampleCount": 58,
           "invocationCount": 55,
@@ -3780,12 +4006,24 @@
           "explicitPositiveCount": 55,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
+        "design": {
+          "score": 0.199964,
+          "confidence": 0.45534,
+          "sampleCount": 3,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 0,
+          "explicitPositiveCount": 0,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0,
+          "updatedAt": "2026-04-15T15:22:51.686Z"
+        },
         "homepage": {
-          "score": 0.982973,
+          "score": 0.981117,
           "confidence": 1,
           "sampleCount": 58,
           "invocationCount": 55,
@@ -3794,7 +4032,7 @@
           "explicitPositiveCount": 55,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3816,7 +4054,7 @@
         "test"
       ],
       "global": {
-        "score": 0.811589,
+        "score": 0.809733,
         "confidence": 1,
         "sampleCount": 32,
         "invocationCount": 16,
@@ -3825,14 +4063,14 @@
         "explicitPositiveCount": 16,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:81edfe381b17bc0f49b7cee49f19b5d23476fa6ace60c6ebf8a742dc67fc7731",
           "versionKey": "general/bug-fix-debugging@0.1.0#sha256:81edf",
-          "qualityScore": 0.811589,
+          "qualityScore": 0.809733,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 16,
@@ -3841,12 +4079,12 @@
           "explicitPositiveCount": 16,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:backend-performance": {
-          "score": 0.685773,
+          "score": 0.683917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -3855,10 +4093,10 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         },
         "seed:bug-fix-debugging": {
-          "score": 0.894089,
+          "score": 0.892233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -3867,12 +4105,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.811589,
+          "score": 0.809733,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 16,
@@ -3881,12 +4119,12 @@
           "explicitPositiveCount": 16,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "debug": {
-          "score": 0.811589,
+          "score": 0.809733,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 16,
@@ -3895,7 +4133,7 @@
           "explicitPositiveCount": 16,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -3917,7 +4155,7 @@
         "planning"
       ],
       "global": {
-        "score": 0.705773,
+        "score": 0.703917,
         "confidence": 1,
         "sampleCount": 32,
         "invocationCount": 8,
@@ -3926,14 +4164,14 @@
         "explicitPositiveCount": 8,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:45b976a534e792ac631a62b46d8d635d782cb571197a2cab2a7cd5ee6f9d1af0",
           "versionKey": "general/development-plan-doc-basic@0.1.0#sha256:45b97",
-          "qualityScore": 0.705773,
+          "qualityScore": 0.703917,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 8,
@@ -3942,12 +4180,12 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:development-plan-doc": {
-          "score": 0.705773,
+          "score": 0.703917,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 8,
@@ -3956,12 +4194,12 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.705773,
+          "score": 0.703917,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 8,
@@ -3970,12 +4208,12 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "planning": {
-          "score": 0.705773,
+          "score": 0.703917,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 8,
@@ -3984,7 +4222,7 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4007,7 +4245,7 @@
         "review"
       ],
       "global": {
-        "score": 0.910755,
+        "score": 0.9089,
         "confidence": 1,
         "sampleCount": 32,
         "invocationCount": 24,
@@ -4016,14 +4254,14 @@
         "explicitPositiveCount": 24,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:c7850be779ea7ab5eb709394614ae09ec19ce24ee153556982cd235cc701a28a",
           "versionKey": "general/development-plan-doc-pro@0.1.0#sha256:c7850",
-          "qualityScore": 0.910755,
+          "qualityScore": 0.9089,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 24,
@@ -4032,12 +4270,12 @@
           "explicitPositiveCount": 24,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:development-plan-doc": {
-          "score": 0.910755,
+          "score": 0.9089,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 24,
@@ -4046,12 +4284,12 @@
           "explicitPositiveCount": 24,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.910755,
+          "score": 0.9089,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 24,
@@ -4060,12 +4298,12 @@
           "explicitPositiveCount": 24,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "planning": {
-          "score": 0.910755,
+          "score": 0.9089,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 24,
@@ -4074,7 +4312,7 @@
           "explicitPositiveCount": 24,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4248,7 +4486,7 @@
         "review"
       ],
       "global": {
-        "score": 0.686189,
+        "score": 0.690584,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 4,
@@ -4257,14 +4495,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.769683,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:29276f5d3edf1f1aef29beab0b0147ec135fae251dd46f24179b573b83d0350e",
           "versionKey": "review/code-review-general@0.1.0#sha256:29276",
-          "qualityScore": 0.686189,
+          "qualityScore": 0.690584,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4273,12 +4511,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:code-review-risk": {
-          "score": 0.686189,
+          "score": 0.690584,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4287,12 +4525,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.686189,
+          "score": 0.690584,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4301,12 +4539,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "review": {
-          "score": 0.686189,
+          "score": 0.690584,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4315,7 +4553,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4336,7 +4574,7 @@
         "architecture"
       ],
       "global": {
-        "score": 0.897422,
+        "score": 0.895567,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 12,
@@ -4345,14 +4583,14 @@
         "explicitPositiveCount": 12,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.930594,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:2d538d7164e8fc979266af0cbbf7fd12db9d929e302f55e439496980856b6af3",
           "versionKey": "review/code-review-risk-based@0.1.0#sha256:2d538",
-          "qualityScore": 0.897422,
+          "qualityScore": 0.895567,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4361,12 +4599,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:code-review-risk": {
-          "score": 0.897422,
+          "score": 0.895567,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4375,12 +4613,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.897422,
+          "score": 0.895567,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4389,12 +4627,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "review": {
-          "score": 0.897422,
+          "score": 0.895567,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4403,7 +4641,7 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4424,7 +4662,7 @@
         "review"
       ],
       "global": {
-        "score": 0.689106,
+        "score": 0.687251,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 4,
@@ -4433,14 +4671,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.769683,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:9482ffdc2596f6ed6eefc2299b9e4b034c6e18343f6e2e868b63865ee9fc587c",
           "versionKey": "review/unit-test-strategy@0.1.0#sha256:9482f",
-          "qualityScore": 0.689106,
+          "qualityScore": 0.687251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4449,12 +4687,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:bug-fix-debugging": {
-          "score": 0.689106,
+          "score": 0.687251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4463,12 +4701,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "backend-platform": {
-          "score": 0.689106,
+          "score": 0.687251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4477,12 +4715,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "debug": {
-          "score": 0.689106,
+          "score": 0.687251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4491,7 +4729,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4512,7 +4750,7 @@
         "review"
       ],
       "global": {
-        "score": 0.880755,
+        "score": 0.8789,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 12,
@@ -4521,14 +4759,14 @@
         "explicitPositiveCount": 12,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.930594,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:6654ebbcbda29454e3a8ce8b881bb5f25e17adacde2d834c112f47a2e3970d40",
           "versionKey": "security/dependency-supply-chain-audit@0.1.0#sha256:6654e",
-          "qualityScore": 0.880755,
+          "qualityScore": 0.8789,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4537,12 +4775,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:dependency-audit": {
-          "score": 0.880755,
+          "score": 0.8789,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4551,12 +4789,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "security-platform": {
-          "score": 0.880755,
+          "score": 0.8789,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4565,12 +4803,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "security-audit": {
-          "score": 0.880755,
+          "score": 0.8789,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4579,7 +4817,7 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4622,7 +4860,7 @@
         "security-audit"
       ],
       "global": {
-        "score": 0.679106,
+        "score": 0.677251,
         "confidence": 1,
         "sampleCount": 32,
         "invocationCount": 8,
@@ -4631,14 +4869,14 @@
         "explicitPositiveCount": 8,
         "explicitNegativeCount": 0,
         "preferenceScore": 1,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:9c27510ca0610f26a46084bf5cad709b3199601a8057aefa944161da257d0e29",
           "versionKey": "security/security-best-practices@0.1.0#sha256:9c275",
-          "qualityScore": 0.679106,
+          "qualityScore": 0.677251,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 8,
@@ -4647,12 +4885,12 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:dependency-audit": {
-          "score": 0.675773,
+          "score": 0.673917,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4661,10 +4899,10 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         },
         "seed:security-vulnerability-review": {
-          "score": 0.679106,
+          "score": 0.677251,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 4,
@@ -4673,12 +4911,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.769683,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "security-platform": {
-          "score": 0.679106,
+          "score": 0.677251,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 8,
@@ -4687,12 +4925,12 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "security-audit": {
-          "score": 0.679106,
+          "score": 0.677251,
           "confidence": 1,
           "sampleCount": 32,
           "invocationCount": 8,
@@ -4701,7 +4939,7 @@
           "explicitPositiveCount": 8,
           "explicitNegativeCount": 0,
           "preferenceScore": 1,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4766,7 +5004,7 @@
         "review"
       ],
       "global": {
-        "score": 0.884089,
+        "score": 0.882233,
         "confidence": 0.930594,
         "sampleCount": 16,
         "invocationCount": 12,
@@ -4775,14 +5013,14 @@
         "explicitPositiveCount": 12,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.930594,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:eb3d3240d8806e2b61661d4446d15f664ec26d6baea2b5e4ecf4af37c3da8050",
           "versionKey": "security/security-vulnerability-check@0.1.0#sha256:eb3d3",
-          "qualityScore": 0.884089,
+          "qualityScore": 0.882233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4791,12 +5029,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:security-vulnerability-review": {
-          "score": 0.884089,
+          "score": 0.882233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4805,12 +5043,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "security-platform": {
-          "score": 0.884089,
+          "score": 0.882233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4819,12 +5057,12 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "security-audit": {
-          "score": 0.884089,
+          "score": 0.882233,
           "confidence": 0.930594,
           "sampleCount": 16,
           "invocationCount": 12,
@@ -4833,7 +5071,7 @@
           "explicitPositiveCount": 12,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.930594,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4854,7 +5092,7 @@
         "review"
       ],
       "global": {
-        "score": 0.678035,
+        "score": 0.676179,
         "confidence": 0.889483,
         "sampleCount": 14,
         "invocationCount": 4,
@@ -4863,14 +5101,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.73568,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:c8daea88a1cb8cd23b08f38975bc745359d6063371c2ae19e1c7218ea4b0ca67",
           "versionKey": "tools/doc@0.1.0#sha256:c8dae",
-          "qualityScore": 0.678035,
+          "qualityScore": 0.676179,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 4,
@@ -4879,12 +5117,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.73568,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:operations-spreadsheet": {
-          "score": 0.678035,
+          "score": 0.676179,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 4,
@@ -4893,12 +5131,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.73568,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "data-platform": {
-          "score": 0.678035,
+          "score": 0.676179,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 4,
@@ -4907,12 +5145,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.73568,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "data-analysis": {
-          "score": 0.678035,
+          "score": 0.676179,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 4,
@@ -4921,7 +5159,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.73568,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -4983,7 +5221,7 @@
         "test"
       ],
       "global": {
-        "score": 0.681368,
+        "score": 0.679513,
         "confidence": 0.889483,
         "sampleCount": 14,
         "invocationCount": 4,
@@ -4992,14 +5230,14 @@
         "explicitPositiveCount": 4,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.73568,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:21dac41abf9ca69445a3ff4eef99625266fbd7b7a96c315348140f50646eecba",
           "versionKey": "tools/playwright@0.1.0#sha256:21dac",
-          "qualityScore": 0.681368,
+          "qualityScore": 0.679513,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 4,
@@ -5008,12 +5246,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.73568,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:playwright-interactive": {
-          "score": 0.681368,
+          "score": 0.679513,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 4,
@@ -5022,12 +5260,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.73568,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.681368,
+          "score": 0.679513,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 4,
@@ -5036,12 +5274,12 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.73568,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "debug": {
-          "score": 0.681368,
+          "score": 0.679513,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 4,
@@ -5050,7 +5288,7 @@
           "explicitPositiveCount": 4,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.73568,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -5071,7 +5309,7 @@
         "test"
       ],
       "global": {
-        "score": 0.868494,
+        "score": 0.866638,
         "confidence": 0.889483,
         "sampleCount": 14,
         "invocationCount": 10,
@@ -5080,14 +5318,14 @@
         "explicitPositiveCount": 10,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.889483,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:e79f4f4484f93f956f4a222e149052f87a7b1ba4b91bd5885e2163f5b020a851",
           "versionKey": "tools/playwright-interactive@0.1.0#sha256:e79f4",
-          "qualityScore": 0.868494,
+          "qualityScore": 0.866638,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 10,
@@ -5096,12 +5334,12 @@
           "explicitPositiveCount": 10,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:playwright-interactive": {
-          "score": 0.868494,
+          "score": 0.866638,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 10,
@@ -5110,12 +5348,12 @@
           "explicitPositiveCount": 10,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "frontend-platform": {
-          "score": 0.868494,
+          "score": 0.866638,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 10,
@@ -5124,12 +5362,12 @@
           "explicitPositiveCount": 10,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "debug": {
-          "score": 0.868494,
+          "score": 0.866638,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 10,
@@ -5138,7 +5376,7 @@
           "explicitPositiveCount": 10,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     },
@@ -5181,7 +5419,7 @@
         "data-analysis"
       ],
       "global": {
-        "score": 0.86516,
+        "score": 0.863305,
         "confidence": 0.889483,
         "sampleCount": 14,
         "invocationCount": 10,
@@ -5190,14 +5428,14 @@
         "explicitPositiveCount": 10,
         "explicitNegativeCount": 0,
         "preferenceScore": 0.889483,
-        "updatedAt": "2026-04-15T02:01:17.032Z"
+        "updatedAt": "2026-04-15T15:22:51.686Z"
       },
       "versions": [
         {
           "version": "0.1.0",
           "sourceHash": "sha256:95868493d5ff47b3a927b71c7da9cd8ca50697a20cf34546812c1061be205796",
           "versionKey": "tools/spreadsheet@0.1.0#sha256:95868",
-          "qualityScore": 0.86516,
+          "qualityScore": 0.863305,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 10,
@@ -5206,12 +5444,12 @@
           "explicitPositiveCount": 10,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       ],
       "projects": {
         "seed:operations-spreadsheet": {
-          "score": 0.86516,
+          "score": 0.863305,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 10,
@@ -5220,12 +5458,12 @@
           "explicitPositiveCount": 10,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "departments": {
         "data-platform": {
-          "score": 0.86516,
+          "score": 0.863305,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 10,
@@ -5234,12 +5472,12 @@
           "explicitPositiveCount": 10,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       },
       "scenes": {
         "data-analysis": {
-          "score": 0.86516,
+          "score": 0.863305,
           "confidence": 0.889483,
           "sampleCount": 14,
           "invocationCount": 10,
@@ -5248,7 +5486,7 @@
           "explicitPositiveCount": 10,
           "explicitNegativeCount": 0,
           "preferenceScore": 0.889483,
-          "updatedAt": "2026-04-15T02:01:17.032Z"
+          "updatedAt": "2026-04-15T15:22:51.686Z"
         }
       }
     }

@@ -7,6 +7,7 @@ import {
 } from '../../bootstrap/teamccAuth.js'
 import type { TeamCCBootstrapResult } from '../../bootstrap/teamccSession.js'
 import { bootstrapTeamCCSession } from '../../bootstrap/teamccSession.js'
+import { getCwd } from '../../utils/cwd.js'
 
 export function TeamCCLogin({
   onDone,
@@ -43,13 +44,14 @@ export function TeamCCLogin({
     setStep('loading')
     setError('')
     try {
+      const cwd = getCwd()
       // 1. Invoke TeamCC Login
       const adminUrl = process.env.TEAMCC_ADMIN_URL || 'http://127.0.0.1:3000'
       const { config } = await loginToTeamCC(username, val, adminUrl)
       // 2. Save config locally
-      await saveTeamCCConfig(process.cwd(), config)
+      await saveTeamCCConfig(cwd, config)
       // 3. Bootstrap current runtime session from the newly issued login
-      const session = await bootstrapTeamCCSession(process.cwd())
+      const session = await bootstrapTeamCCSession(cwd)
       if (session.status === 'unauthenticated' || !session.identityProfile) {
         throw new Error(session.failureReason ?? '登录后未能完成 TeamCC 身份鉴权')
       }

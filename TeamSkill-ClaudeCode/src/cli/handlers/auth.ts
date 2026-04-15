@@ -9,6 +9,7 @@ import {
 import { getTeamCCProjectCacheDir } from '../../utils/teamccPaths.js'
 import { getAPIProvider } from '../../utils/model/providers.js'
 import { jsonStringify } from '../../utils/slowOperations.js'
+import { getCwd } from '../../utils/cwd.js'
 
 // No-op shim for backwards compatibility with VSC plugin / background OAuth flows
 // Since Anthropic OAuth has been fully decoupled and transitioned to TeamCC Local Auth,
@@ -29,6 +30,7 @@ export async function authLogin({
   console?: boolean
   claudeai?: boolean
 }): Promise<void> {
+  const cwd = getCwd()
   const readline = await import('readline')
   const rl = readline.createInterface({
     input: process.stdin,
@@ -51,12 +53,12 @@ export async function authLogin({
 
     const adminUrl = process.env.TEAMCC_ADMIN_URL || 'http://127.0.0.1:3000'
     const { config } = await loginToTeamCC(username, password, adminUrl)
-    await saveTeamCCConfig(process.cwd(), config)
+    await saveTeamCCConfig(cwd, config)
 
-    const identity = await fetchIdentityFromTeamCC(process.cwd(), config)
-    await cacheIdentity(process.cwd(), identity)
+    const identity = await fetchIdentityFromTeamCC(cwd, config)
+    await cacheIdentity(cwd, identity)
     const { reportAuditLog } = await import('../../bootstrap/teamccAudit.js')
-    void reportAuditLog(process.cwd(), 'login', {
+    void reportAuditLog(cwd, 'login', {
       username: identity.subject.username,
     })
 
@@ -73,7 +75,7 @@ export async function authStatus(opts: {
   json?: boolean
   text?: boolean
 }): Promise<void> {
-  const identity = await loadCachedIdentity(process.cwd())
+  const identity = await loadCachedIdentity(getCwd())
   const apiProvider = getAPIProvider()
 
   if (opts.text) {
@@ -102,11 +104,12 @@ export async function authStatus(opts: {
 
 export async function authLogout(): Promise<void> {
   try {
-    await logoutFromTeamCC(process.cwd())
+    const cwd = getCwd()
+    await logoutFromTeamCC(cwd)
     // also remove cache
     const fs = await import('fs/promises')
     const path = await import('path')
-    const cacheDir = getTeamCCProjectCacheDir(process.cwd())
+    const cacheDir = getTeamCCProjectCacheDir(cwd)
     try {
       const files = await fs.readdir(cacheDir)
       for (const file of files) {

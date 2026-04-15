@@ -30,7 +30,10 @@ export function getSystemPromptInjection(): string | null {
 
 export function setSystemPromptInjection(value: string | null): void {
   systemPromptInjection = value
-  // Clear context caches immediately when injection changes
+  clearContextCaches()
+}
+
+export function clearContextCaches(): void {
   getUserContext.cache.clear?.()
   getSystemContext.cache.clear?.()
 }

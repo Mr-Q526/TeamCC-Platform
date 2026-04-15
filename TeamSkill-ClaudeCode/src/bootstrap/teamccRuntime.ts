@@ -1,4 +1,5 @@
 import type { ToolUseContext } from '../Tool.js'
+import { clearContextCaches } from '../context.js'
 import type { TeamCCBootstrapResult } from './teamccSession.js'
 import {
   applyTeamCCSessionToPermissionContext,
@@ -14,6 +15,7 @@ export function applyTeamCCSessionToRuntime(
 ): void {
   setIdentityProfile(session.identityProfile)
   setTeamCCSessionState(session.status, session.failureReason)
+  clearContextCaches()
 
   context.setAppState(prev => ({
     ...prev,
@@ -30,6 +32,7 @@ export function clearTeamCCRuntimeState(
 ): void {
   setIdentityProfile(null)
   setTeamCCSessionState('unauthenticated', failureReason)
+  clearContextCaches()
 
   context.setAppState(prev => ({
     ...prev,

@@ -14,14 +14,18 @@ type InjectedSkillEntry = {
   retrievalSource?: string
 }
 
+type InternalInjectedSkillEntry = InjectedSkillEntry & {
+  lastSeenOrder: number
+}
+
 type Props = {
   messages: Message[]
   maxVisibleSkills?: number
 }
 
 function getInjectedSkills(messages: Message[]): InjectedSkillEntry[] {
-  const skillByKey = new Map<string, InjectedSkillEntry>()
-  const orderedKeys: string[] = []
+  const skillByKey = new Map<string, InternalInjectedSkillEntry>()
+  let nextSeenOrder = 0
 
   const ensureSkill = (
     skill: Omit<InjectedSkillEntry, 'status'> & { status: InjectedSkillStatus },
@@ -32,16 +36,20 @@ function getInjectedSkills(messages: Message[]): InjectedSkillEntry[] {
     const key = (skill.skillId?.trim() || trimmed).toLowerCase()
     const existing = skillByKey.get(key)
     if (existing) {
+      existing.lastSeenOrder = nextSeenOrder++
       if (status === 'invoked' && existing.status !== 'invoked') {
         existing.status = status
       }
-      if (existing.rank === undefined && skill.rank !== undefined) {
+      if (!existing.skillId && skill.skillId) {
+        existing.skillId = skill.skillId
+      }
+      if (skill.rank !== undefined) {
         existing.rank = skill.rank
       }
-      if (existing.finalScore === undefined && skill.finalScore !== undefined) {
+      if (skill.finalScore !== undefined) {
         existing.finalScore = skill.finalScore
       }
-      if (!existing.retrievalSource && skill.retrievalSource) {
+      if (skill.retrievalSource) {
         existing.retrievalSource = skill.retrievalSource
       }
       return
@@ -53,8 +61,8 @@ function getInjectedSkills(messages: Message[]): InjectedSkillEntry[] {
       rank: skill.rank,
       finalScore: skill.finalScore,
       retrievalSource: skill.retrievalSource,
+      lastSeenOrder: nextSeenOrder++,
     })
-    orderedKeys.push(key)
   }
 
   for (const message of messages) {
@@ -116,7 +124,20 @@ function getInjectedSkills(messages: Message[]): InjectedSkillEntry[] {
     })
   }
 
-  return orderedKeys.map(key => skillByKey.get(key)!)
+  return [...skillByKey.values()]
+    .sort((left, right) => {
+      if (left.lastSeenOrder !== right.lastSeenOrder) {
+        return right.lastSeenOrder - left.lastSeenOrder
+      }
+      if (left.status !== right.status) {
+        return left.status === 'invoked' ? -1 : 1
+      }
+      if (left.rank !== undefined && right.rank !== undefined && left.rank !== right.rank) {
+        return left.rank - right.rank
+      }
+      return left.name.localeCompare(right.name)
+    })
+    .map(({ lastSeenOrder: _lastSeenOrder, ...skill }) => skill)
 }
 
 export function InjectedSkillsPanel({ messages, maxVisibleSkills = 6 }: Props): React.ReactNode {
@@ -129,6 +150,9 @@ export function InjectedSkillsPanel({ messages, maxVisibleSkills = 6 }: Props): 
       <Text dimColor>
         Injected skills <Text bold>({injectedSkills.length})</Text>
       </Text>
+      {injectedSkills.length > 0 && (
+        <Text dimColor>Latest per skill in this session.</Text>
+      )}
       {injectedSkills.length === 0 && (
         <Box paddingLeft={2}>
           <Text dimColor>• no skills injected yet</Text>

@@ -6,27 +6,29 @@ import { clearTeamCCRuntimeState } from '../../bootstrap/teamccRuntime.js'
 import { gracefulShutdownSync } from '../../utils/gracefulShutdown.js'
 import { logoutFromTeamCC } from '../../bootstrap/teamccAuth.js'
 import { stripSignatureBlocks } from '../../utils/messages.js'
+import { getCwd } from '../../utils/cwd.js'
 import { getTeamCCProjectCacheDir } from '../../utils/teamccPaths.js'
 import { Login, applySuccessfulTeamCCLogin } from '../login/login.js'
 
 export async function performLogout({
   clearOnboarding: _clearOnboarding = false,
 } = {}): Promise<void> {
+  const cwd = getCwd()
   await reportAuditLog(
-    process.cwd(),
+    cwd,
     'logout',
     { reason: 'user_initiated_logout' },
     { refreshToken: false },
   )
 
   // 1. Wipe TeamCC config
-  await logoutFromTeamCC(process.cwd())
+  await logoutFromTeamCC(cwd)
 
   // 2. Erase cached identity and permissions
   try {
     const fs = await import('fs/promises')
     const path = await import('path')
-    const cacheDir = getTeamCCProjectCacheDir(process.cwd())
+    const cacheDir = getTeamCCProjectCacheDir(cwd)
 
     const files = await fs.readdir(cacheDir)
     for (const file of files) {

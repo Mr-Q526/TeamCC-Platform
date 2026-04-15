@@ -17,6 +17,7 @@ import { refreshRemoteManagedSettings } from '../../services/remoteManagedSettin
 import type { LocalJSXCommandOnDone } from '../../types/command.js'
 import { gracefulShutdownSync } from '../../utils/gracefulShutdown.js'
 import { stripSignatureBlocks } from '../../utils/messages.js'
+import { getCwd } from '../../utils/cwd.js'
 import {
   checkAndDisableAutoModeIfNeeded,
   checkAndDisableBypassPermissionsIfNeeded,
@@ -31,7 +32,7 @@ export async function applySuccessfulTeamCCLogin(
   session: import('../../bootstrap/teamccSession.js').TeamCCBootstrapResult,
 ): Promise<void> {
   applyTeamCCSessionToRuntime(context, session)
-  void reportAuditLog(process.cwd(), 'login', {
+  void reportAuditLog(getCwd(), 'login', {
     status: session.status,
     warning: session.warning,
     failureReason: session.failureReason,
