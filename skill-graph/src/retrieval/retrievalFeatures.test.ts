@@ -85,6 +85,7 @@ const aggregateManifest: SkillFeedbackAggregateManifest = {
       skillId: 'frontend/website-homepage-design-basic',
       skillVersion: null,
       sourceHash: null,
+      projectId: null,
       department: null,
       scene: null,
       window: '30d',
@@ -121,6 +122,7 @@ const aggregateManifest: SkillFeedbackAggregateManifest = {
       skillId: 'frontend/website-homepage-design-basic',
       skillVersion: null,
       sourceHash: null,
+      projectId: null,
       department: 'frontend-platform',
       scene: null,
       window: '30d',
@@ -157,6 +159,7 @@ const aggregateManifest: SkillFeedbackAggregateManifest = {
       skillId: 'frontend/website-homepage-design-basic',
       skillVersion: null,
       sourceHash: null,
+      projectId: null,
       department: null,
       scene: 'homepage',
       window: '30d',
@@ -193,6 +196,7 @@ const aggregateManifest: SkillFeedbackAggregateManifest = {
       skillId: 'frontend/website-homepage-design-basic',
       skillVersion: '0.1.0',
       sourceHash: 'sha256:basic',
+      projectId: null,
       department: null,
       scene: null,
       window: '30d',
@@ -229,6 +233,7 @@ const aggregateManifest: SkillFeedbackAggregateManifest = {
       skillId: 'frontend/website-homepage-design-pro',
       skillVersion: null,
       sourceHash: null,
+      projectId: null,
       department: null,
       scene: null,
       window: '30d',
@@ -265,6 +270,7 @@ const aggregateManifest: SkillFeedbackAggregateManifest = {
       skillId: 'frontend/website-homepage-design-pro',
       skillVersion: null,
       sourceHash: null,
+      projectId: null,
       department: 'frontend-platform',
       scene: null,
       window: '30d',
@@ -301,6 +307,7 @@ const aggregateManifest: SkillFeedbackAggregateManifest = {
       skillId: 'frontend/website-homepage-design-pro',
       skillVersion: null,
       sourceHash: null,
+      projectId: null,
       department: null,
       scene: 'homepage',
       window: '30d',
@@ -337,6 +344,7 @@ const aggregateManifest: SkillFeedbackAggregateManifest = {
       skillId: 'frontend/website-homepage-design-pro',
       skillVersion: '0.1.0',
       sourceHash: 'sha256:pro',
+      projectId: null,
       department: null,
       scene: null,
       window: '30d',
@@ -380,7 +388,8 @@ describe('retrieval features', () => {
     expect(manifest.registryVersion).toBe('sha256:registry')
     expect(manifest.aggregateGeneratedAt).toBe('2026-04-12T12:00:00.000Z')
     expect(manifest.window).toBe('30d')
-    expect(manifest.scoring.graphFeatureWeights.version).toBe(0.35)
+    expect(manifest.scoring.graphFeatureWeights.project).toBe(0.4)
+    expect(manifest.scoring.graphFeatureWeights.version).toBe(0.1)
     expect(manifest.scoring.graphFeatureScoreFormula).toContain(
       'version(qualityScore * confidence)',
     )
@@ -393,7 +402,9 @@ describe('retrieval features', () => {
     )
 
     expect(homepageBasic?.global?.score).toBe(0.59)
+    expect(homepageBasic?.global?.preferenceScore).toBe(0)
     expect(homepageBasic?.versions).toHaveLength(1)
+    expect(homepageBasic?.projects).toEqual({})
     expect(homepageBasic?.departments['frontend-platform']?.score).toBe(0.61)
     expect(homepageBasic?.scenes.homepage?.score).toBe(0.64)
     expect(admin?.global).toBeNull()
@@ -430,6 +441,7 @@ describe('retrieval features', () => {
     const response = await getSkillGraphFeatures(
       {
         queryText: '官网首页设计',
+        projectId: null,
         department: 'frontend-platform',
         sceneHints: ['homepage'],
         domainHints: ['frontend'],
@@ -461,21 +473,28 @@ describe('retrieval features', () => {
     const admin = response.items[2]
 
     expect(basic.versionQualityScore).toBe(0.59)
+    expect(basic.versionPreferenceScore).toBe(0)
     expect(basic.departmentScore).toBe(0.61)
     expect(basic.sceneScore).toBe(0.64)
     expect(basic.invocationCount).toBe(5)
     expect(basic.successRate).toBe(0.6)
 
     expect(pro.versionQualityScore).toBe(0.91)
+    expect(pro.versionPreferenceScore).toBeGreaterThan(0)
     expect(pro.departmentScore).toBe(0.93)
     expect(pro.sceneScore).toBe(0.95)
+    expect(pro.preferenceFeatureScore).toBeGreaterThan(basic.preferenceFeatureScore)
+    expect(pro.qualityFeatureScore).toBeGreaterThan(basic.qualityFeatureScore)
     expect(pro.graphFeatureScore).toBeGreaterThan(basic.graphFeatureScore)
-    expect(pro.graphFeatureExplanation.signals).toHaveLength(4)
-    expect(pro.graphFeatureExplanation.missingSignals).toEqual([])
+    expect(pro.graphFeatureExplanation.signals).toHaveLength(5)
+    expect(pro.graphFeatureExplanation.missingSignals).toEqual([
+      'project: request did not provide projectId',
+    ])
     expect(pro.graphFeatureExplanation.signals.find(signal => signal.scope === 'scene')).toMatchObject({
       matched: true,
       matchedKey: 'homepage',
-      weight: 0.2,
+      weight: 0.25,
+      preferenceScore: expect.any(Number),
       sampleCount: 11,
     })
 

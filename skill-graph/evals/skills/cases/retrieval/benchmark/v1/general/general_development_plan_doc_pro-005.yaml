@@ -14,7 +14,8 @@ query:
   queryText: 我需要一个详细的开发计划文档，包括modules、functions和type definitions。
   queryContext: 开发计划 文档 详细 modules functions type definitions
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

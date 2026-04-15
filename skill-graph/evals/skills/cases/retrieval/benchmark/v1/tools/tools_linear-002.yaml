@@ -13,7 +13,8 @@ query:
   queryText: 我想在工作流里审查一下线性的问题
   queryContext: 工作流 审查 问题 线性 工具 项目 团队
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: null
   domainHints:
     - tools
   sceneHints:
@@ -30,4 +31,5 @@ expected:
   forbiddenSkillIds:
     - backend/rest-api-implementation
     - frontend/website-homepage-design-pro
-modeOverrides: {}
+  preference: null
+modeOverrides: null

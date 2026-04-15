@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_login_preference_002
+title: 登录与身份接入页面在混合表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - login
+query:
+  queryText: 我想做一个企业登录入口，要覆盖 SSO、账号异常处理、sign-in 安全提示和访问说明。
+  queryContext: 企业登录 SSO sign-in 账号异常 安全提示 访问说明
+  cwd: /tmp/skill-eval
+  projectId: seed:auth-login-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:login
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/auth-login-page-pro
+  acceptableSkillIds:
+    - frontend/auth-login-page-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - security/security-best-practices
+  preference:
+    preferredSkillId: frontend/auth-login-page-pro
+    competingSkillId: frontend/auth-login-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

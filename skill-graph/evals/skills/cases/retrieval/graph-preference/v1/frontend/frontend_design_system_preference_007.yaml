@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_design_system_preference_007
+title: 设计系统偏好扩展表达 007
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - design-system
+query:
+  queryText: 设计与前端要联合建设设计系统，我需要把企业设计系统做好，重点是design system 的治理、资产和演进方式更顺。
+  queryContext: 企业设计系统 design system 的治理、资产和演进方式更顺 设计与前端要联合建设设计系统 设计系统 tokens 治理 组件规范
+  cwd: /tmp/skill-eval
+  projectId: seed:design-system-builder
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design-system
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/design-system-builder-pro
+  acceptableSkillIds:
+    - frontend/design-system-builder-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/design-system-builder-pro
+    competingSkillId: frontend/design-system-builder-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

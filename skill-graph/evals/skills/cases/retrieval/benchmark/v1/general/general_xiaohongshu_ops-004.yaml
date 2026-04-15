@@ -14,7 +14,8 @@ query:
   queryText: 想把新品在小红书跑出第一波增长，需要人设、内容节奏、评论区运营和周复盘机制。
   queryContext: 小红书 增长 人设 内容节奏 评论区 复盘
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:growth
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

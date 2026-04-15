@@ -13,7 +13,8 @@ query:
   queryText: 帮我审查一下项目里的问题和工作流
   queryContext: 问题 审查 工作流 工具 项目 workflow automation tool
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: null
   domainHints:
     - tools
   sceneHints:
@@ -30,4 +31,5 @@ expected:
   forbiddenSkillIds:
     - backend/rest-api-implementation
     - frontend/website-homepage-design-pro
-modeOverrides: {}
+  preference: null
+modeOverrides: null

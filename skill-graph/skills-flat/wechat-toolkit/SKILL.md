@@ -6,21 +6,21 @@ displayName: WeChat Toolkit
 description: 微信公众号一站式工具包 — 集成文章搜索、文章下载、AI洗稿改写、公众号发布四大功能。当用户需要搜索/下载/改写/发布微信公众号文章时使用。
 aliases:
   - wechat-toolkit
+  - WeChat Toolkit
+  - wechattoolkit
   - 微信
   - 公众号
   - 微信运营
-  - WeChat Toolkit
   - wechat
   - toolkit
   - We
   - Chat
-  - general
-  - 通用
-  - content-generation
-  - release
-  - growth
+  - 公众号工具
+  - 微信公众号
+  - 公众号改写
+  - 公众号发布
 version: 0.1.0
-sourceHash: sha256:2a7e1b1249e156c7dc2311b47419647b1c161c1effa22eed43d64a75f38573cd
+sourceHash: sha256:343068e3b69084284dc5bc350e3f6ae14496a58b7e61605f396e888bfe12e1d0
 domain: general
 departmentTags:
   - growth

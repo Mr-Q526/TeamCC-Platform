@@ -6,24 +6,17 @@ displayName: General Code Review
 description: Use when working on general code review across frontend, backend, scripts, and infrastructure changes. Focus on bugs, regressions, maintainability risks, and missing tests.
 aliases:
   - code-review-general
-  - 代码
-  - coding
+  - General Code Review
+  - code review general
+  - codereviewgeneral
   - 代码实现
   - 代码审查
   - code review
   - 评审
-  - 通用
-  - general
-  - General Code Review
-  - code review general
-  - code
-  - review
-  - backend-platform
-  - 后端
   - 服务端
   - server side
 version: 0.1.0
-sourceHash: sha256:66afab9b81835288d1925a616d35b138e5dd7c028610dfefcabdb10b14a9b43a
+sourceHash: sha256:29276f5d3edf1f1aef29beab0b0147ec135fae251dd46f24179b573b83d0350e
 domain: review
 departmentTags:
   - backend-platform

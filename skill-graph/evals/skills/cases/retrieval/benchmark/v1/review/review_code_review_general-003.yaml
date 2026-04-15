@@ -13,7 +13,8 @@ query:
   queryText: 我要对这段代码进行审查，看看有没有bug、回归问题、可维护性风险，以及是否缺少测试。
   queryContext: 代码审查 问题 风险 测试 code review quality
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -29,4 +30,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

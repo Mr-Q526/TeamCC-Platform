@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_homepage_preference_002
+title: 品牌官网首页在纯中文任务表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - homepage
+query:
+  queryText: 我们准备重做公司官网首页，希望首屏叙事完整、品牌感强，并且能清楚承接转化。
+  queryContext: 品牌官网首页 首屏叙事 品牌感 转化承接 页面结构
+  cwd: /tmp/skill-eval
+  projectId: seed:homepage-refresh
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:homepage
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/website-homepage-design-pro
+  acceptableSkillIds:
+    - frontend/website-homepage-design-basic
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/website-homepage-design-pro
+    competingSkillId: frontend/website-homepage-design-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

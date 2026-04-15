@@ -14,7 +14,8 @@ query:
   queryText: 我要设计一个英语课的 课件，包括导入、课文讲解、词汇、句型、练习和总结等环节，怎么设计？
   queryContext: 英语课 PPT课件 设计 教学环节 课堂节奏
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -6,24 +6,15 @@ displayName: Onboarding Flow PRO
 description: Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Pro version focused on progress, motivation, task sequencing, and activation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - onboarding-flow-pro
+  - Onboarding Flow PRO
+  - onboardingflowpro
   - 新手引导
   - 入门流程
   - onboarding
-  - 专业版
-  - pro
-  - Onboarding Flow PRO
   - flow
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - onboarding flow
 version: 0.1.0
-sourceHash: sha256:2c239264a2899d43836489aff03b3b35dc6ed4ae23222922977d52b37d4f88e0
+sourceHash: sha256:43a5cffb3ac82bf19c2d789cbb05e22fbfdfa7cc5da7073ba79cd066873b7d19
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_spreadsheet_preference_013
+title: 运营表格偏好混合表达 013
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - data-analysis
+query:
+  queryText: 周报前要把投放数据整理出来，想把运营数据表整理做成更成熟的 editable sheet 体验，重点是数据清洗、汇总和后续复盘链路更顺。
+  queryContext: 运营数据表整理 数据清洗、汇总和后续复盘链路更顺 editable sheet 周报前要把投放数据整理出来 运营数据表 透视汇总 渠道分析
+  cwd: /tmp/skill-eval
+  projectId: seed:operations-spreadsheet
+  department: dept:data-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:data-analysis
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/doc
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: tools/spreadsheet
+    competingSkillId: tools/doc
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -6,6 +6,8 @@ displayName: Fintech Dashboard PRO
 description: Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Pro version focused on precision, compliance cues, risk visibility, and decision context; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - fintech-dashboard-pro
+  - Fintech Dashboard PRO
+  - fintechdashboardpro
   - 金融科技
   - 金融
   - fintech
@@ -13,20 +15,10 @@ aliases:
   - 看板
   - 控制台
   - dashboard
-  - 专业版
-  - pro
-  - Fintech Dashboard PRO
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 仪表盘设计
+  - dashboard design
 version: 0.1.0
-sourceHash: sha256:bbc57001525c136afa51c864148d8bb5e20192652d83723de845b20e5e5c234a
+sourceHash: sha256:d777ae2dbb57624f48b434b9e5c1217a802656f32a3a6eb4c7f7da6c05846fe3
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_developer_portal_preference_002
+title: 开发者接入门户在纯中文表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - developer-portal
+query:
+  queryText: 我们要做一个开发者接入门户，重点是接口导航、接入指引、示例代码和信息架构清晰。
+  queryContext: 开发者接入门户 接口导航 接入指引 示例代码 信息架构
+  cwd: /tmp/skill-eval
+  projectId: seed:developer-portal
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:developer-portal
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/developer-portal-pro
+  acceptableSkillIds:
+    - frontend/developer-portal-basic
+  forbiddenSkillIds:
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/developer-portal-pro
+    competingSkillId: frontend/developer-portal-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

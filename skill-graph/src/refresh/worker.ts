@@ -10,7 +10,10 @@ import {
   applySkillAggregateGraphUpdate,
   buildAndWriteSkillAggregateGraphUpdateFromPg,
 } from '../graph/aggregateGraphUpdate.js'
-import { writeSkillRetrievalFeatures } from '../retrieval/retrievalFeatures.js'
+import {
+  factFilterForRetrievalFeaturePreset,
+  writeSkillRetrievalFeatures,
+} from '../retrieval/retrievalFeatures.js'
 import {
   acknowledgeRefreshStreamMessage,
   readRefreshStreamMessages,
@@ -60,13 +63,17 @@ export async function executeSkillGraphRefreshPipeline(
     windowDays: Number.parseInt(window.replace(/d$/, ''), 10) || undefined,
     writeJson: true,
     writePg: true,
+    factFilter: factFilterForRetrievalFeaturePreset('canonical'),
   })
   const graphManifest = await buildAndWriteSkillAggregateGraphUpdateFromPg({
     window: aggregateManifest.window,
     limit: 1000,
   })
   await applySkillAggregateGraphUpdate(graphManifest)
-  await writeSkillRetrievalFeatures()
+  await writeSkillRetrievalFeatures({
+    preset: 'canonical',
+    aggregateManifest,
+  })
 }
 
 export async function processRefreshStreamMessage(

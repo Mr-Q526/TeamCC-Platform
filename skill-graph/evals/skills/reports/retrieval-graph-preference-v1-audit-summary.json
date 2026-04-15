@@ -1,0 +1,24 @@
+{
+  "caseCount": 500,
+  "byDomain": {
+    "ai": 20,
+    "backend": 60,
+    "design": 60,
+    "frontend": 200,
+    "general": 19,
+    "review": 27,
+    "security": 60,
+    "tools": 54
+  },
+  "byDifficulty": {
+    "difficulty:direct": 277,
+    "difficulty:adjacent": 223
+  },
+  "byLanguage": {
+    "lang:zh-pure": 246,
+    "lang:zh-mixed": 254
+  },
+  "issueCount": 0,
+  "issues": [],
+  "quotaIssues": []
+}

@@ -14,7 +14,8 @@ query:
   queryText: 我需要编辑一个 文档的格式，确保排版和布局的准确性。
   queryContext: docx 文档 编辑 格式 排版 布局
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:data-platform
   domainHints:
     - tools
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/rest-api-implementation
     - frontend/website-homepage-design-pro
-modeOverrides: {}
+  preference: null
+modeOverrides: null

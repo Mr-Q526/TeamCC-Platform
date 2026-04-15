@@ -6,18 +6,16 @@ displayName: Vercel Deploy
 description: Deploy applications and websites to Vercel. Use when the user requests deployment actions like "deploy my app", "deploy and give me the link", "push this live", or "create a preview deployment".
 aliases:
   - vercel-deploy
-  - Vercel
-  - 部署
-  - 预览环境
-  - 发布
-  - 上线
   - Vercel Deploy
-  - deploy
-  - infra
-  - release
-  - infra-platform
+  - verceldeploy
+  - Vercel
+  - 预览环境
+  - Vercel 部署
+  - Vercel 上线
+  - preview deployment
+  - 前端部署
 version: 0.1.0
-sourceHash: sha256:8ace7b360b7fd88d0088c9cf543357c7bf41c214ae5e725c8d52409a07f1021e
+sourceHash: sha256:07f6fbfbeb9acd8ad1b6ecbc65dfacac7d039158d662e46169308045e06474df
 domain: infra
 departmentTags:
   - infra-platform

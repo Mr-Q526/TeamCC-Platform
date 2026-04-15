@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_spreadsheet_preference_002
+title: 渠道表格分析在混合表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - data-analysis
+query:
+  queryText: 帮我把投放数据整理成可继续编辑的表格，做透视、汇总和运营分析输出。
+  queryContext: 可继续编辑的表格 透视 汇总 运营分析 输出
+  cwd: /tmp/skill-eval
+  projectId: seed:operations-spreadsheet
+  department: dept:data-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:data-analysis
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/doc
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: tools/spreadsheet
+    competingSkillId: tools/doc
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -6,24 +6,15 @@ displayName: SaaS Workspace Design
 description: Use when the task is to design a SaaS product UI, B2B web app, 工作台, product workspace, settings-heavy application, or multi-pane web tool. Focus on workflow clarity, navigation depth, density balance, state design, and operational efficiency.
 aliases:
   - saas-workspace-design
+  - SaaS Workspace Design
+  - saasworkspacedesign
   - SaaS
   - 工作台
   - B2B 产品
-  - 设计
-  - UI
-  - 视觉设计
-  - SaaS Workspace Design
   - workspace
-  - design
   - Saa
-  - S
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:84ccc87b2a7a10012fdfaaf4d5fdc3449f78bd6e4bbf90c109046076298cf47d
+sourceHash: sha256:fe3a4f785faa1a51d2bcbb6802ac01374ab57229cf151cfa111e8bff2f855775
 domain: frontend
 departmentTags:
   - frontend-platform

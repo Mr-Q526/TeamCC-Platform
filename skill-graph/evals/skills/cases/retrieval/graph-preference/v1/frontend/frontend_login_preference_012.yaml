@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_login_preference_012
+title: 登录页偏好混合表达 012
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - login
+query:
+  queryText: 这次统一身份入口要重做，希望把企业登录页往 identity access 的方向做，重点补齐SSO、异常态恢复和安全提示更清楚。
+  queryContext: 企业登录页 SSO、异常态恢复和安全提示更清楚 identity access 这次统一身份入口要重做 登录页 SSO 身份入口 异常态
+  cwd: /tmp/skill-eval
+  projectId: seed:auth-login-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:login
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/auth-login-page-pro
+  acceptableSkillIds:
+    - frontend/auth-login-page-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - security/security-best-practices
+  preference:
+    preferredSkillId: frontend/auth-login-page-pro
+    competingSkillId: frontend/auth-login-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

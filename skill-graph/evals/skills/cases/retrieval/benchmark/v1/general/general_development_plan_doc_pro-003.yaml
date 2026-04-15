@@ -14,7 +14,8 @@ query:
   queryText: 我要把一个中型功能从需求到上线拆成阶段计划，请给出里程碑、协作角色、风险依赖和验收清单。
   queryContext: 阶段计划 里程碑 协作 依赖 验收 风险 milestone rollout planning
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -7,6 +7,8 @@ description: Use when creating a serious engineering implementation plan after r
 aliases:
   - development-plan-doc-pro
   - Development Plan Document PRO
+  - development plan doc pro
+  - developmentplandocpro
   - 开发计划文档
   - 功能开发规划
   - 技术方案
@@ -18,23 +20,11 @@ aliases:
   - 任务拆解
   - coding plan
   - implementation plan
-  - architecture
   - plan
-  - doc
   - 计划
   - 开发计划
-  - 实施计划
-  - 文档
-  - 方案文档
-  - 技术文档
-  - 专业版
-  - pro
-  - development plan doc pro
-  - development
-  - Document
-  - general
 version: 0.1.0
-sourceHash: sha256:ed1d41750511f941c42a890949c7e32c12ef1213c1d8060c318a47bb35a409bb
+sourceHash: sha256:c7850be779ea7ab5eb709394614ae09ec19ce24ee153556982cd235cc701a28a
 domain: general
 departmentTags:
   - backend-platform

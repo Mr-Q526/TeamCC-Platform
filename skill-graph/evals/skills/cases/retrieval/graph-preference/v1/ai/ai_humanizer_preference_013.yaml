@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_ai_humanizer_preference_013
+title: 中文去 AI 味偏好混合表达 013
+dataset: retrieval-graph-preference-v1
+tags:
+  - ai
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - humanizer
+query:
+  queryText: 发公众号前要润一版中文稿子，想把中文去 AI 味润稿做成更成熟的 humanize rewrite 体验，重点是减少模型腔、保留原意和逻辑结构。
+  queryContext: 中文去 AI 味润稿 减少模型腔、保留原意和逻辑结构 humanize rewrite 发公众号前要润一版中文稿子 中文润稿 去
+    AI 味 自然表达 human-like
+  cwd: /tmp/skill-eval
+  projectId: seed:humanizer-zh
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:writing
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/humanizer-zh-pro
+  acceptableSkillIds:
+    - ai/humanizer-zh-basic
+  forbiddenSkillIds:
+    - design/motion-video-maker
+    - design/ppt-maker
+  preference:
+    preferredSkillId: ai/humanizer-zh-pro
+    competingSkillId: ai/humanizer-zh-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_docs_preference_013
+title: 文档站偏好混合表达 013
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - docs-site
+query:
+  queryText: 这次要补一套开发者文档门户，想把开发者文档站做成更成熟的 docs portal 体验，重点是API 文档、示例代码和接入说明更好读。
+  queryContext: 开发者文档站 API 文档、示例代码和接入说明更好读 docs portal 这次要补一套开发者文档门户 文档站 开发者文档 API 搜索
+  cwd: /tmp/skill-eval
+  projectId: seed:docs-site
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:docs-site
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/docs-site-pro
+  acceptableSkillIds:
+    - frontend/docs-site-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/docs-site-pro
+    competingSkillId: frontend/docs-site-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

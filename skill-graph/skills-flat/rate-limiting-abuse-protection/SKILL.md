@@ -6,27 +6,23 @@ displayName: Rate Limiting Abuse Protection
 description: Use when working on rate limiting, abuse prevention, anti-scraping, quota, and API protection design. Focus on fairness, tenant isolation, bypass resistance, and operational controls.
 aliases:
   - rate-limiting-abuse-protection
+  - Rate Limiting Abuse Protection
+  - ratelimitingabuseprotection
   - 限流
   - 速率限制
   - rate limit
   - rate limiting
   - 配额
-  - Rate Limiting Abuse Protection
   - rate
   - limiting
   - abuse
   - protection
-  - security
-  - 安全
-  - 安全审计
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - security-audit
-  - security-platform
+  - 限流防滥用
+  - 访问频率限制
+  - abuse protection
+  - 配额保护
 version: 0.1.0
-sourceHash: sha256:6da8a8706e84977563cb4f349f48e7807a2abe98e093162127e09a49ea6b1b2c
+sourceHash: sha256:c0011ce5d4bfbc698d61e4eaeee5ff06c14d6aba636aa55d31e7746a55c84629
 domain: security
 departmentTags:
   - security-platform

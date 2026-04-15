@@ -13,7 +13,8 @@ query:
   queryText: 我要对一段代码进行审查，看看有没有潜在的问题，比如 、维护风险、缺少测试等，该从哪些方面入手？
   queryContext: 代码审查 问题 审查 维护风险 测试 前端 后端 脚本
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -29,4 +30,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

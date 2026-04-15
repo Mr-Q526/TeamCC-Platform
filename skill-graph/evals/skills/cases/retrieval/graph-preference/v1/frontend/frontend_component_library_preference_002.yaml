@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_component_library_preference_002
+title: 组件库建设在纯中文表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - component-library
+query:
+  queryText: 我们要建设一套企业级组件库，希望统一设计令牌、组件规范、变体能力和长期维护方式。
+  queryContext: 企业级组件库 设计令牌 组件规范 变体能力 长期维护
+  cwd: /tmp/skill-eval
+  projectId: seed:component-library
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:component-library
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/component-library-pro
+  acceptableSkillIds:
+    - frontend/component-library-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/component-library-pro
+    competingSkillId: frontend/component-library-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

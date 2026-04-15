@@ -6,28 +6,15 @@ displayName: Auth Login Page PRO
 description: Use when designing login, signup, password reset, MFA, and account access pages. Pro version focused on trust, clarity, error recovery, and low-friction account access; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - auth-login-page-pro
-  - 认证
-  - 鉴权
-  - 授权
-  - 登录态
-  - 页面
-  - page
-  - 专业版
-  - pro
   - Auth Login Page PRO
+  - authloginpagepro
+  - 认证
   - auth
   - login
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 登录页面
+  - 后端鉴权
 version: 0.1.0
-sourceHash: sha256:f1ee04f7a239c45fd181d0eb87ab4f514e2f4d66002e5871b7ea3742369c1a4f
+sourceHash: sha256:c81708d0b0aea7a08df7a258cd9c074f6c227f4c591800ad19b14cbde3da08de
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个小组作业的PPT，要有问题引入、案例讲解、团队观点和课堂讨论，强调节奏感。
   queryContext: 设计 PPT 课程展示 节奏感 案例
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

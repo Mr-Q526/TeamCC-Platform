@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_general_development_plan_preference_013
+title: 开发计划偏好混合表达 013
+dataset: retrieval-graph-preference-v1
+tags:
+  - general
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - planning
+query:
+  queryText: 新功能立项前要先出实施计划，想把项目开发计划做成更成熟的 development plan 体验，重点是阶段目标、依赖关系和验收标准更成熟。
+  queryContext: 项目开发计划 阶段目标、依赖关系和验收标准更成熟 development plan 新功能立项前要先出实施计划 开发计划 里程碑 资源拆分 风险
+  cwd: /tmp/skill-eval
+  projectId: seed:development-plan-doc
+  department: dept:backend-platform
+  domainHints:
+    - general
+  sceneHints:
+    - scene:planning
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/development-plan-doc-pro
+  acceptableSkillIds:
+    - general/development-plan-doc-basic
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - frontend/website-homepage-design-pro
+  preference:
+    preferredSkillId: general/development-plan-doc-pro
+    competingSkillId: general/development-plan-doc-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

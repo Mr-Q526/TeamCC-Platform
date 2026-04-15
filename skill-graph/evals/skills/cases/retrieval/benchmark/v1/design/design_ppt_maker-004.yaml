@@ -14,7 +14,8 @@ query:
   queryText: 我有一个主题，需要生成一个结构化的PPT，并且能够自然语言修改页面和组件，最后导出为可编辑的PPT。
   queryContext: PPT 主题 结构化 自然语言修改 导出
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

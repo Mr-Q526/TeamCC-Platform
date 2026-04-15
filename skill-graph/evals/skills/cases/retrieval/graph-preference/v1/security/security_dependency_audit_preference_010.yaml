@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_security_dependency_audit_preference_010
+title: 依赖供应链偏好混合表达 010
+dataset: retrieval-graph-preference-v1
+tags:
+  - security
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - security-audit
+query:
+  queryText: 上线前要过一轮依赖安全核查，想把依赖与供应链审查做成更成熟的 dependency audit 体验，重点是lockfile、CVE 和恶意包风险查清楚。
+  queryContext: 依赖与供应链审查 lockfile、CVE 和恶意包风险查清楚 dependency audit 上线前要过一轮依赖安全核查
+    supply chain lockfile CVE
+  cwd: /tmp/skill-eval
+  projectId: seed:dependency-audit
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:security-audit
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/dependency-supply-chain-audit
+  acceptableSkillIds:
+    - security/security-vulnerability-check
+  forbiddenSkillIds:
+    - review/code-review-general
+    - backend/auth-authorization-backend
+  preference:
+    preferredSkillId: security/dependency-supply-chain-audit
+    competingSkillId: security/security-vulnerability-check
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

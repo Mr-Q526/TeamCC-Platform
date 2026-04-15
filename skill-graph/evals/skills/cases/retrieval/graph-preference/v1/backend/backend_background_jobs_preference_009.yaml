@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_background_jobs_preference_009
+title: 后台任务链路偏好扩展表达 009
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - architecture
+query:
+  queryText: 后台任务执行链路不稳定，这次做异步任务与队列链路，最关心的是queue backlog、worker retry 和 observability 补完整。
+  queryContext: 异步任务与队列链路 queue backlog、worker retry 和 observability 补完整
+    后台任务执行链路不稳定 后台任务 queue worker retry
+  cwd: /tmp/skill-eval
+  projectId: seed:background-jobs
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:debug
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/background-jobs-queues
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/background-jobs-queues
+    competingSkillId: backend/rest-api-implementation
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

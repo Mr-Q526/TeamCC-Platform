@@ -6,26 +6,18 @@ displayName: Form Builder Basic
 description: Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Basic version focused on labels, validation, progressive disclosure, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - form-builder-basic
+  - Form Builder Basic
+  - formbuilderbasic
   - 表单
   - 表单构建
   - form
   - 构建器
   - 生成器
   - builder
-  - 基础版
-  - basic
-  - Form Builder Basic
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 表单构建器
+  - form builder
 version: 0.1.0
-sourceHash: sha256:84a72ee973701636d8d04a6043e3b3439baae909fe2b53c4f7eb9badc3c7dbe0
+sourceHash: sha256:14e80956a09b92ea3a02777f83b29573bb2052a7c08edb2f87d53b75a03b1a89
 domain: frontend
 departmentTags:
   - frontend-platform

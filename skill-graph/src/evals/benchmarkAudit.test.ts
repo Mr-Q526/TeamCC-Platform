@@ -22,6 +22,25 @@ const targetSkill: SkillRegistryEntry = {
   skillFile: 'website-homepage-design-pro/SKILL.md',
 }
 
+const acceptableSkill: SkillRegistryEntry = {
+  ...targetSkill,
+  skillId: 'frontend/marketing-landing-page',
+  name: 'marketing-landing-page',
+  displayName: 'Marketing Landing Page',
+  sourceHash: 'marketing',
+}
+
+const forbiddenSkill: SkillRegistryEntry = {
+  ...targetSkill,
+  skillId: 'tools/spreadsheet',
+  name: 'spreadsheet',
+  displayName: 'Spreadsheet',
+  domain: 'tools',
+  departmentTags: ['tools-platform'],
+  sceneTags: ['analysis'],
+  sourceHash: 'sheet',
+}
+
 const baseCase: SkillRetrievalEvalCase = {
   schemaVersion: '2026-04-12',
   caseType: 'retrieval',
@@ -33,6 +52,7 @@ const baseCase: SkillRetrievalEvalCase = {
     queryText: '我要做一个 SaaS 官网首页，强调产品价值、hero 和 CTA。',
     queryContext: 'homepage landing page hero CTA conversion',
     cwd: '/tmp/skill-eval',
+    projectId: 'proj:homepage',
     department: 'dept:frontend-platform',
     domainHints: ['frontend'],
     sceneHints: ['scene:homepage'],
@@ -44,6 +64,7 @@ const baseCase: SkillRetrievalEvalCase = {
     mustHitSkillIds: [targetSkill.skillId],
     acceptableSkillIds: ['frontend/marketing-landing-page'],
     forbiddenSkillIds: ['tools/spreadsheet'],
+    preference: null,
   },
   modeOverrides: {},
 }
@@ -58,7 +79,11 @@ describe('benchmark audit helpers', () => {
   test('audits benchmark cases with no issue for clean input', () => {
     const summary = auditBenchmarkCases({
       cases: [baseCase],
-      registryById: new Map([[targetSkill.skillId, targetSkill]]),
+      registryById: new Map([
+        [targetSkill.skillId, targetSkill],
+        [acceptableSkill.skillId, acceptableSkill],
+        [forbiddenSkill.skillId, forbiddenSkill],
+      ]),
     })
     expect(summary.issueCount).toBe(0)
     expect(summary.byDomain.frontend).toBe(1)
@@ -68,5 +93,122 @@ describe('benchmark audit helpers', () => {
     const sample = buildBenchmarkReviewSample([baseCase], 1)
     expect(sample).toHaveLength(1)
     expect(sample[0]?.caseId).toBe(baseCase.caseId)
+  })
+
+  test('flags target domain mismatch', () => {
+    const summary = auditBenchmarkCases({
+      cases: [
+        {
+          ...baseCase,
+          tags: ['backend', 'set:benchmark', 'difficulty:direct', 'lang:zh-mixed'],
+        },
+      ],
+      registryById: new Map([
+        [targetSkill.skillId, targetSkill],
+        [acceptableSkill.skillId, acceptableSkill],
+        [forbiddenSkill.skillId, forbiddenSkill],
+      ]),
+    })
+    expect(
+      summary.issues.some(issue => issue.type === 'target-domain-mismatch'),
+    ).toBe(true)
+  })
+
+  test('flags invalid preference shape', () => {
+    const competingSkill: SkillRegistryEntry = {
+      ...targetSkill,
+      skillId: 'frontend/website-homepage-design-basic',
+      name: 'website-homepage-design-basic',
+      displayName: 'Website Homepage Design Basic',
+      sourceHash: 'def',
+    }
+
+    const summary = auditBenchmarkCases({
+      cases: [
+        {
+          ...baseCase,
+          tags: [
+            'frontend',
+            'set:graph-preference',
+            'difficulty:direct',
+            'lang:zh-mixed',
+          ],
+          expected: {
+            mustHitSkillIds: [targetSkill.skillId],
+            acceptableSkillIds: [],
+            forbiddenSkillIds: [],
+            preference: {
+              preferredSkillId: targetSkill.skillId,
+              competingSkillId: competingSkill.skillId,
+              expectedDirection: 'preferred_above_competitor',
+            },
+          },
+        },
+      ],
+      registryById: new Map([
+        [targetSkill.skillId, targetSkill],
+        [competingSkill.skillId, competingSkill],
+        [forbiddenSkill.skillId, forbiddenSkill],
+      ]),
+    })
+    expect(summary.issues.some(issue => issue.type === 'invalid-preference')).toBe(
+      true,
+    )
+  })
+
+  test('accepts specific scene hints when skill identity matches scene', () => {
+    const loginSkill: SkillRegistryEntry = {
+      ...targetSkill,
+      skillId: 'frontend/auth-login-page-pro',
+      name: 'auth-login-page-pro',
+      displayName: 'Auth Login Page Pro',
+      sceneTags: ['design'],
+      sourceHash: 'login',
+    }
+    const loginBasic: SkillRegistryEntry = {
+      ...loginSkill,
+      skillId: 'frontend/auth-login-page-basic',
+      name: 'auth-login-page-basic',
+      displayName: 'Auth Login Page Basic',
+      sourceHash: 'login-basic',
+    }
+
+    const summary = auditBenchmarkCases({
+      cases: [
+        {
+          ...baseCase,
+          tags: [
+            'frontend',
+            'set:graph-preference',
+            'difficulty:direct',
+            'lang:zh-mixed',
+          ],
+          query: {
+            ...baseCase.query,
+            queryText: '设计企业级登录页，支持 SSO、异常态和安全提示',
+            queryContext: 'login sign in sso security hint',
+            sceneHints: ['scene:login', 'scene:design'],
+          },
+          expected: {
+            mustHitSkillIds: [loginSkill.skillId],
+            acceptableSkillIds: [loginBasic.skillId],
+            forbiddenSkillIds: [forbiddenSkill.skillId],
+            preference: {
+              preferredSkillId: loginSkill.skillId,
+              competingSkillId: loginBasic.skillId,
+              expectedDirection: 'preferred_above_competitor',
+            },
+          },
+        },
+      ],
+      registryById: new Map([
+        [loginSkill.skillId, loginSkill],
+        [loginBasic.skillId, loginBasic],
+        [forbiddenSkill.skillId, forbiddenSkill],
+      ]),
+    })
+    expect(summary.issues.some(issue => issue.type === 'target-scene-mismatch')).toBe(
+      false,
+    )
   })
 })

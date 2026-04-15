@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2026-04-12",
-  "generatedAt": "2026-04-13T15:12:07.628Z",
+  "generatedAt": "2026-04-14T17:38:27.621Z",
   "window": "30d",
   "windowDays": 30,
   "source": "skill_fact_events",
@@ -13,6 +13,7 @@
       "skillId": "frontend/admin-dashboard-design",
       "skillVersion": null,
       "sourceHash": null,
+      "projectId": null,
       "department": null,
       "scene": null,
       "window": "30d",
@@ -33,14 +34,14 @@
       "verificationPassRate": 0,
       "userSatisfaction": 1,
       "avgRankWhenShown": null,
-      "freshnessScore": 0.999984,
+      "freshnessScore": 0.963263,
       "failurePenalty": 0,
       "costPenalty": 0,
-      "qualityScore": 0.299998,
+      "qualityScore": 0.296326,
       "confidence": 0.22767,
       "firstEventAt": "2026-04-13T15:11:25.102Z",
       "lastEventAt": "2026-04-13T15:11:25.102Z",
-      "updatedAt": "2026-04-13T15:12:07.628Z"
+      "updatedAt": "2026-04-14T17:38:27.621Z"
     },
     {
       "aggregateKey": "agg:skill:frontend/admin-dashboard-design:version:2.2.0-pro#sha256:manualrefreshabcdef:30d",
@@ -49,6 +50,7 @@
       "skillId": "frontend/admin-dashboard-design",
       "skillVersion": "2.2.0-pro",
       "sourceHash": "sha256:manualrefreshabcdef",
+      "projectId": null,
       "department": null,
       "scene": null,
       "window": "30d",
@@ -69,14 +71,14 @@
       "verificationPassRate": 0,
       "userSatisfaction": 1,
       "avgRankWhenShown": null,
-      "freshnessScore": 0.999984,
+      "freshnessScore": 0.963263,
       "failurePenalty": 0,
       "costPenalty": 0,
-      "qualityScore": 0.299998,
+      "qualityScore": 0.296326,
       "confidence": 0.22767,
       "firstEventAt": "2026-04-13T15:11:25.102Z",
       "lastEventAt": "2026-04-13T15:11:25.102Z",
-      "updatedAt": "2026-04-13T15:12:07.628Z"
+      "updatedAt": "2026-04-14T17:38:27.621Z"
     }
   ]
 }

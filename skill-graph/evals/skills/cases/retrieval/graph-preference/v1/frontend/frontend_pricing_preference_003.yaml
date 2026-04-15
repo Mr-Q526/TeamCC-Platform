@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_pricing_preference_003
+title: 商业化套餐展示在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - pricing
+query:
+  queryText: 要把商业化套餐展示做得更清晰，用户要能快速看懂不同方案、升级路径和购买理由。
+  queryContext: 商业化套餐 方案展示 upgrade path pricing conversion
+  cwd: /tmp/skill-eval
+  projectId: seed:pricing-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:pricing
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/pricing-page-pro
+  acceptableSkillIds:
+    - frontend/pricing-page-basic
+  forbiddenSkillIds:
+    - frontend/contact-sales-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/pricing-page-pro
+    competingSkillId: frontend/pricing-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

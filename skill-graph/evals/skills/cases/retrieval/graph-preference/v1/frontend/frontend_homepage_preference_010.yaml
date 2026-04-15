@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_homepage_preference_010
+title: 官网首页偏好混合表达 010
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - homepage
+query:
+  queryText: 这次公司官网改版，想把品牌官网首页做成更成熟的 brand homepage 体验，重点是首屏叙事、价值主张和 CTA 承接更完整。
+  queryContext: 品牌官网首页 首屏叙事、价值主张和 CTA 承接更完整 brand homepage 这次公司官网改版 官网首页 品牌站 首屏 hero
+  cwd: /tmp/skill-eval
+  projectId: seed:homepage-refresh
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:homepage
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/website-homepage-design-pro
+  acceptableSkillIds:
+    - frontend/website-homepage-design-basic
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/website-homepage-design-pro
+    competingSkillId: frontend/website-homepage-design-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

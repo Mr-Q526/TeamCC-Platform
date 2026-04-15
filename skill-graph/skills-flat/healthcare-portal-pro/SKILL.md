@@ -6,24 +6,14 @@ displayName: Healthcare Portal PRO
 description: Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Pro version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - healthcare-portal-pro
+  - Healthcare Portal PRO
+  - healthcareportalpro
   - 医疗
   - 健康
   - healthcare
-  - 专业版
-  - pro
-  - Healthcare Portal PRO
   - portal
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:b29f5c57a30fcf43472e347e6b251b1970df63518ca136b4f9e65b7bd1736952
+sourceHash: sha256:8954c775be305697c422377b5599248aeac27839849934c2ac5ba2d8d2b137c0
 domain: frontend
 departmentTags:
   - frontend-platform

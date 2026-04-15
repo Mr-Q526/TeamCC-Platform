@@ -272,6 +272,7 @@ export function buildRetrievalDatasetItem(
     queryText: evalCase.query.queryText,
     queryContext: evalCase.query.queryContext,
     cwd: evalCase.query.cwd,
+    projectId: evalCase.query.projectId,
     department: evalCase.query.department,
     domainHints: evalCase.query.domainHints,
     sceneHints: evalCase.query.sceneHints,
@@ -284,6 +285,7 @@ export function buildRetrievalDatasetItem(
     mustHitSkillIds: evalCase.expected.mustHitSkillIds,
     acceptableSkillIds: evalCase.expected.acceptableSkillIds,
     forbiddenSkillIds: evalCase.expected.forbiddenSkillIds,
+    preference: evalCase.expected.preference,
     requestedModes,
   }
 
@@ -505,6 +507,7 @@ export function mapLangfuseDatasetItemToRetrievalCase(
       queryText: trimString(input.queryText) ?? '',
       queryContext: trimString(input.queryContext),
       cwd: trimString(input.cwd),
+      projectId: trimString(input.projectId),
       department: trimString(input.department),
       domainHints: toStringArray(input.domainHints),
       sceneHints: toStringArray(input.sceneHints),
@@ -516,6 +519,22 @@ export function mapLangfuseDatasetItemToRetrievalCase(
       mustHitSkillIds: toStringArray(expectedOutput.mustHitSkillIds),
       acceptableSkillIds: toStringArray(expectedOutput.acceptableSkillIds),
       forbiddenSkillIds: toStringArray(expectedOutput.forbiddenSkillIds),
+      preference:
+        expectedOutput.preference &&
+        typeof expectedOutput.preference === 'object' &&
+        !Array.isArray(expectedOutput.preference) &&
+        trimString((expectedOutput.preference as Record<string, unknown>).preferredSkillId) &&
+        trimString((expectedOutput.preference as Record<string, unknown>).competingSkillId)
+          ? {
+              preferredSkillId: trimString(
+                (expectedOutput.preference as Record<string, unknown>).preferredSkillId,
+              ) as string,
+              competingSkillId: trimString(
+                (expectedOutput.preference as Record<string, unknown>).competingSkillId,
+              ) as string,
+              expectedDirection: 'preferred_above_competitor',
+            }
+          : null,
     },
     modeOverrides:
       requestedModes.size > 0

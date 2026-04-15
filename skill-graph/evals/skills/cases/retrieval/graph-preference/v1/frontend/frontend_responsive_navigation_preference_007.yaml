@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_responsive_navigation_preference_007
+title: 导航栏偏好扩展表达 007
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - navigation
+query:
+  queryText: 站点主导航需要重做，我需要把响应式导航栏做好，重点是导航入口、菜单结构和交互反馈更清晰。
+  queryContext: 响应式导航栏 导航入口、菜单结构和交互反馈更清晰 站点主导航需要重做 导航栏 responsive desktop mobile
+  cwd: /tmp/skill-eval
+  projectId: seed:responsive-navigation
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:navigation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/responsive-navigation-pro
+  acceptableSkillIds:
+    - frontend/responsive-navigation-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/responsive-navigation-pro
+    competingSkillId: frontend/responsive-navigation-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

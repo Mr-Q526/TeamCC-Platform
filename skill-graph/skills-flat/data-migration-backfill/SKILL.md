@@ -6,27 +6,20 @@ displayName: Data Migration Backfill
 description: Use when working on schema migrations, data migrations, backfills, dual writes, and rollout plans. Focus on reversibility, idempotency, batching, verification, and rollback safety.
 aliases:
   - data-migration-backfill
-  - 数据
-  - data
+  - Data Migration Backfill
+  - datamigrationbackfill
   - 迁移
   - 数据迁移
   - migration
   - 数据回填
   - 补数据
   - backfill
-  - Data Migration Backfill
-  - backend
-  - 后端
   - 服务端
   - server side
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - release
-  - backend-platform
+  - migration plan
+  - backfill job
 version: 0.1.0
-sourceHash: sha256:eadcec67071b149d9280b770b579ad88c397b551f269bd1fe89ea56e8c512332
+sourceHash: sha256:decda60aeed0e18fb3013aa1806903e5985575749f59e6a1c9625ef884b7e8de
 domain: backend
 departmentTags:
   - backend-platform

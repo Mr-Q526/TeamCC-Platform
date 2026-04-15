@@ -6,30 +6,22 @@ displayName: Error Empty States PRO
 description: Use when designing 404 pages, empty states, error states, permission states, and offline states. Pro version focused on recovery, explanation, next actions, and tone; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - error-empty-states-pro
+  - Error Empty States PRO
+  - erroremptystatespro
   - 错误状态
   - 异常状态
   - 报错页
   - 空状态
   - empty state
-  - 状态
   - UI 状态
-  - 专业版
-  - pro
-  - Error Empty States PRO
   - error
   - empty
   - states
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 错误状态设计
+  - error state
+  - 空状态设计
 version: 0.1.0
-sourceHash: sha256:e71476cf4a4d684a09a5164ddce9e410cb95dbd538f3820123f03ef352666a2c
+sourceHash: sha256:273d194110e42c49da6603ef0f6792fe50a3d3488011a44c71b878fc7b2d49a4
 domain: frontend
 departmentTags:
   - frontend-platform

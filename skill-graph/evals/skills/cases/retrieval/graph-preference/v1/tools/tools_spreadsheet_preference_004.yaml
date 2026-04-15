@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_spreadsheet_preference_004
+title: 运营表格偏好扩展表达 004
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - data-analysis
+query:
+  queryText: 周报前要把投放数据整理出来，我需要把运营数据表整理做好，重点是透视汇总、渠道分析和结构化表格输出更完整。
+  queryContext: 运营数据表整理 透视汇总、渠道分析和结构化表格输出更完整 周报前要把投放数据整理出来 运营数据表 透视汇总 editable sheet 渠道分析
+  cwd: /tmp/skill-eval
+  projectId: seed:operations-spreadsheet
+  department: dept:data-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:data-analysis
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/doc
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: tools/spreadsheet
+    competingSkillId: tools/doc
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

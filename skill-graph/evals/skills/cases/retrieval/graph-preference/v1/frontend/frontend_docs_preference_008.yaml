@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_docs_preference_008
+title: 文档站偏好扩展表达 008
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - docs-site
+query:
+  queryText: 平台侧准备重做文档站，想先把开发者文档站这块补完整，核心是侧栏导航、站内搜索和版本切换更清晰。
+  queryContext: 开发者文档站 侧栏导航、站内搜索和版本切换更清晰 平台侧准备重做文档站 文档站 开发者文档 API 搜索
+  cwd: /tmp/skill-eval
+  projectId: seed:docs-site
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:docs-site
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/docs-site-pro
+  acceptableSkillIds:
+    - frontend/docs-site-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/docs-site-pro
+    competingSkillId: frontend/docs-site-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

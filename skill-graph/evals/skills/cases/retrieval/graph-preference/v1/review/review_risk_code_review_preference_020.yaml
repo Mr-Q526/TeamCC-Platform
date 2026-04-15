@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_review_risk_code_review_preference_020
+title: 高风险评审偏好邻近表达 020
+dataset: retrieval-graph-preference-v1
+tags:
+  - review
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - review
+query:
+  queryText: 这轮不是普通 code review，这次优先把高风险代码评审里的把爆炸半径、可观测性和边界条件理顺做对，不是泛泛而谈代码规范。
+  queryContext: 高风险代码评审 把爆炸半径、可观测性和边界条件理顺 这轮不是普通 code review rollback +
+    observability 风险评审 权限 回滚 observability edge cases
+  cwd: /tmp/skill-eval
+  projectId: seed:code-review-risk
+  department: dept:backend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+  forbiddenSkillIds:
+    - general/bug-fix-debugging
+    - backend/rest-api-implementation
+  preference:
+    preferredSkillId: review/code-review-risk-based
+    competingSkillId: review/code-review-general
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

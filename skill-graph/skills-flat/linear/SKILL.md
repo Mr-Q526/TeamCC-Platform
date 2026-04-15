@@ -6,13 +6,11 @@ displayName: Linear
 description: Manage issues, projects & team workflows in Linear. Use when the user wants to read, create or updates tickets in Linear.
 aliases:
   - linear
-  - tools
-  - review
   - 代码审查
   - code review
   - 评审
 version: 0.1.0
-sourceHash: sha256:c2f47c3a78173e4280d97eb1a47b4a1cadf3e38c85a2004e4871a550114a7da8
+sourceHash: sha256:94c49cd3c26a98d5787a1643cd1d4a33c723807454e1dde7cb3d7b45b2c86738
 domain: tools
 departmentTags: []
 sceneTags:

@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_general_development_plan_preference_008
+title: 开发计划偏好扩展表达 008
+dataset: retrieval-graph-preference-v1
+tags:
+  - general
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - planning
+query:
+  queryText: 这轮先不写代码，先做项目计划，想先把项目开发计划这块补完整，核心是里程碑、资源拆分和风险控制更完整。
+  queryContext: 项目开发计划 里程碑、资源拆分和风险控制更完整 这轮先不写代码，先做项目计划 开发计划 里程碑 资源拆分 风险
+  cwd: /tmp/skill-eval
+  projectId: seed:development-plan-doc
+  department: dept:backend-platform
+  domainHints:
+    - general
+  sceneHints:
+    - scene:planning
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/development-plan-doc-pro
+  acceptableSkillIds:
+    - general/development-plan-doc-basic
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - frontend/website-homepage-design-pro
+  preference:
+    preferredSkillId: general/development-plan-doc-pro
+    competingSkillId: general/development-plan-doc-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

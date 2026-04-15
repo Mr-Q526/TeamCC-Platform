@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_developer_portal_preference_003
+title: 对外接入站点在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - developer-portal
+query:
+  queryText: 需要做一个面向外部开发者的接入站点，既要有 onboarding，也要有 API 导航和示例阅读体验。
+  queryContext: 外部开发者 接入站点 onboarding API navigation examples
+  cwd: /tmp/skill-eval
+  projectId: seed:developer-portal
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:developer-portal
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/developer-portal-pro
+  acceptableSkillIds:
+    - frontend/developer-portal-basic
+  forbiddenSkillIds:
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/developer-portal-pro
+    competingSkillId: frontend/developer-portal-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

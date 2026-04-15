@@ -7,17 +7,12 @@ description: 根据文本、脚本或 Markdown 生成结构化讲解动画视频
 aliases:
   - motion-video-maker
   - Motion Video Maker
+  - motionvideomaker
   - motion
   - video
   - maker
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - content-generation
-  - growth
 version: 0.1.0
-sourceHash: sha256:45d0918b64d41b2f6c195268b48d9261ef57adfb0327aeab645edde120b2552c
+sourceHash: sha256:b19cd9526584828eed448b70b74e921a6665dc027c643116464e83c9d51c2947
 domain: design
 departmentTags:
   - growth

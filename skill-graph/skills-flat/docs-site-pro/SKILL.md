@@ -6,25 +6,15 @@ displayName: Docs Site PRO
 description: Use when designing documentation sites, knowledge bases, developer docs, and help centers. Pro version focused on findability, readable hierarchy, examples, and navigation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - docs-site-pro
+  - Docs Site PRO
+  - docssitepro
   - 文档站
   - 文档网站
   - documentation
-  - 专业版
-  - pro
-  - Docs Site PRO
-  - docs
   - site
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - documentation site
 version: 0.1.0
-sourceHash: sha256:cd2b555fb098962eba62a4db991a40de6d37c9b0293efd3d7eb059534863da0b
+sourceHash: sha256:0d96e05660e468212bd439b8e60cebe46e74149f98a8feee5658587e1bf47980
 domain: frontend
 departmentTags:
   - frontend-platform

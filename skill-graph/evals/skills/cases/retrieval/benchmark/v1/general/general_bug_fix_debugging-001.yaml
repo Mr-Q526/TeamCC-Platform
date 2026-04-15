@@ -14,7 +14,8 @@ query:
   queryText: 我在代码中遇到了运行时错误，帮我诊断并修复一下。
   queryContext: 运行时错误 诊断 修复 代码 workflow planning execution
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

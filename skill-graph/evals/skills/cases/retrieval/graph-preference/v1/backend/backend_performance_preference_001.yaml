@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_performance_preference_001
+title: 慢接口性能排查优先选择反馈更强的候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - performance
+query:
+  queryText: 我要排查后端慢接口，先做 profiling，再找出热点链路、慢查询和真正的性能瓶颈。
+  queryContext: 后端慢接口 profiling 热点链路 慢查询 性能瓶颈
+  cwd: /tmp/skill-eval
+  projectId: seed:backend-performance
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:debug
+    - scene:performance
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/backend-performance-profiling
+  acceptableSkillIds:
+    - backend/background-jobs-queues
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/backend-performance-profiling
+    competingSkillId: backend/background-jobs-queues
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

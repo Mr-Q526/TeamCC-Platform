@@ -14,7 +14,8 @@ query:
   queryText: 我要设计单元测试，分析一下有没有遗漏的测试，还要考虑mocks和fixtures，以及行为覆盖率。
   queryContext: 单元测试 设计 审查 行为覆盖率 mocks fixtures
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

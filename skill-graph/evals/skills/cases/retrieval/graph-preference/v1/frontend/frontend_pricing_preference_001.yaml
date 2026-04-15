@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_pricing_preference_001
+title: 定价页优先选择反馈更强的候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - pricing
+query:
+  queryText: 我想做一个 SaaS 定价页，突出套餐对比、升级引导、FAQ 和转化说明。
+  queryContext: 前端 pricing page 套餐对比 升级引导 FAQ 转化
+  cwd: /tmp/skill-eval
+  projectId: seed:pricing-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:pricing
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/pricing-page-pro
+  acceptableSkillIds:
+    - frontend/pricing-page-basic
+  forbiddenSkillIds:
+    - frontend/contact-sales-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/pricing-page-pro
+    competingSkillId: frontend/pricing-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

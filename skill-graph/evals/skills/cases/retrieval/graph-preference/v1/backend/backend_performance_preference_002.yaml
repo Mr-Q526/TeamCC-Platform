@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_performance_preference_002
+title: 延迟热点分析在混合表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - performance
+query:
+  queryText: 线上 API latency 很高，想先做 performance profiling，把 hot path、CPU 和 query
+    hotspot 定位出来。
+  queryContext: API latency performance profiling hot path CPU query hotspot
+  cwd: /tmp/skill-eval
+  projectId: seed:backend-performance
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:debug
+    - scene:performance
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/backend-performance-profiling
+  acceptableSkillIds:
+    - backend/background-jobs-queues
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/backend-performance-profiling
+    competingSkillId: backend/background-jobs-queues
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

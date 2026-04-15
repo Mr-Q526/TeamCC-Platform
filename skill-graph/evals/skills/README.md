@@ -2,6 +2,16 @@
 
 统一 Skill 评测系统的数据目录。
 
+当前开发约定：
+
+- 默认评测口径使用 `experiment` retrieval features
+- 默认文件是 `data/aggregates/skill-retrieval-features.experiment.json`
+- 因为当前还没有足够稳定的真实线上反馈，`canonical` 仍主要作为对照口径
+
+上手总览文档：
+
+- [docs/reference/20260415-skill-eval-onboarding.md](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/docs/reference/20260415-skill-eval-onboarding.md)
+
 当前支持的评测模式：
 
 - `offline-retrieval`
@@ -46,6 +56,22 @@ bun run skills:langfuse:sync-dataset -- --dataset-kind coverage --dry-run
 
 ```bash
 bun run eval:skills --mode offline-retrieval --cases-source langfuse-dataset --dataset-name skill-graph-retrieval-benchmark-v1
+```
+
+常用命令：
+
+```bash
+bun run skills:eval:offline
+bun run skills:eval:graph-preference
+```
+
+上面两条默认都走 `experiment`。
+
+如果需要对照默认正式快照，再显式跑：
+
+```bash
+bun run skills:eval:offline:canonical
+bun run skills:eval:graph-preference:canonical
 ```
 
 目录约定：

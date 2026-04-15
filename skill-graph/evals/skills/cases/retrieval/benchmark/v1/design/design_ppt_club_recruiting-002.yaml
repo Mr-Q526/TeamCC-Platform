@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个PPT，用于大学社团的招新活动，要突出社团的特色、优势和福利，吸引更多的同学加入。
   queryContext: 设计 PPT 社团 招新 活动
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

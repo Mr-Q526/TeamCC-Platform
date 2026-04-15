@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_responsive_navigation_preference_016
+title: 导航栏偏好邻近表达 016
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - navigation
+query:
+  queryText: 现在站点导航很容易迷路，更像是响应式导航栏这条线需要先补齐把 desktop/mobile 导航和多层菜单理顺，不是只画一排链接。
+  queryContext: 响应式导航栏 把 desktop/mobile 导航和多层菜单理顺 现在站点导航很容易迷路 desktop/mobile nav
+    导航栏 responsive desktop mobile 二级菜单
+  cwd: /tmp/skill-eval
+  projectId: seed:responsive-navigation
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:navigation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/responsive-navigation-pro
+  acceptableSkillIds:
+    - frontend/responsive-navigation-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/responsive-navigation-pro
+    competingSkillId: frontend/responsive-navigation-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

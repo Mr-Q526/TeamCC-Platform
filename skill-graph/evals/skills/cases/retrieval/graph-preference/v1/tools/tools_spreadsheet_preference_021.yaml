@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_spreadsheet_preference_021
+title: 运营表格偏好邻近表达 021
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - data-analysis
+query:
+  queryText: 这轮不是写一份说明文档，这次优先把运营数据表整理里的把 pivot、渠道分析和复盘底表补完整做对，不是做 PPT 演示稿。
+  queryContext: 运营数据表整理 把 pivot、渠道分析和复盘底表补完整 这轮不是写一份说明文档 growth analysis 运营数据表
+    透视汇总 editable sheet 渠道分析 复盘
+  cwd: /tmp/skill-eval
+  projectId: seed:operations-spreadsheet
+  department: dept:data-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:data-analysis
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/doc
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: tools/spreadsheet
+    competingSkillId: tools/doc
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

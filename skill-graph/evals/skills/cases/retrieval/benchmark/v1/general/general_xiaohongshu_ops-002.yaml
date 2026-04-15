@@ -14,7 +14,8 @@ query:
   queryText: 我要做小红书运营，包括定位、选题、内容制作、发布和后期复盘。
   queryContext: 小红书 运营 定位 选题 内容制作 发布 复盘
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:growth
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -7,23 +7,12 @@ description: 'Use when Codex is building or iterating on a web game (HTML/JS) an
 aliases:
   - develop-web-game
   - Develop Web Game
+  - developwebgame
   - develop
-  - web
   - game
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - test
-  - 测试
   - 验证
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:19106e1253f1ed065975566d66e79227468975bc1583f3ec88254500403cf069
+sourceHash: sha256:1cbf654babd90c4615096aebdfd4a182e04ddbcbc6202af1a69d8dfead403734
 domain: frontend
 departmentTags:
   - frontend-platform

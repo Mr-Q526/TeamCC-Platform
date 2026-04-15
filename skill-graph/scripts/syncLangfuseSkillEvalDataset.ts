@@ -33,7 +33,10 @@ function parseArgs(argv: string[]): CliOptions {
 
     if (arg === '--dataset-kind' && next) {
       const kind =
-        next === 'legacy' || next === 'coverage' || next === 'benchmark'
+        next === 'legacy' ||
+        next === 'coverage' ||
+        next === 'benchmark' ||
+        next === 'graph-preference'
           ? next
           : 'benchmark'
       const resolved = describeRetrievalDatasetPreset(kind, process.cwd())

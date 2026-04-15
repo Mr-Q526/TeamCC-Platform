@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_pricing_preference_002
+title: 套餐定价页面在纯中文表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - pricing
+query:
+  queryText: 我们要设计一个软件套餐定价页面，重点是方案对比、升级引导、常见问题和转化承接。
+  queryContext: 套餐定价页面 方案对比 升级引导 常见问题 转化承接
+  cwd: /tmp/skill-eval
+  projectId: seed:pricing-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:pricing
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/pricing-page-pro
+  acceptableSkillIds:
+    - frontend/pricing-page-basic
+  forbiddenSkillIds:
+    - frontend/contact-sales-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/pricing-page-pro
+    competingSkillId: frontend/pricing-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

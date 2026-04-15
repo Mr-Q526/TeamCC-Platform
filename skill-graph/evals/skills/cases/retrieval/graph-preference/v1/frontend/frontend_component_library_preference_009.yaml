@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_component_library_preference_009
+title: 组件库偏好扩展表达 009
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - component-library
+query:
+  queryText: 团队准备建设内部组件库，这次做企业级组件库，最关心的是基础组件、设计令牌和扩展机制更系统。
+  queryContext: 企业级组件库 基础组件、设计令牌和扩展机制更系统 团队准备建设内部组件库 组件库 design tokens variants 规范治理
+  cwd: /tmp/skill-eval
+  projectId: seed:component-library
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:component-library
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/component-library-pro
+  acceptableSkillIds:
+    - frontend/component-library-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/component-library-pro
+    competingSkillId: frontend/component-library-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

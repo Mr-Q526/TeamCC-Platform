@@ -14,7 +14,8 @@ query:
   queryText: 帮我搜索微信公众号文章，然后下载下来，再用AI改写一下，最后发布到公众号上。
   queryContext: 微信公众号 文章搜索 下载 AI改写 发布
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:growth
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

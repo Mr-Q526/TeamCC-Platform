@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_settings_preference_005
+title: 设置页偏好扩展表达 005
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - settings
+query:
+  queryText: 后台配置中心准备重构，想先把企业设置页这块补完整，核心是复杂表单状态、配置分层和操作回执更成熟。
+  queryContext: 企业设置页 复杂表单状态、配置分层和操作回执更成熟 后台配置中心准备重构 设置页 配置中心 权限分层 保存反馈
+  cwd: /tmp/skill-eval
+  projectId: seed:settings-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:settings
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/settings-page-pro
+  acceptableSkillIds:
+    - frontend/settings-page-basic
+  forbiddenSkillIds:
+    - frontend/profile-account-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/settings-page-pro
+    competingSkillId: frontend/settings-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_settings_preference_004
+title: 设置页偏好扩展表达 004
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - settings
+query:
+  queryText: 后台配置中心准备重构，我需要把企业设置页做好，重点是分组导航、权限差异和保存反馈更清晰。
+  queryContext: 企业设置页 分组导航、权限差异和保存反馈更清晰 后台配置中心准备重构 设置页 配置中心 权限分层 保存反馈
+  cwd: /tmp/skill-eval
+  projectId: seed:settings-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:settings
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/settings-page-pro
+  acceptableSkillIds:
+    - frontend/settings-page-basic
+  forbiddenSkillIds:
+    - frontend/profile-account-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/settings-page-pro
+    competingSkillId: frontend/settings-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

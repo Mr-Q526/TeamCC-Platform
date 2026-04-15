@@ -7,16 +7,11 @@ description: 根据一句话主题、Markdown 或已有文稿生成结构化 PPT
 aliases:
   - ppt-maker
   - PPT Maker
+  - pptmaker
   - ppt
   - maker
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - content-generation
-  - growth
 version: 0.1.0
-sourceHash: sha256:861d0d49725e2724350030fe50b3934ac83426e832d0a62972f18affad0ddf68
+sourceHash: sha256:3537e7d6152ddfb370a7e8300527ccaaa34867717f40b0c37ec2eace6f892966
 domain: design
 departmentTags:
   - growth

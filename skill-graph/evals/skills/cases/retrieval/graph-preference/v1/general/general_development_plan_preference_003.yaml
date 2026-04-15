@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_general_development_plan_preference_003
+title: 功能推进方案在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - general
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - planning
+query:
+  queryText: 我们准备推进一个中型功能迭代，先需要一份 execution plan，把阶段目标、资源、风险和交付界线梳理清楚。
+  queryContext: execution plan 阶段目标 资源 风险 交付界线
+  cwd: /tmp/skill-eval
+  projectId: seed:development-plan-doc
+  department: dept:backend-platform
+  domainHints:
+    - general
+  sceneHints:
+    - scene:planning
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/development-plan-doc-pro
+  acceptableSkillIds:
+    - general/development-plan-doc-basic
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - frontend/website-homepage-design-pro
+  preference:
+    preferredSkillId: general/development-plan-doc-pro
+    competingSkillId: general/development-plan-doc-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

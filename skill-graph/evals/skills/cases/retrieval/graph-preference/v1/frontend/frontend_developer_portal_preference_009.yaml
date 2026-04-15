@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_developer_portal_preference_009
+title: 开发者门户偏好扩展表达 009
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - developer-portal
+query:
+  queryText: 生态团队想搭一套开发者门户，这次做开发者门户，最关心的是开发者 onboarding、资料入口和信息架构更成熟。
+  queryContext: 开发者门户 开发者 onboarding、资料入口和信息架构更成熟 生态团队想搭一套开发者门户 API 导航 onboarding 接入文档
+  cwd: /tmp/skill-eval
+  projectId: seed:developer-portal
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:developer-portal
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/developer-portal-pro
+  acceptableSkillIds:
+    - frontend/developer-portal-basic
+  forbiddenSkillIds:
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/developer-portal-pro
+    competingSkillId: frontend/developer-portal-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

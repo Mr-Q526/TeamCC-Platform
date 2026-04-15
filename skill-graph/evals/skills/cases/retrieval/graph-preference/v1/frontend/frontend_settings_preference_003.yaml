@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_settings_preference_003
+title: 管理配置中心在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - settings
+query:
+  queryText: 想把后台配置中心做得更完整一些，重点是权限分层、配置分组和编辑保存体验。
+  queryContext: 后台配置中心 权限分层 配置分组 编辑保存 experience
+  cwd: /tmp/skill-eval
+  projectId: seed:settings-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:settings
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/settings-page-pro
+  acceptableSkillIds:
+    - frontend/settings-page-basic
+  forbiddenSkillIds:
+    - frontend/profile-account-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/settings-page-pro
+    competingSkillId: frontend/settings-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

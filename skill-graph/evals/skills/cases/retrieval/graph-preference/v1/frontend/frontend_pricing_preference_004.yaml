@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_pricing_preference_004
+title: 定价页偏好扩展表达 004
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - pricing
+query:
+  queryText: 商业化团队要上线新套餐页，我需要把SaaS 定价页做好，重点是套餐对比、升级引导和 FAQ 更清楚。
+  queryContext: SaaS 定价页 套餐对比、升级引导和 FAQ 更清楚 商业化团队要上线新套餐页 定价页 pricing 套餐对比 升级引导
+  cwd: /tmp/skill-eval
+  projectId: seed:pricing-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:pricing
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/pricing-page-pro
+  acceptableSkillIds:
+    - frontend/pricing-page-basic
+  forbiddenSkillIds:
+    - frontend/contact-sales-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/pricing-page-pro
+    competingSkillId: frontend/pricing-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

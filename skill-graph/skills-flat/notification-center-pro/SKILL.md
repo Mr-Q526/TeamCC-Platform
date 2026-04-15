@@ -6,24 +6,14 @@ displayName: Notification Center PRO
 description: Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Pro version focused on priority, read state, grouping, and actionability; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - notification-center-pro
+  - Notification Center PRO
+  - notificationcenterpro
   - 通知
   - 消息中心
   - notification
-  - 专业版
-  - pro
-  - Notification Center PRO
   - center
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:8c662edfd4cfb64e22a1be7655581f2a5f308d705dd80d4ec1702141e26c8ac3
+sourceHash: sha256:75e47d1384c6174af91edd8e140f39b539a807c91b77003740722221d444eed9
 domain: frontend
 departmentTags:
   - frontend-platform

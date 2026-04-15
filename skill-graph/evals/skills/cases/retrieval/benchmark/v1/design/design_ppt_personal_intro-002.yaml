@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个个人介绍的PPT，用于自我介绍、嘉宾简介或作品集展示。PPT 要结构清晰，突出我的身份定位、经历主线、代表项目和可记忆的结尾。
   queryContext: 设计 PPT 个人介绍 内容生成 身份定位 代表项目
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

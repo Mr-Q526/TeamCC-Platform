@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_design_motion_video_preference_023
+title: 讲解视频偏好邻近表达 023
+dataset: retrieval-graph-preference-v1
+tags:
+  - design
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - content-generation
+query:
+  queryText: 这轮不是生成单张图片，更像是讲解动画视频这条线需要先补齐把脚本转成可讲可看的 motion video，不是静态 banner。
+  queryContext: 讲解动画视频 把脚本转成可讲可看的 motion video 这轮不是生成单张图片 explainer video 讲解视频
+    motion video 字幕 转场 口播
+  cwd: /tmp/skill-eval
+  projectId: seed:motion-video
+  department: dept:growth
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/motion-video-maker
+  acceptableSkillIds:
+    - design/jimeng
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: design/motion-video-maker
+    competingSkillId: design/jimeng
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

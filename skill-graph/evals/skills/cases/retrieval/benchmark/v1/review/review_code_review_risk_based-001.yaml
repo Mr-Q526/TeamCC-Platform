@@ -14,7 +14,8 @@ query:
   queryText: 我要审查一些高风险的代码，需要注意哪些方面？
   queryContext: 代码审查 高风险 审查 架构 风险
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

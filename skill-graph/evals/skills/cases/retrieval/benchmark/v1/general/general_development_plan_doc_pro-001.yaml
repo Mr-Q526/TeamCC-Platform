@@ -14,7 +14,8 @@ query:
   queryText: 我需要一份详细的工程实施计划，包括模块、功能、接口等，还要有风险评估和任务清单。
   queryContext: 工程实施 详细计划 模块 功能 接口 风险评估 任务清单 workflow planning execution
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -14,7 +14,8 @@ query:
   queryText: 我发现了一个 ，你帮我看看怎么修复，顺便写个回归测试。
   queryContext: Bug 修复 调试 回归测试
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

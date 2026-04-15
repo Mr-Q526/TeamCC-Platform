@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_design_motion_video_preference_026
+title: 讲解视频偏好邻近表达 026
+dataset: retrieval-graph-preference-v1
+tags:
+  - design
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - content-generation
+query:
+  queryText: 这轮不是生成单张图片，想先从 explainer video 视角把讲解动画视频里的把口播配套动效、画面推进和节奏控制补完整拉顺，不是文档改写。
+  queryContext: 讲解动画视频 把口播配套动效、画面推进和节奏控制补完整 这轮不是生成单张图片 explainer video 讲解视频 motion
+    video 字幕 转场 口播
+  cwd: /tmp/skill-eval
+  projectId: seed:motion-video
+  department: dept:growth
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/motion-video-maker
+  acceptableSkillIds:
+    - design/jimeng
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: design/motion-video-maker
+    competingSkillId: design/jimeng
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

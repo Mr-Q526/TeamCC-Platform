@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_homepage_preference_001
+title: 品牌官网首页优先选择正反馈更强的候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - homepage
+query:
+  queryText: 我想做一个品牌官网首页，强调高级感、转化结构和完整首屏叙事。
+  queryContext: 前端 官网首页 hero 品牌官网 转化结构 高级感
+  cwd: /tmp/skill-eval
+  projectId: seed:homepage-refresh
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:homepage
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/website-homepage-design-pro
+  acceptableSkillIds:
+    - frontend/website-homepage-design-basic
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/website-homepage-design-pro
+    competingSkillId: frontend/website-homepage-design-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个英语课堂的 课件，要有导入、课文讲解、词汇、句型、练习和总结。
   queryContext: 英语课堂 PPT课件 设计 教学环节 内容生成
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -14,7 +14,8 @@ query:
   queryText: 我需要一个知识讲解的动画视频，根据我的文本内容来生成，要像AE/PR风格的那种，先给我个预览，确认后再导出mp4格式。
   queryContext: 知识讲解 动画视频 文本生成 预览导出 presentation storytelling visual
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

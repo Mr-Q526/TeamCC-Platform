@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_developer_portal_preference_016
+title: 开发者门户偏好邻近表达 016
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - developer-portal
+query:
+  queryText: 现在对外接入资料太碎，更像是开发者门户这条线需要先补齐把 API 导航、接入路径和示例阅读体验理顺，不是只列几个下载链接。
+  queryContext: 开发者门户 把 API 导航、接入路径和示例阅读体验理顺 现在对外接入资料太碎 onboarding hub API 导航
+    onboarding 接入文档 示例代码
+  cwd: /tmp/skill-eval
+  projectId: seed:developer-portal
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:developer-portal
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/developer-portal-pro
+  acceptableSkillIds:
+    - frontend/developer-portal-basic
+  forbiddenSkillIds:
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/developer-portal-pro
+    competingSkillId: frontend/developer-portal-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

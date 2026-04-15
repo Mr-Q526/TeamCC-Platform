@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_design_system_preference_015
+title: 设计系统偏好邻近表达 015
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - design-system
+query:
+  queryText: 现在更像是规范散落各处，更像是企业设计系统这条线需要一次 design system 级别的梳理，先把把
+    tokens、组件规则和协作边界理顺做对，不是单页 UI 修改。
+  queryContext: 企业设计系统 把 tokens、组件规则和协作边界理顺 现在更像是规范散落各处 design system 设计系统 tokens
+    治理 组件规范 发布流程
+  cwd: /tmp/skill-eval
+  projectId: seed:design-system-builder
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design-system
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/design-system-builder-pro
+  acceptableSkillIds:
+    - frontend/design-system-builder-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/design-system-builder-pro
+    competingSkillId: frontend/design-system-builder-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

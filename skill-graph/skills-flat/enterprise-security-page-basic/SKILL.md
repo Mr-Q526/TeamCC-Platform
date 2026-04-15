@@ -6,29 +6,15 @@ displayName: Enterprise Security Page Basic
 description: Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Basic version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - enterprise-security-page-basic
-  - 企业
+  - Enterprise Security Page Basic
+  - enterprisesecuritypagebasic
   - 企业级
   - B2B
-  - 安全
-  - 安全审计
-  - security
-  - 页面
-  - page
-  - 基础版
-  - basic
-  - Enterprise Security Page Basic
   - enterprise
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 企业安全页面
+  - trust center
 version: 0.1.0
-sourceHash: sha256:778b17123a28b4672c90cce57b97b92ca690c61292ea424bc2c6c2fa99f466c6
+sourceHash: sha256:6414c349be9bf5e8c90b48f574609913bd3622f59fc08bcd2b4b0f8202c05c94
 domain: frontend
 departmentTags:
   - frontend-platform

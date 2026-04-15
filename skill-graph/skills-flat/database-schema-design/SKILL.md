@@ -5,35 +5,24 @@ name: database-schema-design
 displayName: Database Schema Design
 description: Use when working on relational or document database schema design, indexing, constraints, and migration planning. Focus on data integrity, query shape, indexing, and future-safe migrations.
 aliases:
+  - database-schema-design
+  - Database Schema Design
+  - databaseschemadesign
   - 数据库设计
   - 表结构设计
   - 索引设计
   - 迁移方案
-  - database-schema-design
-  - 数据库
   - 数据表
-  - DB
   - 表结构
   - schema
   - 数据建模
   - 索引
-  - 设计
-  - UI
-  - 视觉设计
-  - Database Schema Design
   - database
-  - design
-  - backend
-  - 后端
   - 服务端
   - server side
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - backend-platform
+  - 数据建模方案
 version: 0.1.0
-sourceHash: sha256:e4d06b7ebf7effa4855950b05206aa4cc561fe8cab2d4100a619edc7c457ee7d
+sourceHash: sha256:cb16b150022a8f25e60f40739808e7846614ebbc892ba9bc9ada317c0e1489ee
 domain: backend
 departmentTags:
   - backend-platform

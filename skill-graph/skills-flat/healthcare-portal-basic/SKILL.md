@@ -6,24 +6,14 @@ displayName: Healthcare Portal Basic
 description: Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Basic version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - healthcare-portal-basic
+  - Healthcare Portal Basic
+  - healthcareportalbasic
   - 医疗
   - 健康
   - healthcare
-  - 基础版
-  - basic
-  - Healthcare Portal Basic
   - portal
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:198294d840e635f9696fa4ea454b5a1d648b9b37da07d0a8ade7bda6416ddb7f
+sourceHash: sha256:1034ec06e935910ba78f14848e1fb79fd9e00dbb1e5b117326fa4e1ff4afe8b2
 domain: frontend
 departmentTags:
   - frontend-platform

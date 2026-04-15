@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_pricing_preference_019
+title: 定价页偏好邻近表达 019
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - pricing
+query:
+  queryText: 现在更像是商业化说不清，想先从 plan comparison 视角把SaaS 定价页里的把权益说明、购买理由和转化承接理顺拉顺，不是纯宣传页。
+  queryContext: SaaS 定价页 把权益说明、购买理由和转化承接理顺 现在更像是商业化说不清 plan comparison 定价页 pricing
+    套餐对比 升级引导 FAQ
+  cwd: /tmp/skill-eval
+  projectId: seed:pricing-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:pricing
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/pricing-page-pro
+  acceptableSkillIds:
+    - frontend/pricing-page-basic
+  forbiddenSkillIds:
+    - frontend/contact-sales-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/pricing-page-pro
+    competingSkillId: frontend/pricing-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

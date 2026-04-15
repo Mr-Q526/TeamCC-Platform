@@ -14,7 +14,8 @@ query:
   queryText: 我要制定一个开发计划文档，包括大致的步骤、文件和验证方法，有没有模板可以参考？
   queryContext: 开发计划 文档 步骤 文件 验证 workflow planning execution
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

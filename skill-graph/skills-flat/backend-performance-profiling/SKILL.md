@@ -6,23 +6,19 @@ displayName: Backend Performance Profiling
 description: Use when working on backend performance profiling, slow endpoint analysis, query hotspots, CPU, memory, and latency work. Focus on measurement, profiling evidence, hot path reduction, and regression guards.
 aliases:
   - backend-performance-profiling
-  - 后端
+  - Backend Performance Profiling
+  - backendperformanceprofiling
   - 服务端
   - server side
   - 性能
   - 性能优化
   - 性能分析
-  - Backend Performance Profiling
-  - backend
-  - performance
   - profiling
-  - debug
   - 调试
   - 排查
   - 定位问题
-  - backend-platform
 version: 0.1.0
-sourceHash: sha256:9b4d8b9c7a47d9b186fea138434080b028876653514da76635bb1f142b61597c
+sourceHash: sha256:c0350215c0c4f70e4896b2095f7faa56415ccafd71adf131733f6a077a9cbef9
 domain: backend
 departmentTags:
   - backend-platform

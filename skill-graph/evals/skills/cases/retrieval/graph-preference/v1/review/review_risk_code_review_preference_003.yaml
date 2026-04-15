@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_review_risk_code_review_preference_003
+title: 高风险变更评审在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - review
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - review
+query:
+  queryText: 这批变更牵涉公共接口和权限控制，想先做一轮更偏风险视角的审查，确认不会留下大的回滚和监控盲点。
+  queryContext: 公共接口 权限控制 风险视角审查 回滚 监控盲点
+  cwd: /tmp/skill-eval
+  projectId: seed:code-review-risk
+  department: dept:backend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+  forbiddenSkillIds:
+    - general/bug-fix-debugging
+    - backend/rest-api-implementation
+  preference:
+    preferredSkillId: review/code-review-risk-based
+    competingSkillId: review/code-review-general
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

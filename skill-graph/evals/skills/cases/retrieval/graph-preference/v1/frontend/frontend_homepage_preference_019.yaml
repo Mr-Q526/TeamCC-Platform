@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_homepage_preference_019
+title: 官网首页偏好邻近表达 019
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - homepage
+query:
+  queryText: 现在更像是官网首页体验太散，想先从 hero + CTA 视角把品牌官网首页里的把首屏卖点、信任证明和 CTA 路径拉顺拉顺，不是只拼几个营销模块。
+  queryContext: 品牌官网首页 把首屏卖点、信任证明和 CTA 路径拉顺 现在更像是官网首页体验太散 hero + CTA 官网首页 品牌站 首屏 hero CTA
+  cwd: /tmp/skill-eval
+  projectId: seed:homepage-refresh
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:homepage
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/website-homepage-design-pro
+  acceptableSkillIds:
+    - frontend/website-homepage-design-basic
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/website-homepage-design-pro
+    competingSkillId: frontend/website-homepage-design-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

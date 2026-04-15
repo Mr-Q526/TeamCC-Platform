@@ -24,6 +24,7 @@ export type SkillGraphAggregateNode = {
   skillVersion: string | null
   sourceHash: string | null
   versionKey: string | null
+  projectId: string | null
   departmentId: string | null
   sceneId: string | null
   window: string
@@ -71,6 +72,17 @@ export type SkillGraphDepartmentEdgeUpdate = {
   window: string
 }
 
+export type SkillGraphProjectEdgeUpdate = {
+  projectId: string
+  projectName: string
+  projectNameZh: string
+  skillId: string
+  score: number
+  confidence: number
+  sampleCount: number
+  window: string
+}
+
 export type SkillGraphSceneEdgeUpdate = {
   sceneId: string
   sceneName: string
@@ -90,6 +102,7 @@ export type SkillAggregateGraphUpdateManifest = {
   itemCount: number
   skillUpdates: SkillGraphSkillUpdate[]
   versionUpdates: SkillGraphVersionUpdate[]
+  projectEdgeUpdates: SkillGraphProjectEdgeUpdate[]
   departmentEdgeUpdates: SkillGraphDepartmentEdgeUpdate[]
   sceneEdgeUpdates: SkillGraphSceneEdgeUpdate[]
   feedbackAggregates: SkillGraphAggregateNode[]
@@ -192,6 +205,8 @@ function aggregateScopeZh(scopeType: SkillGraphAggregateNode['scopeType']): stri
   switch (scopeType) {
     case 'global':
       return '全局聚合'
+    case 'project':
+      return '项目聚合'
     case 'department':
       return '部门聚合'
     case 'scene':
@@ -213,6 +228,14 @@ function versionCaptionZh(skillId: string, version: string): string {
   }
 
   return `版本 ${version}`
+}
+
+function projectNameZh(projectId: string, fallback: string): string {
+  if (projectId.startsWith('project:')) {
+    return projectId.slice('project:'.length)
+  }
+
+  return fallback
 }
 
 export function makeVersionKey(
@@ -274,6 +297,7 @@ function aggregateToGraphNode(
             aggregate.sourceHash,
           )
         : null,
+    projectId: aggregate.projectId,
     departmentId: aggregate.department ? toDepartmentId(aggregate.department) : null,
     sceneId: aggregate.scene ? toSceneId(aggregate.scene) : null,
     window: aggregate.window,
@@ -297,6 +321,7 @@ export function buildSkillAggregateGraphUpdate(
   const feedbackAggregates = aggregateManifest.items.map(aggregateToGraphNode)
   const skillUpdates = new Map<string, SkillGraphSkillUpdate>()
   const versionUpdates = new Map<string, SkillGraphVersionUpdate>()
+  const projectEdgeUpdates = new Map<string, SkillGraphProjectEdgeUpdate>()
   const departmentEdgeUpdates = new Map<string, SkillGraphDepartmentEdgeUpdate>()
   const sceneEdgeUpdates = new Map<string, SkillGraphSceneEdgeUpdate>()
 
@@ -340,6 +365,22 @@ export function buildSkillAggregateGraphUpdate(
         confidence: aggregate.confidence,
         active: registrySkill?.activeVersionKey === versionKey,
       })
+    }
+
+    if (aggregate.scopeType === 'project' && aggregate.projectId) {
+      projectEdgeUpdates.set(
+        `${aggregate.skillId}\n${aggregate.projectId}\n${aggregate.window}`,
+        {
+          projectId: aggregate.projectId,
+          projectName: aggregate.projectId,
+          projectNameZh: projectNameZh(aggregate.projectId, aggregate.projectId),
+          skillId: aggregate.skillId,
+          score: aggregate.qualityScore,
+          confidence: aggregate.confidence,
+          sampleCount: aggregate.sampleCount,
+          window: aggregate.window,
+        },
+      )
     }
 
     if (aggregate.scopeType === 'department' && aggregate.department) {
@@ -386,6 +427,9 @@ export function buildSkillAggregateGraphUpdate(
     ),
     versionUpdates: [...versionUpdates.values()].sort((a, b) =>
       a.versionKey.localeCompare(b.versionKey),
+    ),
+    projectEdgeUpdates: [...projectEdgeUpdates.values()].sort((a, b) =>
+      `${a.projectId}:${a.skillId}`.localeCompare(`${b.projectId}:${b.skillId}`),
     ),
     departmentEdgeUpdates: [...departmentEdgeUpdates.values()].sort((a, b) =>
       `${a.departmentId}:${a.skillId}`.localeCompare(`${b.departmentId}:${b.skillId}`),
@@ -444,6 +488,7 @@ export function buildSkillAggregateGraphCypher(
   const statements: string[] = [
     'CREATE CONSTRAINT skill_id_v1 IF NOT EXISTS FOR (s:Skill) REQUIRE s.skillId IS UNIQUE;',
     'CREATE CONSTRAINT skill_version_key_v1 IF NOT EXISTS FOR (sv:SkillVersion) REQUIRE sv.versionKey IS UNIQUE;',
+    'CREATE CONSTRAINT project_id_v1 IF NOT EXISTS FOR (p:Project) REQUIRE p.projectId IS UNIQUE;',
     'CREATE CONSTRAINT scene_id_v1 IF NOT EXISTS FOR (sc:Scene) REQUIRE sc.sceneId IS UNIQUE;',
     'CREATE CONSTRAINT department_id_v1 IF NOT EXISTS FOR (d:Department) REQUIRE d.departmentId IS UNIQUE;',
     'CREATE CONSTRAINT feedback_aggregate_key_v1 IF NOT EXISTS FOR (fa:FeedbackAggregate) REQUIRE fa.aggregateKey IS UNIQUE;',
@@ -483,6 +528,24 @@ WITH sv
 MATCH (s:Skill {skillId: ${cypherLiteral(version.skillId)}})
 MERGE (s)-[r:HAS_VERSION]->(sv)
 SET r.labelZh = '拥有版本';
+`)
+  }
+
+  for (const edge of manifest.projectEdgeUpdates) {
+    statements.push(`
+MERGE (p:Project {projectId: ${cypherLiteral(edge.projectId)}})
+SET p.name = ${cypherLiteral(edge.projectName)},
+    p.nameZh = ${cypherLiteral(edge.projectNameZh)},
+    p.updatedAt = datetime()
+WITH p
+MATCH (s:Skill {skillId: ${cypherLiteral(edge.skillId)}})
+MERGE (p)-[r:USED_SKILL]->(s)
+SET r.score = ${edge.score},
+    r.confidence = ${edge.confidence},
+    r.sampleCount = ${edge.sampleCount},
+    r.window = ${cypherLiteral(edge.window)},
+    r.labelZh = '项目使用技能',
+    r.updatedAt = datetime();
 `)
   }
 
@@ -550,6 +613,15 @@ MATCH (fa:FeedbackAggregate {aggregateKey: ${cypherLiteral(aggregate.aggregateKe
 MATCH (sv:SkillVersion {versionKey: ${cypherLiteral(aggregate.versionKey)}})
 MERGE (fa)-[r:FOR_VERSION]->(sv)
 SET r.labelZh = '版本聚合';
+`)
+    }
+
+    if (aggregate.projectId) {
+      statements.push(`
+MATCH (fa:FeedbackAggregate {aggregateKey: ${cypherLiteral(aggregate.aggregateKey)}})
+MATCH (p:Project {projectId: ${cypherLiteral(aggregate.projectId)}})
+MERGE (fa)-[r:IN_PROJECT]->(p)
+SET r.labelZh = '项目范围';
 `)
     }
 

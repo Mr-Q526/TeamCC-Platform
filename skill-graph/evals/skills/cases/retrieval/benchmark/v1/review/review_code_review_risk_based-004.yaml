@@ -14,7 +14,8 @@ query:
   queryText: 帮我审查下这段代码，看看有没有高风险的问题，比如 auth、payments 等。
   queryContext: 代码审查 高风险 auth payments
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

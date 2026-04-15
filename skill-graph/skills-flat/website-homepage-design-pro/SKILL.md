@@ -7,32 +7,22 @@ description: Use when designing a premium branded homepage, 官网首页, compan
 aliases:
   - website-homepage-design-pro
   - Website Homepage Design PRO
+  - websitehomepagedesignpro
   - 官网首页
   - 高端官网
   - 品牌首页
   - 企业官网
   - 产品官网
   - 首页设计
-  - homepage
   - website
   - landing
   - premium homepage
-  - frontend
-  - 前端
-  - UI
-  - 视觉设计
   - 官网
   - 首页
   - 主页
-  - 设计
-  - 专业版
-  - pro
-  - design
-  - Web 前端
-  - 页面开发
-  - frontend-platform
+  - 企业官网首页
 version: 0.1.0
-sourceHash: sha256:bef7757ba41ed2bbb44b9675acd16397ed1ed03002a34673ee56776a641be2f2
+sourceHash: sha256:fb2f7922811f6125f36e2cb770d34b259e9cb5bb6f82f97175fec7d6b2fc87c8
 domain: frontend
 departmentTags:
   - frontend-platform

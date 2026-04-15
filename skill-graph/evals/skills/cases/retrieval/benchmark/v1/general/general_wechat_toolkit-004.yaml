@@ -14,7 +14,8 @@ query:
   queryText: 我想对微信公众号文章进行搜索、下载、改写和发布，有什么工具可以用？
   queryContext: 微信公众号 文章 搜索 下载 改写 发布 workflow planning execution
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:growth
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

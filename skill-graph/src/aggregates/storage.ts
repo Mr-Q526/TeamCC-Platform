@@ -30,6 +30,7 @@ type SkillFeedbackAggregateRow = {
   skill_id: string
   skill_version: string | null
   source_hash: string | null
+  project_id: string | null
   department: string | null
   scene: string | null
   sample_count: number
@@ -70,6 +71,7 @@ type SkillFeedbackAggregateInsertRow = {
   skillId: string
   skillVersion: string | null
   sourceHash: string | null
+  projectId: string | null
   department: string | null
   scene: string | null
   sampleCount: number
@@ -114,6 +116,7 @@ CREATE TABLE IF NOT EXISTS skill_feedback_aggregates (
   skill_id text NOT NULL,
   skill_version text NULL,
   source_hash text NULL,
+  project_id text NULL,
   department text NULL,
   scene text NULL,
   sample_count integer NOT NULL,
@@ -143,6 +146,9 @@ CREATE TABLE IF NOT EXISTS skill_feedback_aggregates (
   computed_at timestamptz NOT NULL
 );
 
+ALTER TABLE skill_feedback_aggregates
+  ADD COLUMN IF NOT EXISTS project_id text NULL;
+
 CREATE INDEX IF NOT EXISTS idx_skill_feedback_aggregates_window_scope_score
   ON skill_feedback_aggregates ("window", scope_type, scope_id, quality_score DESC);
 
@@ -151,6 +157,9 @@ CREATE INDEX IF NOT EXISTS idx_skill_feedback_aggregates_skill_scope
 
 CREATE INDEX IF NOT EXISTS idx_skill_feedback_aggregates_skill_identity
   ON skill_feedback_aggregates (skill_id, skill_version, source_hash);
+
+CREATE INDEX IF NOT EXISTS idx_skill_feedback_aggregates_project_scope
+  ON skill_feedback_aggregates (project_id, scope_type, quality_score DESC);
 
 CREATE INDEX IF NOT EXISTS idx_skill_feedback_aggregates_computed_at
   ON skill_feedback_aggregates (computed_at DESC);
@@ -222,6 +231,7 @@ export function mapSkillFeedbackAggregateToInsertRow(
     skillId: aggregate.skillId,
     skillVersion: aggregate.skillVersion,
     sourceHash: aggregate.sourceHash,
+    projectId: aggregate.projectId,
     department: aggregate.department,
     scene: aggregate.scene,
     sampleCount: aggregate.sampleCount,
@@ -262,6 +272,7 @@ export function mapSkillFeedbackAggregateRowToAggregate(
     skillId: row.skill_id,
     skillVersion: row.skill_version,
     sourceHash: row.source_hash,
+    projectId: row.project_id,
     department: row.department,
     scene: row.scene,
     window: row.window,
@@ -309,6 +320,7 @@ INSERT INTO skill_feedback_aggregates (
   skill_id,
   skill_version,
   source_hash,
+  project_id,
   department,
   scene,
   sample_count,
@@ -340,8 +352,8 @@ INSERT INTO skill_feedback_aggregates (
 VALUES (
   $1, $2, $3::timestamptz, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
   $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27,
-  $28, $29, $30, $31, $32, $33, $34, $35::timestamptz, $36::timestamptz,
-  $37::timestamptz
+  $28, $29, $30, $31, $32, $33, $34, $35, $36::timestamptz, $37::timestamptz,
+  $38::timestamptz
 )
 ON CONFLICT (aggregate_key) DO UPDATE SET
   schema_version = EXCLUDED.schema_version,
@@ -353,6 +365,7 @@ ON CONFLICT (aggregate_key) DO UPDATE SET
   skill_id = EXCLUDED.skill_id,
   skill_version = EXCLUDED.skill_version,
   source_hash = EXCLUDED.source_hash,
+  project_id = EXCLUDED.project_id,
   department = EXCLUDED.department,
   scene = EXCLUDED.scene,
   sample_count = EXCLUDED.sample_count,
@@ -392,6 +405,7 @@ ON CONFLICT (aggregate_key) DO UPDATE SET
       row.skillId,
       row.skillVersion,
       row.sourceHash,
+      row.projectId,
       row.department,
       row.scene,
       row.sampleCount,
@@ -511,6 +525,7 @@ SELECT
   skill_id,
   skill_version,
   source_hash,
+  project_id,
   department,
   scene,
   sample_count,

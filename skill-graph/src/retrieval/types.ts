@@ -10,6 +10,9 @@ export type SkillScoreBreakdown = {
   department: number
   domain: number
   scene: number
+  intent: number
+  discriminator: number
+  genericPenalty: number
   penalty: number
 }
 
@@ -17,18 +20,42 @@ export type SkillGraphFeatures = {
   skillId: string
   version: string | null
   sourceHash: string | null
+  projectScore: number | null
+  projectConfidence: number | null
+  projectPreferenceScore: number | null
   globalQualityScore: number | null
   globalConfidence: number | null
+  globalPreferenceScore: number | null
   versionQualityScore: number | null
   versionConfidence: number | null
+  versionPreferenceScore: number | null
   departmentScore: number | null
   departmentConfidence: number | null
+  departmentPreferenceScore: number | null
   sceneScore: number | null
   sceneConfidence: number | null
+  scenePreferenceScore: number | null
   invocationCount: number | null
   successRate: number | null
+  qualityFeatureScore: number
+  preferenceFeatureScore: number
   graphFeatureScore: number
   graphFeatureBreakdown: {
+    project: number
+    global: number
+    version: number
+    department: number
+    scene: number
+  }
+  qualityFeatureBreakdown: {
+    project: number
+    global: number
+    version: number
+    department: number
+    scene: number
+  }
+  preferenceFeatureBreakdown: {
+    project: number
     global: number
     version: number
     department: number
@@ -38,15 +65,21 @@ export type SkillGraphFeatures = {
 }
 
 export type SkillGraphFeatureSignalExplanation = {
-  scope: 'global' | 'version' | 'department' | 'scene'
+  scope: 'project' | 'global' | 'version' | 'department' | 'scene'
   weight: number
   matched: boolean
   matchedKey: string | null
   qualityScore: number | null
   confidence: number | null
+  preferenceScore: number | null
+  feedbackCount: number | null
+  explicitPositiveCount: number | null
+  explicitNegativeCount: number | null
   sampleCount: number | null
   invocationCount: number | null
   successRate: number | null
+  qualityContribution: number
+  preferenceContribution: number
   weightedContribution: number
   reason: string
 }
@@ -61,6 +94,7 @@ export type SkillRetrievalRequest = {
   queryText: string
   queryContext?: string
   cwd: string
+  projectId?: string | null
   department?: string | null
   domainHints?: string[]
   sceneHints?: string[]
@@ -86,18 +120,39 @@ export type SkillRecallCandidate = {
   retrievalSource: 'local_lexical' | 'local_hybrid'
   recallScore: number
   recallScoreBreakdown: SkillScoreBreakdown
+  queryIntentKeys: string[]
+  queryDiscriminatorKeys: string[]
+  matchedIntentKeys: string[]
+  matchedDiscriminatorKeys: string[]
+}
+
+export type SkillGraphEligibility = {
+  eligible: boolean
+  strongestScope: 'intent' | 'project' | 'scene' | 'department' | 'none'
+  recallGap: number
+  bonusCap: number
+  blockedReason: string | null
 }
 
 export type SkillRetrievalCandidate = SkillRecallCandidate & {
   graphFeatures: SkillGraphFeatures | null
+  graphEligibility: SkillGraphEligibility
   finalScore: number
   finalScoreBreakdown: {
     recallNormalized: number
     graphFeatureScore: number
-    recallWeight: number
-    graphWeight: number
-    recallContribution: number
-    graphContribution: number
+    qualityFeatureScore: number
+    preferenceFeatureScore: number
+    graphBonus: number
+    graphBonusCap: number
+    qualityBonus: number
+    preferenceBonus: number
+    qualityBonusCap: number
+    preferenceBonusCap: number
+    recallGap: number
+    strongestScope: SkillGraphEligibility['strongestScope']
+    blockedReason: string | null
+    preferenceBlockedReason: string | null
     formula: string
   }
   rank: number

@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_playwright_interactive_preference_009
+title: 交互式调试偏好扩展表达 009
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - debug
+query:
+  queryText: 表单流程需要多轮交互式检查，这次做持续交互式 UI 调试，最关心的是persistent browser、异常态检查和交互调试更顺。
+  queryContext: 持续交互式 UI 调试 persistent browser、异常态检查和交互调试更顺 表单流程需要多轮交互式检查
+    interactive debugging persistent browser 多轮排查 异常态
+  cwd: /tmp/skill-eval
+  projectId: seed:playwright-interactive
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/playwright-interactive
+  acceptableSkillIds:
+    - tools/playwright
+  forbiddenSkillIds:
+    - tools/screenshot
+    - frontend/component-library-pro
+  preference:
+    preferredSkillId: tools/playwright-interactive
+    competingSkillId: tools/playwright
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

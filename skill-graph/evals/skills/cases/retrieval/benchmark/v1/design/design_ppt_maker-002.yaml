@@ -14,7 +14,8 @@ query:
   queryText: 根据给定的主题，生成一个PPT，要求结构清晰，内容完整。
   queryContext: 主题 PPT 生成 结构 内容
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

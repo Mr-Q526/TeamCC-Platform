@@ -6,26 +6,16 @@ displayName: Component Library Basic
 description: Use when designing component libraries, UI kits, reusable React components, and implementation examples. Basic version focused on API clarity, variants, states, and usage consistency; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - component-library-basic
+  - Component Library Basic
+  - componentlibrarybasic
   - 组件
   - 组件库
   - UI 组件
-  - 库
-  - library
-  - 基础版
-  - basic
-  - Component Library Basic
   - component
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 组件库设计
+  - component library
 version: 0.1.0
-sourceHash: sha256:9fd339ac818ad7d01373d9e881b5dd480b5b6e8461cbb52ddaefef586ff8f119
+sourceHash: sha256:688e9146b3958167cfd543d54b219f4e3ba2fde849333c1ac155387a1d8ade9f
 domain: frontend
 departmentTags:
   - frontend-platform

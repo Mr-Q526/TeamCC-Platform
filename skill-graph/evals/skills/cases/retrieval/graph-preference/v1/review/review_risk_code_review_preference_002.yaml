@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_review_risk_code_review_preference_002
+title: 风险导向代码评审在混合表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - review
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - review
+query:
+  queryText: 这次 diff 风险比较高，麻烦做一轮 risk-based code review，重点盯
+    auth、rollback、observability 和 edge cases。
+  queryContext: risk-based code review auth rollback observability edge cases
+  cwd: /tmp/skill-eval
+  projectId: seed:code-review-risk
+  department: dept:backend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+  forbiddenSkillIds:
+    - general/bug-fix-debugging
+    - backend/rest-api-implementation
+  preference:
+    preferredSkillId: review/code-review-risk-based
+    competingSkillId: review/code-review-general
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

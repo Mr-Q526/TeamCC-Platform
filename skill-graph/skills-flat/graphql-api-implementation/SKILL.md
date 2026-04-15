@@ -5,35 +5,25 @@ name: graphql-api-implementation
 displayName: GraphQL API Implementation
 description: Use when working on GraphQL schemas, resolvers, mutations, subscriptions, and dataloader patterns. Focus on schema clarity, N+1 avoidance, auth boundaries, and client ergonomics.
 aliases:
+  - graphql-api-implementation
+  - GraphQL API Implementation
+  - graphqlapiimplementation
   - GraphQL API
   - resolver
   - dataloader
   - N+1 查询
-  - graphql-api-implementation
   - GraphQL
   - schema
   - mutation
-  - API
-  - 接口
   - 服务接口
-  - GraphQL API Implementation
   - implementation
   - Graph
   - QL
-  - backend
-  - 后端
   - 服务端
   - server side
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - test
-  - 测试
   - 验证
-  - backend-platform
 version: 0.1.0
-sourceHash: sha256:2db34c44acb8dfbf60e10e057b2554fdb348f7fc0864056b70b9a36d06fc1c96
+sourceHash: sha256:8d2f99fde0531969ac50bb034abca5289c6b120837c0a8cd7fe18c798f6a6512
 domain: backend
 departmentTags:
   - backend-platform

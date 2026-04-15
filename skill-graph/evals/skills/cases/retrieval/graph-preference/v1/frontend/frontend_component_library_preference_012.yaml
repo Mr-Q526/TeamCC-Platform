@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_component_library_preference_012
+title: 组件库偏好混合表达 012
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - component-library
+query:
+  queryText: 设计和前端想统一基础组件资产，希望把企业级组件库往 UI foundation 的方向做，重点补齐tokens、variants 和组件规范可长期维护。
+  queryContext: 企业级组件库 tokens、variants 和组件规范可长期维护 UI foundation 设计和前端想统一基础组件资产 组件库
+    design tokens variants 规范治理
+  cwd: /tmp/skill-eval
+  projectId: seed:component-library
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:component-library
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/component-library-pro
+  acceptableSkillIds:
+    - frontend/component-library-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/component-library-pro
+    competingSkillId: frontend/component-library-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

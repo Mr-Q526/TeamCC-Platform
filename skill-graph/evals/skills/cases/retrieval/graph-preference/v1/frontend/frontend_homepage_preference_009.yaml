@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_homepage_preference_009
+title: 官网首页偏好扩展表达 009
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - homepage
+query:
+  queryText: 品牌升级项目启动了，这次做品牌官网首页，最关心的是品牌感、模块节奏和转化路径更成熟。
+  queryContext: 品牌官网首页 品牌感、模块节奏和转化路径更成熟 品牌升级项目启动了 官网首页 品牌站 首屏 hero
+  cwd: /tmp/skill-eval
+  projectId: seed:homepage-refresh
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:homepage
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/website-homepage-design-pro
+  acceptableSkillIds:
+    - frontend/website-homepage-design-basic
+  forbiddenSkillIds:
+    - frontend/marketing-landing-page
+    - frontend/docs-site-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/website-homepage-design-pro
+    competingSkillId: frontend/website-homepage-design-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -6,25 +6,15 @@ displayName: Developer Portal PRO
 description: Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Pro version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - developer-portal-pro
+  - Developer Portal PRO
+  - developerportalpro
   - 开发者
   - 开发者门户
   - developer portal
-  - 专业版
-  - pro
-  - Developer Portal PRO
   - developer
   - portal
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:befefa5e9203a3dcd264ebf02cc74530708f89231657597b38ad1bd6cfa2a332
+sourceHash: sha256:e4d2303226f56f800769895abcf8404c81927327b18e6258f6971551aba220f6
 domain: frontend
 departmentTags:
   - frontend-platform

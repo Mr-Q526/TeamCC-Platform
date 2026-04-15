@@ -5,35 +5,26 @@ name: cache-strategy-backend
 displayName: Backend Cache Strategy
 description: Use when working on server-side caching, Redis, CDN coordination, invalidation, and freshness rules. Focus on correctness, invalidation, stampede control, and latency reduction.
 aliases:
+  - cache-strategy-backend
+  - Backend Cache Strategy
+  - cache strategy backend
+  - cachestrategybackend
   - Redis 缓存
   - 缓存击穿
   - 缓存雪崩
   - 缓存失效
-  - cache-strategy-backend
   - 缓存
   - Redis
   - cache invalidation
-  - 策略
-  - 方案
-  - 后端
   - 服务端
   - server side
-  - Backend Cache Strategy
-  - cache strategy backend
   - cache
   - strategy
-  - backend
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - performance
   - 性能
   - 性能优化
   - 性能分析
-  - backend-platform
 version: 0.1.0
-sourceHash: sha256:5cbfd83fb6553a716000887328ec8c75aa543d89fa1159e8bc60adea10ab0f99
+sourceHash: sha256:7cf0f9475c6f2294b701afd65a9e9fa4cb905bfa87bd5516fa357cd48675d498
 domain: backend
 departmentTags:
   - backend-platform

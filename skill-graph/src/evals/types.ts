@@ -20,6 +20,7 @@ export type SkillRetrievalEvalCase = {
     queryText: string
     queryContext: string | null
     cwd: string | null
+    projectId: string | null
     department: string | null
     domainHints: string[]
     sceneHints: string[]
@@ -31,6 +32,13 @@ export type SkillRetrievalEvalCase = {
     mustHitSkillIds: string[]
     acceptableSkillIds: string[]
     forbiddenSkillIds: string[]
+    preference:
+      | {
+          preferredSkillId: string
+          competingSkillId: string
+          expectedDirection: 'preferred_above_competitor'
+        }
+      | null
   }
   modeOverrides: Partial<
     Record<
@@ -174,6 +182,15 @@ export type RetrievalEvalCaseResult = {
   expected: SkillRetrievalEvalCase['expected']
   requestedModes: SkillRetrievalEvalRequestedMode[]
   modeResults: RetrievalEvalModeResult[]
+}
+
+export type RetrievalPreferenceMetricSummary = {
+  caseCount: number
+  preferredSkillTop1Rate: number
+  preferredSkillBeatsCompetitorRate: number
+  wrongIntentHijackRate: number
+  graphAppliedRate: number
+  preferenceBonusAppliedRate: number
 }
 
 export type GraphUpliftCaseResult = {

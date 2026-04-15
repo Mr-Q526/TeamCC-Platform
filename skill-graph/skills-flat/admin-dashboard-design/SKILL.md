@@ -6,6 +6,8 @@ displayName: Admin Dashboard Design
 description: Use when the task is to design a management console, 管理后台, admin panel, operations dashboard, moderation tool, or back-office web app. Focus on operator efficiency, table-first layout, filters, bulk actions, status visibility, and low-noise product UI.
 aliases:
   - admin-dashboard-design
+  - Admin Dashboard Design
+  - admindashboarddesign
   - 管理后台
   - 后台管理
   - 管理台
@@ -14,19 +16,15 @@ aliases:
   - 看板
   - 控制台
   - dashboard
-  - 设计
-  - UI
-  - 视觉设计
-  - Admin Dashboard Design
   - admin
-  - design
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - frontend-platform
+  - 管理后台设计
+  - 后台仪表盘
+  - admin dashboard
+  - 管理台首页
+  - 仪表盘设计
+  - dashboard design
 version: 0.1.0
-sourceHash: sha256:5ae365da050ebe49ea080f128b4d48ba1d60d544ca2f99ed99a25fcac3a57b71
+sourceHash: sha256:ef09102679aff2ff0be066a14f6c9c4402a79e79e36fec7e22a319a51ddeea14
 domain: frontend
 departmentTags:
   - frontend-platform

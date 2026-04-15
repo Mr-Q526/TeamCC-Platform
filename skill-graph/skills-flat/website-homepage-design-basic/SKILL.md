@@ -7,31 +7,21 @@ description: Use as a lightweight baseline/control skill for designing a simple 
 aliases:
   - website-homepage-design-basic
   - Website Homepage Design Basic
+  - websitehomepagedesignbasic
   - 官网首页
   - 首页
   - 品牌首页
   - 企业官网
   - 产品官网
-  - homepage
   - website
   - basic homepage
   - control skill
   - baseline skill
-  - frontend
-  - 前端
-  - UI
   - 官网
   - 主页
-  - 设计
-  - 视觉设计
-  - 基础版
-  - basic
-  - design
-  - Web 前端
-  - 页面开发
-  - frontend-platform
+  - 企业官网首页
 version: 0.1.0
-sourceHash: sha256:fe68397b268429972a119c351f45472fd3dce2caaf345f6047ea181aa9b8a92f
+sourceHash: sha256:13ddbdcc7c003f7379fed574cb1e2dbccae9eb992d03f43511ff653acc0f2eb6
 domain: frontend
 departmentTags:
   - frontend-platform

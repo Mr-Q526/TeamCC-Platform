@@ -14,7 +14,8 @@ query:
   queryText: 帮我调试下代码，看看哪里有问题并修复，代码在这个 repo 里。
   queryContext: 调试 代码 修复 repo
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -2,6 +2,10 @@ import {
   buildAndWriteSkillFactAggregates,
 } from '../src/aggregates/skillFactAggregates.js'
 import { closeSkillFactPgPool } from '../src/events/storage.js'
+import {
+  factFilterForRetrievalFeaturePreset,
+  type SkillRetrievalFeatureBuildPreset,
+} from '../src/retrieval/retrievalFeatures.js'
 
 function parseWindowDays(argv: string[]): number | undefined {
   for (let index = 0; index < argv.length; index += 1) {
@@ -45,17 +49,34 @@ function hasFlag(argv: string[], flag: string): boolean {
   return argv.includes(flag)
 }
 
+function parsePreset(argv: string[]): SkillRetrievalFeatureBuildPreset | undefined {
+  for (let index = 0; index < argv.length; index += 1) {
+    if (argv[index] !== '--preset') {
+      continue
+    }
+
+    const value = argv[index + 1]?.trim()
+    if (value === 'canonical' || value === 'live' || value === 'experiment') {
+      return value
+    }
+  }
+
+  return undefined
+}
+
 async function main(): Promise<void> {
   const argv = process.argv.slice(2)
+  const preset = parsePreset(argv) ?? 'canonical'
   const manifest = await buildAndWriteSkillFactAggregates({
     windowDays: parseWindowDays(argv),
     targetSampleCount: parseTargetSampleCount(argv),
     writePg: !hasFlag(argv, '--json-only'),
     writeJson: !hasFlag(argv, '--pg-only'),
+    factFilter: factFilterForRetrievalFeaturePreset(preset),
   })
 
   console.log(
-    `Built ${manifest.itemCount} skill feedback aggregates for ${manifest.window}`,
+    `Built ${preset} ${manifest.itemCount} skill feedback aggregates for ${manifest.window}`,
   )
 }
 

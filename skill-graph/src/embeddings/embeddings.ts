@@ -6,7 +6,8 @@ import type { SkillRegistryEntry } from '../registry/registry.js'
 
 export const GENERATED_SKILL_EMBEDDINGS_FILE = 'skill-embeddings.json'
 const DEFAULT_ARK_EMBEDDINGS_URL =
-  'https://ark.cn-beijing.volces.com/api/v3/embeddings'
+  'https://ark.cn-beijing.volces.com/api/v3/embeddings/multimodal'
+const DEFAULT_ARK_EMBEDDING_MODEL = 'doubao-embedding-vision-251215'
 
 export type EmbeddingProvider = 'volcengine'
 
@@ -145,7 +146,7 @@ export function getArkEmbeddingConfig(): {
     model:
       process.env.VOLC_ARK_EMBEDDING_MODEL?.trim() ||
       process.env.VOLC_ARK_EMBEDDING_ENDPOINT_ID?.trim() ||
-      null,
+      DEFAULT_ARK_EMBEDDING_MODEL,
   }
 }
 

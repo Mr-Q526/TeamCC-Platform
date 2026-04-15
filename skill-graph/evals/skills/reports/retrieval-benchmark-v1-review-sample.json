@@ -23,7 +23,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -48,7 +49,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -74,7 +76,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -100,7 +103,8 @@
         "forbiddenSkillIds": [
           "frontend/website-homepage-design-pro",
           "tools/playwright"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -127,7 +131,8 @@
         "forbiddenSkillIds": [
           "frontend/website-homepage-design-pro",
           "tools/playwright"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -154,7 +159,8 @@
         "forbiddenSkillIds": [
           "frontend/website-homepage-design-pro",
           "tools/playwright"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -180,7 +186,8 @@
         "forbiddenSkillIds": [
           "backend/database-schema-design",
           "frontend/website-homepage-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -207,7 +214,8 @@
         "forbiddenSkillIds": [
           "backend/database-schema-design",
           "frontend/website-homepage-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -234,7 +242,8 @@
         "forbiddenSkillIds": [
           "backend/database-schema-design",
           "frontend/website-homepage-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -261,7 +270,8 @@
         "forbiddenSkillIds": [
           "backend/rest-api-implementation",
           "frontend/website-homepage-design-pro"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -288,7 +298,8 @@
         "forbiddenSkillIds": [
           "backend/rest-api-implementation",
           "frontend/website-homepage-design-pro"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -315,7 +326,8 @@
         "forbiddenSkillIds": [
           "backend/rest-api-implementation",
           "frontend/website-homepage-design-pro"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -342,7 +354,8 @@
         "forbiddenSkillIds": [
           "frontend/marketing-landing-page",
           "backend/backend-api-architecture"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -368,7 +381,8 @@
         "forbiddenSkillIds": [
           "frontend/marketing-landing-page",
           "backend/backend-api-architecture"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -394,7 +408,8 @@
         "forbiddenSkillIds": [
           "frontend/marketing-landing-page",
           "backend/backend-api-architecture"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -420,7 +435,8 @@
         "forbiddenSkillIds": [
           "frontend/component-library-basic",
           "backend/rest-api-implementation"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -447,7 +463,8 @@
         "forbiddenSkillIds": [
           "frontend/component-library-basic",
           "backend/rest-api-implementation"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -474,7 +491,8 @@
         "forbiddenSkillIds": [
           "frontend/component-library-basic",
           "backend/rest-api-implementation"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -500,7 +518,8 @@
         "forbiddenSkillIds": [
           "security/security-threat-model",
           "frontend/admin-dashboard-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -526,7 +545,8 @@
         "forbiddenSkillIds": [
           "security/security-threat-model",
           "frontend/admin-dashboard-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -553,7 +573,8 @@
         "forbiddenSkillIds": [
           "security/security-threat-model",
           "frontend/admin-dashboard-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -579,7 +600,8 @@
         "forbiddenSkillIds": [
           "tools/playwright",
           "frontend/admin-dashboard-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -605,7 +627,8 @@
         "forbiddenSkillIds": [
           "tools/playwright",
           "frontend/admin-dashboard-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -631,7 +654,8 @@
         "forbiddenSkillIds": [
           "tools/playwright",
           "frontend/admin-dashboard-design"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -656,7 +680,8 @@
         "forbiddenSkillIds": [
           "frontend/website-homepage-design",
           "backend/rest-api-implementation"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -681,7 +706,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -706,7 +732,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -731,7 +758,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -756,7 +784,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -781,7 +810,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -806,7 +836,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -831,7 +862,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -856,7 +888,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -881,7 +914,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -906,7 +940,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     },
     {
@@ -931,7 +966,8 @@
         "forbiddenSkillIds": [
           "tools/spreadsheet",
           "security/security-threat-model"
-        ]
+        ],
+        "preference": null
       }
     }
   ]

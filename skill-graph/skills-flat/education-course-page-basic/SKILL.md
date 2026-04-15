@@ -6,29 +6,19 @@ displayName: Education Course Page Basic
 description: Use when designing course pages, lesson players, LMS dashboards, and learning paths. Basic version focused on learning hierarchy, progress, practice, and motivation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - education-course-page-basic
+  - Education Course Page Basic
+  - educationcoursepagebasic
   - 教育
   - 课程
   - 学习
   - 教学
   - 课程页
-  - 页面
-  - page
-  - 基础版
-  - basic
-  - Education Course Page Basic
   - education
   - course
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 课程页面
+  - course page
 version: 0.1.0
-sourceHash: sha256:717ec58a11d432845546c41c244eaa14f3c4da976b917306bec38aac5b102ec1
+sourceHash: sha256:a16b94c899b8d8c2a9189360a25aa8c11b2baad1f1f6684d4955f5c7f880ebf2
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -6,23 +6,16 @@ displayName: API Integration Testing
 description: Use when working on API integration tests across services, databases, auth, and external dependencies. Focus on contract correctness, realistic fixtures, isolation, and deterministic assertions.
 aliases:
   - api-integration-testing
-  - API
-  - 接口
-  - 服务接口
-  - 测试
-  - 测试策略
-  - testing
   - API Integration Testing
+  - apiintegrationtesting
+  - 服务接口
+  - 测试策略
   - integration
-  - backend
-  - 后端
   - 服务端
   - server side
-  - test
   - 验证
-  - backend-platform
 version: 0.1.0
-sourceHash: sha256:7bf16bc4af3988d4dd30e902c218e9584214e9cecbd5fe4105c444932158175e
+sourceHash: sha256:c07b2fd7a4c7d5dce6478aead5b6142827679b4614e12e245a69b1bd827564fd
 domain: backend
 departmentTags:
   - backend-platform

@@ -8,22 +8,14 @@ aliases:
   - nextjs-app-router
   - Next.js App Router
   - nextjs app router
+  - nextjsapprouter
   - nextjs
   - app
   - router
   - Next
   - js
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:44735c6c2a05ffeaca65e360402f23452b752ef17ea2aaa7a7cceed18cced09a
+sourceHash: sha256:387d9d01410925a368458f3240e0a0bb45040e54fd534b7691221c4968c64a3c
 domain: frontend
 departmentTags:
   - frontend-platform

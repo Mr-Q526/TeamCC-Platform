@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_docs_preference_003
+title: 接口文档门户在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - docs-site
+query:
+  queryText: 想把 API 文档门户和接入说明做得更系统一些，要兼顾导航结构、示例展示和版本说明。
+  queryContext: API 文档 门户 接入说明 navigation examples versioning
+  cwd: /tmp/skill-eval
+  projectId: seed:docs-site
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:docs-site
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/docs-site-pro
+  acceptableSkillIds:
+    - frontend/docs-site-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/docs-site-pro
+    competingSkillId: frontend/docs-site-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -6,17 +6,9 @@ displayName: Jimeng
 description: Generate images via Jimeng (即梦) AI image generation API.
 aliases:
   - jimeng
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - content-generation
-  - ai-platform
-  - AI
-  - 人工智能
   - 智能助手
 version: 0.1.0
-sourceHash: sha256:ace4ba11f89a8af052dab4c00478695a0fa294671b30ef63949c2b98c9da859f
+sourceHash: sha256:4321838a05911bdac874f0585db8aec99f29a4cc0188f21c2957e9ca15dac21d
 domain: design
 departmentTags:
   - ai-platform

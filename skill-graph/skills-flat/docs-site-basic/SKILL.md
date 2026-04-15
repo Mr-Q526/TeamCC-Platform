@@ -6,25 +6,15 @@ displayName: Docs Site Basic
 description: Use when designing documentation sites, knowledge bases, developer docs, and help centers. Basic version focused on findability, readable hierarchy, examples, and navigation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - docs-site-basic
+  - Docs Site Basic
+  - docssitebasic
   - 文档站
   - 文档网站
   - documentation
-  - 基础版
-  - basic
-  - Docs Site Basic
-  - docs
   - site
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - documentation site
 version: 0.1.0
-sourceHash: sha256:6efc00ac06a70bd9d98baec5d9cb4543afc9ad3773acfe2df1646fe097abcabf
+sourceHash: sha256:6a21a5d96513ee3e914619c1a122939378ccbaff48d6c0c4826d19fd312cc52c
 domain: frontend
 departmentTags:
   - frontend-platform

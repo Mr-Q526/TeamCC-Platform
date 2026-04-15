@@ -5,30 +5,22 @@ name: marketing-landing-page
 displayName: Marketing Landing Page
 description: Use when the task is to design a campaign page, 营销落地页, launch page, feature promotion page, webinar signup page, or lead generation page. Focus on one conversion goal, persuasive sequencing, proof, CTA rhythm, and low-friction form design.
 aliases:
+  - marketing-landing-page
+  - Marketing Landing Page
+  - marketinglandingpage
   - 营销落地页
   - 转化页
   - 预约 demo
   - 获客页
-  - marketing-landing-page
   - 营销
   - 落地页
   - campaign page
-  - 页面
-  - page
-  - Marketing Landing Page
   - marketing
   - landing
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 预约 demo 页面
+  - lead generation page
 version: 0.1.0
-sourceHash: sha256:f29a2e7e33b6fdba19ed3754bdf489967d4bfb0c88506fe6ec2b73f308a064c2
+sourceHash: sha256:717fae828ee3b313a73569cc331ee88c0f7479b9e44e0a06652593d6ef19df50
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_design_system_preference_006
+title: 设计系统偏好扩展表达 006
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - design-system
+query:
+  queryText: 设计与前端要联合建设设计系统，这次做企业设计系统，最关心的是组件规范、发布节奏和跨团队协作更清晰。
+  queryContext: 企业设计系统 组件规范、发布节奏和跨团队协作更清晰 设计与前端要联合建设设计系统 设计系统 tokens 治理 组件规范
+  cwd: /tmp/skill-eval
+  projectId: seed:design-system-builder
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design-system
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/design-system-builder-pro
+  acceptableSkillIds:
+    - frontend/design-system-builder-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/design-system-builder-pro
+    competingSkillId: frontend/design-system-builder-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

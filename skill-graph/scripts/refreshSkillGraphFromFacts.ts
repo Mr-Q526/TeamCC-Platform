@@ -10,7 +10,10 @@ import {
   applySkillAggregateGraphUpdate,
   buildAndWriteSkillAggregateGraphUpdateFromPg,
 } from '../src/graph/aggregateGraphUpdate.js'
-import { writeSkillRetrievalFeatures } from '../src/retrieval/retrievalFeatures.js'
+import {
+  factFilterForRetrievalFeaturePreset,
+  writeSkillRetrievalFeatures,
+} from '../src/retrieval/retrievalFeatures.js'
 
 function parseWindowDays(argv: string[]): number | undefined {
   for (let index = 0; index < argv.length; index += 1) {
@@ -36,6 +39,7 @@ async function main(): Promise<void> {
     windowDays,
     writeJson: true,
     writePg: true,
+    factFilter: factFilterForRetrievalFeaturePreset('canonical'),
   })
   console.log(
     `Stored ${aggregateManifest.itemCount} feedback aggregates for ${aggregateManifest.window}`,
@@ -50,7 +54,10 @@ async function main(): Promise<void> {
     `Applied ${graphManifest.feedbackAggregates.length} feedback aggregates to Neo4j`,
   )
 
-  const retrievalFeatures = await writeSkillRetrievalFeatures()
+  const retrievalFeatures = await writeSkillRetrievalFeatures({
+    preset: 'canonical',
+    aggregateManifest,
+  })
   console.log(
     `Rebuilt retrieval features with ${retrievalFeatures.itemCount} skills`,
   )

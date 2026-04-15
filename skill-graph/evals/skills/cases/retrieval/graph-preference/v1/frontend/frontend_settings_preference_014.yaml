@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_settings_preference_014
+title: 设置页偏好混合表达 014
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - settings
+query:
+  queryText: 后台配置中心准备重构，这轮需要一个更完整的 admin settings 方案，核心还是复杂表单状态、配置分层和操作回执更成熟。
+  queryContext: 企业设置页 复杂表单状态、配置分层和操作回执更成熟 admin settings 后台配置中心准备重构 设置页 配置中心 权限分层 保存反馈
+  cwd: /tmp/skill-eval
+  projectId: seed:settings-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:settings
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/settings-page-pro
+  acceptableSkillIds:
+    - frontend/settings-page-basic
+  forbiddenSkillIds:
+    - frontend/profile-account-page-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/settings-page-pro
+    competingSkillId: frontend/settings-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}
