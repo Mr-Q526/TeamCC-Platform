@@ -6,29 +6,19 @@ displayName: Contact Sales Page PRO
 description: Use when designing contact, sales, demo request, consultation, and lead qualification pages. Pro version focused on form clarity, next-step confidence, routing, and trust; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - contact-sales-page-pro
+  - Contact Sales Page PRO
+  - contactsalespagepro
   - 联系
   - 联系销售
   - contact sales
   - 销售
   - 销售线索
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - Contact Sales Page PRO
   - contact
   - sales
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 联系销售页面
+  - contact sales page
 version: 0.1.0
-sourceHash: sha256:1a489fa136cda84439abc6f75085a35c1d7622de981696ce7340a9f375ad9136
+sourceHash: sha256:34130f4c32f93717eac763426b3ae447a2a778150c9161570d2be4cb99c3da1f
 domain: frontend
 departmentTags:
   - frontend-platform

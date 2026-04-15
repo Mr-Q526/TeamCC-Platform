@@ -6,26 +6,20 @@ displayName: Unit Test Strategy
 description: Use when working on unit test design, missing test analysis, mocks, fixtures, and behavior coverage. Focus on meaningful assertions, boundary cases, maintainability, and regression prevention.
 aliases:
   - unit-test-strategy
+  - Unit Test Strategy
+  - unitteststrategy
   - 单元测试
   - unit test
-  - 测试
   - 验证
-  - test
-  - 策略
-  - 方案
-  - Unit Test Strategy
   - unit
   - strategy
-  - review
   - 代码审查
   - code review
   - 评审
-  - backend-platform
-  - 后端
   - 服务端
   - server side
 version: 0.1.0
-sourceHash: sha256:8e7e555605108969f98aefa51ac8504aaeda83149ee2f3b2426d584ea6bd3c59
+sourceHash: sha256:9482ffdc2596f6ed6eefc2299b9e4b034c6e18343f6e2e868b63865ee9fc587c
 domain: review
 departmentTags:
   - backend-platform

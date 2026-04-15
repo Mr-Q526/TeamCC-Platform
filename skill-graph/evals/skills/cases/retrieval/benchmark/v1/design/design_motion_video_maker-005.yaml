@@ -14,7 +14,8 @@ query:
   queryText: 根据这个文本制作一个动画讲解视频，要有AE/PR风格的动效
   queryContext: 动画 视频 制作 讲解 文本 动效 AE PR
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

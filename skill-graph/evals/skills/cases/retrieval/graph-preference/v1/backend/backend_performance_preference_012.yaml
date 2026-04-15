@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_performance_preference_012
+title: 后端性能排查偏好混合表达 012
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - performance
+query:
+  queryText: 线上接口越来越慢，希望把后端性能排查往 hot path analysis 的方向做，重点补齐profiling、慢查询和热点链路找出来。
+  queryContext: 后端性能排查 profiling、慢查询和热点链路找出来 hot path analysis 线上接口越来越慢 后端性能
+    profiling 慢查询 hot path
+  cwd: /tmp/skill-eval
+  projectId: seed:backend-performance
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:debug
+    - scene:performance
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/backend-performance-profiling
+  acceptableSkillIds:
+    - backend/background-jobs-queues
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/backend-performance-profiling
+    competingSkillId: backend/background-jobs-queues
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

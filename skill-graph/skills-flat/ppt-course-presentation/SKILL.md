@@ -6,21 +6,16 @@ displayName: PPT Course Presentation
 description: 面向小组作业、读书报告和期末展示生成结构化 PPT，强调问题引入、案例讲解、团队观点和课堂讨论的节奏感。
 aliases:
   - ppt-course-presentation
+  - PPT Course Presentation
+  - pptcoursepresentation
   - 课程
   - 教学
   - 课程页
-  - PPT Course Presentation
   - ppt
   - course
   - presentation
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - content-generation
-  - growth
 version: 0.1.0
-sourceHash: sha256:62f430c76232199838442c3d0859e7781735506a7c7ee6506f31cbbd852a84d4
+sourceHash: sha256:12162eb8ddcb49c389c547823f70c28ff0e0bf51431e775086043491964bff21
 domain: design
 departmentTags:
   - growth

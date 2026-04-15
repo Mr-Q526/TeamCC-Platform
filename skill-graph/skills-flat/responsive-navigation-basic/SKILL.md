@@ -6,27 +6,17 @@ displayName: Responsive Navigation Basic
 description: Use when designing navbars, sidebars, mega menus, mobile drawers, tabs, and information architecture. Basic version focused on orientation, hierarchy, responsive behavior, and wayfinding; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - responsive-navigation-basic
+  - Responsive Navigation Basic
+  - responsivenavigationbasic
   - 响应式
   - 移动端适配
   - responsive
   - 导航
   - 响应式导航
   - navbar
-  - 基础版
-  - basic
-  - Responsive Navigation Basic
   - navigation
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:0d45c2a928a5cb60817eaf2e73a8d3b01a1582c9f3a53aa4f61ab5300d086466
+sourceHash: sha256:81b4a3c09da2023a82be5f65db8e73f47b5daaaa0c79fe38edeb5d7386ed4255
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -6,26 +6,14 @@ displayName: Data Table Basic
 description: Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Basic version focused on columns, sorting, selection, inline actions, and density; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - data-table-basic
-  - 数据
-  - data
+  - Data Table Basic
+  - datatablebasic
   - 表格
   - 数据表格
   - data table
-  - 基础版
-  - basic
-  - Data Table Basic
   - table
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:d9759dbf661b02387c4ace7c56fe0bdef7001134ba0739ec22c98a4b7e7d3d6d
+sourceHash: sha256:616a33ba2ac8e0b036510967a00f97b685ae92d3e93876cf1131d5f3a9f83b62
 domain: frontend
 departmentTags:
   - frontend-platform

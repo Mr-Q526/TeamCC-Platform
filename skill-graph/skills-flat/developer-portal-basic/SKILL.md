@@ -6,25 +6,15 @@ displayName: Developer Portal Basic
 description: Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Basic version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - developer-portal-basic
+  - Developer Portal Basic
+  - developerportalbasic
   - 开发者
   - 开发者门户
   - developer portal
-  - 基础版
-  - basic
-  - Developer Portal Basic
   - developer
   - portal
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:3afef322b696a6cdd1da1114346e372994d921f802cccf0ef2a860cce1b61111
+sourceHash: sha256:016796c7236dd35875200b690ca16df6f67f8162b7976e2acda9af4887545627
 domain: frontend
 departmentTags:
   - frontend-platform

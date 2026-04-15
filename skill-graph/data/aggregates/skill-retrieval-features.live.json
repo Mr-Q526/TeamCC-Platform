@@ -1,0 +1,2328 @@
+{
+  "schemaVersion": "2026-04-12",
+  "generatedAt": "2026-04-14T17:38:27.684Z",
+  "registryVersion": "sha256:ffa6bd8d1a92bd5c2a2bff3de590bf5ff6df6551a11d2494cf0a2ac979e22e7b",
+  "aggregateGeneratedAt": "2026-04-14T17:38:27.683Z",
+  "window": "30d",
+  "scoring": {
+    "graphFeatureScoreFormula": "qualityRawScore = contextMatched ? 0.40 * project(qualityScore * confidence) + 0.25 * scene(qualityScore * confidence) + 0.15 * department(qualityScore * confidence) + 0.10 * version(qualityScore * confidence) + 0.10 * global(qualityScore * confidence) : 0; preferenceRawScore = contextMatched ? 0.40 * project(preferenceScore) + 0.25 * scene(preferenceScore) + 0.15 * department(preferenceScore) + 0.10 * version(preferenceScore) + 0.10 * global(preferenceScore) : 0",
+    "finalScoreFormula": "finalScore = recallNormalized + qualityBonus + preferenceBonus",
+    "graphFeatureWeights": {
+      "project": 0.4,
+      "scene": 0.25,
+      "department": 0.15,
+      "version": 0.1,
+      "global": 0.1
+    },
+    "graphFeatureInputs": [
+      "project aggregate matched from request.projectId",
+      "scene aggregate matched from request.sceneHints in order",
+      "department aggregate matched from request.department",
+      "version aggregate keyed by skillId + version + sourceHash",
+      "global aggregate keyed by skillId"
+    ]
+  },
+  "itemCount": 106,
+  "items": [
+    {
+      "skillId": "ai/humanizer-zh-basic",
+      "name": "humanizer-zh-basic",
+      "displayName": "Humanizer ZH Basic",
+      "description": "Use as a lightweight baseline/control skill for making Chinese AI-generated text sound less artificial. Basic version focuses on simple synonym replacement, shorter sentences, and reduced obvious AI phrases with limited structural diagnosis.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7daec2e6437d48057453ce63a8b06147c2d35e020560fb7fabfd62703bf86713",
+      "versionKey": "ai/humanizer-zh-basic@0.1.0#sha256:7daec",
+      "domain": "ai",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "writing"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "ai/humanizer-zh-pro",
+      "name": "humanizer-zh-pro",
+      "displayName": "Humanizer ZH PRO",
+      "description": "Use when rewriting Chinese articles to remove AI-style writing traces while preserving meaning, factual boundaries, author voice, rhythm, and information density. Pro version focuses on diagnosis, structural editing, natural phrasing, evidence discipline, and publication-ready prose.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7336bb4589acd2cb6d036edbbb99154a8f0e9582809ffdb8b9a6fbd2a05ef6d5",
+      "versionKey": "ai/humanizer-zh-pro@0.1.0#sha256:7336b",
+      "domain": "ai",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "writing"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "ai/transcribe",
+      "name": "transcribe",
+      "displayName": "Transcribe",
+      "description": "Transcribe audio files to text with optional diarization and known-speaker hints. Use when a user asks to transcribe speech from audio/video, extract text from recordings, or label speakers in interviews or meetings.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:24bcd3b79b7db8ad3a6e0ac609cadfff7e53df5570361bac12f38c35b9ba17fc",
+      "versionKey": "ai/transcribe@0.1.0#sha256:24bcd",
+      "domain": "ai",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/api-integration-testing",
+      "name": "api-integration-testing",
+      "displayName": "API Integration Testing",
+      "description": "Use when working on API integration tests across services, databases, auth, and external dependencies. Focus on contract correctness, realistic fixtures, isolation, and deterministic assertions.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c07b2fd7a4c7d5dce6478aead5b6142827679b4614e12e245a69b1bd827564fd",
+      "versionKey": "backend/api-integration-testing@0.1.0#sha256:c07b2",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/auth-authorization-backend",
+      "name": "auth-authorization-backend",
+      "displayName": "Backend Auth Authorization",
+      "description": "Use when working on authentication, authorization, sessions, API keys, RBAC, ABAC, and tenant boundaries. Focus on least privilege, secure defaults, session safety, and auditable permission checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:35bfe393f0b974dc59f9a35eac23fd2502d41aea90fba48098442b49df44a26b",
+      "versionKey": "backend/auth-authorization-backend@0.1.0#sha256:35bfe",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/backend-api-architecture",
+      "name": "backend-api-architecture",
+      "displayName": "Backend API Architecture",
+      "description": "Use when working on backend service architecture, API boundaries, module decomposition, service contracts, and data flow design. Focus on clear ownership, stable interfaces, failure isolation, and maintainability.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:5f2c5e93c46886529c2661666e0e57abf8c43a59ee2c82638ad8a1dd5b3ca6d9",
+      "versionKey": "backend/backend-api-architecture@0.1.0#sha256:5f2c5",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/backend-performance-profiling",
+      "name": "backend-performance-profiling",
+      "displayName": "Backend Performance Profiling",
+      "description": "Use when working on backend performance profiling, slow endpoint analysis, query hotspots, CPU, memory, and latency work. Focus on measurement, profiling evidence, hot path reduction, and regression guards.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c0350215c0c4f70e4896b2095f7faa56415ccafd71adf131733f6a077a9cbef9",
+      "versionKey": "backend/backend-performance-profiling@0.1.0#sha256:c0350",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "performance"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/background-jobs-queues",
+      "name": "background-jobs-queues",
+      "displayName": "Background Jobs Queues",
+      "description": "Use when working on queues, workers, scheduled jobs, retries, idempotency, and async workflows. Focus on idempotency, retry policy, dead-letter handling, and operational visibility.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:69ecb0b3257ce3ca6cc0be667b7d06c65fd213ff942954e24ac0c2282c85fe30",
+      "versionKey": "backend/background-jobs-queues@0.1.0#sha256:69ecb",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "debug"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/cache-strategy-backend",
+      "name": "cache-strategy-backend",
+      "displayName": "Backend Cache Strategy",
+      "description": "Use when working on server-side caching, Redis, CDN coordination, invalidation, and freshness rules. Focus on correctness, invalidation, stampede control, and latency reduction.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:7cf0f9475c6f2294b701afd65a9e9fa4cb905bfa87bd5516fa357cd48675d498",
+      "versionKey": "backend/cache-strategy-backend@0.1.0#sha256:7cf0f",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "performance"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/data-migration-backfill",
+      "name": "data-migration-backfill",
+      "displayName": "Data Migration Backfill",
+      "description": "Use when working on schema migrations, data migrations, backfills, dual writes, and rollout plans. Focus on reversibility, idempotency, batching, verification, and rollback safety.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:decda60aeed0e18fb3013aa1806903e5985575749f59e6a1c9625ef884b7e8de",
+      "versionKey": "backend/data-migration-backfill@0.1.0#sha256:decda",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "release"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/database-schema-design",
+      "name": "database-schema-design",
+      "displayName": "Database Schema Design",
+      "description": "Use when working on relational or document database schema design, indexing, constraints, and migration planning. Focus on data integrity, query shape, indexing, and future-safe migrations.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:cb16b150022a8f25e60f40739808e7846614ebbc892ba9bc9ada317c0e1489ee",
+      "versionKey": "backend/database-schema-design@0.1.0#sha256:cb16b",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/graphql-api-implementation",
+      "name": "graphql-api-implementation",
+      "displayName": "GraphQL API Implementation",
+      "description": "Use when working on GraphQL schemas, resolvers, mutations, subscriptions, and dataloader patterns. Focus on schema clarity, N+1 avoidance, auth boundaries, and client ergonomics.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:8d2f99fde0531969ac50bb034abca5289c6b120837c0a8cd7fe18c798f6a6512",
+      "versionKey": "backend/graphql-api-implementation@0.1.0#sha256:8d2f9",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "backend/rest-api-implementation",
+      "name": "rest-api-implementation",
+      "displayName": "REST API Implementation",
+      "description": "Use when working on REST API routes, controllers, validation, pagination, errors, and versioning. Focus on predictable resources, validation, error semantics, and compatibility.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:79bed197e42dc6a9a9b51e948c21076aca736a67a02c830ce6566fcfc59bb131",
+      "versionKey": "backend/rest-api-implementation@0.1.0#sha256:79bed",
+      "domain": "backend",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "design/jimeng",
+      "name": "jimeng",
+      "displayName": "Jimeng",
+      "description": "Generate images via Jimeng (即梦) AI image generation API.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:4321838a05911bdac874f0585db8aec99f29a4cc0188f21c2957e9ca15dac21d",
+      "versionKey": "design/jimeng@0.1.0#sha256:43218",
+      "domain": "design",
+      "departmentTags": [
+        "ai-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "design/motion-video-maker",
+      "name": "motion-video-maker",
+      "displayName": "Motion Video Maker",
+      "description": "根据文本、脚本或 Markdown 生成结构化讲解动画视频，使用 Web 页面制作和预览 AE / PR 风格的动效。必须严格根据解说文本规划合理的动画播放与切换时间，先生成预览，只有在用户明确确认后才导出 mp4。适用于知识讲解、产品介绍、口播配套动画、字幕强化、步骤演示和数据解说视频。",
+      "version": "0.1.0",
+      "sourceHash": "sha256:b19cd9526584828eed448b70b74e921a6665dc027c643116464e83c9d51c2947",
+      "versionKey": "design/motion-video-maker@0.1.0#sha256:b19cd",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "design/ppt-club-recruiting",
+      "name": "ppt-club-recruiting",
+      "displayName": "PPT Club Recruiting",
+      "description": "面向大学社团招新、活动宣讲和拉赞助路演生成高能结构化 PPT，强调大标题、强节奏、收益表达和明确报名行动。",
+      "version": "0.1.0",
+      "sourceHash": "sha256:5b30623914fd800d29306ca61d614ca95ab158c2ee32741ce8d9b0d58a89904c",
+      "versionKey": "design/ppt-club-recruiting@0.1.0#sha256:5b306",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "design/ppt-course-presentation",
+      "name": "ppt-course-presentation",
+      "displayName": "PPT Course Presentation",
+      "description": "面向小组作业、读书报告和期末展示生成结构化 PPT，强调问题引入、案例讲解、团队观点和课堂讨论的节奏感。",
+      "version": "0.1.0",
+      "sourceHash": "sha256:12162eb8ddcb49c389c547823f70c28ff0e0bf51431e775086043491964bff21",
+      "versionKey": "design/ppt-course-presentation@0.1.0#sha256:12162",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "design/ppt-customer-story",
+      "name": "ppt-customer-story",
+      "displayName": "PPT Customer Story",
+      "description": "面向客户案例、售前证明和项目成效展示生成结构化 PPT，强调客户背景、业务痛点、落地方案、结果数据和客户背书。",
+      "version": "0.1.0",
+      "sourceHash": "sha256:825578f46d835b78489a4412f1d5c15752bde4f00e8e6d80b8c461840cf682dc",
+      "versionKey": "design/ppt-customer-story@0.1.0#sha256:82557",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "design/ppt-english-lesson",
+      "name": "ppt-english-lesson",
+      "displayName": "PPT English Lesson",
+      "description": "面向英语课堂教学场景生成结构化课件，覆盖导入、课文讲解、词汇、句型、练习和总结等教学环节，并强调课堂节奏与投屏可读性。",
+      "version": "0.1.0",
+      "sourceHash": "sha256:88fe0a1d9e8782a3c6bf9c495ee46fd081c74dba0208807cd7842d415502e5c4",
+      "versionKey": "design/ppt-english-lesson@0.1.0#sha256:88fe0",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "design/ppt-maker",
+      "name": "ppt-maker",
+      "displayName": "PPT Maker",
+      "description": "根据一句话主题、Markdown 或已有文稿生成结构化 PPT，并支持自然语言修改页面与组件后导出为可编辑 PPT。适用于需要生成大纲、创建逐页布局、维护 deck.json、渲染 HTML 预览和导出 .pptx 的场景。",
+      "version": "0.1.0",
+      "sourceHash": "sha256:3537e7d6152ddfb370a7e8300527ccaaa34867717f40b0c37ec2eace6f892966",
+      "versionKey": "design/ppt-maker@0.1.0#sha256:3537e",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "design/ppt-personal-intro",
+      "name": "ppt-personal-intro",
+      "displayName": "PPT Personal Intro",
+      "description": "面向个人介绍、自我介绍、嘉宾简介和作品集场景生成结构化 PPT，强调身份定位、经历主线、代表项目和可记忆结尾。",
+      "version": "0.1.0",
+      "sourceHash": "sha256:2a19b880be86aea588f91152015832faf016df4d95690a04e0522522e9a08865",
+      "versionKey": "design/ppt-personal-intro@0.1.0#sha256:2a19b",
+      "domain": "design",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/about-company-page-basic",
+      "name": "about-company-page-basic",
+      "displayName": "About Company Page Basic",
+      "description": "Use when designing about pages, company story pages, team pages, and mission pages. Basic version focused on trust, narrative, people, values, and company proof; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c45a471e74976b910decc22be91255f02f20169b00adb18a1714d441ffe54e15",
+      "versionKey": "frontend/about-company-page-basic@0.1.0#sha256:c45a4",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/about-company-page-pro",
+      "name": "about-company-page-pro",
+      "displayName": "About Company Page PRO",
+      "description": "Use when designing about pages, company story pages, team pages, and mission pages. Pro version focused on trust, narrative, people, values, and company proof; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:d0e153436c5caf8cf6bc76dc359375f34bb6a3292b6b268b994a44a6a82b36b8",
+      "versionKey": "frontend/about-company-page-pro@0.1.0#sha256:d0e15",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/admin-dashboard-design",
+      "name": "admin-dashboard-design",
+      "displayName": "Admin Dashboard Design",
+      "description": "Use when the task is to design a management console, 管理后台, admin panel, operations dashboard, moderation tool, or back-office web app. Focus on operator efficiency, table-first layout, filters, bulk actions, status visibility, and low-noise product UI.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:ef09102679aff2ff0be066a14f6c9c4402a79e79e36fec7e22a319a51ddeea14",
+      "versionKey": "frontend/admin-dashboard-design@0.1.0#sha256:ef091",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": {
+        "score": 0.296326,
+        "confidence": 0.22767,
+        "sampleCount": 1,
+        "invocationCount": 0,
+        "successRate": 0,
+        "feedbackCount": 1,
+        "explicitPositiveCount": 1,
+        "explicitNegativeCount": 0,
+        "preferenceScore": 0.081098,
+        "updatedAt": "2026-04-14T17:38:27.683Z"
+      },
+      "versions": [
+        {
+          "version": "2.2.0-pro",
+          "sourceHash": "sha256:manualrefreshabcdef",
+          "versionKey": "frontend/admin-dashboard-design@2.2.0-pro#sha256:manua",
+          "qualityScore": 0.296326,
+          "confidence": 0.22767,
+          "sampleCount": 1,
+          "invocationCount": 0,
+          "successRate": 0,
+          "feedbackCount": 1,
+          "explicitPositiveCount": 1,
+          "explicitNegativeCount": 0,
+          "preferenceScore": 0.081098,
+          "updatedAt": "2026-04-14T17:38:27.683Z"
+        }
+      ],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/ai-chat-interface-basic",
+      "name": "ai-chat-interface-basic",
+      "displayName": "AI Chat Interface Basic",
+      "description": "Use when designing AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces. Basic version focused on conversation flow, tool state, citations, safety, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1cc279eb437720580248559e0e28c1cbdff7dd4f6616eebd83f580f16c42edc0",
+      "versionKey": "frontend/ai-chat-interface-basic@0.1.0#sha256:1cc27",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/ai-chat-interface-pro",
+      "name": "ai-chat-interface-pro",
+      "displayName": "AI Chat Interface PRO",
+      "description": "Use when designing AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces. Pro version focused on conversation flow, tool state, citations, safety, and trust; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:bd263863b08c5b1bbc8aeb60d92c8ed6338f9b7c8e82ff3dc06356296d6cb76f",
+      "versionKey": "frontend/ai-chat-interface-pro@0.1.0#sha256:bd263",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/analytics-dashboard-design",
+      "name": "analytics-dashboard-design",
+      "displayName": "Analytics Dashboard Design",
+      "description": "Use when the task is to design a BI dashboard, 数据大屏, analytics workspace, reporting console, KPI board, or monitoring page. Focus on question-first information hierarchy, chart choice, filter clarity, metric context, and decision-ready layout.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:af5666a9ece8cdd0ec73bb133a58809c142f73a0461bb08782be6a51a21e54be",
+      "versionKey": "frontend/analytics-dashboard-design@0.1.0#sha256:af566",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/auth-login-page-basic",
+      "name": "auth-login-page-basic",
+      "displayName": "Auth Login Page Basic",
+      "description": "Use when designing login, signup, password reset, MFA, and account access pages. Basic version focused on trust, clarity, error recovery, and low-friction account access; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:60703e65b83410ddd9622a32c3fd486954d6a7215c3badf0bd6a22de35b50d74",
+      "versionKey": "frontend/auth-login-page-basic@0.1.0#sha256:60703",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/auth-login-page-pro",
+      "name": "auth-login-page-pro",
+      "displayName": "Auth Login Page PRO",
+      "description": "Use when designing login, signup, password reset, MFA, and account access pages. Pro version focused on trust, clarity, error recovery, and low-friction account access; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c81708d0b0aea7a08df7a258cd9c074f6c227f4c591800ad19b14cbde3da08de",
+      "versionKey": "frontend/auth-login-page-pro@0.1.0#sha256:c8170",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/careers-page-basic",
+      "name": "careers-page-basic",
+      "displayName": "Careers Page Basic",
+      "description": "Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Basic version focused on role discovery, culture proof, benefits, and application clarity; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:2470622680f5cc40293521106bd6e1d3d5d601663263e73dc09d07254261b4a7",
+      "versionKey": "frontend/careers-page-basic@0.1.0#sha256:24706",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/careers-page-pro",
+      "name": "careers-page-pro",
+      "displayName": "Careers Page PRO",
+      "description": "Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Pro version focused on role discovery, culture proof, benefits, and application clarity; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:b746fb61191f5b399999213d3d03a764bdd73f623f44568a468fc0f262784f22",
+      "versionKey": "frontend/careers-page-pro@0.1.0#sha256:b746f",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/checkout-flow-basic",
+      "name": "checkout-flow-basic",
+      "displayName": "Checkout Flow Basic",
+      "description": "Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Basic version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:600e6c0aa6fb40e483a2ccef8ae2cef4aa63650996376ed905ab18e35552934a",
+      "versionKey": "frontend/checkout-flow-basic@0.1.0#sha256:600e6",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/checkout-flow-pro",
+      "name": "checkout-flow-pro",
+      "displayName": "Checkout Flow PRO",
+      "description": "Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Pro version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:060ca7fa735ac6bf7fbe6a8f5b10a0f7a3863eeee3742b4ec7dc1d1a6866d49d",
+      "versionKey": "frontend/checkout-flow-pro@0.1.0#sha256:060ca",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/component-library-basic",
+      "name": "component-library-basic",
+      "displayName": "Component Library Basic",
+      "description": "Use when designing component libraries, UI kits, reusable React components, and implementation examples. Basic version focused on API clarity, variants, states, and usage consistency; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:688e9146b3958167cfd543d54b219f4e3ba2fde849333c1ac155387a1d8ade9f",
+      "versionKey": "frontend/component-library-basic@0.1.0#sha256:688e9",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/component-library-pro",
+      "name": "component-library-pro",
+      "displayName": "Component Library PRO",
+      "description": "Use when designing component libraries, UI kits, reusable React components, and implementation examples. Pro version focused on API clarity, variants, states, and usage consistency; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:6f573f0e8020ec25cb893acf175a8dd92b8724e6f925c6d27c51922853b5d2af",
+      "versionKey": "frontend/component-library-pro@0.1.0#sha256:6f573",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/contact-sales-page-basic",
+      "name": "contact-sales-page-basic",
+      "displayName": "Contact Sales Page Basic",
+      "description": "Use when designing contact, sales, demo request, consultation, and lead qualification pages. Basic version focused on form clarity, next-step confidence, routing, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:83a3de79409ab25401c160c8d17c7ae765165727d7027a8601d1e677ad83ebca",
+      "versionKey": "frontend/contact-sales-page-basic@0.1.0#sha256:83a3d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/contact-sales-page-pro",
+      "name": "contact-sales-page-pro",
+      "displayName": "Contact Sales Page PRO",
+      "description": "Use when designing contact, sales, demo request, consultation, and lead qualification pages. Pro version focused on form clarity, next-step confidence, routing, and trust; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:34130f4c32f93717eac763426b3ae447a2a778150c9161570d2be4cb99c3da1f",
+      "versionKey": "frontend/contact-sales-page-pro@0.1.0#sha256:34130",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/data-table-basic",
+      "name": "data-table-basic",
+      "displayName": "Data Table Basic",
+      "description": "Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Basic version focused on columns, sorting, selection, inline actions, and density; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:616a33ba2ac8e0b036510967a00f97b685ae92d3e93876cf1131d5f3a9f83b62",
+      "versionKey": "frontend/data-table-basic@0.1.0#sha256:616a3",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/data-table-pro",
+      "name": "data-table-pro",
+      "displayName": "Data Table PRO",
+      "description": "Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Pro version focused on columns, sorting, selection, inline actions, and density; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:b91ab45a2559dfcabe11f8d283908df7672b25cfac3160a76bd3819feaeb1be9",
+      "versionKey": "frontend/data-table-pro@0.1.0#sha256:b91ab",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/design-system-builder-basic",
+      "name": "design-system-builder-basic",
+      "displayName": "Design System Builder Basic",
+      "description": "Use when designing design systems, token systems, UI foundations, and reusable component standards. Basic version focused on tokens, consistency, accessibility, and component governance; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1ea57d0ca329335b414263aaab4b3eb6032793b2ed2df5b76a4b0cb53060af32",
+      "versionKey": "frontend/design-system-builder-basic@0.1.0#sha256:1ea57",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/design-system-builder-pro",
+      "name": "design-system-builder-pro",
+      "displayName": "Design System Builder PRO",
+      "description": "Use when designing design systems, token systems, UI foundations, and reusable component standards. Pro version focused on tokens, consistency, accessibility, and component governance; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:2352d624410aa8d31adff2875b615ad317d0e14034678e546dcca244cd19d12a",
+      "versionKey": "frontend/design-system-builder-pro@0.1.0#sha256:2352d",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/develop-web-game",
+      "name": "develop-web-game",
+      "displayName": "Develop Web Game",
+      "description": "Use when Codex is building or iterating on a web game (HTML/JS) and needs a reliable development + testing loop: implement small changes, run a Playwright-based test script with short input bursts and intentional pauses, inspect screenshots/text, and review console errors with render_game_to_text.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1cbf654babd90c4615096aebdfd4a182e04ddbcbc6202af1a69d8dfead403734",
+      "versionKey": "frontend/develop-web-game@0.1.0#sha256:1cbf6",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/developer-portal-basic",
+      "name": "developer-portal-basic",
+      "displayName": "Developer Portal Basic",
+      "description": "Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Basic version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:016796c7236dd35875200b690ca16df6f67f8162b7976e2acda9af4887545627",
+      "versionKey": "frontend/developer-portal-basic@0.1.0#sha256:01679",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/developer-portal-pro",
+      "name": "developer-portal-pro",
+      "displayName": "Developer Portal PRO",
+      "description": "Use when designing API portals, SDK docs, developer onboarding, keys, logs, and integration pages. Pro version focused on quickstart clarity, examples, credentials, and operational feedback; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e4d2303226f56f800769895abcf8404c81927327b18e6258f6971551aba220f6",
+      "versionKey": "frontend/developer-portal-pro@0.1.0#sha256:e4d23",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/docs-site-basic",
+      "name": "docs-site-basic",
+      "displayName": "Docs Site Basic",
+      "description": "Use when designing documentation sites, knowledge bases, developer docs, and help centers. Basic version focused on findability, readable hierarchy, examples, and navigation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:6a21a5d96513ee3e914619c1a122939378ccbaff48d6c0c4826d19fd312cc52c",
+      "versionKey": "frontend/docs-site-basic@0.1.0#sha256:6a21a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/docs-site-pro",
+      "name": "docs-site-pro",
+      "displayName": "Docs Site PRO",
+      "description": "Use when designing documentation sites, knowledge bases, developer docs, and help centers. Pro version focused on findability, readable hierarchy, examples, and navigation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:0d96e05660e468212bd439b8e60cebe46e74149f98a8feee5658587e1bf47980",
+      "versionKey": "frontend/docs-site-pro@0.1.0#sha256:0d96e",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/ecommerce-storefront-design",
+      "name": "ecommerce-storefront-design",
+      "displayName": "Ecommerce Storefront Design",
+      "description": "Use when the task is to design an ecommerce storefront, 电商首页, product listing page, product detail page, shopping flow, or brand shop. Focus on product discovery, merchandising hierarchy, trust, pricing clarity, and conversion flow.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c19430a350899cec7b2404f1f74b7e24c3368785f1b07e53c3f85ba0eeb092f8",
+      "versionKey": "frontend/ecommerce-storefront-design@0.1.0#sha256:c1943",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/education-course-page-basic",
+      "name": "education-course-page-basic",
+      "displayName": "Education Course Page Basic",
+      "description": "Use when designing course pages, lesson players, LMS dashboards, and learning paths. Basic version focused on learning hierarchy, progress, practice, and motivation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:a16b94c899b8d8c2a9189360a25aa8c11b2baad1f1f6684d4955f5c7f880ebf2",
+      "versionKey": "frontend/education-course-page-basic@0.1.0#sha256:a16b9",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/education-course-page-pro",
+      "name": "education-course-page-pro",
+      "displayName": "Education Course Page PRO",
+      "description": "Use when designing course pages, lesson players, LMS dashboards, and learning paths. Pro version focused on learning hierarchy, progress, practice, and motivation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:a0750ea68718b08968288c8fa7f55bb7b22e86c105cf7d9426ec51f9c40266a7",
+      "versionKey": "frontend/education-course-page-pro@0.1.0#sha256:a0750",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/enterprise-security-page-basic",
+      "name": "enterprise-security-page-basic",
+      "displayName": "Enterprise Security Page Basic",
+      "description": "Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Basic version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:6414c349be9bf5e8c90b48f574609913bd3622f59fc08bcd2b4b0f8202c05c94",
+      "versionKey": "frontend/enterprise-security-page-basic@0.1.0#sha256:6414c",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/enterprise-security-page-pro",
+      "name": "enterprise-security-page-pro",
+      "displayName": "Enterprise Security Page PRO",
+      "description": "Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Pro version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e9ce8c938c2f57be026d984735399494a1005abe6476f952b922cee228cfc4b2",
+      "versionKey": "frontend/enterprise-security-page-pro@0.1.0#sha256:e9ce8",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/error-empty-states-basic",
+      "name": "error-empty-states-basic",
+      "displayName": "Error Empty States Basic",
+      "description": "Use when designing 404 pages, empty states, error states, permission states, and offline states. Basic version focused on recovery, explanation, next actions, and tone; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:dce36b0c80a72257b4deaaacac9e0ca86be1d1ea0321f928e9b97bb0cecf2a86",
+      "versionKey": "frontend/error-empty-states-basic@0.1.0#sha256:dce36",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/error-empty-states-pro",
+      "name": "error-empty-states-pro",
+      "displayName": "Error Empty States PRO",
+      "description": "Use when designing 404 pages, empty states, error states, permission states, and offline states. Pro version focused on recovery, explanation, next actions, and tone; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:273d194110e42c49da6603ef0f6792fe50a3d3488011a44c71b878fc7b2d49a4",
+      "versionKey": "frontend/error-empty-states-pro@0.1.0#sha256:273d1",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/fintech-dashboard-basic",
+      "name": "fintech-dashboard-basic",
+      "displayName": "Fintech Dashboard Basic",
+      "description": "Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Basic version focused on precision, compliance cues, risk visibility, and decision context; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:beb73917309815be21c9c8fb0b44747d3dfafa072d046c4dcd20eb6900e80e92",
+      "versionKey": "frontend/fintech-dashboard-basic@0.1.0#sha256:beb73",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/fintech-dashboard-pro",
+      "name": "fintech-dashboard-pro",
+      "displayName": "Fintech Dashboard PRO",
+      "description": "Use when designing banking, finance, investment, payments, risk, and revenue dashboards. Pro version focused on precision, compliance cues, risk visibility, and decision context; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:d777ae2dbb57624f48b434b9e5c1217a802656f32a3a6eb4c7f7da6c05846fe3",
+      "versionKey": "frontend/fintech-dashboard-pro@0.1.0#sha256:d777a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/form-builder-basic",
+      "name": "form-builder-basic",
+      "displayName": "Form Builder Basic",
+      "description": "Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Basic version focused on labels, validation, progressive disclosure, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:14e80956a09b92ea3a02777f83b29573bb2052a7c08edb2f87d53b75a03b1a89",
+      "versionKey": "frontend/form-builder-basic@0.1.0#sha256:14e80",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/form-builder-pro",
+      "name": "form-builder-pro",
+      "displayName": "Form Builder PRO",
+      "description": "Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Pro version focused on labels, validation, progressive disclosure, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:eb747a9dabba0bee5cfb9aaadebe1dc4e9986f17fb6fa741dba1d861fbf5375a",
+      "versionKey": "frontend/form-builder-pro@0.1.0#sha256:eb747",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/frontend-skill",
+      "name": "frontend-skill",
+      "displayName": "Frontend Skill",
+      "description": "Use when the task asks for a visually strong landing page, website, app, prototype, demo, or game UI. This skill enforces restrained composition, image-led hierarchy, cohesive content structure, and tasteful motion while avoiding generic cards, weak branding, and UI clutter.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:8a27b66672872d0a67da22a26610d234ddd061d1f5b97d8c1bf74325039a2a3b",
+      "versionKey": "frontend/frontend-skill@0.1.0#sha256:8a27b",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/healthcare-portal-basic",
+      "name": "healthcare-portal-basic",
+      "displayName": "Healthcare Portal Basic",
+      "description": "Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Basic version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1034ec06e935910ba78f14848e1fb79fd9e00dbb1e5b117326fa4e1ff4afe8b2",
+      "versionKey": "frontend/healthcare-portal-basic@0.1.0#sha256:1034e",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/healthcare-portal-pro",
+      "name": "healthcare-portal-pro",
+      "displayName": "Healthcare Portal PRO",
+      "description": "Use when designing patient portals, provider dashboards, scheduling, records, and care coordination pages. Pro version focused on clarity, privacy, accessibility, and sensitive task support; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:8954c775be305697c422377b5599248aeac27839849934c2ac5ba2d8d2b137c0",
+      "versionKey": "frontend/healthcare-portal-pro@0.1.0#sha256:8954c",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/marketing-landing-page",
+      "name": "marketing-landing-page",
+      "displayName": "Marketing Landing Page",
+      "description": "Use when the task is to design a campaign page, 营销落地页, launch page, feature promotion page, webinar signup page, or lead generation page. Focus on one conversion goal, persuasive sequencing, proof, CTA rhythm, and low-friction form design.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:717fae828ee3b313a73569cc331ee88c0f7479b9e44e0a06652593d6ef19df50",
+      "versionKey": "frontend/marketing-landing-page@0.1.0#sha256:717fa",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/nextjs-app-router",
+      "name": "nextjs-app-router",
+      "displayName": "Next.js App Router",
+      "description": "Provides patterns and code examples for building Next.js 16+ applications with App Router architecture. Use when creating projects with App Router, implementing Server Components and Client Components (\"use client\"), creating Server Actions for forms, building Route Handlers (route.ts), configuring caching with \"use cache\" directive (cacheLife, cacheTag), setting up parallel routes (`@slot`) or intercepting routes, migrating to proxy.ts, or working with App Router file conventions (layout.tsx, page.tsx, loading.tsx, error.tsx).",
+      "version": "0.1.0",
+      "sourceHash": "sha256:387d9d01410925a368458f3240e0a0bb45040e54fd534b7691221c4968c64a3c",
+      "versionKey": "frontend/nextjs-app-router@0.1.0#sha256:387d9",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "architecture"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/notification-center-basic",
+      "name": "notification-center-basic",
+      "displayName": "Notification Center Basic",
+      "description": "Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Basic version focused on priority, read state, grouping, and actionability; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e3cce5b94c3b784153692cd0466ffc07bf81f73f406a4706476e55e813236110",
+      "versionKey": "frontend/notification-center-basic@0.1.0#sha256:e3cce",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/notification-center-pro",
+      "name": "notification-center-pro",
+      "displayName": "Notification Center PRO",
+      "description": "Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Pro version focused on priority, read state, grouping, and actionability; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:75e47d1384c6174af91edd8e140f39b539a807c91b77003740722221d444eed9",
+      "versionKey": "frontend/notification-center-pro@0.1.0#sha256:75e47",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/onboarding-flow-basic",
+      "name": "onboarding-flow-basic",
+      "displayName": "Onboarding Flow Basic",
+      "description": "Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Basic version focused on progress, motivation, task sequencing, and activation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:140ff7d046698f4b0d5ff2f526176d93ff7e71ee13af2fb2fa69df408c88d5b0",
+      "versionKey": "frontend/onboarding-flow-basic@0.1.0#sha256:140ff",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/onboarding-flow-pro",
+      "name": "onboarding-flow-pro",
+      "displayName": "Onboarding Flow PRO",
+      "description": "Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Pro version focused on progress, motivation, task sequencing, and activation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:43a5cffb3ac82bf19c2d789cbb05e22fbfdfa7cc5da7073ba79cd066873b7d19",
+      "versionKey": "frontend/onboarding-flow-pro@0.1.0#sha256:43a5c",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/pricing-page-basic",
+      "name": "pricing-page-basic",
+      "displayName": "Pricing Page Basic",
+      "description": "Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Basic version focused on plan clarity, comparison, trust, and conversion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f3af15b989d9a24be96637438062d2ecc49f72c29fb494586d04345cbd5d05c0",
+      "versionKey": "frontend/pricing-page-basic@0.1.0#sha256:f3af1",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/pricing-page-pro",
+      "name": "pricing-page-pro",
+      "displayName": "Pricing Page PRO",
+      "description": "Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Pro version focused on plan clarity, comparison, trust, and conversion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:6b79558dfe858c67bba1f47d2c073bd26f597324ad7d43408313b9ef1c7b3d9e",
+      "versionKey": "frontend/pricing-page-pro@0.1.0#sha256:6b795",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/profile-account-page-basic",
+      "name": "profile-account-page-basic",
+      "displayName": "Profile Account Page Basic",
+      "description": "Use when designing profile, account center, identity, privacy, and user preference pages. Basic version focused on ownership, editability, privacy, and account state visibility; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:88e420d1fc384cddf0cc681ab2bed5bc9e389cfce50d87e19e0aa03ac0166fbb",
+      "versionKey": "frontend/profile-account-page-basic@0.1.0#sha256:88e42",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/profile-account-page-pro",
+      "name": "profile-account-page-pro",
+      "displayName": "Profile Account Page PRO",
+      "description": "Use when designing profile, account center, identity, privacy, and user preference pages. Pro version focused on ownership, editability, privacy, and account state visibility; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:0a0141c87bf63d529fb143d08eecad8e28f38042a567b0ff3e18c0c61b754245",
+      "versionKey": "frontend/profile-account-page-pro@0.1.0#sha256:0a014",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/responsive-navigation-basic",
+      "name": "responsive-navigation-basic",
+      "displayName": "Responsive Navigation Basic",
+      "description": "Use when designing navbars, sidebars, mega menus, mobile drawers, tabs, and information architecture. Basic version focused on orientation, hierarchy, responsive behavior, and wayfinding; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:81b4a3c09da2023a82be5f65db8e73f47b5daaaa0c79fe38edeb5d7386ed4255",
+      "versionKey": "frontend/responsive-navigation-basic@0.1.0#sha256:81b4a",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/responsive-navigation-pro",
+      "name": "responsive-navigation-pro",
+      "displayName": "Responsive Navigation PRO",
+      "description": "Use when designing navbars, sidebars, mega menus, mobile drawers, tabs, and information architecture. Pro version focused on orientation, hierarchy, responsive behavior, and wayfinding; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:0abf137735c185d1eb55a7694300326e05327eb8b3ad29b45d27bd425219cfef",
+      "versionKey": "frontend/responsive-navigation-pro@0.1.0#sha256:0abf1",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/saas-workspace-design",
+      "name": "saas-workspace-design",
+      "displayName": "SaaS Workspace Design",
+      "description": "Use when the task is to design a SaaS product UI, B2B web app, 工作台, product workspace, settings-heavy application, or multi-pane web tool. Focus on workflow clarity, navigation depth, density balance, state design, and operational efficiency.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:fe3a4f785faa1a51d2bcbb6802ac01374ab57229cf151cfa111e8bff2f855775",
+      "versionKey": "frontend/saas-workspace-design@0.1.0#sha256:fe3a4",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/search-results-page-basic",
+      "name": "search-results-page-basic",
+      "displayName": "Search Results Page Basic",
+      "description": "Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Basic version focused on query feedback, relevance, filters, and result scanning; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:3a9472ea28e604a2124cd8dec874437565441c1f198fc4d4be6ed477082fbbdd",
+      "versionKey": "frontend/search-results-page-basic@0.1.0#sha256:3a947",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/search-results-page-pro",
+      "name": "search-results-page-pro",
+      "displayName": "Search Results Page PRO",
+      "description": "Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Pro version focused on query feedback, relevance, filters, and result scanning; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:269307372a0a54374b6fa54afa0d61f8df9a30f037dbd843c3d18927de3edb02",
+      "versionKey": "frontend/search-results-page-pro@0.1.0#sha256:26930",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/settings-page-basic",
+      "name": "settings-page-basic",
+      "displayName": "Settings Page Basic",
+      "description": "Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Basic version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:9f6fa8fe7ab8ed5346bb357ff878356a8def2916ebd9301ebb7b67c61b5694ed",
+      "versionKey": "frontend/settings-page-basic@0.1.0#sha256:9f6fa",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/settings-page-pro",
+      "name": "settings-page-pro",
+      "displayName": "Settings Page PRO",
+      "description": "Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Pro version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e6b186ae991eed07360233f2fffc7410dc542bf688f417bf90b3efb36b73eb7d",
+      "versionKey": "frontend/settings-page-pro@0.1.0#sha256:e6b18",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/website-homepage-design",
+      "name": "website-homepage-design",
+      "displayName": "Website Homepage Design",
+      "description": "Use when the task is to design a branded homepage, 官网首页, company website, startup homepage, product website, or corporate front page. Focus on brand hierarchy, hero composition, proof sequencing, section rhythm, and clear conversion paths.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:f4e8366bdec59c6430819340ef2eabbdc2f6abf34adf25f5286c965af00a0d96",
+      "versionKey": "frontend/website-homepage-design@0.1.0#sha256:f4e83",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/website-homepage-design-basic",
+      "name": "website-homepage-design-basic",
+      "displayName": "Website Homepage Design Basic",
+      "description": "Use as a lightweight baseline/control skill for designing a simple website homepage, 官网首页, company front page, or product landing page. Basic version focuses on common homepage sections and quick layout suggestions with limited research, differentiation, and implementation depth.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:13ddbdcc7c003f7379fed574cb1e2dbccae9eb992d03f43511ff653acc0f2eb6",
+      "versionKey": "frontend/website-homepage-design-basic@0.1.0#sha256:13ddb",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design",
+        "homepage"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "frontend/website-homepage-design-pro",
+      "name": "website-homepage-design-pro",
+      "displayName": "Website Homepage Design PRO",
+      "description": "Use when designing a premium branded homepage, 官网首页, company website, product website, or high-end corporate front page. Pro version focused on strategic positioning, visual direction, section narrative, conversion paths, responsive polish, and implementation-ready design details.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:fb2f7922811f6125f36e2cb770d34b259e9cb5bb6f82f97175fec7d6b2fc87c8",
+      "versionKey": "frontend/website-homepage-design-pro@0.1.0#sha256:fb2f7",
+      "domain": "frontend",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "design",
+        "homepage"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "general/bug-fix-debugging",
+      "name": "bug-fix-debugging",
+      "displayName": "Bug Fix Debugging",
+      "description": "Use when diagnosing and fixing bugs, regressions, failing tests, runtime errors, broken behavior, and root-cause issues in code. Focus on reproduction, hypothesis-driven debugging, minimal patches, regression tests, and verification.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:81edfe381b17bc0f49b7cee49f19b5d23476fa6ace60c6ebf8a742dc67fc7731",
+      "versionKey": "general/bug-fix-debugging@0.1.0#sha256:81edf",
+      "domain": "general",
+      "departmentTags": [
+        "backend-platform",
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "general/development-plan-doc-basic",
+      "name": "development-plan-doc-basic",
+      "displayName": "Development Plan Document Basic",
+      "description": "Use as a lightweight baseline/control skill for creating a simple development plan or implementation outline. Basic version focuses on high-level steps, rough files, and validation notes with limited repository research and limited method/type-level detail.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:45b976a534e792ac631a62b46d8d635d782cb571197a2cab2a7cd5ee6f9d1af0",
+      "versionKey": "general/development-plan-doc-basic@0.1.0#sha256:45b97",
+      "domain": "general",
+      "departmentTags": [
+        "backend-platform",
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "planning"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "general/development-plan-doc-pro",
+      "name": "development-plan-doc-pro",
+      "displayName": "Development Plan Document PRO",
+      "description": "Use when creating a serious engineering implementation plan after repository research. Pro version requires investigation before planning and produces a detailed plan down to modules, functions, type definitions, interfaces, data flow, validation, risks, rollout, and task checklist.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c7850be779ea7ab5eb709394614ae09ec19ce24ee153556982cd235cc701a28a",
+      "versionKey": "general/development-plan-doc-pro@0.1.0#sha256:c7850",
+      "domain": "general",
+      "departmentTags": [
+        "backend-platform",
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "planning",
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "general/wechat-toolkit",
+      "name": "wechat-toolkit",
+      "displayName": "WeChat Toolkit",
+      "description": "微信公众号一站式工具包 — 集成文章搜索、文章下载、AI洗稿改写、公众号发布四大功能。当用户需要搜索/下载/改写/发布微信公众号文章时使用。",
+      "version": "0.1.0",
+      "sourceHash": "sha256:343068e3b69084284dc5bc350e3f6ae14496a58b7e61605f396e888bfe12e1d0",
+      "versionKey": "general/wechat-toolkit@0.1.0#sha256:34306",
+      "domain": "general",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "release"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "general/xiaohongshu-ops",
+      "name": "xiaohongshu-ops",
+      "displayName": "Xiaohongshu Ops",
+      "description": "End-to-end Xiaohongshu operations including positioning, topic research, content production, publish execution, and post-incident recovery. Reusable across verticals with templates and a concrete 陪你看剧 case preset.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:d212ea2cf61d7a885c4cf7f24d7a6051479ce50d780bf44a9fedb557ef62b4fe",
+      "versionKey": "general/xiaohongshu-ops@0.1.0#sha256:d212e",
+      "domain": "general",
+      "departmentTags": [
+        "growth"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "infra/ci-quality-gates",
+      "name": "ci-quality-gates",
+      "displayName": "CI Quality Gates",
+      "description": "Use when working on CI pipelines, required checks, coverage gates, lint gates, and release validation workflows. Focus on fast feedback, required checks, reproducibility, and safe release criteria.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:623b248e43c6279b31c0d4638490ec6695c8815d2dad35d04acd654f56710106",
+      "versionKey": "infra/ci-quality-gates@0.1.0#sha256:623b2",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "release",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "infra/load-testing",
+      "name": "load-testing",
+      "displayName": "Load Testing",
+      "description": "Use when working on load tests for APIs, web services, queues, and critical user flows. Focus on realistic traffic models, throughput, latency percentiles, and bottleneck evidence.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:92339c3f173c803a904cc2ae7d27040734c9ee9f9b141d8b996325a01ba5d2c9",
+      "versionKey": "infra/load-testing@0.1.0#sha256:92339",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "performance",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "infra/observability-backend",
+      "name": "observability-backend",
+      "displayName": "Backend Observability",
+      "description": "Use when working on logs, metrics, traces, dashboards, alerts, and production debugging for backend systems. Focus on diagnosability, signal quality, SLOs, and incident response.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:94e597c2ff29238e6d58d5cfc7e503a1c8ac55c97d59f244fded67bb7f1b31dd",
+      "versionKey": "infra/observability-backend@0.1.0#sha256:94e59",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "incident"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "infra/stress-testing",
+      "name": "stress-testing",
+      "displayName": "Stress Testing",
+      "description": "Use when working on stress, soak, spike, and capacity tests for production-like systems. Focus on breaking points, degradation behavior, recovery, and resource saturation.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:381a91017a46759671809b4ec02c6484d2add455d1bf05cfa065cd98f7030b2e",
+      "versionKey": "infra/stress-testing@0.1.0#sha256:381a9",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "performance",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "infra/vercel-deploy",
+      "name": "vercel-deploy",
+      "displayName": "Vercel Deploy",
+      "description": "Deploy applications and websites to Vercel. Use when the user requests deployment actions like \"deploy my app\", \"deploy and give me the link\", \"push this live\", or \"create a preview deployment\".",
+      "version": "0.1.0",
+      "sourceHash": "sha256:07f6fbfbeb9acd8ad1b6ecbc65dfacac7d039158d662e46169308045e06474df",
+      "versionKey": "infra/vercel-deploy@0.1.0#sha256:07f6f",
+      "domain": "infra",
+      "departmentTags": [
+        "infra-platform"
+      ],
+      "sceneTags": [
+        "deploy",
+        "release"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "review/code-review-general",
+      "name": "code-review-general",
+      "displayName": "General Code Review",
+      "description": "Use when working on general code review across frontend, backend, scripts, and infrastructure changes. Focus on bugs, regressions, maintainability risks, and missing tests.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:29276f5d3edf1f1aef29beab0b0147ec135fae251dd46f24179b573b83d0350e",
+      "versionKey": "review/code-review-general@0.1.0#sha256:29276",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "review/code-review-risk-based",
+      "name": "code-review-risk-based",
+      "displayName": "Risk Based Code Review",
+      "description": "Use when working on high-risk diffs touching auth, payments, data loss, concurrency, migrations, or public APIs. Focus on blast radius, invariants, rollback, observability, and edge cases.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:2d538d7164e8fc979266af0cbbf7fd12db9d929e302f55e439496980856b6af3",
+      "versionKey": "review/code-review-risk-based@0.1.0#sha256:2d538",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "review",
+        "architecture"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "review/unit-test-strategy",
+      "name": "unit-test-strategy",
+      "displayName": "Unit Test Strategy",
+      "description": "Use when working on unit test design, missing test analysis, mocks, fixtures, and behavior coverage. Focus on meaningful assertions, boundary cases, maintainability, and regression prevention.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:9482ffdc2596f6ed6eefc2299b9e4b034c6e18343f6e2e868b63865ee9fc587c",
+      "versionKey": "review/unit-test-strategy@0.1.0#sha256:9482f",
+      "domain": "review",
+      "departmentTags": [
+        "backend-platform"
+      ],
+      "sceneTags": [
+        "test",
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "security/dependency-supply-chain-audit",
+      "name": "dependency-supply-chain-audit",
+      "displayName": "Dependency Supply Chain Audit",
+      "description": "Use when working on dependency review, vulnerable packages, lockfile risk, license concerns, and supply-chain hygiene. Focus on known CVEs, typosquatting risk, lockfile integrity, and update safety.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:6654ebbcbda29454e3a8ce8b881bb5f25e17adacde2d834c112f47a2e3970d40",
+      "versionKey": "security/dependency-supply-chain-audit@0.1.0#sha256:6654e",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "security-audit",
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "security/rate-limiting-abuse-protection",
+      "name": "rate-limiting-abuse-protection",
+      "displayName": "Rate Limiting Abuse Protection",
+      "description": "Use when working on rate limiting, abuse prevention, anti-scraping, quota, and API protection design. Focus on fairness, tenant isolation, bypass resistance, and operational controls.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c0011ce5d4bfbc698d61e4eaeee5ff06c14d6aba636aa55d31e7746a55c84629",
+      "versionKey": "security/rate-limiting-abuse-protection@0.1.0#sha256:c0011",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "security/security-best-practices",
+      "name": "security-best-practices",
+      "displayName": "Security Best Practices",
+      "description": "Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:9c27510ca0610f26a46084bf5cad709b3199601a8057aefa944161da257d0e29",
+      "versionKey": "security/security-best-practices@0.1.0#sha256:9c275",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "review",
+        "security-audit"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "security/security-ownership-map",
+      "name": "security-ownership-map",
+      "displayName": "Security Ownership Map",
+      "description": "Analyze git repositories to build a security ownership topology (people-to-file), compute bus factor and sensitive-code ownership, and export CSV/JSON for graph databases and visualization. Trigger only when the user explicitly wants a security-oriented ownership or bus-factor analysis grounded in git history (for example: orphaned sensitive code, security maintainers, CODEOWNERS reality checks for risk, sensitive hotspots, or ownership clusters). Do not trigger for general maintainer lists or non-security ownership questions.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e897f5e8593bc121d518d1d38c5da92be9918cdb71bb5dc3a96846f8bba96d4f",
+      "versionKey": "security/security-ownership-map@0.1.0#sha256:e897f",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "data-analysis",
+        "security-audit"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "security/security-threat-model",
+      "name": "security-threat-model",
+      "displayName": "Security Threat Model",
+      "description": "Repository-grounded threat modeling that enumerates trust boundaries, assets, attacker capabilities, abuse paths, and mitigations, and writes a concise Markdown threat model. Trigger only when the user explicitly asks to threat model a codebase or path, enumerate threats/abuse paths, or perform AppSec threat modeling. Do not trigger for general architecture summaries, code review, or non-security design work.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:63c7ecd880edf0911e1bd2a151bc9f4f36ae4f5a243a57428e2b7c7f995b608e",
+      "versionKey": "security/security-threat-model@0.1.0#sha256:63c7e",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "architecture",
+        "security-audit"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "security/security-vulnerability-check",
+      "name": "security-vulnerability-check",
+      "displayName": "Security Vulnerability Check",
+      "description": "Use when working on application security vulnerability checks for web apps, APIs, auth, data access, and secrets. Focus on exploitable flaws, secure defaults, input validation, and sensitive data exposure.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:eb3d3240d8806e2b61661d4446d15f664ec26d6baea2b5e4ecf4af37c3da8050",
+      "versionKey": "security/security-vulnerability-check@0.1.0#sha256:eb3d3",
+      "domain": "security",
+      "departmentTags": [
+        "security-platform"
+      ],
+      "sceneTags": [
+        "security-audit",
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "tools/doc",
+      "name": "doc",
+      "displayName": "Doc",
+      "description": "Use when the task involves reading, creating, or editing `.docx` documents, especially when formatting or layout fidelity matters; prefer `python-docx` plus the bundled `scripts/render_docx.py` for visual checks.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:c8daea88a1cb8cd23b08f38975bc745359d6063371c2ae19e1c7218ea4b0ca67",
+      "versionKey": "tools/doc@0.1.0#sha256:c8dae",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "tools/linear",
+      "name": "linear",
+      "displayName": "Linear",
+      "description": "Manage issues, projects & team workflows in Linear. Use when the user wants to read, create or updates tickets in Linear.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:94c49cd3c26a98d5787a1643cd1d4a33c723807454e1dde7cb3d7b45b2c86738",
+      "versionKey": "tools/linear@0.1.0#sha256:94c49",
+      "domain": "tools",
+      "departmentTags": [],
+      "sceneTags": [
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "tools/pdf",
+      "name": "pdf",
+      "displayName": "PDF",
+      "description": "Use when tasks involve reading, creating, or reviewing PDF files where rendering and layout matter; prefer visual checks by rendering pages (Poppler) and use Python tools such as `reportlab`, `pdfplumber`, and `pypdf` for generation and extraction.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:84662962d95ec0ca7fe3de8299407839692ea03cddb4775fc735d824119578a9",
+      "versionKey": "tools/pdf@0.1.0#sha256:84662",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "tools/playwright",
+      "name": "playwright",
+      "displayName": "Playwright",
+      "description": "Use when the task requires automating a real browser from the terminal (navigation, form filling, snapshots, screenshots, data extraction, UI-flow debugging) via `playwright-cli` or the bundled wrapper script.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:21dac41abf9ca69445a3ff4eef99625266fbd7b7a96c315348140f50646eecba",
+      "versionKey": "tools/playwright@0.1.0#sha256:21dac",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "tools/playwright-interactive",
+      "name": "playwright-interactive",
+      "displayName": "Playwright Interactive",
+      "description": "Persistent browser and Electron interaction through `js_repl` for fast iterative UI debugging.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:e79f4f4484f93f956f4a222e149052f87a7b1ba4b91bd5885e2163f5b020a851",
+      "versionKey": "tools/playwright-interactive@0.1.0#sha256:e79f4",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "test"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "tools/screenshot",
+      "name": "screenshot",
+      "displayName": "Screenshot",
+      "description": "Use when the user explicitly asks for a desktop or system screenshot (full screen, specific app or window, or a pixel region), or when tool-specific capture capabilities are unavailable and an OS-level capture is needed.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:1954c6282e2279bad2c7b2948e10c314bf1c02fb035e56400f63c9d706724a75",
+      "versionKey": "tools/screenshot@0.1.0#sha256:1954c",
+      "domain": "tools",
+      "departmentTags": [
+        "frontend-platform"
+      ],
+      "sceneTags": [
+        "debug",
+        "review"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    },
+    {
+      "skillId": "tools/spreadsheet",
+      "name": "spreadsheet",
+      "displayName": "Spreadsheet",
+      "description": "Use when tasks involve creating, editing, analyzing, or formatting spreadsheets (`.xlsx`, `.csv`, `.tsv`) with formula-aware workflows, cached recalculation, and visual review.",
+      "version": "0.1.0",
+      "sourceHash": "sha256:95868493d5ff47b3a927b71c7da9cd8ca50697a20cf34546812c1061be205796",
+      "versionKey": "tools/spreadsheet@0.1.0#sha256:95868",
+      "domain": "tools",
+      "departmentTags": [
+        "data-platform"
+      ],
+      "sceneTags": [
+        "content-generation",
+        "data-analysis"
+      ],
+      "global": null,
+      "versions": [],
+      "projects": {},
+      "departments": {},
+      "scenes": {}
+    }
+  ]
+}

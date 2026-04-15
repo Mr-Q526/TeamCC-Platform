@@ -6,25 +6,15 @@ displayName: Pricing Page PRO
 description: Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Pro version focused on plan clarity, comparison, trust, and conversion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - pricing-page-pro
+  - Pricing Page PRO
+  - pricingpagepro
   - 定价
   - 价格页
   - pricing
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - Pricing Page PRO
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 定价页
+  - pricing page
 version: 0.1.0
-sourceHash: sha256:b77feb08d10bcb23de9f12445f73712d8fbde3c82381dd6a71392746e487859d
+sourceHash: sha256:6b79558dfe858c67bba1f47d2c073bd26f597324ad7d43408313b9ef1c7b3d9e
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -40,6 +40,10 @@ export type BenchmarkAuditIssue = {
     | 'missing-domain-tag'
     | 'missing-difficulty-tag'
     | 'missing-language-tag'
+    | 'target-domain-mismatch'
+    | 'target-department-mismatch'
+    | 'target-scene-mismatch'
+    | 'invalid-preference'
   detail: string
 }
 
@@ -53,6 +57,16 @@ export type BenchmarkAuditSummary = {
 }
 
 const KNOWN_DOMAINS = new Set(Object.keys(BENCHMARK_DOMAIN_TARGETS))
+const GENERIC_SCENES = new Set([
+  'design',
+  'writing',
+  'planning',
+  'review',
+  'architecture',
+  'content-generation',
+  'test',
+  'security-audit',
+])
 
 function normalizeText(value: string): string {
   return value
@@ -93,6 +107,59 @@ function diceSimilarity(left: string, right: string): number {
 
 function findTag(tags: string[], prefix: string): string | null {
   return tags.find(tag => tag.startsWith(prefix)) ?? null
+}
+
+function normalizeScopeValue(value: string): string {
+  return normalizeText(value).replace(/^(dept|scene):/g, '')
+}
+
+function normalizeScopeArray(values: string[]): string[] {
+  return values
+    .map(value => normalizeScopeValue(value))
+    .filter(Boolean)
+}
+
+function matchingSceneHints(sceneHints: string[]): {
+  normalized: string[]
+  specific: string[]
+} {
+  const normalized = normalizeScopeArray(sceneHints)
+  const specific = normalized.filter(scene => !GENERIC_SCENES.has(scene))
+  return {
+    normalized,
+    specific,
+  }
+}
+
+function normalizedIdentityFragments(skill: SkillRegistryEntry): string[] {
+  return [
+    skill.skillId,
+    skill.name,
+    skill.displayName,
+    skill.description,
+    ...skill.aliases,
+  ]
+    .map(fragment => normalizeText(fragment))
+    .filter(Boolean)
+}
+
+function sceneHintMatchesSkillIdentity(
+  skill: SkillRegistryEntry,
+  sceneHint: string,
+): boolean {
+  const normalizedHint = normalizeScopeValue(sceneHint)
+  if (!normalizedHint) {
+    return false
+  }
+  const normalizedHintWords = normalizedHint.replace(/[-_]+/g, ' ')
+  return normalizedIdentityFragments(skill).some(fragment => {
+    return (
+      fragment.includes(normalizedHint) ||
+      fragment.includes(normalizedHintWords) ||
+      normalizedHint.includes(fragment) ||
+      normalizedHintWords.includes(fragment)
+    )
+  })
 }
 
 export function findDomainTag(tags: string[]): string | null {
@@ -289,6 +356,47 @@ export function auditBenchmarkCases(input: {
         detail: `Unknown target skillId ${targetSkillId ?? 'n/a'}`,
       })
     } else {
+      if (domainTag && normalizeText(targetSkill.domain) !== normalizeText(domainTag)) {
+        issues.push({
+          caseId: item.caseId,
+          type: 'target-domain-mismatch',
+          detail: `target skill domain ${targetSkill.domain} does not match case domain ${domainTag}`,
+        })
+      }
+
+      const queryDepartment = item.query.department
+        ? normalizeScopeValue(item.query.department)
+        : null
+      const targetDepartments = normalizeScopeArray(targetSkill.departmentTags)
+      if (
+        queryDepartment &&
+        targetDepartments.length > 0 &&
+        !targetDepartments.includes(queryDepartment)
+      ) {
+        issues.push({
+          caseId: item.caseId,
+          type: 'target-department-mismatch',
+          detail: `target skill departments [${targetDepartments.join(', ')}] do not match query department ${queryDepartment}`,
+        })
+      }
+
+      const sceneHints = matchingSceneHints(item.query.sceneHints)
+      const targetScenes = normalizeScopeArray(targetSkill.sceneTags)
+      const requiredScenes =
+        sceneHints.specific.length > 0 ? sceneHints.specific : sceneHints.normalized
+      if (
+        requiredScenes.length > 0 &&
+        !requiredScenes.some(scene =>
+          targetScenes.includes(scene) || sceneHintMatchesSkillIdentity(targetSkill, scene),
+        )
+      ) {
+        issues.push({
+          caseId: item.caseId,
+          type: 'target-scene-mismatch',
+          detail: `target skill scenes [${targetScenes.join(', ')}] do not match query scenes [${requiredScenes.join(', ')}]`,
+        })
+      }
+
       const leaked = findIdentityLeak(queryText, targetSkill)
       if (leaked) {
         issues.push({
@@ -311,6 +419,72 @@ export function auditBenchmarkCases(input: {
         type: 'invalid-expected',
         detail: `expected skill overlaps with acceptable/forbidden: ${overlap.join(', ')}`,
       })
+    }
+
+    for (const skillId of [
+      ...item.expected.acceptableSkillIds,
+      ...item.expected.forbiddenSkillIds,
+    ]) {
+      if (!input.registryById.has(skillId)) {
+        issues.push({
+          caseId: item.caseId,
+          type: 'missing-skill',
+          detail: `Unknown referenced skillId ${skillId}`,
+        })
+      }
+    }
+
+    if (item.expected.preference) {
+      const preference = item.expected.preference
+      const preferredSkill = input.registryById.get(preference.preferredSkillId) ?? null
+      const competingSkill = input.registryById.get(preference.competingSkillId) ?? null
+
+      if (preference.preferredSkillId !== targetSkillId) {
+        issues.push({
+          caseId: item.caseId,
+          type: 'invalid-preference',
+          detail: `preferredSkillId ${preference.preferredSkillId} must equal target mustHitSkillId ${targetSkillId}`,
+        })
+      }
+
+      if (!acceptableSet.has(preference.competingSkillId)) {
+        issues.push({
+          caseId: item.caseId,
+          type: 'invalid-preference',
+          detail: `competingSkillId ${preference.competingSkillId} must be included in acceptableSkillIds`,
+        })
+      }
+
+      if (!preferredSkill || !competingSkill) {
+        issues.push({
+          caseId: item.caseId,
+          type: 'invalid-preference',
+          detail: `preferred or competing skill missing from registry`,
+        })
+      } else {
+        if (preferredSkill.domain !== competingSkill.domain) {
+          issues.push({
+            caseId: item.caseId,
+            type: 'invalid-preference',
+            detail: `preferred and competing skills must share domain, got ${preferredSkill.domain} vs ${competingSkill.domain}`,
+          })
+        }
+
+        if (item.tags.includes('set:graph-preference')) {
+          const preferredScenes = normalizeScopeArray(preferredSkill.sceneTags)
+          const competingScenes = normalizeScopeArray(competingSkill.sceneTags)
+          const overlapScenes = preferredScenes.filter(scene =>
+            competingScenes.includes(scene),
+          )
+          if (overlapScenes.length === 0) {
+            issues.push({
+              caseId: item.caseId,
+              type: 'invalid-preference',
+              detail: `graph-preference preferred and competing skills must share at least one scene tag`,
+            })
+          }
+        }
+      }
     }
   }
 

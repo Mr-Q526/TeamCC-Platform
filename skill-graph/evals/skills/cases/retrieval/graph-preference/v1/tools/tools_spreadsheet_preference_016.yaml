@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_spreadsheet_preference_016
+title: 运营表格偏好邻近表达 016
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - data-analysis
+query:
+  queryText: 这轮不是写一份说明文档，更像是运营数据表整理这条线需要一次 editable sheet
+    级别的梳理，先把把投放明细、汇总口径和表格结构先理顺做对，不是写文档说明。
+  queryContext: 运营数据表整理 把投放明细、汇总口径和表格结构先理顺 这轮不是写一份说明文档 editable sheet 运营数据表 透视汇总 渠道分析 复盘
+  cwd: /tmp/skill-eval
+  projectId: seed:operations-spreadsheet
+  department: dept:data-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:data-analysis
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/doc
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: tools/spreadsheet
+    competingSkillId: tools/doc
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

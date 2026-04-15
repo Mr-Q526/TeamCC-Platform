@@ -14,7 +14,8 @@ query:
   queryText: 我的代码有个Bug，帮我调试一下，看看怎么修复。另外，给我写个测试用例来验证修复。
   queryContext: Bug修复 调试 代码 测试用例 验证
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

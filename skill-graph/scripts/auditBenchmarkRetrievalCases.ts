@@ -17,6 +17,7 @@ type CliOptions = {
   casesDir: string
   summaryPath: string
   reviewSamplePath: string
+  skipQuota: boolean
 }
 
 const PROJECT_ROOT = resolve(process.cwd())
@@ -27,6 +28,7 @@ function parseArgs(argv: string[]): CliOptions {
     casesDir: getBenchmarkCasesDir(PROJECT_ROOT),
     summaryPath: join(evalRoot, 'reports', 'retrieval-benchmark-v1-audit-summary.json'),
     reviewSamplePath: join(evalRoot, 'reports', 'retrieval-benchmark-v1-review-sample.json'),
+    skipQuota: false,
   }
 
   for (let index = 0; index < argv.length; index++) {
@@ -41,6 +43,8 @@ function parseArgs(argv: string[]): CliOptions {
     } else if (arg === '--review-sample-path' && next) {
       options.reviewSamplePath = resolve(next)
       index += 1
+    } else if (arg === '--skip-quota') {
+      options.skipQuota = true
     }
   }
 
@@ -80,11 +84,13 @@ async function main(): Promise<void> {
     registryById: new Map(registry.skills.map(skill => [skill.skillId, skill] as const)),
   })
 
-  const quotaIssues = [
-    ...assertCounts(summary.byDomain, BENCHMARK_DOMAIN_TARGETS, 'domain'),
-    ...assertCounts(summary.byDifficulty, BENCHMARK_DIFFICULTY_TARGETS, 'difficulty'),
-    ...assertCounts(summary.byLanguage, BENCHMARK_LANGUAGE_TARGETS, 'language'),
-  ]
+  const quotaIssues = options.skipQuota
+    ? []
+    : [
+        ...assertCounts(summary.byDomain, BENCHMARK_DOMAIN_TARGETS, 'domain'),
+        ...assertCounts(summary.byDifficulty, BENCHMARK_DIFFICULTY_TARGETS, 'difficulty'),
+        ...assertCounts(summary.byLanguage, BENCHMARK_LANGUAGE_TARGETS, 'language'),
+      ]
 
   const auditSummary = {
     ...summary,

@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_design_motion_video_preference_024
+title: 讲解视频偏好邻近表达 024
+dataset: retrieval-graph-preference-v1
+tags:
+  - design
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - content-generation
+query:
+  queryText: 这轮不是生成单张图片，现在最缺的是一轮 narration animation
+    式处理，把把口播配套动效、画面推进和节奏控制补完整补完整，不是图像生成任务。
+  queryContext: 讲解动画视频 把口播配套动效、画面推进和节奏控制补完整 这轮不是生成单张图片 narration animation 讲解视频
+    motion video 字幕 转场 口播
+  cwd: /tmp/skill-eval
+  projectId: seed:motion-video
+  department: dept:growth
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/motion-video-maker
+  acceptableSkillIds:
+    - design/jimeng
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: design/motion-video-maker
+    competingSkillId: design/jimeng
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

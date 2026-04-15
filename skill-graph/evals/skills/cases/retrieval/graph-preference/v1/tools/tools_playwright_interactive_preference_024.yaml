@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_playwright_interactive_preference_024
+title: 交互式调试偏好邻近表达 024
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - debug
+query:
+  queryText: 这轮不是一次性自动回放，现在最缺的是一轮 iterative UI check 式处理，把把 iterative UI debugging
+    的上下文链路补完整补完整，不是只截个图。
+  queryContext: 持续交互式 UI 调试 把 iterative UI debugging 的上下文链路补完整 这轮不是一次性自动回放
+    iterative UI check interactive debugging persistent browser 多轮排查 异常态 表单流程
+  cwd: /tmp/skill-eval
+  projectId: seed:playwright-interactive
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/playwright-interactive
+  acceptableSkillIds:
+    - tools/playwright
+  forbiddenSkillIds:
+    - tools/screenshot
+    - frontend/component-library-pro
+  preference:
+    preferredSkillId: tools/playwright-interactive
+    competingSkillId: tools/playwright
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

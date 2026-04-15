@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_design_motion_video_preference_003
+title: 内容讲解短视频在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - design
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - content-generation
+query:
+  queryText: 我不是要单张图片，而是想把一段讲解内容做成可以预览和导出的动态视频表达。
+  queryContext: 不是单张图片 讲解内容 动态视频 预览 导出
+  cwd: /tmp/skill-eval
+  projectId: seed:motion-video
+  department: dept:growth
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/motion-video-maker
+  acceptableSkillIds:
+    - design/jimeng
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: design/motion-video-maker
+    competingSkillId: design/jimeng
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

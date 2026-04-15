@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_general_development_plan_preference_017
+title: 开发计划偏好邻近表达 017
+dataset: retrieval-graph-preference-v1
+tags:
+  - general
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - planning
+query:
+  queryText: 现在不是要讨论架构细节，而是先把推进方案定下来，现在最缺的是一轮 delivery roadmap
+    式处理，把把阶段目标、资源安排和风险管理理顺补完整，不是写 PR 审查意见。
+  queryContext: 项目开发计划 把阶段目标、资源安排和风险管理理顺 现在不是要讨论架构细节，而是先把推进方案定下来 delivery roadmap
+    开发计划 里程碑 资源拆分 风险 验收标准
+  cwd: /tmp/skill-eval
+  projectId: seed:development-plan-doc
+  department: dept:backend-platform
+  domainHints:
+    - general
+  sceneHints:
+    - scene:planning
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/development-plan-doc-pro
+  acceptableSkillIds:
+    - general/development-plan-doc-basic
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - frontend/website-homepage-design-pro
+  preference:
+    preferredSkillId: general/development-plan-doc-pro
+    competingSkillId: general/development-plan-doc-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

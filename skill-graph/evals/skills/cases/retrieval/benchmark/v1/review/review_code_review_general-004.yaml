@@ -13,7 +13,8 @@ query:
   queryText: 我需要对一段代码进行审查，看看有没有什么问题，比如 、性能问题或者代码风格问题。
   queryContext: 代码审查 bug 性能问题 代码风格
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -29,4 +30,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

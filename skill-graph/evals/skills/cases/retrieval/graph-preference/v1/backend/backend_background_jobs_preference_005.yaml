@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_background_jobs_preference_005
+title: 后台任务链路偏好扩展表达 005
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - architecture
+query:
+  queryText: 队列 worker 最近老是积压，想先把异步任务与队列链路这块补完整，核心是queue backlog、worker retry 和
+    observability 补完整。
+  queryContext: 异步任务与队列链路 queue backlog、worker retry 和 observability 补完整 队列 worker
+    最近老是积压 后台任务 queue worker retry
+  cwd: /tmp/skill-eval
+  projectId: seed:background-jobs
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:debug
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/background-jobs-queues
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/background-jobs-queues
+    competingSkillId: backend/rest-api-implementation
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

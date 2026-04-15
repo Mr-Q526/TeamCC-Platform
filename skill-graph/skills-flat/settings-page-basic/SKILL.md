@@ -6,25 +6,15 @@ displayName: Settings Page Basic
 description: Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Basic version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - settings-page-basic
+  - Settings Page Basic
+  - settingspagebasic
   - 设置
   - 配置页
   - settings
-  - 页面
-  - page
-  - 基础版
-  - basic
-  - Settings Page Basic
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 设置页面
+  - settings page
 version: 0.1.0
-sourceHash: sha256:ec05d218a08e32a142ad9ac088131efcbd0ace8b17d86fb7c2a9cc0e36968406
+sourceHash: sha256:9f6fa8fe7ab8ed5346bb357ff878356a8def2916ebd9301ebb7b67c61b5694ed
 domain: frontend
 departmentTags:
   - frontend-platform

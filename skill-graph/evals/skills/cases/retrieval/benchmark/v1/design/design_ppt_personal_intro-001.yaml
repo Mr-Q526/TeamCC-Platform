@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个个人介绍的 ，要突出我的身份定位、经历和代表项目。
   queryContext: 个人介绍 PPT 设计 内容
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

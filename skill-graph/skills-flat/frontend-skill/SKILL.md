@@ -6,19 +6,11 @@ displayName: Frontend Skill
 description: Use when the task asks for a visually strong landing page, website, app, prototype, demo, or game UI. This skill enforces restrained composition, image-led hierarchy, cohesive content structure, and tasteful motion while avoiding generic cards, weak branding, and UI clutter.
 aliases:
   - frontend-skill
-  - 前端
-  - Web 前端
-  - 页面开发
   - Frontend Skill
-  - frontend
+  - frontendskill
   - skill
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:520cd8196eb61d86358467ffdac5406b8956a6748186838639ae56c644e2b249
+sourceHash: sha256:8a27b66672872d0a67da22a26610d234ddd061d1f5b97d8c1bf74325039a2a3b
 domain: frontend
 departmentTags:
   - frontend-platform

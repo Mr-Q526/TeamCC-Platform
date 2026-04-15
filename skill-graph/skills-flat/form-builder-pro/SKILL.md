@@ -6,26 +6,18 @@ displayName: Form Builder PRO
 description: Use when designing forms, multi-step forms, application forms, survey flows, and validation-heavy screens. Pro version focused on labels, validation, progressive disclosure, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - form-builder-pro
+  - Form Builder PRO
+  - formbuilderpro
   - 表单
   - 表单构建
   - form
   - 构建器
   - 生成器
   - builder
-  - 专业版
-  - pro
-  - Form Builder PRO
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 表单构建器
+  - form builder
 version: 0.1.0
-sourceHash: sha256:82ba5daa4f84a138f2df090614494b06c1d56788dc4f26cbf1f8f0e6cb7fca17
+sourceHash: sha256:eb747a9dabba0bee5cfb9aaadebe1dc4e9986f17fb6fa741dba1d861fbf5375a
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -6,20 +6,15 @@ displayName: Security Best Practices
 description: Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.
 aliases:
   - security-best-practices
-  - 安全
-  - 安全审计
-  - security
   - Security Best Practices
+  - securitybestpractices
   - best
   - practices
-  - review
   - 代码审查
   - code review
   - 评审
-  - security-audit
-  - security-platform
 version: 0.1.0
-sourceHash: sha256:deae1d67b8e4e3b6dcdc3ee0bfd4b3e278e7347c7507e4bd272dab5a46a00dbd
+sourceHash: sha256:9c27510ca0610f26a46084bf5cad709b3199601a8057aefa944161da257d0e29
 domain: security
 departmentTags:
   - security-platform

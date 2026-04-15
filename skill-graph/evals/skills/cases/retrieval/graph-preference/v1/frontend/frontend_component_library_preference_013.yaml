@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_component_library_preference_013
+title: 组件库偏好混合表达 013
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - component-library
+query:
+  queryText: 设计和前端想统一基础组件资产，想把企业级组件库做成更成熟的 component library 体验，重点是基础组件、设计令牌和扩展机制更系统。
+  queryContext: 企业级组件库 基础组件、设计令牌和扩展机制更系统 component library 设计和前端想统一基础组件资产 组件库
+    design tokens variants 规范治理
+  cwd: /tmp/skill-eval
+  projectId: seed:component-library
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:component-library
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/component-library-pro
+  acceptableSkillIds:
+    - frontend/component-library-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/component-library-pro
+    competingSkillId: frontend/component-library-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

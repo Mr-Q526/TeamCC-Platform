@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_security_dependency_audit_preference_026
+title: 依赖供应链偏好邻近表达 026
+dataset: retrieval-graph-preference-v1
+tags:
+  - security
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - security-audit
+query:
+  queryText: 这轮不是审代码逻辑，而是看依赖层风险，这次优先把依赖与供应链审查里的把供应链层面的隐患和高风险包先挖出来做对，不是做系统性能诊断。
+  queryContext: 依赖与供应链审查 把供应链层面的隐患和高风险包先挖出来 这轮不是审代码逻辑，而是看依赖层风险 lockfile integrity
+    dependency audit supply chain lockfile CVE license risk
+  cwd: /tmp/skill-eval
+  projectId: seed:dependency-audit
+  department: dept:security-platform
+  domainHints:
+    - security
+  sceneHints:
+    - scene:security-audit
+    - scene:review
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - security/dependency-supply-chain-audit
+  acceptableSkillIds:
+    - security/security-vulnerability-check
+  forbiddenSkillIds:
+    - review/code-review-general
+    - backend/auth-authorization-backend
+  preference:
+    preferredSkillId: security/dependency-supply-chain-audit
+    competingSkillId: security/security-vulnerability-check
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

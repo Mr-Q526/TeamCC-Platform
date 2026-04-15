@@ -6,29 +6,19 @@ displayName: Education Course Page PRO
 description: Use when designing course pages, lesson players, LMS dashboards, and learning paths. Pro version focused on learning hierarchy, progress, practice, and motivation; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - education-course-page-pro
+  - Education Course Page PRO
+  - educationcoursepagepro
   - 教育
   - 课程
   - 学习
   - 教学
   - 课程页
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - Education Course Page PRO
   - education
   - course
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 课程页面
+  - course page
 version: 0.1.0
-sourceHash: sha256:b5e64b0046355c1b684e3a3a867c062276278fe5a663b3bcf5e6f00d5ec8caa0
+sourceHash: sha256:a0750ea68718b08968288c8fa7f55bb7b22e86c105cf7d9426ec51f9c40266a7
 domain: frontend
 departmentTags:
   - frontend-platform

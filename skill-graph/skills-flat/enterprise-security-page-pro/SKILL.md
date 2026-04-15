@@ -6,29 +6,15 @@ displayName: Enterprise Security Page PRO
 description: Use when designing security, compliance, trust center, SOC2, privacy, and enterprise assurance pages. Pro version focused on credibility, evidence, policy clarity, and buyer confidence; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - enterprise-security-page-pro
-  - 企业
+  - Enterprise Security Page PRO
+  - enterprisesecuritypagepro
   - 企业级
   - B2B
-  - 安全
-  - 安全审计
-  - security
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - Enterprise Security Page PRO
   - enterprise
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 企业安全页面
+  - trust center
 version: 0.1.0
-sourceHash: sha256:5dfc5a27751665fec7aaacda7b8bb9394c69c9dde822cc42d122735fe099ea1f
+sourceHash: sha256:e9ce8c938c2f57be026d984735399494a1005abe6476f952b922cee228cfc4b2
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_ai_humanizer_preference_017
+title: 中文去 AI 味偏好邻近表达 017
+dataset: retrieval-graph-preference-v1
+tags:
+  - ai
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - humanizer
+query:
+  queryText: 这轮不是重写观点而是润表达，现在最缺的是一轮 rewrite polish 式处理，把把语气、节奏和措辞拉自然补完整，不是写视频脚本。
+  queryContext: 中文去 AI 味润稿 把语气、节奏和措辞拉自然 这轮不是重写观点而是润表达 rewrite polish 中文润稿 去 AI 味
+    自然表达 human-like 语气层次
+  cwd: /tmp/skill-eval
+  projectId: seed:humanizer-zh
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:writing
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/humanizer-zh-pro
+  acceptableSkillIds:
+    - ai/humanizer-zh-basic
+  forbiddenSkillIds:
+    - design/motion-video-maker
+    - design/ppt-maker
+  preference:
+    preferredSkillId: ai/humanizer-zh-pro
+    competingSkillId: ai/humanizer-zh-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

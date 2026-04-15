@@ -6,25 +6,13 @@ displayName: AI Chat Interface PRO
 description: Use when designing AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces. Pro version focused on conversation flow, tool state, citations, safety, and trust; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - ai-chat-interface-pro
-  - AI
-  - 人工智能
-  - 智能助手
-  - 专业版
-  - pro
   - AI Chat Interface PRO
+  - aichatinterfacepro
+  - 智能助手
   - chat
   - interface
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:4fc5048633159105d7b3532862d90d4cf61e380d3735c21be3f4c46848d27a48
+sourceHash: sha256:bd263863b08c5b1bbc8aeb60d92c8ed6338f9b7c8e82ff3dc06356296d6cb76f
 domain: frontend
 departmentTags:
   - frontend-platform

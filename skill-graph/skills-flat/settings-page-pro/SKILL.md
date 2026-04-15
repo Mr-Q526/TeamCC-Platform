@@ -6,25 +6,15 @@ displayName: Settings Page PRO
 description: Use when designing settings, preferences, billing settings, integrations, and admin configuration pages. Pro version focused on grouping, consequence clarity, defaults, and safe changes; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - settings-page-pro
+  - Settings Page PRO
+  - settingspagepro
   - 设置
   - 配置页
   - settings
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - Settings Page PRO
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 设置页面
+  - settings page
 version: 0.1.0
-sourceHash: sha256:6e9996a0ecd665b06bdf1ec4d188fc556c95e7f247df0562a832fd5858a8110c
+sourceHash: sha256:e6b186ae991eed07360233f2fffc7410dc542bf688f417bf90b3efb36b73eb7d
 domain: frontend
 departmentTags:
   - frontend-platform

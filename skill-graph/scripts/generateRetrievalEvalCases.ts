@@ -8,7 +8,7 @@ import {
   RETRIEVAL_COVERAGE_DATASET_ID,
 } from '../src/evals/retrievalDatasets.js'
 import {
-  departmentForDomain,
+  departmentForSkill,
   domainAcceptables,
   domainForbidden,
   prettyDomain,
@@ -233,7 +233,7 @@ function buildCaseSpec(
       queryText,
       queryContext,
       cwd: '/tmp/skill-eval',
-      department: departmentForDomain(skill.domain),
+      department: departmentForSkill(skill),
       domainHints: [skill.domain],
       sceneHints: sceneHintsForSkill(skill),
       priorInjectedSkillIds: [],

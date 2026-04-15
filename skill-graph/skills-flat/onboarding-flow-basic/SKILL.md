@@ -6,24 +6,15 @@ displayName: Onboarding Flow Basic
 description: Use when designing product onboarding, setup wizards, first-run flows, and activation experiences. Basic version focused on progress, motivation, task sequencing, and activation; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - onboarding-flow-basic
+  - Onboarding Flow Basic
+  - onboardingflowbasic
   - 新手引导
   - 入门流程
   - onboarding
-  - 基础版
-  - basic
-  - Onboarding Flow Basic
   - flow
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - onboarding flow
 version: 0.1.0
-sourceHash: sha256:bb9c11e733f0622022a4be72887851eb2a6a3c603b63d471360cf3e27fd8dbf8
+sourceHash: sha256:140ff7d046698f4b0d5ff2f526176d93ff7e71ee13af2fb2fa69df408c88d5b0
 domain: frontend
 departmentTags:
   - frontend-platform

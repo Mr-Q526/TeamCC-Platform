@@ -6,30 +6,18 @@ displayName: About Company Page PRO
 description: Use when designing about pages, company story pages, team pages, and mission pages. Pro version focused on trust, narrative, people, values, and company proof; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - about-company-page-pro
+  - About Company Page PRO
+  - aboutcompanypagepro
   - 关于我们
   - 公司介绍
   - 品牌介绍
-  - 公司
-  - 企业
   - 品牌
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - About Company Page PRO
   - about
   - company
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 关于我们页面
+  - 公司介绍页面
 version: 0.1.0
-sourceHash: sha256:237e3b33333d7c99bfbce54170a9e8f3a2735cf8f50f3e865d5f1833d753587e
+sourceHash: sha256:d0e153436c5caf8cf6bc76dc359375f34bb6a3292b6b268b994a44a6a82b36b8
 domain: frontend
 departmentTags:
   - frontend-platform

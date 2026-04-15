@@ -6,25 +6,17 @@ displayName: Checkout Flow PRO
 description: Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Pro version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - checkout-flow-pro
+  - Checkout Flow PRO
+  - checkoutflowpro
   - 结账
   - 支付流程
   - 下单流程
-  - 专业版
-  - pro
-  - Checkout Flow PRO
   - checkout
   - flow
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 结账流程
+  - checkout flow
 version: 0.1.0
-sourceHash: sha256:93c3723199ba7ffa59adf82b519e637c12a10e3f92388455afc6d0a56b0302d8
+sourceHash: sha256:060ca7fa735ac6bf7fbe6a8f5b10a0f7a3863eeee3742b4ec7dc1d1a6866d49d
 domain: frontend
 departmentTags:
   - frontend-platform

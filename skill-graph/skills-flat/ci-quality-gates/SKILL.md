@@ -6,25 +6,20 @@ displayName: CI Quality Gates
 description: Use when working on CI pipelines, required checks, coverage gates, lint gates, and release validation workflows. Focus on fast feedback, required checks, reproducibility, and safe release criteria.
 aliases:
   - ci-quality-gates
+  - CI Quality Gates
+  - ciqualitygates
   - CI
   - 持续集成
   - 质量门禁
-  - 质量
   - 质量检查
   - quality gate
   - 门禁
   - required checks
-  - CI Quality Gates
   - quality
   - gates
-  - infra
-  - release
-  - test
-  - 测试
   - 验证
-  - infra-platform
 version: 0.1.0
-sourceHash: sha256:d01a3ec6ccb21f179b847f4761bcdbe775947129aeebf4cce68500de0aa7e34c
+sourceHash: sha256:623b248e43c6279b31c0d4638490ec6695c8815d2dad35d04acd654f56710106
 domain: infra
 departmentTags:
   - infra-platform

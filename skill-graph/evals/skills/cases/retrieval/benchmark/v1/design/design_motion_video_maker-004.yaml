@@ -14,7 +14,8 @@ query:
   queryText: 我想做一个知识讲解的动画视频，用Web页面制作和预览，类似AE/PR风格，要根据解说文本规划动画播放和切换时间，先给我个预览，确认后再导出mp4格式。
   queryContext: 知识讲解 动画视频 Web页面 AE风格 预览 mp4
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

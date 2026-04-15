@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_background_jobs_preference_028
+title: 后台任务链路偏好邻近表达 028
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - architecture
+query:
+  queryText: 现在不是只写几个接口能解决，更像是异步任务与队列链路这条线需要先补齐把后台任务执行的一致性和排障方式做对，不是只改 controller 层。
+  queryContext: 异步任务与队列链路 把后台任务执行的一致性和排障方式做对 现在不是只写几个接口能解决 queue worker 后台任务 queue
+    worker retry idempotency
+  cwd: /tmp/skill-eval
+  projectId: seed:background-jobs
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:debug
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/background-jobs-queues
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/background-jobs-queues
+    competingSkillId: backend/rest-api-implementation
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

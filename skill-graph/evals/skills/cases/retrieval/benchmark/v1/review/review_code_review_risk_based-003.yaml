@@ -14,7 +14,8 @@ query:
   queryText: 我要进行一次基于风险的代码审查，重点关注高风险的代码变更，如涉及认证、支付、数据丢失等方面的代码。
   queryContext: 代码审查 风险 认证 支付 数据丢失 变更
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

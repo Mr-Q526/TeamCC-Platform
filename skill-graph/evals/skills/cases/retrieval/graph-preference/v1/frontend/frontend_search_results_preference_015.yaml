@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_search_results_preference_015
+title: 搜索结果页偏好邻近表达 015
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - search-results
+query:
+  queryText: 现在结果页只能凑合用，更像是搜索结果页这条线需要一次 search results 级别的梳理，先把把筛选、排序和无结果提示理顺做对，不是简单后台列表。
+  queryContext: 搜索结果页 把筛选、排序和无结果提示理顺 现在结果页只能凑合用 search results filters 排序 空状态 高密度
+  cwd: /tmp/skill-eval
+  projectId: seed:search-results-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:search-results
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/search-results-page-pro
+  acceptableSkillIds:
+    - frontend/search-results-page-basic
+  forbiddenSkillIds:
+    - frontend/data-table-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/search-results-page-pro
+    competingSkillId: frontend/search-results-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

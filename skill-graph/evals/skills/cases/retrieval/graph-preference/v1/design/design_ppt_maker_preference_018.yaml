@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_design_ppt_maker_preference_018
+title: 运营 PPT 偏好邻近表达 018
+dataset: retrieval-graph-preference-v1
+tags:
+  - design
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - content-generation
+query:
+  queryText: 这轮不是课堂风格课件，现在最缺的是一轮 business review deck 式处理，把把故事线、逐页结构和汇报节奏理顺补完整，不是静态信息罗列。
+  queryContext: 运营汇报 PPT 把故事线、逐页结构和汇报节奏理顺 这轮不是课堂风格课件 business review deck 运营汇报 PPT
+    deck 故事线 逐页结构
+  cwd: /tmp/skill-eval
+  projectId: seed:operations-ppt
+  department: dept:growth
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/ppt-maker
+  acceptableSkillIds:
+    - design/ppt-course-presentation
+  forbiddenSkillIds:
+    - design/motion-video-maker
+    - tools/spreadsheet
+  preference:
+    preferredSkillId: design/ppt-maker
+    competingSkillId: design/ppt-course-presentation
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

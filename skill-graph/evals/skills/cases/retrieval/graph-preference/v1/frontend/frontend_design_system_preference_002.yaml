@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_design_system_preference_002
+title: 企业设计系统在纯中文表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - design-system
+query:
+  queryText: 我们要建设一套企业设计系统，希望同时覆盖设计令牌、组件规则、发布流程和协作治理。
+  queryContext: 企业设计系统 设计令牌 组件规则 发布流程 协作治理
+  cwd: /tmp/skill-eval
+  projectId: seed:design-system-builder
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design-system
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/design-system-builder-pro
+  acceptableSkillIds:
+    - frontend/design-system-builder-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/design-system-builder-pro
+    competingSkillId: frontend/design-system-builder-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -12,7 +12,7 @@ import {
   RETRIEVAL_BENCHMARK_DATASET_ID,
 } from '../src/evals/retrievalDatasets.js'
 import {
-  departmentForDomain,
+  departmentForSkill,
   domainAcceptables,
   domainForbidden,
   prettyDomain,
@@ -614,7 +614,7 @@ async function writeBenchmarkCase(
       queryText,
       queryContext,
       cwd: '/tmp/skill-eval',
-      department: departmentForDomain(skeleton.domain),
+      department: departmentForSkill(skeleton.skill),
       domainHints: [skeleton.domain],
       sceneHints: sceneHintsForSkill(skeleton.skill),
       priorInjectedSkillIds: [],

@@ -14,7 +14,8 @@ query:
   queryText: 我要写一个详细的开发计划文档，包括模块、函数、类型定义、接口、数据流、验证、风险、部署等方面。
   queryContext: 开发计划 文档 详细 模块 函数 类型定义 接口 数据流 验证 风险 部署 workflow planning execution
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -5,21 +5,13 @@ name: doc
 displayName: Doc
 description: Use when the task involves reading, creating, or editing `.docx` documents, especially when formatting or layout fidelity matters; prefer `python-docx` plus the bundled `scripts/render_docx.py` for visual checks.
 aliases:
-  - doc
-  - 文档
   - 方案文档
   - 技术文档
-  - tools
-  - content-generation
-  - review
   - 代码审查
   - code review
   - 评审
-  - data-platform
-  - 数据
-  - data
 version: 0.1.0
-sourceHash: sha256:8800069bf33a5a16dc9a9b416b6aa4055542d5e33896a63ca766c74ff640eede
+sourceHash: sha256:c8daea88a1cb8cd23b08f38975bc745359d6063371c2ae19e1c7218ea4b0ca67
 domain: tools
 departmentTags:
   - data-platform

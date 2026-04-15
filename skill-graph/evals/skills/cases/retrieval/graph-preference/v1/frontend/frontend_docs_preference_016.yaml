@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_docs_preference_016
+title: 文档站偏好邻近表达 016
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - docs-site
+query:
+  queryText: 现在不是单页说明文档能解决的问题，更像是开发者文档站这条线需要先补齐把导航结构、搜索和版本说明理顺，不是单纯做官网宣传页。
+  queryContext: 开发者文档站 把导航结构、搜索和版本说明理顺 现在不是单页说明文档能解决的问题 developer docs 文档站 开发者文档 API 搜索 版本切换
+  cwd: /tmp/skill-eval
+  projectId: seed:docs-site
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:docs-site
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/docs-site-pro
+  acceptableSkillIds:
+    - frontend/docs-site-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/docs-site-pro
+    competingSkillId: frontend/docs-site-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

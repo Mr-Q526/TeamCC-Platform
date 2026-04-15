@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_docs_preference_001
+title: 开发者文档站优先选择反馈更强的候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - docs-site
+query:
+  queryText: 我想设计一个开发者文档站，要有侧栏、搜索、版本切换和示例展示。
+  queryContext: 前端 文档站 docs site 搜索 版本切换 API 示例
+  cwd: /tmp/skill-eval
+  projectId: seed:docs-site
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:docs-site
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/docs-site-pro
+  acceptableSkillIds:
+    - frontend/docs-site-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/docs-site-pro
+    competingSkillId: frontend/docs-site-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

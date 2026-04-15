@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_responsive_navigation_preference_019
+title: 导航栏偏好邻近表达 019
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - navigation
+query:
+  queryText: 现在站点导航很容易迷路，想先从 desktop/mobile nav 视角把响应式导航栏里的把吸顶、展开和层级切换补完整拉顺，不是普通
+    header 装饰。
+  queryContext: 响应式导航栏 把吸顶、展开和层级切换补完整 现在站点导航很容易迷路 desktop/mobile nav 导航栏
+    responsive desktop mobile 二级菜单
+  cwd: /tmp/skill-eval
+  projectId: seed:responsive-navigation
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:navigation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/responsive-navigation-pro
+  acceptableSkillIds:
+    - frontend/responsive-navigation-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/responsive-navigation-pro
+    competingSkillId: frontend/responsive-navigation-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

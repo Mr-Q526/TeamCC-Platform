@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_performance_preference_028
+title: 后端性能排查偏好邻近表达 028
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - performance
+query:
+  queryText: 现在不是简单修一个 bug，更像是后端性能排查这条线需要先补齐把性能问题的真实来源和优先级做对，不是只补监控图表。
+  queryContext: 后端性能排查 把性能问题的真实来源和优先级做对 现在不是简单修一个 bug latency hotspot 后端性能
+    profiling 慢查询 hot path latency
+  cwd: /tmp/skill-eval
+  projectId: seed:backend-performance
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:debug
+    - scene:performance
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/backend-performance-profiling
+  acceptableSkillIds:
+    - backend/background-jobs-queues
+  forbiddenSkillIds:
+    - backend/rest-api-implementation
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/backend-performance-profiling
+    competingSkillId: backend/background-jobs-queues
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

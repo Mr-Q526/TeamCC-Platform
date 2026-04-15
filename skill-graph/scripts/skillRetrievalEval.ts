@@ -58,8 +58,9 @@ type CliOptions = {
   outputDir: string
   runId: string | null
   topK: number
-  baselineRetrievalFeaturesPath: string | null
-  experimentRetrievalFeaturesPath: string | null
+  retrievalFeaturesPath?: string | null
+  baselineRetrievalFeaturesPath?: string | null
+  experimentRetrievalFeaturesPath?: string | null
   replayRunDir: string | null
   projectRoot: string
   sandboxesRoot: string
@@ -74,7 +75,7 @@ const LANGFUSE_SCORE_LABELS = {
   ndcgAt5: 'NDCG@5（归一化折损累计增益）',
 } as const
 
-function parseArgs(argv: string[]): CliOptions {
+export function parseArgs(argv: string[]): CliOptions {
   const options: CliOptions = {
     mode: 'offline-retrieval',
     caseId: null,
@@ -85,8 +86,6 @@ function parseArgs(argv: string[]): CliOptions {
     outputDir: join(DEFAULT_EVAL_ROOT, 'runs'),
     runId: null,
     topK: 5,
-    baselineRetrievalFeaturesPath: null,
-    experimentRetrievalFeaturesPath: null,
     replayRunDir: null,
     projectRoot: PROJECT_ROOT,
     sandboxesRoot: join(DEFAULT_EVAL_ROOT, 'sandboxes'),
@@ -122,6 +121,9 @@ function parseArgs(argv: string[]): CliOptions {
       i++
     } else if (arg === '--top-k' && next) {
       options.topK = Number(next)
+      i++
+    } else if (arg === '--retrieval-features' && next) {
+      options.retrievalFeaturesPath = resolve(next)
       i++
     } else if (arg === '--baseline-retrieval-features' && next) {
       options.baselineRetrievalFeaturesPath = resolve(next)
@@ -480,6 +482,7 @@ async function main(): Promise<void> {
       projectRoot: options.projectRoot,
       cases: retrievalCases,
       topK: options.topK,
+      retrievalFeaturesPath: options.retrievalFeaturesPath,
     })
     assetVersions = {
       registryVersion: result.assets.registryManifest?.registryVersion ?? null,

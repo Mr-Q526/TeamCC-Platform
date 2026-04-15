@@ -76,7 +76,7 @@ describe('skill fact aggregates', () => {
       targetSampleCount: 20,
     })
 
-    expect(manifest.itemCount).toBe(4)
+    expect(manifest.itemCount).toBe(5)
 
     const globalAggregate = manifest.items.find(
       item =>
@@ -87,6 +87,11 @@ describe('skill fact aggregates', () => {
       item =>
         item.scopeType === 'department' &&
         item.scopeId === 'frontend-platform',
+    )
+    const projectAggregate = manifest.items.find(
+      item =>
+        item.scopeType === 'project' &&
+        item.scopeId === 'project:ops-console',
     )
     const sceneAggregate = manifest.items.find(
       item =>
@@ -110,6 +115,7 @@ describe('skill fact aggregates', () => {
     expect(globalAggregate?.qualityScore).toBeGreaterThan(0.9)
     expect(globalAggregate?.confidence).toBeGreaterThan(0)
 
+    expect(projectAggregate?.projectId).toBe('project:ops-console')
     expect(departmentAggregate?.department).toBe('frontend-platform')
     expect(sceneAggregate?.scene).toBe('admin-console')
     expect(versionAggregate?.skillVersion).toBe('2.2.0-pro')

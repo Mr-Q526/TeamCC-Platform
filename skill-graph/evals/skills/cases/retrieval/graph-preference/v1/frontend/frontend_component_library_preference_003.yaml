@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_component_library_preference_003
+title: 前端规范化组件资产在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - component-library
+query:
+  queryText: 需要把前端基础组件和设计令牌体系整理成可复用资产，后面还要支持规范治理和扩展。
+  queryContext: 前端基础组件 design tokens 规范治理 可复用资产
+  cwd: /tmp/skill-eval
+  projectId: seed:component-library
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:component-library
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/component-library-pro
+  acceptableSkillIds:
+    - frontend/component-library-basic
+  forbiddenSkillIds:
+    - frontend/website-homepage-design-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/component-library-pro
+    competingSkillId: frontend/component-library-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

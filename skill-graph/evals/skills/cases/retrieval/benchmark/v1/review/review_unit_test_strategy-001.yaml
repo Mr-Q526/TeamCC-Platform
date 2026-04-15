@@ -14,7 +14,8 @@ query:
   queryText: 我想优化一下单元测试策略，提高测试的覆盖率和可维护性。
   queryContext: 单元测试 策略优化 覆盖率 可维护性 回归测试 code review quality
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

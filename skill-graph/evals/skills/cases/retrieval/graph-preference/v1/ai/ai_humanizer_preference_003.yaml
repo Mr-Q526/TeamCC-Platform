@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_ai_humanizer_preference_003
+title: 发布前润色改写在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - ai
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - humanizer
+query:
+  queryText: 这篇准备发布的中文内容需要做一轮 rewrite，让表达更自然、更像真人写作，同时保持信息边界。
+  queryContext: 发布前内容 rewrite 中文自然表达 真人写作 信息边界
+  cwd: /tmp/skill-eval
+  projectId: seed:humanizer-zh
+  department: dept:ai-platform
+  domainHints:
+    - ai
+  sceneHints:
+    - scene:writing
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - ai/humanizer-zh-pro
+  acceptableSkillIds:
+    - ai/humanizer-zh-basic
+  forbiddenSkillIds:
+    - design/motion-video-maker
+    - design/ppt-maker
+  preference:
+    preferredSkillId: ai/humanizer-zh-pro
+    competingSkillId: ai/humanizer-zh-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

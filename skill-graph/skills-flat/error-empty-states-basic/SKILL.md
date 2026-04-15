@@ -6,30 +6,22 @@ displayName: Error Empty States Basic
 description: Use when designing 404 pages, empty states, error states, permission states, and offline states. Basic version focused on recovery, explanation, next actions, and tone; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - error-empty-states-basic
+  - Error Empty States Basic
+  - erroremptystatesbasic
   - 错误状态
   - 异常状态
   - 报错页
   - 空状态
   - empty state
-  - 状态
   - UI 状态
-  - 基础版
-  - basic
-  - Error Empty States Basic
   - error
   - empty
   - states
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 错误状态设计
+  - error state
+  - 空状态设计
 version: 0.1.0
-sourceHash: sha256:602114a519102f67d7d7e86bbf8574366754f8b19795a8a6309f0945a4f7d443
+sourceHash: sha256:dce36b0c80a72257b4deaaacac9e0ca86be1d1ea0321f928e9b97bb0cecf2a86
 domain: frontend
 departmentTags:
   - frontend-platform

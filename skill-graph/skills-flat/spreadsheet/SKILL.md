@@ -9,14 +9,8 @@ aliases:
   - 表格
   - Excel
   - 电子表格
-  - tools
-  - content-generation
-  - data-analysis
-  - 数据
-  - data
-  - data-platform
 version: 0.1.0
-sourceHash: sha256:0a2de6c5e7666e749d6623eb5a669cb67ba117e60eb468fff58f47af7360935b
+sourceHash: sha256:95868493d5ff47b3a927b71c7da9cd8ca50697a20cf34546812c1061be205796
 domain: tools
 departmentTags:
   - data-platform

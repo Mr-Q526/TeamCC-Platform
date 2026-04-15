@@ -6,29 +6,21 @@ displayName: Profile Account Page Basic
 description: Use when designing profile, account center, identity, privacy, and user preference pages. Basic version focused on ownership, editability, privacy, and account state visibility; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - profile-account-page-basic
+  - Profile Account Page Basic
+  - profileaccountpagebasic
   - 个人资料
   - 用户资料
   - profile
   - 账户
   - 账号
   - 个人中心
-  - 页面
-  - page
-  - 基础版
-  - basic
-  - Profile Account Page Basic
   - account
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 个人资料页面
+  - profile page
+  - 账户页面
+  - 个人中心页面
 version: 0.1.0
-sourceHash: sha256:503b5ecc0b8b30d9b50194f05ed7c114c2eebc0b9959dba641b6af170ba9986d
+sourceHash: sha256:88e420d1fc384cddf0cc681ab2bed5bc9e389cfce50d87e19e0aa03ac0166fbb
 domain: frontend
 departmentTags:
   - frontend-platform

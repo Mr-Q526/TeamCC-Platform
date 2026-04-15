@@ -6,27 +6,24 @@ displayName: Dependency Supply Chain Audit
 description: Use when working on dependency review, vulnerable packages, lockfile risk, license concerns, and supply-chain hygiene. Focus on known CVEs, typosquatting risk, lockfile integrity, and update safety.
 aliases:
   - dependency-supply-chain-audit
+  - Dependency Supply Chain Audit
+  - dependencysupplychainaudit
   - 依赖
   - 依赖安全
   - dependency
   - 供应链
   - 软件供应链
   - 链路
-  - Dependency Supply Chain Audit
   - supply
   - chain
   - audit
-  - security
-  - 安全
-  - 安全审计
-  - security-audit
-  - review
   - 代码审查
   - code review
   - 评审
-  - security-platform
+  - dependency security
+  - 供应链安全
 version: 0.1.0
-sourceHash: sha256:74855dfa0a67e1c73d3a4c550b7752bb4510ab0ad972e73f561be24a9fceaf52
+sourceHash: sha256:6654ebbcbda29454e3a8ce8b881bb5f25e17adacde2d834c112f47a2e3970d40
 domain: security
 departmentTags:
   - security-platform

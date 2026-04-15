@@ -14,7 +14,8 @@ query:
   queryText: 我想评估一下这个项目的单元测试策略，看看有没有需要改进的地方。
   queryContext: 单元测试 策略 评估 改进
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

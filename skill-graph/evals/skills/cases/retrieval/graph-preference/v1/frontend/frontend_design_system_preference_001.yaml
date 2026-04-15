@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_design_system_preference_001
+title: 设计系统建设优先选择反馈更强的候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - design-system
+query:
+  queryText: 我想搭建一套企业级设计系统，要覆盖 design tokens、组件规范、发布流程和协作治理。
+  queryContext: 前端 design system tokens 组件规范 发布流程 协作治理
+  cwd: /tmp/skill-eval
+  projectId: seed:design-system-builder
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:design-system
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/design-system-builder-pro
+  acceptableSkillIds:
+    - frontend/design-system-builder-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/design-system-builder-pro
+    competingSkillId: frontend/design-system-builder-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

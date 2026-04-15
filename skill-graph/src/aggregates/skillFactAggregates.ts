@@ -12,6 +12,7 @@ import {
 
 export type SkillAggregateScopeType =
   | 'global'
+  | 'project'
   | 'department'
   | 'scene'
   | 'version'
@@ -23,6 +24,7 @@ export type SkillFeedbackAggregate = {
   skillId: string
   skillVersion: string | null
   sourceHash: string | null
+  projectId: string | null
   department: string | null
   scene: string | null
   window: string
@@ -68,12 +70,23 @@ type BuildSkillFactAggregatesOptions = {
   targetSampleCount?: number
   now?: string
   sourceEvents?: SkillFactEvent[]
+  factFilter?: SkillFactAggregationEventFilter
 }
 
 type ReadSkillFactAggregateSourceOptions = {
   windowDays?: number
   pageSize?: number
   createdAfter?: string | null
+  factFilter?: SkillFactAggregationEventFilter
+}
+
+export type SkillFactAggregationEventFilter = {
+  includeSources?: Array<SkillFactEvent['source']>
+  excludeSources?: Array<SkillFactEvent['source']>
+  includeRunIds?: string[]
+  excludeRunIds?: string[]
+  includeRunIdPrefixes?: string[]
+  excludeRunIdPrefixes?: string[]
 }
 
 type AggregateAccumulator = {
@@ -82,6 +95,7 @@ type AggregateAccumulator = {
   skillId: string
   skillVersion: string | null
   sourceHash: string | null
+  projectId: string | null
   department: string | null
   scene: string | null
   exposureCount: number
@@ -148,6 +162,15 @@ function toVersionScopeId(
   }
 
   return `${skillVersion}#${sourceHash}`
+}
+
+function normalizeNullableScopeId(value: string | null | undefined): string | null {
+  if (typeof value !== 'string') {
+    return null
+  }
+
+  const trimmed = value.trim()
+  return trimmed ? trimmed : null
 }
 
 function normalizeFeedbackScore(event: SkillFactEvent): number | null {
@@ -228,6 +251,7 @@ function createAccumulator(
     skillId: event.skillId as string,
     skillVersion: event.skillVersion,
     sourceHash: event.sourceHash,
+    projectId: scopeType === 'project' ? event.context.projectId : null,
     department: scopeType === 'department' ? event.context.department : null,
     scene: scopeType === 'scene' ? event.context.scene : null,
     exposureCount: 0,
@@ -378,6 +402,7 @@ function finalizeAccumulator(
     skillId: accumulator.skillId,
     skillVersion: accumulator.scopeType === 'version' ? accumulator.skillVersion : null,
     sourceHash: accumulator.scopeType === 'version' ? accumulator.sourceHash : null,
+    projectId: accumulator.projectId,
     department: accumulator.department,
     scene: accumulator.scene,
     window: options.window,
@@ -432,6 +457,12 @@ export function buildSkillFactAggregates(
     pushEventToAggregateScope(
       aggregates,
       event,
+      'project',
+      normalizeNullableScopeId(event.context.projectId),
+    )
+    pushEventToAggregateScope(
+      aggregates,
+      event,
       'department',
       event.context.department,
     )
@@ -474,6 +505,64 @@ export function buildSkillFactAggregates(
     itemCount: items.length,
     items,
   }
+}
+
+function matchesEventFilter(
+  event: SkillFactEvent,
+  filter: SkillFactAggregationEventFilter | undefined,
+): boolean {
+  if (!filter) {
+    return true
+  }
+
+  const source = event.source
+  const runId = event.runId
+
+  if (filter.includeSources && filter.includeSources.length > 0) {
+    if (!source || !filter.includeSources.includes(source)) {
+      return false
+    }
+  }
+
+  if (filter.excludeSources && source && filter.excludeSources.includes(source)) {
+    return false
+  }
+
+  if (filter.includeRunIds && filter.includeRunIds.length > 0) {
+    if (!runId || !filter.includeRunIds.includes(runId)) {
+      return false
+    }
+  }
+
+  if (filter.excludeRunIds && runId && filter.excludeRunIds.includes(runId)) {
+    return false
+  }
+
+  if (filter.includeRunIdPrefixes && filter.includeRunIdPrefixes.length > 0) {
+    if (
+      !runId ||
+      !filter.includeRunIdPrefixes.some(prefix => runId.startsWith(prefix))
+    ) {
+      return false
+    }
+  }
+
+  if (
+    filter.excludeRunIdPrefixes &&
+    runId &&
+    filter.excludeRunIdPrefixes.some(prefix => runId.startsWith(prefix))
+  ) {
+    return false
+  }
+
+  return true
+}
+
+export function filterSkillFactEventsForAggregation(
+  events: SkillFactEvent[],
+  filter: SkillFactAggregationEventFilter | undefined,
+): SkillFactEvent[] {
+  return filter ? events.filter(event => matchesEventFilter(event, filter)) : events
 }
 
 export async function readSkillFactEventsForAggregation(
@@ -520,7 +609,7 @@ export async function readSkillFactEventsForAggregation(
     createdBefore = new Date(nextCursorMs).toISOString()
   }
 
-  return events
+  return filterSkillFactEventsForAggregation(events, options.factFilter)
 }
 
 export async function buildAndWriteSkillFactAggregates(
@@ -531,7 +620,9 @@ export async function buildAndWriteSkillFactAggregates(
   } = {},
 ): Promise<SkillFeedbackAggregateManifest> {
   const events =
-    options.sourceEvents ?? (await readSkillFactEventsForAggregation(options))
+    options.sourceEvents
+      ? filterSkillFactEventsForAggregation(options.sourceEvents, options.factFilter)
+      : await readSkillFactEventsForAggregation(options)
   const manifest = buildSkillFactAggregates(events, options)
   const outputFile = options.outputFile ?? DEFAULT_OUTPUT_FILE
   const writeJson = options.writeJson ?? true

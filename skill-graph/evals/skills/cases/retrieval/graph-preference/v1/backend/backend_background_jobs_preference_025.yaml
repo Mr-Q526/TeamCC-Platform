@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_background_jobs_preference_025
+title: 后台任务链路偏好邻近表达 025
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - architecture
+query:
+  queryText: 现在不是只写几个接口能解决，想先从 queue worker
+    视角把异步任务与队列链路里的把队列链路里的积压、重复执行和失败路径看透拉顺，不是纯粹的性能 profiling。
+  queryContext: 异步任务与队列链路 把队列链路里的积压、重复执行和失败路径看透 现在不是只写几个接口能解决 queue worker 后台任务
+    queue worker retry idempotency
+  cwd: /tmp/skill-eval
+  projectId: seed:background-jobs
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:debug
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/background-jobs-queues
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/background-jobs-queues
+    competingSkillId: backend/rest-api-implementation
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

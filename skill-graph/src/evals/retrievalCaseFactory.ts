@@ -55,6 +55,14 @@ export function departmentForDomain(domain: string): string | null {
   }
 }
 
+export function departmentForSkill(skill: SkillRegistryEntry): string | null {
+  const first = skill.departmentTags[0]?.trim()
+  if (!first) {
+    return null
+  }
+  return first.startsWith('dept:') ? first : `dept:${first}`
+}
+
 export function sceneHintsForSkill(skill: SkillRegistryEntry): string[] {
   return skill.sceneTags.map(scene => `scene:${scene}`)
 }

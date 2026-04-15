@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_responsive_navigation_preference_003
+title: 站点导航体系在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - navigation
+query:
+  queryText: 想把站点主导航重做一下，重点是 desktop/mobile 切换、多层菜单和顶部悬停体验。
+  queryContext: 站点主导航 desktop mobile 多层菜单 顶部悬停
+  cwd: /tmp/skill-eval
+  projectId: seed:responsive-navigation
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:navigation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/responsive-navigation-pro
+  acceptableSkillIds:
+    - frontend/responsive-navigation-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/responsive-navigation-pro
+    competingSkillId: frontend/responsive-navigation-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

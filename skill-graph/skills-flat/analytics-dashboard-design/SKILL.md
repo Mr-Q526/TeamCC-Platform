@@ -6,6 +6,8 @@ displayName: Analytics Dashboard Design
 description: Use when the task is to design a BI dashboard, 数据大屏, analytics workspace, reporting console, KPI board, or monitoring page. Focus on question-first information hierarchy, chart choice, filter clarity, metric context, and decision-ready layout.
 aliases:
   - analytics-dashboard-design
+  - Analytics Dashboard Design
+  - analyticsdashboarddesign
   - 数据分析
   - 分析看板
   - BI
@@ -14,19 +16,14 @@ aliases:
   - 看板
   - 控制台
   - dashboard
-  - 设计
-  - UI
-  - 视觉设计
-  - Analytics Dashboard Design
   - analytics
-  - design
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - frontend-platform
+  - 数据看板设计
+  - BI 看板
+  - analytics dashboard
+  - 仪表盘设计
+  - dashboard design
 version: 0.1.0
-sourceHash: sha256:bafea9da77fa0032a6e8fa494441b9a06942cb14b2fc9be44d46678158d83716
+sourceHash: sha256:af5666a9ece8cdd0ec73bb133a58809c142f73a0461bb08782be6a51a21e54be
 domain: frontend
 departmentTags:
   - frontend-platform

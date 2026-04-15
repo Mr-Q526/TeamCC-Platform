@@ -6,27 +6,17 @@ displayName: Responsive Navigation PRO
 description: Use when designing navbars, sidebars, mega menus, mobile drawers, tabs, and information architecture. Pro version focused on orientation, hierarchy, responsive behavior, and wayfinding; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - responsive-navigation-pro
+  - Responsive Navigation PRO
+  - responsivenavigationpro
   - 响应式
   - 移动端适配
   - responsive
   - 导航
   - 响应式导航
   - navbar
-  - 专业版
-  - pro
-  - Responsive Navigation PRO
   - navigation
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:416c1f2392acdda8b4cce1b7dee0aadb6e26c89dd54149b0b6195f347bf44f28
+sourceHash: sha256:0abf137735c185d1eb55a7694300326e05327eb8b3ad29b45d27bd425219cfef
 domain: frontend
 departmentTags:
   - frontend-platform

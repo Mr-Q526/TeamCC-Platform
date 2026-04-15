@@ -6,24 +6,19 @@ displayName: Load Testing
 description: Use when working on load tests for APIs, web services, queues, and critical user flows. Focus on realistic traffic models, throughput, latency percentiles, and bottleneck evidence.
 aliases:
   - load-testing
+  - Load Testing
+  - loadtesting
   - 负载测试
   - load test
   - 压测
-  - 测试
   - 测试策略
-  - testing
-  - Load Testing
   - load
-  - infra
-  - performance
   - 性能
   - 性能优化
   - 性能分析
-  - test
   - 验证
-  - infra-platform
 version: 0.1.0
-sourceHash: sha256:700d5e1c55715eb52eeba7d322ff5b208581892be4b4a35aed644fbdf47bb883
+sourceHash: sha256:92339c3f173c803a904cc2ae7d27040734c9ee9f9b141d8b996325a01ba5d2c9
 domain: infra
 departmentTags:
   - infra-platform

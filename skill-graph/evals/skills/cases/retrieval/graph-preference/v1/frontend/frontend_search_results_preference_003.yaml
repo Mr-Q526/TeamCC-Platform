@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_search_results_preference_003
+title: 带筛选的结果页在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - search-results
+query:
+  queryText: 想把结果页做得更专业一点，列表要支持 filters、排序、无结果提示和高密度浏览。
+  queryContext: 结果页 filters 排序 无结果提示 高密度浏览
+  cwd: /tmp/skill-eval
+  projectId: seed:search-results-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:search-results
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/search-results-page-pro
+  acceptableSkillIds:
+    - frontend/search-results-page-basic
+  forbiddenSkillIds:
+    - frontend/data-table-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/search-results-page-pro
+    competingSkillId: frontend/search-results-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

@@ -6,24 +6,14 @@ displayName: Notification Center Basic
 description: Use when designing notification centers, inboxes, alerts, activity feeds, and message queues. Basic version focused on priority, read state, grouping, and actionability; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - notification-center-basic
+  - Notification Center Basic
+  - notificationcenterbasic
   - 通知
   - 消息中心
   - notification
-  - 基础版
-  - basic
-  - Notification Center Basic
   - center
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:2467137998ed0d9e12954ab9df59434cd82227bfab0b7e35d31387c05650e8e3
+sourceHash: sha256:e3cce5b94c3b784153692cd0466ffc07bf81f73f406a4706476e55e813236110
 domain: frontend
 departmentTags:
   - frontend-platform

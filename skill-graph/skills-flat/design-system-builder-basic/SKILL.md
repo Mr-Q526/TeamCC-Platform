@@ -6,26 +6,14 @@ displayName: Design System Builder Basic
 description: Use when designing design systems, token systems, UI foundations, and reusable component standards. Basic version focused on tokens, consistency, accessibility, and component governance; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - design-system-builder-basic
-  - 设计
-  - UI
-  - 视觉设计
-  - 系统
+  - Design System Builder Basic
+  - designsystembuilderbasic
   - 设计系统
   - 构建器
   - 生成器
   - builder
-  - 基础版
-  - basic
-  - Design System Builder Basic
-  - design
-  - system
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:fe738cd6fadafcee2f9f4ceff296a3ed09a2967b382f2089a43df46938e355d8
+sourceHash: sha256:1ea57d0ca329335b414263aaab4b3eb6032793b2ed2df5b76a4b0cb53060af32
 domain: frontend
 departmentTags:
   - frontend-platform

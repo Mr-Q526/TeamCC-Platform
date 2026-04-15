@@ -14,7 +14,8 @@ query:
   queryText: 我要写一个开发计划文档，你能给我一个基础的模板吗？
   queryContext: 开发计划 文档 基础版
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

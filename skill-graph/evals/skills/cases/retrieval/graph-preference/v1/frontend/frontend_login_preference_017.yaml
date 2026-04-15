@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_login_preference_017
+title: 登录页偏好邻近表达 017
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - login
+query:
+  queryText: 这次不是普通表单页而是企业登录入口，现在最缺的是一轮 identity access 式处理，把把
+    SSO、异常处理和安全提醒补齐补完整，不是随便拼个 auth 表单。
+  queryContext: 企业登录页 把 SSO、异常处理和安全提醒补齐 这次不是普通表单页而是企业登录入口 identity access 登录页 SSO
+    身份入口 异常态 安全提示
+  cwd: /tmp/skill-eval
+  projectId: seed:auth-login-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:login
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/auth-login-page-pro
+  acceptableSkillIds:
+    - frontend/auth-login-page-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - security/security-best-practices
+  preference:
+    preferredSkillId: frontend/auth-login-page-pro
+    competingSkillId: frontend/auth-login-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

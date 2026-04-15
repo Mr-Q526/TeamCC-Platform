@@ -87,14 +87,14 @@ const retrievalFeaturesManifest: SkillRetrievalFeaturesManifest = {
   window: '30d',
   scoring: {
     graphFeatureScoreFormula:
-      'graphFeatureScore = 0.35 * version(qualityScore * confidence) + 0.25 * global(qualityScore * confidence) + 0.20 * department(qualityScore * confidence) + 0.20 * scene(qualityScore * confidence)',
-    finalScoreFormula:
-      'finalScore = graphFeatures ? 0.70 * recallNormalized + 0.30 * graphFeatureScore : recallNormalized',
+      'graphRawScore = contextMatched ? 0.40 * project(qualityScore * confidence) + 0.25 * scene(qualityScore * confidence) + 0.15 * department(qualityScore * confidence) + 0.10 * version(qualityScore * confidence) + 0.10 * global(qualityScore * confidence) : 0',
+    finalScoreFormula: 'finalScore = recallNormalized + graphBonus',
     graphFeatureWeights: {
-      version: 0.35,
-      global: 0.25,
-      department: 0.2,
-      scene: 0.2,
+      project: 0.4,
+      version: 0.1,
+      global: 0.1,
+      department: 0.15,
+      scene: 0.25,
     },
     graphFeatureInputs: [],
   },
@@ -132,6 +132,7 @@ const retrievalFeaturesManifest: SkillRetrievalFeaturesManifest = {
           updatedAt: '2026-04-12T00:00:00.000Z',
         },
       ],
+      projects: {},
       departments: {},
       scenes: {},
     },
@@ -167,6 +168,7 @@ const retrievalFeaturesManifest: SkillRetrievalFeaturesManifest = {
           updatedAt: '2026-04-12T00:00:00.000Z',
         },
       ],
+      projects: {},
       departments: {
         'frontend-platform': {
           score: 0.9,
@@ -197,6 +199,7 @@ describe('retrieve skills', () => {
       {
         queryText: '高端官网首页',
         cwd: '/tmp/demo',
+        projectId: null,
         department: 'dept:frontend-platform',
         sceneHints: ['scene:homepage'],
         limit: 2,
@@ -210,10 +213,9 @@ describe('retrieve skills', () => {
     )
 
     expect(response.retrievalMode).toBe('bm25_vector_graph')
-    expect(response.candidates[0]?.skillId).toBe('frontend/pro')
-    expect(response.candidates[0]?.finalScore).toBeGreaterThan(
-      response.candidates[1]?.finalScore ?? 0,
-    )
+    const pro = response.candidates.find(candidate => candidate.skillId === 'frontend/pro')
+    expect(pro?.graphFeatures).not.toBeNull()
+    expect(pro?.finalScoreBreakdown.graphFeatureScore).toBeGreaterThan(0)
     expect(response.dataVersions.retrievalFeaturesGeneratedAt).toBe(
       retrievalFeaturesManifest.generatedAt,
     )

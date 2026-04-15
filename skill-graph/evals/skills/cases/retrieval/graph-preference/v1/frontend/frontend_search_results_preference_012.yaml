@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_search_results_preference_012
+title: 搜索结果页偏好混合表达 012
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - search-results
+query:
+  queryText: 站内检索结果页准备重做，希望把搜索结果页往 result listing 的方向做，重点补齐筛选、排序和空状态更完整。
+  queryContext: 搜索结果页 筛选、排序和空状态更完整 result listing 站内检索结果页准备重做 filters 排序 空状态
+  cwd: /tmp/skill-eval
+  projectId: seed:search-results-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:search-results
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/search-results-page-pro
+  acceptableSkillIds:
+    - frontend/search-results-page-basic
+  forbiddenSkillIds:
+    - frontend/data-table-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/search-results-page-pro
+    competingSkillId: frontend/search-results-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

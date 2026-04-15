@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个课程展示的 ，帮我设计一下结构和内容。
   queryContext: 制作 PPT 课程展示 设计 结构 内容
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -6,21 +6,17 @@ displayName: Xiaohongshu Ops
 description: End-to-end Xiaohongshu operations including positioning, topic research, content production, publish execution, and post-incident recovery. Reusable across verticals with templates and a concrete 陪你看剧 case preset.
 aliases:
   - xiaohongshu-ops
+  - Xiaohongshu Ops
+  - xiaohongshuops
   - 小红书
   - 种草
   - 内容运营
-  - Xiaohongshu Ops
   - xiaohongshu
   - ops
-  - general
-  - 通用
-  - content-generation
-  - data-analysis
-  - 数据
-  - data
-  - growth
+  - 小红书运营
+  - 小红书内容
 version: 0.1.0
-sourceHash: sha256:fae81011d754a981d146bb242e3a1998464d1e2468808a6092413e3a7886e597
+sourceHash: sha256:d212ea2cf61d7a885c4cf7f24d7a6051479ce50d780bf44a9fedb557ef62b4fe
 domain: general
 departmentTags:
   - growth

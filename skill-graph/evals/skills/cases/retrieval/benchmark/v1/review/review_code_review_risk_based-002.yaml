@@ -14,7 +14,8 @@ query:
   queryText: 我要对一个涉及支付、并发和API的代码进行审查，看看有没有风险，还要评估一下架构。
   queryContext: 代码审查 风险评估 架构 支付 并发 API
   cwd: /tmp/skill-eval
-  department: dept:frontend-platform
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - review
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - frontend/website-homepage-design
     - backend/rest-api-implementation
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -6,16 +6,9 @@ displayName: Transcribe
 description: Transcribe audio files to text with optional diarization and known-speaker hints. Use when a user asks to transcribe speech from audio/video, extract text from recordings, or label speakers in interviews or meetings.
 aliases:
   - transcribe
-  - ai
-  - 人工智能
   - 智能助手
-  - content-generation
-  - data-analysis
-  - 数据
-  - data
-  - ai-platform
 version: 0.1.0
-sourceHash: sha256:4e33510ba683cfcce1fd74ec88a18cfc6c25f6e9e1c2df6bb11d851e4ead9abc
+sourceHash: sha256:24bcd3b79b7db8ad3a6e0ac609cadfff7e53df5570361bac12f38c35b9ba17fc
 domain: ai
 departmentTags:
   - ai-platform

@@ -18,6 +18,10 @@
 
 当前重点文档：
 
+- `reference/20260415-三种Skill检索方式评测与图谱增益分析.md`
+  面向结果展示的学术风格评测报告，重点比较 `bm25 / bm25_vector / bm25_vector_graph` 三种检索方式的指标与图谱增益。
+- `reference/20260415-skill-eval-onboarding.md`
+  Skill 评测系统上手文档，说明数据集、三种检索模式、experiment/canonical 口径、Langfuse 关系和常用命令。
 - `tasks/20260412-skill-evaluation-system-plan.md`
   Skill 全量评测体系的分层计划，覆盖离线检索、图谱增益、TeamCC 沙盒盲测与回放诊断。
 - `tasks/20260414-teamcc-sandbox-orchestrator-checklist.md`

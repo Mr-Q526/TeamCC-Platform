@@ -14,7 +14,8 @@ query:
   queryText: 我想搜索、下载、改写微信公众号文章，并且发布到公众号上，有没有一站式的工具可以用？
   queryContext: 微信公众号 文章 搜索 下载 改写 发布 内容生成
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:growth
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

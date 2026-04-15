@@ -6,31 +6,21 @@ displayName: Risk Based Code Review
 description: Use when working on high-risk diffs touching auth, payments, data loss, concurrency, migrations, or public APIs. Focus on blast radius, invariants, rollback, observability, and edge cases.
 aliases:
   - code-review-risk-based
-  - 代码
-  - coding
+  - Risk Based Code Review
+  - code review risk based
+  - codereviewriskbased
   - 代码实现
   - 代码审查
   - code review
   - 评审
-  - 风险
   - 风险审查
   - risk-based
-  - Risk Based Code Review
-  - code review risk based
-  - code
-  - review
   - risk
   - based
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - backend-platform
-  - 后端
   - 服务端
   - server side
 version: 0.1.0
-sourceHash: sha256:93133dfa4213cad3f63cca2336bc1cdd89fd8b023d228f6e517ef35bfbfe6734
+sourceHash: sha256:2d538d7164e8fc979266af0cbbf7fd12db9d929e302f55e439496980856b6af3
 domain: review
 departmentTags:
   - backend-platform

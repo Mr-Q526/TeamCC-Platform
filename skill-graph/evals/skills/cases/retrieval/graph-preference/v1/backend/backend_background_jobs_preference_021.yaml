@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_backend_background_jobs_preference_021
+title: 后台任务链路偏好邻近表达 021
+dataset: retrieval-graph-preference-v1
+tags:
+  - backend
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - architecture
+query:
+  queryText: 现在不是只写几个接口能解决，更像是异步任务与队列链路这条线需要一次 background jobs 级别的梳理，先把把 async
+    workflow 的稳定性和可观测性补齐做对，不是纯粹的性能 profiling。
+  queryContext: 异步任务与队列链路 把 async workflow 的稳定性和可观测性补齐 现在不是只写几个接口能解决 background
+    jobs 后台任务 queue worker retry idempotency
+  cwd: /tmp/skill-eval
+  projectId: seed:background-jobs
+  department: dept:backend-platform
+  domainHints:
+    - backend
+  sceneHints:
+    - scene:architecture
+    - scene:debug
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - backend/background-jobs-queues
+  acceptableSkillIds:
+    - backend/rest-api-implementation
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - review/code-review-general
+  preference:
+    preferredSkillId: backend/background-jobs-queues
+    competingSkillId: backend/rest-api-implementation
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

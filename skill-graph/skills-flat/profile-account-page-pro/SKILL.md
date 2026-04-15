@@ -6,29 +6,21 @@ displayName: Profile Account Page PRO
 description: Use when designing profile, account center, identity, privacy, and user preference pages. Pro version focused on ownership, editability, privacy, and account state visibility; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - profile-account-page-pro
+  - Profile Account Page PRO
+  - profileaccountpagepro
   - 个人资料
   - 用户资料
   - profile
   - 账户
   - 账号
   - 个人中心
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - Profile Account Page PRO
   - account
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 个人资料页面
+  - profile page
+  - 账户页面
+  - 个人中心页面
 version: 0.1.0
-sourceHash: sha256:72be631671b5a9b1b618596ff350a1a22e398bd134c672b0ae69cc07ab79960d
+sourceHash: sha256:0a0141c87bf63d529fb143d08eecad8e28f38042a567b0ff3e18c0c61b754245
 domain: frontend
 departmentTags:
   - frontend-platform

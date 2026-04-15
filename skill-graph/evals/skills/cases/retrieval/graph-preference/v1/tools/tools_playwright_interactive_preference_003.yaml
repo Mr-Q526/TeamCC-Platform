@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_playwright_interactive_preference_003
+title: 多轮界面排查在相邻表述下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - debug
+query:
+  queryText: 这次不是一次性自动跑流程，而是要一边保留页面上下文一边多轮排查交互问题。
+  queryContext: 不是一次性自动流程 保留页面上下文 多轮排查 交互问题
+  cwd: /tmp/skill-eval
+  projectId: seed:playwright-interactive
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/playwright-interactive
+  acceptableSkillIds:
+    - tools/playwright
+  forbiddenSkillIds:
+    - tools/screenshot
+    - frontend/component-library-pro
+  preference:
+    preferredSkillId: tools/playwright-interactive
+    competingSkillId: tools/playwright
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

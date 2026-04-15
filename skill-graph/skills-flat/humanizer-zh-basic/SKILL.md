@@ -7,6 +7,7 @@ description: Use as a lightweight baseline/control skill for making Chinese AI-g
 aliases:
   - humanizer-zh-basic
   - Humanizer ZH Basic
+  - humanizerzhbasic
   - 去AI味
   - 去AI味道
   - 去除AI痕迹
@@ -15,18 +16,11 @@ aliases:
   - basic humanizer
   - control skill
   - baseline skill
-  - ai
-  - content-generation
-  - 基础版
-  - basic
   - humanizer
   - zh
-  - 人工智能
   - 智能助手
-  - writing
-  - ai-platform
 version: 0.1.0
-sourceHash: sha256:90351fbab4200a774d8377879c7f044f438d8d398b2e01752fe8095e1e303592
+sourceHash: sha256:7daec2e6437d48057453ce63a8b06147c2d35e020560fb7fabfd62703bf86713
 domain: ai
 departmentTags:
   - ai-platform

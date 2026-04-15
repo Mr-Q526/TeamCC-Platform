@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_login_preference_008
+title: 登录页偏好扩展表达 008
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - login
+query:
+  queryText: 账号接入页面需要升级，想先把企业登录页这块补完整，核心是SSO、异常态恢复和安全提示更清楚。
+  queryContext: 企业登录页 SSO、异常态恢复和安全提示更清楚 账号接入页面需要升级 登录页 SSO 身份入口 异常态
+  cwd: /tmp/skill-eval
+  projectId: seed:auth-login-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:login
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/auth-login-page-pro
+  acceptableSkillIds:
+    - frontend/auth-login-page-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - security/security-best-practices
+  preference:
+    preferredSkillId: frontend/auth-login-page-pro
+    competingSkillId: frontend/auth-login-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

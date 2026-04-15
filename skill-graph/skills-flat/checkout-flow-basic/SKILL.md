@@ -6,25 +6,17 @@ displayName: Checkout Flow Basic
 description: Use when designing checkout, cart, payment, address, shipping, and order confirmation flows. Basic version focused on payment confidence, friction reduction, error recovery, and completion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - checkout-flow-basic
+  - Checkout Flow Basic
+  - checkoutflowbasic
   - 结账
   - 支付流程
   - 下单流程
-  - 基础版
-  - basic
-  - Checkout Flow Basic
   - checkout
   - flow
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 结账流程
+  - checkout flow
 version: 0.1.0
-sourceHash: sha256:a6653535c3295ae9ef923255a1fc1fc67d8f769086288f25999310ea63489908
+sourceHash: sha256:600e6c0aa6fb40e483a2ccef8ae2cef4aa63650996376ed905ab18e35552934a
 domain: frontend
 departmentTags:
   - frontend-platform

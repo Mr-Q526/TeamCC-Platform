@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个课程展示的 ，怎么设计才能吸引学生的注意力？
   queryContext: 课程展示 PPT 设计 内容生成
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

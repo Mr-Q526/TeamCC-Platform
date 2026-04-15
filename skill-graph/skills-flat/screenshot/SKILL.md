@@ -8,21 +8,14 @@ aliases:
   - screenshot
   - 截图
   - 截屏
-  - tools
-  - debug
   - 调试
   - 排查
   - 定位问题
-  - review
   - 代码审查
   - code review
   - 评审
-  - frontend-platform
-  - 前端
-  - Web 前端
-  - 页面开发
 version: 0.1.0
-sourceHash: sha256:0a975ac18be83090be3a0f48745f354269b0e18a015cc97cf65ad417602a3c13
+sourceHash: sha256:1954c6282e2279bad2c7b2948e10c314bf1c02fb035e56400f63c9d706724a75
 domain: tools
 departmentTags:
   - frontend-platform

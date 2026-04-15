@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个PPT，展示客户案例，包括客户背景、业务痛点、解决方案、结果数据和客户背书。
   queryContext: PPT 客户案例 设计 内容生成 背景 痛点 方案 数据 背书
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

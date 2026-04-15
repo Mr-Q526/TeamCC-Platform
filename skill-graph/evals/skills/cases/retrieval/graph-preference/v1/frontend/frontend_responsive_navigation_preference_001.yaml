@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_responsive_navigation_preference_001
+title: 响应式导航优先选择反馈更强的候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - navigation
+query:
+  queryText: 我想设计一个响应式导航栏，覆盖桌面端、移动端、二级菜单和吸顶交互。
+  queryContext: 前端 responsive navigation 桌面端 移动端 二级菜单 吸顶交互
+  cwd: /tmp/skill-eval
+  projectId: seed:responsive-navigation
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:navigation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/responsive-navigation-pro
+  acceptableSkillIds:
+    - frontend/responsive-navigation-basic
+  forbiddenSkillIds:
+    - frontend/component-library-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/responsive-navigation-pro
+    competingSkillId: frontend/responsive-navigation-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

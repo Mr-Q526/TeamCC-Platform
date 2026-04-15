@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_playwright_interactive_preference_001
+title: 持续交互式 UI 调试优先选择反馈更强的候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - debug
+query:
+  queryText: 我要持续交互式调试一个页面流程，希望保留浏览器状态，反复检查表单、弹窗和异常态。
+  queryContext: 持续交互式调试 保留浏览器状态 表单 弹窗 异常态
+  cwd: /tmp/skill-eval
+  projectId: seed:playwright-interactive
+  department: dept:frontend-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:debug
+    - scene:test
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/playwright-interactive
+  acceptableSkillIds:
+    - tools/playwright
+  forbiddenSkillIds:
+    - tools/screenshot
+    - frontend/component-library-pro
+  preference:
+    preferredSkillId: tools/playwright-interactive
+    competingSkillId: tools/playwright
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

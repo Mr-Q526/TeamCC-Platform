@@ -14,7 +14,8 @@ query:
   queryText: 我有一段文本，想把它做成一个动画视频，要根据文本规划合理的动画播放和切换时间，先给我一个预览，确认后再导出 格式。
   queryContext: 文本 动画视频 预览 导出 设计
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

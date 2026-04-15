@@ -41,6 +41,11 @@ export function buildEvalMarkdownReport(input: {
       lines.push(`- Title: ${item.title}`)
       lines.push(`- Dataset: ${item.dataset ?? 'default'}`)
       lines.push(`- Tags: ${item.tags.join(', ') || 'none'}`)
+      if (item.expected.preference) {
+        lines.push(
+          `- Preference: prefer \`${item.expected.preference.preferredSkillId}\` over \`${item.expected.preference.competingSkillId}\``,
+        )
+      }
       for (const modeResult of item.modeResults) {
         lines.push(
           `- ${modeResult.requestedMode}: actual=${modeResult.actualMode}, firstExpectedRank=${modeResult.firstExpectedRank ?? 'n/a'}, recall@3=${modeResult.recallAt3}, mrr=${modeResult.mrr}`,

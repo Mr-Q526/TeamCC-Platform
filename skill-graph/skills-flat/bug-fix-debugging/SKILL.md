@@ -5,36 +5,26 @@ name: bug-fix-debugging
 displayName: Bug Fix Debugging
 description: Use when diagnosing and fixing bugs, regressions, failing tests, runtime errors, broken behavior, and root-cause issues in code. Focus on reproduction, hypothesis-driven debugging, minimal patches, regression tests, and verification.
 aliases:
+  - bug-fix-debugging
+  - Bug Fix Debugging
+  - bugfixdebugging
   - 修复 bug
   - 修 bug
   - bug 修复
   - 问题排查
   - 故障定位
   - 回归测试
-  - bug-fix-debugging
   - bug
   - 缺陷
   - 故障
-  - 问题修复
-  - 修复
   - 调试
   - bug 排查
-  - Bug Fix Debugging
   - fix
   - debugging
-  - general
-  - 通用
-  - debug
   - 排查
   - 定位问题
-  - test
-  - 测试
-  - 验证
-  - backend-platform
-  - 后端
-  - 服务端
 version: 0.1.0
-sourceHash: sha256:5db2690bda9605c332ac813b9bfea3893dc856c79077ff0dddc9f8fe499a7972
+sourceHash: sha256:81edfe381b17bc0f49b7cee49f19b5d23476fa6ace60c6ebf8a742dc67fc7731
 domain: general
 departmentTags:
   - backend-platform

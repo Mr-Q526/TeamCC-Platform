@@ -7,22 +7,15 @@ description: Persistent browser and Electron interaction through `js_repl` for f
 aliases:
   - playwright-interactive
   - Playwright Interactive
+  - playwrightinteractive
   - playwright
   - interactive
-  - tools
-  - debug
   - 调试
   - 排查
   - 定位问题
-  - test
-  - 测试
   - 验证
-  - frontend-platform
-  - 前端
-  - Web 前端
-  - 页面开发
 version: 0.1.0
-sourceHash: sha256:2013245683be87839bea22892cbf86c1d49752338417b215edf2fe15b5c7352f
+sourceHash: sha256:e79f4f4484f93f956f4a222e149052f87a7b1ba4b91bd5885e2163f5b020a851
 domain: tools
 departmentTags:
   - frontend-platform

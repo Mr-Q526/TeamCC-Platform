@@ -1,0 +1,40 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_general_development_plan_preference_019
+title: 开发计划偏好邻近表达 019
+dataset: retrieval-graph-preference-v1
+tags:
+  - general
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-mixed
+  - planning
+query:
+  queryText: 现在不是要讨论架构细节，而是先把推进方案定下来，想先从 execution plan 视角把项目开发计划里的把
+    milestones、owners 和 acceptance 补完整拉顺，不是直接输出代码方案。
+  queryContext: 项目开发计划 把 milestones、owners 和 acceptance 补完整
+    现在不是要讨论架构细节，而是先把推进方案定下来 execution plan 开发计划 里程碑 资源拆分 风险 验收标准
+  cwd: /tmp/skill-eval
+  projectId: seed:development-plan-doc
+  department: dept:backend-platform
+  domainHints:
+    - general
+  sceneHints:
+    - scene:planning
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - general/development-plan-doc-pro
+  acceptableSkillIds:
+    - general/development-plan-doc-basic
+  forbiddenSkillIds:
+    - backend/backend-api-architecture
+    - frontend/website-homepage-design-pro
+  preference:
+    preferredSkillId: general/development-plan-doc-pro
+    competingSkillId: general/development-plan-doc-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

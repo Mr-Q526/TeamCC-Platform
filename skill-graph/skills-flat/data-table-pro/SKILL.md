@@ -6,26 +6,14 @@ displayName: Data Table PRO
 description: Use when designing data tables, grids, admin lists, bulk editing, and dense record management. Pro version focused on columns, sorting, selection, inline actions, and density; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - data-table-pro
-  - 数据
-  - data
+  - Data Table PRO
+  - datatablepro
   - 表格
   - 数据表格
   - data table
-  - 专业版
-  - pro
-  - Data Table PRO
   - table
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:9e4123448435d6cf0697f0701510f9b668eaabf0764c9cac38e796e536e14ad0
+sourceHash: sha256:b91ab45a2559dfcabe11f8d283908df7672b25cfac3160a76bd3819feaeb1be9
 domain: frontend
 departmentTags:
   - frontend-platform

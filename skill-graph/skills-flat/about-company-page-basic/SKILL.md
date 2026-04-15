@@ -6,30 +6,18 @@ displayName: About Company Page Basic
 description: Use when designing about pages, company story pages, team pages, and mission pages. Basic version focused on trust, narrative, people, values, and company proof; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - about-company-page-basic
+  - About Company Page Basic
+  - aboutcompanypagebasic
   - 关于我们
   - 公司介绍
   - 品牌介绍
-  - 公司
-  - 企业
   - 品牌
-  - 页面
-  - page
-  - 基础版
-  - basic
-  - About Company Page Basic
   - about
   - company
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 关于我们页面
+  - 公司介绍页面
 version: 0.1.0
-sourceHash: sha256:3f68881d65e2b0c0c3e473028a8be475a8c072886e32df1a4fafd495925a0e10
+sourceHash: sha256:c45a471e74976b910decc22be91255f02f20169b00adb18a1714d441ffe54e15
 domain: frontend
 departmentTags:
   - frontend-platform

@@ -6,20 +6,12 @@ displayName: Playwright
 description: Use when the task requires automating a real browser from the terminal (navigation, form filling, snapshots, screenshots, data extraction, UI-flow debugging) via `playwright-cli` or the bundled wrapper script.
 aliases:
   - playwright
-  - tools
-  - debug
   - 调试
   - 排查
   - 定位问题
-  - test
-  - 测试
   - 验证
-  - frontend-platform
-  - 前端
-  - Web 前端
-  - 页面开发
 version: 0.1.0
-sourceHash: sha256:a537f13f154660eeeb0e72a93beecd165fc49409dd4b203441a711bc7d1c7e2a
+sourceHash: sha256:21dac41abf9ca69445a3ff4eef99625266fbd7b7a96c315348140f50646eecba
 domain: tools
 departmentTags:
   - frontend-platform

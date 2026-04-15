@@ -6,25 +6,13 @@ displayName: AI Chat Interface Basic
 description: Use when designing AI chat, copilots, agent workspaces, prompt consoles, and assistant surfaces. Basic version focused on conversation flow, tool state, citations, safety, and trust; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - ai-chat-interface-basic
-  - AI
-  - 人工智能
-  - 智能助手
-  - 基础版
-  - basic
   - AI Chat Interface Basic
+  - aichatinterfacebasic
+  - 智能助手
   - chat
   - interface
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:398ad35b57180b9a5fb6651fd5dd9dd0f3ce2821dd4b39b616248f93062ff7be
+sourceHash: sha256:1cc279eb437720580248559e0e28c1cbdff7dd4f6616eebd83f580f16c42edc0
 domain: frontend
 departmentTags:
   - frontend-platform

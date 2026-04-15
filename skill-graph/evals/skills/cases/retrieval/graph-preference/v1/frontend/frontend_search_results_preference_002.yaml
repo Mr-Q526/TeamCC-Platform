@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_frontend_search_results_preference_002
+title: 检索结果列表在纯中文表达下仍应优先选择优质候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - frontend
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - search-results
+query:
+  queryText: 我们要做一个检索结果列表页面，需要支持筛选条件、排序方式、空状态和高密度信息展示。
+  queryContext: 检索结果列表 筛选条件 排序方式 空状态 高密度信息
+  cwd: /tmp/skill-eval
+  projectId: seed:search-results-page
+  department: dept:frontend-platform
+  domainHints:
+    - frontend
+  sceneHints:
+    - scene:search-results
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - frontend/search-results-page-pro
+  acceptableSkillIds:
+    - frontend/search-results-page-basic
+  forbiddenSkillIds:
+    - frontend/data-table-pro
+    - backend/backend-api-architecture
+  preference:
+    preferredSkillId: frontend/search-results-page-pro
+    competingSkillId: frontend/search-results-page-basic
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

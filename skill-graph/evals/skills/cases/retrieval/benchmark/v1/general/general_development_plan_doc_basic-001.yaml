@@ -14,7 +14,8 @@ query:
   queryText: 帮我写一个开发计划文档的基础版，包括大致步骤和验证方法。
   queryContext: 开发计划 文档 基础版 架构 规划
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

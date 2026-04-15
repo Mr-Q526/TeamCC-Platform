@@ -6,27 +6,17 @@ displayName: Search Results Page PRO
 description: Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Pro version focused on query feedback, relevance, filters, and result scanning; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - search-results-page-pro
+  - Search Results Page PRO
+  - searchresultspagepro
   - 搜索
   - 搜索结果
   - search results
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - Search Results Page PRO
   - search
   - results
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 搜索结果页面
+  - search results page
 version: 0.1.0
-sourceHash: sha256:cd0ecdd7cc7c96b1db8ca56a33f5b54b97bd97690579dccc4cd4dc85e1242f43
+sourceHash: sha256:269307372a0a54374b6fa54afa0d61f8df9a30f037dbd843c3d18927de3edb02
 domain: frontend
 departmentTags:
   - frontend-platform

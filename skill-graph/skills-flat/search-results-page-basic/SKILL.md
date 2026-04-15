@@ -6,27 +6,17 @@ displayName: Search Results Page Basic
 description: Use when designing search results, filtering, sorting, faceted navigation, and discovery pages. Basic version focused on query feedback, relevance, filters, and result scanning; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - search-results-page-basic
+  - Search Results Page Basic
+  - searchresultspagebasic
   - 搜索
   - 搜索结果
   - search results
-  - 页面
-  - page
-  - 基础版
-  - basic
-  - Search Results Page Basic
   - search
   - results
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 搜索结果页面
+  - search results page
 version: 0.1.0
-sourceHash: sha256:30e9b0e4c1a49e854426ffa5e37a511b837f13fd7cda48f641a6b84e611c90b1
+sourceHash: sha256:3a9472ea28e604a2124cd8dec874437565441c1f198fc4d4be6ed477082fbbdd
 domain: frontend
 departmentTags:
   - frontend-platform

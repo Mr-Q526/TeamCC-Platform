@@ -6,25 +6,15 @@ displayName: Pricing Page Basic
 description: Use when designing pricing, plans, billing comparison, quote request, and package selection pages. Basic version focused on plan clarity, comparison, trust, and conversion; emphasizes fast layout, obvious labels, a minimal section set, and a short checklist.
 aliases:
   - pricing-page-basic
+  - Pricing Page Basic
+  - pricingpagebasic
   - 定价
   - 价格页
   - pricing
-  - 页面
-  - page
-  - 基础版
-  - basic
-  - Pricing Page Basic
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 定价页
+  - pricing page
 version: 0.1.0
-sourceHash: sha256:a36ae6571334aa656d9751c709373ea6f317e4499765170ab02dae94f10e3d40
+sourceHash: sha256:f3af15b989d9a24be96637438062d2ecc49f72c29fb494586d04345cbd5d05c0
 domain: frontend
 departmentTags:
   - frontend-platform

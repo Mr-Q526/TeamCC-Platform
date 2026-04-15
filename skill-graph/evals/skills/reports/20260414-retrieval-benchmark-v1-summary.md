@@ -277,3 +277,61 @@ evals/skills/cases/retrieval/benchmark/v1/
 2. 再做 security 子类 discriminator 和 `security-threat-model` 降权。
 3. general 只需要做少量排序修正，不是当前主风险。
 4. graph rerank 需要单独排查：为什么在 300 条 benchmark 上 `bm25_vector_graph` 与 `bm25_vector` 完全持平。
+
+## 10. 检索治理执行结果
+
+执行时间：2026-04-14
+
+治理 run：
+
+- `evals/skills/runs/offline-retrieval-2026-04-14T14-29-08-039Z-70fc7c48/`
+
+本轮已把第 9 节建议转成 `skill-graph` 检索规则：
+
+- 对 frontend 增加 page-type discriminator，避免 `marketing-landing-page` 吃掉设置页、搜索结果页、导航、资料页、结账流等细粒度页面需求。
+- 对 security 增加 subtype discriminator，避免 `security-threat-model` 吃掉限流、所有权、供应链、最佳实践、漏洞检查等安全子类需求。
+- 对 general 增加内容平台 vs 部署意图区分，避免公众号/小红书“发布内容”误触发 `infra/vercel-deploy`。
+- 增加 basic/pro 偏好：简单、基础、快速偏 basic；专业、高级、企业级、深层信息架构偏 pro。
+
+验证限制：
+
+- 当前 shell 没有配置 `ARK_API_KEY` / `VOLC_ARK_API_KEY`。
+- 因此本次 `bm25_vector` 和 `bm25_vector_graph` 都发生 `query_embedding_unavailable` 降级，`degradedRate = 1`。
+- 下面结果可验证 lexical + intent 治理效果，但不能作为完整向量/图谱 uplift 结论。
+
+整体指标对比：
+
+| mode | Recall@1 | Recall@3 | Recall@5 | MRR | degradedRate |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| old `bm25_vector_graph` | 0.49 | 0.74 | 0.826667 | 0.618778 | 0 |
+| new degraded `bm25_vector_graph` | 0.55 | 0.873333 | 0.926667 | 0.714778 | 1 |
+
+重点域指标对比：
+
+| domain | metric | old | new | delta |
+| --- | --- | ---: | ---: | ---: |
+| frontend | Recall@1 | 0.155556 | 0.2 | +0.044444 |
+| frontend | Recall@3 | 0.333333 | 0.744444 | +0.411111 |
+| frontend | MRR | 0.263148 | 0.484259 | +0.221111 |
+| security | Recall@1 | 0.25 | 0.75 | +0.5 |
+| security | Recall@3 | 0.791667 | 1 | +0.208333 |
+| security | MRR | 0.509722 | 0.847222 | +0.3375 |
+| general | Recall@1 | 0.625 | 0.791667 | +0.166667 |
+| general | Recall@3 | 1 | 1 | 0 |
+| general | MRR | 0.798611 | 0.881944 | +0.083333 |
+
+成功标准状态：
+
+| success criterion | result |
+| --- | --- |
+| frontend Recall@3 >= 0.55 | pass: 0.744444 |
+| security Recall@1 >= 0.45 | pass: 0.75 |
+| general Recall@3 = 1.0 | pass: 1 |
+| general Recall@1 >= 0.75 | pass: 0.791667 |
+| audit issueCount = 0 | pass: 300 cases, issueCount 0, quotaIssueCount 0 |
+
+剩余问题：
+
+- Frontend Recall@1 仍然只有 0.2，说明细粒度页面已经进入 Top3/Top5，但 Top1 排序还需要继续治理。
+- 本次无法判断 graph rerank 是否有真实 uplift，因为缺 embedding key 导致 vector/graph 模式降级。
+- 下一步要用完整 Ark embedding 环境重跑 `bm25_vector_graph`，再判断 graph features 是否仍然和 vector 持平。

@@ -6,21 +6,13 @@ displayName: Backend API Architecture
 description: Use when working on backend service architecture, API boundaries, module decomposition, service contracts, and data flow design. Focus on clear ownership, stable interfaces, failure isolation, and maintainability.
 aliases:
   - backend-api-architecture
-  - 后端
+  - Backend API Architecture
+  - backendapiarchitecture
   - 服务端
   - server side
-  - API
-  - 接口
   - 服务接口
-  - 架构
-  - 架构设计
-  - 模块边界
-  - Backend API Architecture
-  - backend
-  - architecture
-  - backend-platform
 version: 0.1.0
-sourceHash: sha256:2e46978fe281ed0f5da9c1dc20fa9cd700072ffc7973cbab42ed5cd71e100bed
+sourceHash: sha256:5f2c5e93c46886529c2661666e0e57abf8c43a59ee2c82638ad8a1dd5b3ca6d9
 domain: backend
 departmentTags:
   - backend-platform

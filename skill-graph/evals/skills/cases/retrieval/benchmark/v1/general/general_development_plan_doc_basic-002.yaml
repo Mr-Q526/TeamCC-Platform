@@ -14,7 +14,8 @@ query:
   queryText: 我需要一个简单的开发计划文档，包含主要步骤、大致文件和验证说明。
   queryContext: 开发计划 文档 架构 规划 workflow planning execution
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

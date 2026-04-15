@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个大学社团招新的PPT，要高能结构化，强调大标题、强节奏、收益表达和明确报名行动。
   queryContext: 设计 PPT 社团招新 内容生成 设计
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

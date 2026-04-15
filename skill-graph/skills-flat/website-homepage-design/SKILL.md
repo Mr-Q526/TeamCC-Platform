@@ -5,28 +5,23 @@ name: website-homepage-design
 displayName: Website Homepage Design
 description: Use when the task is to design a branded homepage, 官网首页, company website, startup homepage, product website, or corporate front page. Focus on brand hierarchy, hero composition, proof sequencing, section rhythm, and clear conversion paths.
 aliases:
+  - website-homepage-design
+  - Website Homepage Design
+  - websitehomepagedesign
   - 官网首页
   - 品牌首页
   - 企业官网
   - 产品官网
-  - website-homepage-design
   - 官网
   - website
   - 首页
   - 主页
-  - 设计
-  - UI
-  - 视觉设计
-  - Website Homepage Design
   - homepage
-  - design
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - frontend-platform
+  - 企业官网首页
+  - 产品官网首页
+  - homepage design
 version: 0.1.0
-sourceHash: sha256:3870a8b4041802741ed872451e4b21de51c9107c4109a9938f32bc6809945608
+sourceHash: sha256:f4e8366bdec59c6430819340ef2eabbdc2f6abf34adf25f5286c965af00a0d96
 domain: frontend
 departmentTags:
   - frontend-platform

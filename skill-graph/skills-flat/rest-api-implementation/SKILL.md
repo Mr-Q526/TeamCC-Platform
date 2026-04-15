@@ -5,33 +5,23 @@ name: rest-api-implementation
 displayName: REST API Implementation
 description: Use when working on REST API routes, controllers, validation, pagination, errors, and versioning. Focus on predictable resources, validation, error semantics, and compatibility.
 aliases:
+  - rest-api-implementation
+  - REST API Implementation
+  - restapiimplementation
   - REST 接口
   - controller
   - 参数校验
   - 分页接口
-  - rest-api-implementation
   - REST
   - REST API
   - 资源接口
-  - API
-  - 接口
   - 服务接口
-  - REST API Implementation
   - implementation
-  - backend
-  - 后端
   - 服务端
   - server side
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - test
-  - 测试
   - 验证
-  - backend-platform
 version: 0.1.0
-sourceHash: sha256:269df220bec0c3d8e183e0f08592f32e636c9530828743bd31da318d2fb9781e
+sourceHash: sha256:79bed197e42dc6a9a9b51e948c21076aca736a67a02c830ce6566fcfc59bb131
 domain: backend
 departmentTags:
   - backend-platform

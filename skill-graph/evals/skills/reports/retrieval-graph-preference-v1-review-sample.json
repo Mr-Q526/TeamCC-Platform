@@ -1,0 +1,1085 @@
+{
+  "sampleSize": 36,
+  "sample": [
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_001",
+      "title": "组件库设计优先选择反馈更强的候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "我想搭建一个企业级 component library，要有 tokens、variants、组件规范和可维护扩展能力。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_003",
+      "title": "前端规范化组件资产在相邻表述下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "需要把前端基础组件和设计令牌体系整理成可复用资产，后面还要支持规范治理和扩展。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_backend_background_jobs_preference_002",
+      "title": "后台任务链路排查在混合表达下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "backend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "architecture"
+      ],
+      "queryText": "帮我处理 queue / worker 的 retry、idempotency、backlog 和 async workflow 问题，最好兼顾 observability。",
+      "expected": {
+        "mustHitSkillIds": [
+          "backend/background-jobs-queues"
+        ],
+        "acceptableSkillIds": [
+          "backend/rest-api-implementation"
+        ],
+        "forbiddenSkillIds": [
+          "backend/backend-api-architecture",
+          "review/code-review-general"
+        ],
+        "preference": {
+          "preferredSkillId": "backend/background-jobs-queues",
+          "competingSkillId": "backend/rest-api-implementation",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_backend_background_jobs_preference_003",
+      "title": "异步执行链路治理在相邻表述下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "backend",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "architecture"
+      ],
+      "queryText": "我们现在更像是后台任务链路不稳，想先把重试、积压和执行一致性这些问题理顺，而不是只写几个接口。",
+      "expected": {
+        "mustHitSkillIds": [
+          "backend/background-jobs-queues"
+        ],
+        "acceptableSkillIds": [
+          "backend/rest-api-implementation"
+        ],
+        "forbiddenSkillIds": [
+          "backend/backend-api-architecture",
+          "review/code-review-general"
+        ],
+        "preference": {
+          "preferredSkillId": "backend/background-jobs-queues",
+          "competingSkillId": "backend/rest-api-implementation",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_design_motion_video_preference_002",
+      "title": "口播配套动效视频在混合表达下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "design",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "content-generation"
+      ],
+      "queryText": "想根据文案做一个 explainer motion video，要有字幕、镜头切换和配合 narration 的动画节奏。",
+      "expected": {
+        "mustHitSkillIds": [
+          "design/motion-video-maker"
+        ],
+        "acceptableSkillIds": [
+          "design/jimeng"
+        ],
+        "forbiddenSkillIds": [
+          "design/ppt-maker",
+          "tools/pdf"
+        ],
+        "preference": {
+          "preferredSkillId": "design/motion-video-maker",
+          "competingSkillId": "design/jimeng",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_design_motion_video_preference_003",
+      "title": "内容讲解短视频在相邻表述下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "design",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "content-generation"
+      ],
+      "queryText": "我不是要单张图片，而是想把一段讲解内容做成可以预览和导出的动态视频表达。",
+      "expected": {
+        "mustHitSkillIds": [
+          "design/motion-video-maker"
+        ],
+        "acceptableSkillIds": [
+          "design/jimeng"
+        ],
+        "forbiddenSkillIds": [
+          "design/ppt-maker",
+          "tools/pdf"
+        ],
+        "preference": {
+          "preferredSkillId": "design/motion-video-maker",
+          "competingSkillId": "design/jimeng",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_tools_playwright_interactive_preference_002",
+      "title": "持久浏览器调试在混合表达下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "tools",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "debug"
+      ],
+      "queryText": "想用 persistent browser 做一轮 iterative UI debugging，需要反复点流程、看状态变化和交互问题。",
+      "expected": {
+        "mustHitSkillIds": [
+          "tools/playwright-interactive"
+        ],
+        "acceptableSkillIds": [
+          "tools/playwright"
+        ],
+        "forbiddenSkillIds": [
+          "tools/screenshot",
+          "frontend/component-library-pro"
+        ],
+        "preference": {
+          "preferredSkillId": "tools/playwright-interactive",
+          "competingSkillId": "tools/playwright",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_tools_playwright_interactive_preference_003",
+      "title": "多轮界面排查在相邻表述下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "tools",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "debug"
+      ],
+      "queryText": "这次不是一次性自动跑流程，而是要一边保留页面上下文一边多轮排查交互问题。",
+      "expected": {
+        "mustHitSkillIds": [
+          "tools/playwright-interactive"
+        ],
+        "acceptableSkillIds": [
+          "tools/playwright"
+        ],
+        "forbiddenSkillIds": [
+          "tools/screenshot",
+          "frontend/component-library-pro"
+        ],
+        "preference": {
+          "preferredSkillId": "tools/playwright-interactive",
+          "competingSkillId": "tools/playwright",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_security_dependency_audit_preference_002",
+      "title": "依赖安全核查在混合表达下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "security",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "security-audit"
+      ],
+      "queryText": "帮我做一轮 dependency audit，重点看 vulnerable packages、lockfile integrity、license risk 和 update safety。",
+      "expected": {
+        "mustHitSkillIds": [
+          "security/dependency-supply-chain-audit"
+        ],
+        "acceptableSkillIds": [
+          "security/security-vulnerability-check"
+        ],
+        "forbiddenSkillIds": [
+          "review/code-review-general",
+          "backend/auth-authorization-backend"
+        ],
+        "preference": {
+          "preferredSkillId": "security/dependency-supply-chain-audit",
+          "competingSkillId": "security/security-vulnerability-check",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_security_dependency_audit_preference_003",
+      "title": "供应链风险排查在相邻表述下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "security",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "security-audit"
+      ],
+      "queryText": "我更关心外部包和版本链路会不会把风险带进来，想先把依赖层面的隐患摸清楚。",
+      "expected": {
+        "mustHitSkillIds": [
+          "security/dependency-supply-chain-audit"
+        ],
+        "acceptableSkillIds": [
+          "security/security-vulnerability-check"
+        ],
+        "forbiddenSkillIds": [
+          "review/code-review-general",
+          "backend/auth-authorization-backend"
+        ],
+        "preference": {
+          "preferredSkillId": "security/dependency-supply-chain-audit",
+          "competingSkillId": "security/security-vulnerability-check",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_general_development_plan_preference_001",
+      "title": "开发计划文档优先选择反馈更强的候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "general",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "planning"
+      ],
+      "queryText": "帮我输出一份完整 development plan，包含里程碑、资源拆分、风险和验收标准。",
+      "expected": {
+        "mustHitSkillIds": [
+          "general/development-plan-doc-pro"
+        ],
+        "acceptableSkillIds": [
+          "general/development-plan-doc-basic"
+        ],
+        "forbiddenSkillIds": [
+          "backend/backend-api-architecture",
+          "frontend/website-homepage-design-pro"
+        ],
+        "preference": {
+          "preferredSkillId": "general/development-plan-doc-pro",
+          "competingSkillId": "general/development-plan-doc-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_general_development_plan_preference_003",
+      "title": "功能推进方案在相邻表述下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "general",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "planning"
+      ],
+      "queryText": "我们准备推进一个中型功能迭代，先需要一份 execution plan，把阶段目标、资源、风险和交付界线梳理清楚。",
+      "expected": {
+        "mustHitSkillIds": [
+          "general/development-plan-doc-pro"
+        ],
+        "acceptableSkillIds": [
+          "general/development-plan-doc-basic"
+        ],
+        "forbiddenSkillIds": [
+          "backend/backend-api-architecture",
+          "frontend/website-homepage-design-pro"
+        ],
+        "preference": {
+          "preferredSkillId": "general/development-plan-doc-pro",
+          "competingSkillId": "general/development-plan-doc-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_ai_humanizer_preference_002",
+      "title": "中文润稿去模型腔在混合表达下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "ai",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "humanizer"
+      ],
+      "queryText": "帮我把这篇中文稿子润成更自然的人类表达，减少模型腔，但不要丢信息密度和语气层次。",
+      "expected": {
+        "mustHitSkillIds": [
+          "ai/humanizer-zh-pro"
+        ],
+        "acceptableSkillIds": [
+          "ai/humanizer-zh-basic"
+        ],
+        "forbiddenSkillIds": [
+          "design/motion-video-maker",
+          "design/ppt-maker"
+        ],
+        "preference": {
+          "preferredSkillId": "ai/humanizer-zh-pro",
+          "competingSkillId": "ai/humanizer-zh-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_ai_humanizer_preference_003",
+      "title": "发布前润色改写在相邻表述下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "ai",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "humanizer"
+      ],
+      "queryText": "这篇准备发布的中文内容需要做一轮 rewrite，让表达更自然、更像真人写作，同时保持信息边界。",
+      "expected": {
+        "mustHitSkillIds": [
+          "ai/humanizer-zh-pro"
+        ],
+        "acceptableSkillIds": [
+          "ai/humanizer-zh-basic"
+        ],
+        "forbiddenSkillIds": [
+          "design/motion-video-maker",
+          "design/ppt-maker"
+        ],
+        "preference": {
+          "preferredSkillId": "ai/humanizer-zh-pro",
+          "competingSkillId": "ai/humanizer-zh-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_review_risk_code_review_preference_002",
+      "title": "风险导向代码评审在混合表达下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "review",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "review"
+      ],
+      "queryText": "这次 diff 风险比较高，麻烦做一轮 risk-based code review，重点盯 auth、rollback、observability 和 edge cases。",
+      "expected": {
+        "mustHitSkillIds": [
+          "review/code-review-risk-based"
+        ],
+        "acceptableSkillIds": [
+          "review/code-review-general"
+        ],
+        "forbiddenSkillIds": [
+          "general/bug-fix-debugging",
+          "backend/rest-api-implementation"
+        ],
+        "preference": {
+          "preferredSkillId": "review/code-review-risk-based",
+          "competingSkillId": "review/code-review-general",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_review_risk_code_review_preference_003",
+      "title": "高风险变更评审在相邻表述下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "review",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "review"
+      ],
+      "queryText": "这批变更牵涉公共接口和权限控制，想先做一轮更偏风险视角的审查，确认不会留下大的回滚和监控盲点。",
+      "expected": {
+        "mustHitSkillIds": [
+          "review/code-review-risk-based"
+        ],
+        "acceptableSkillIds": [
+          "review/code-review-general"
+        ],
+        "forbiddenSkillIds": [
+          "general/bug-fix-debugging",
+          "backend/rest-api-implementation"
+        ],
+        "preference": {
+          "preferredSkillId": "review/code-review-risk-based",
+          "competingSkillId": "review/code-review-general",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_002",
+      "title": "组件库建设在纯中文表达下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "我们要建设一套企业级组件库，希望统一设计令牌、组件规范、变体能力和长期维护方式。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_004",
+      "title": "组件库偏好扩展表达 004",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，我需要把企业级组件库做好，重点是tokens、variants 和组件规范可长期维护。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_005",
+      "title": "组件库偏好扩展表达 005",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，想先把企业级组件库这块补完整，核心是基础组件、设计令牌和扩展机制更系统。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_006",
+      "title": "组件库偏好扩展表达 006",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，这次做企业级组件库，最关心的是组件复用、约束规则和发布方式更完整。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_007",
+      "title": "组件库偏好扩展表达 007",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，我需要把企业级组件库做好，重点是规范治理、设计令牌和可维护扩展能力更成熟。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_008",
+      "title": "组件库偏好扩展表达 008",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "团队准备建设内部组件库，想先把企业级组件库这块补完整，核心是tokens、variants 和组件规范可长期维护。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_009",
+      "title": "组件库偏好扩展表达 009",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "团队准备建设内部组件库，这次做企业级组件库，最关心的是基础组件、设计令牌和扩展机制更系统。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_010",
+      "title": "组件库偏好混合表达 010",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，想把企业级组件库做成更成熟的 component library 体验，重点是tokens、variants 和组件规范可长期维护。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_011",
+      "title": "组件库偏好混合表达 011",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，这轮需要一个更完整的 design tokens 方案，核心还是tokens、variants 和组件规范可长期维护。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_012",
+      "title": "组件库偏好混合表达 012",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，希望把企业级组件库往 UI foundation 的方向做，重点补齐tokens、variants 和组件规范可长期维护。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_013",
+      "title": "组件库偏好混合表达 013",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，想把企业级组件库做成更成熟的 component library 体验，重点是基础组件、设计令牌和扩展机制更系统。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_014",
+      "title": "组件库偏好混合表达 014",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "设计和前端想统一基础组件资产，这轮需要一个更完整的 design tokens 方案，核心还是基础组件、设计令牌和扩展机制更系统。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_015",
+      "title": "组件库偏好邻近表达 015",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "现在组件各写各的很散，更像是企业级组件库这条线需要一次 component library 级别的梳理，先把把基础组件、tokens 和规则统一下来做对，不是只做一个 demo 页面。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_016",
+      "title": "组件库偏好邻近表达 016",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "现在组件各写各的很散，更像是企业级组件库这条线需要先补齐把基础组件、tokens 和规则统一下来，不是临时抄几份组件代码。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_017",
+      "title": "组件库偏好邻近表达 017",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "现在组件各写各的很散，现在最缺的是一轮 UI foundation 式处理，把把基础组件、tokens 和规则统一下来补完整，不是单个页面的局部样式修补。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_018",
+      "title": "组件库偏好邻近表达 018",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "现在组件各写各的很散，想先把企业级组件库里的把基础组件、tokens 和规则统一下来理顺，不是只整理视觉稿。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_019",
+      "title": "组件库偏好邻近表达 019",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-mixed",
+        "component-library"
+      ],
+      "queryText": "现在组件各写各的很散，想先从 design tokens 视角把企业级组件库里的把设计令牌、变体能力和扩展边界理顺拉顺，不是只做一个 demo 页面。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_component_library_preference_020",
+      "title": "组件库偏好邻近表达 020",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:adjacent",
+        "lang:zh-pure",
+        "component-library"
+      ],
+      "queryText": "现在组件各写各的很散，这次优先把企业级组件库里的把设计令牌、变体能力和扩展边界理顺做对，不是临时抄几份组件代码。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/component-library-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/component-library-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/website-homepage-design-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/component-library-pro",
+          "competingSkillId": "frontend/component-library-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_design_system_preference_001",
+      "title": "设计系统建设优先选择反馈更强的候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-mixed",
+        "design-system"
+      ],
+      "queryText": "我想搭建一套企业级设计系统，要覆盖 design tokens、组件规范、发布流程和协作治理。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/design-system-builder-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/design-system-builder-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/component-library-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/design-system-builder-pro",
+          "competingSkillId": "frontend/design-system-builder-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    },
+    {
+      "caseId": "retrieval_graph_preference_frontend_design_system_preference_002",
+      "title": "企业设计系统在纯中文表达下仍应优先选择优质候选",
+      "dataset": "retrieval-graph-preference-v1",
+      "tags": [
+        "frontend",
+        "set:graph-preference",
+        "difficulty:direct",
+        "lang:zh-pure",
+        "design-system"
+      ],
+      "queryText": "我们要建设一套企业设计系统，希望同时覆盖设计令牌、组件规则、发布流程和协作治理。",
+      "expected": {
+        "mustHitSkillIds": [
+          "frontend/design-system-builder-pro"
+        ],
+        "acceptableSkillIds": [
+          "frontend/design-system-builder-basic"
+        ],
+        "forbiddenSkillIds": [
+          "frontend/component-library-pro",
+          "backend/backend-api-architecture"
+        ],
+        "preference": {
+          "preferredSkillId": "frontend/design-system-builder-pro",
+          "competingSkillId": "frontend/design-system-builder-basic",
+          "expectedDirection": "preferred_above_competitor"
+        }
+      }
+    }
+  ]
+}

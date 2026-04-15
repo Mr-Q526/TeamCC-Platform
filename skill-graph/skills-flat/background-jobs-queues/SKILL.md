@@ -5,12 +5,14 @@ name: background-jobs-queues
 displayName: Background Jobs Queues
 description: Use when working on queues, workers, scheduled jobs, retries, idempotency, and async workflows. Focus on idempotency, retry policy, dead-letter handling, and operational visibility.
 aliases:
+  - background-jobs-queues
+  - Background Jobs Queues
+  - backgroundjobsqueues
   - 后台任务队列
   - 异步队列
   - 任务重试
   - 幂等任务
   - 死信队列
-  - background-jobs-queues
   - 后台任务
   - 异步任务
   - 后台作业
@@ -21,20 +23,8 @@ aliases:
   - 队列
   - worker
   - 重试
-  - 幂等
-  - dead-letter queue
-  - Background Jobs Queues
-  - background
-  - jobs
-  - queues
-  - backend
-  - 后端
-  - 服务端
-  - server side
-  - architecture
-  - 架构
 version: 0.1.0
-sourceHash: sha256:4856687a2e468f2f3059758a505110e9942a705950903fedab8d6cdcc001b5db
+sourceHash: sha256:69ecb0b3257ce3ca6cc0be667b7d06c65fd213ff942954e24ac0c2282c85fe30
 domain: backend
 departmentTags:
   - backend-platform

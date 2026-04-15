@@ -5,36 +5,25 @@ name: auth-authorization-backend
 displayName: Backend Auth Authorization
 description: Use when working on authentication, authorization, sessions, API keys, RBAC, ABAC, and tenant boundaries. Focus on least privilege, secure defaults, session safety, and auditable permission checks.
 aliases:
+  - auth-authorization-backend
+  - Backend Auth Authorization
+  - auth authorization backend
+  - authauthorizationbackend
   - 后端鉴权
   - 接口授权
   - 租户边界
   - 权限检查
-  - auth-authorization-backend
   - 认证
-  - 鉴权
-  - 授权
-  - 登录态
   - 权限
   - RBAC
   - ABAC
-  - 后端
   - 服务端
   - server side
-  - Backend Auth Authorization
-  - auth authorization backend
   - auth
   - authorization
-  - backend
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - security-audit
-  - 安全
-  - 安全审计
-  - security
+  - 登录页面
 version: 0.1.0
-sourceHash: sha256:c4d9c9fc1cbb59b8de303065e50e8cc17551a473b7d85da7989d34de0ae46fe6
+sourceHash: sha256:35bfe393f0b974dc59f9a35eac23fd2502d41aea90fba48098442b49df44a26b
 domain: backend
 departmentTags:
   - backend-platform

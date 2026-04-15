@@ -1,0 +1,39 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_review_risk_code_review_preference_013
+title: 高风险评审偏好混合表达 013
+dataset: retrieval-graph-preference-v1
+tags:
+  - review
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-mixed
+  - review
+query:
+  queryText: 这次 PR 动了权限和公共接口，想把高风险代码评审做成更成熟的 risk-based review 体验，重点是可观测性、失败路径和兼容性检查完整。
+  queryContext: 高风险代码评审 可观测性、失败路径和兼容性检查完整 risk-based review 这次 PR 动了权限和公共接口 风险评审
+    权限 回滚 observability
+  cwd: /tmp/skill-eval
+  projectId: seed:code-review-risk
+  department: dept:backend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+  forbiddenSkillIds:
+    - general/bug-fix-debugging
+    - backend/rest-api-implementation
+  preference:
+    preferredSkillId: review/code-review-risk-based
+    competingSkillId: review/code-review-general
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

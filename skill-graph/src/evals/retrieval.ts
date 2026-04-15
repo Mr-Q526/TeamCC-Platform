@@ -8,6 +8,7 @@ import type {
   GraphUpliftCaseResult,
   RetrievalEvalCandidateRecord,
   RetrievalEvalCaseResult,
+  RetrievalPreferenceMetricSummary,
   RetrievalEvalModeResult,
   SkillRetrievalEvalCase,
   SkillRetrievalEvalRequestedMode,
@@ -23,6 +24,7 @@ export type OfflineRetrievalEvalOptions = {
   projectRoot: string
   cases: SkillRetrievalEvalCase[]
   topK: number
+  retrievalFeaturesPath?: string | null
 }
 
 type RetrievalMetricSummary = {
@@ -123,12 +125,19 @@ function candidateRecord(candidate: SkillRetrievalCandidate): RetrievalEvalCandi
   }
 }
 
-async function loadAssets(projectRoot: string): Promise<RetrievalEvalAssetBundle> {
+async function loadAssets(
+  projectRoot: string,
+  retrievalFeaturesPath?: string | null,
+): Promise<RetrievalEvalAssetBundle> {
   const [registryManifest, embeddingsManifest, retrievalFeaturesManifest] =
     await Promise.all([
       readSkillRegistry(projectRoot),
       readSkillEmbeddings(projectRoot),
-      readSkillRetrievalFeatures(),
+      retrievalFeaturesPath === null
+        ? Promise.resolve(null)
+        : retrievalFeaturesPath
+          ? readSkillRetrievalFeatures(retrievalFeaturesPath)
+          : readSkillRetrievalFeatures(),
     ])
 
   return {
@@ -173,6 +182,7 @@ async function evaluateMode(
       queryText: evalCase.query.queryText,
       queryContext: evalCase.query.queryContext ?? undefined,
       cwd: evalCase.query.cwd ?? process.cwd(),
+      projectId: evalCase.query.projectId ?? undefined,
       department: evalCase.query.department ?? undefined,
       domainHints: evalCase.query.domainHints,
       sceneHints: evalCase.query.sceneHints,
@@ -306,6 +316,98 @@ function summarizeByGrouping(
   )
 }
 
+function summarizePreferenceCases(
+  results: RetrievalEvalCaseResult[],
+): RetrievalPreferenceMetricSummary | null {
+  const preferenceCases = results.filter(result => result.expected.preference !== null)
+  if (preferenceCases.length === 0) {
+    return null
+  }
+
+  const graphResults = preferenceCases
+    .map(result => result.modeResults.find(item => item.requestedMode === 'bm25_vector_graph'))
+    .filter((item): item is RetrievalEvalModeResult => item !== undefined)
+
+  if (graphResults.length === 0) {
+    return {
+      caseCount: preferenceCases.length,
+      preferredSkillTop1Rate: 0,
+      preferredSkillBeatsCompetitorRate: 0,
+      wrongIntentHijackRate: 0,
+      graphAppliedRate: 0,
+      preferenceBonusAppliedRate: 0,
+    }
+  }
+
+  const caseCount = graphResults.length
+  let preferredTop1 = 0
+  let preferredBeatsCompetitor = 0
+  let wrongIntentHijack = 0
+  let graphApplied = 0
+  let preferenceBonusApplied = 0
+
+  for (const result of preferenceCases) {
+    const preference = result.expected.preference
+    const graph = result.modeResults.find(item => item.requestedMode === 'bm25_vector_graph')
+    if (!preference || !graph) {
+      continue
+    }
+
+    const topCandidate = graph.candidates[0] ?? null
+    const preferredCandidate =
+      graph.candidates.find(candidate => candidate.skillId === preference.preferredSkillId) ??
+      null
+    const competingCandidate =
+      graph.candidates.find(candidate => candidate.skillId === preference.competingSkillId) ??
+      null
+
+    if (topCandidate?.skillId === preference.preferredSkillId) {
+      preferredTop1 += 1
+    }
+
+    if (
+      preferredCandidate &&
+      competingCandidate &&
+      preferredCandidate.rank < competingCandidate.rank
+    ) {
+      preferredBeatsCompetitor += 1
+    }
+
+    if (
+      topCandidate &&
+      topCandidate.skillId !== preference.preferredSkillId &&
+      topCandidate.skillId !== preference.competingSkillId &&
+      !result.expected.acceptableSkillIds.includes(topCandidate.skillId)
+    ) {
+      wrongIntentHijack += 1
+    }
+
+    if (
+      graph.candidates.some(
+        candidate => (candidate.finalScoreBreakdown.graphBonus ?? 0) > 0,
+      )
+    ) {
+      graphApplied += 1
+    }
+
+    if (
+      preferredCandidate &&
+      (preferredCandidate.finalScoreBreakdown.preferenceBonus ?? 0) > 0
+    ) {
+      preferenceBonusApplied += 1
+    }
+  }
+
+  return {
+    caseCount,
+    preferredSkillTop1Rate: average([preferredTop1 / caseCount]),
+    preferredSkillBeatsCompetitorRate: average([preferredBeatsCompetitor / caseCount]),
+    wrongIntentHijackRate: average([wrongIntentHijack / caseCount]),
+    graphAppliedRate: average([graphApplied / caseCount]),
+    preferenceBonusAppliedRate: average([preferenceBonusApplied / caseCount]),
+  }
+}
+
 export async function runOfflineRetrievalEval(
   options: OfflineRetrievalEvalOptions,
 ): Promise<{
@@ -323,10 +425,44 @@ export async function runOfflineRetrievalEval(
         >
       }
     >
+    metricsByDomain: Record<
+      string,
+      {
+        caseCount: number
+        metricsByRequestedMode: Record<
+          SkillRetrievalEvalRequestedMode,
+          RetrievalMetricSummary
+        >
+      }
+    >
+    metricsByDifficulty: Record<
+      string,
+      {
+        caseCount: number
+        metricsByRequestedMode: Record<
+          SkillRetrievalEvalRequestedMode,
+          RetrievalMetricSummary
+        >
+      }
+    >
+    metricsByLanguage: Record<
+      string,
+      {
+        caseCount: number
+        metricsByRequestedMode: Record<
+          SkillRetrievalEvalRequestedMode,
+          RetrievalMetricSummary
+        >
+      }
+    >
+    preferenceMetrics: RetrievalPreferenceMetricSummary | null
   }
   assets: RetrievalEvalAssetBundle
 }> {
-  const bundle = await loadAssets(options.projectRoot)
+  const bundle = await loadAssets(
+    options.projectRoot,
+    options.retrievalFeaturesPath,
+  )
   const results: RetrievalEvalCaseResult[] = []
 
   for (const evalCase of options.cases) {
@@ -363,6 +499,7 @@ export async function runOfflineRetrievalEval(
   const metricsByLanguage = summarizeByGrouping(results, result =>
     prefixedTag(result.tags, 'lang:'),
   )
+  const preferenceMetrics = summarizePreferenceCases(results)
 
   return {
     cases: results,
@@ -373,6 +510,7 @@ export async function runOfflineRetrievalEval(
       metricsByDomain,
       metricsByDifficulty,
       metricsByLanguage,
+      preferenceMetrics,
     },
     assets: bundle,
   }

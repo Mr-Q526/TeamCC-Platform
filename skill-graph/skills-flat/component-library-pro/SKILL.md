@@ -6,26 +6,16 @@ displayName: Component Library PRO
 description: Use when designing component libraries, UI kits, reusable React components, and implementation examples. Pro version focused on API clarity, variants, states, and usage consistency; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - component-library-pro
+  - Component Library PRO
+  - componentlibrarypro
   - 组件
   - 组件库
   - UI 组件
-  - 库
-  - library
-  - 专业版
-  - pro
-  - Component Library PRO
   - component
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 组件库设计
+  - component library
 version: 0.1.0
-sourceHash: sha256:6893dd7a1dff52f14e9fd328a5c7156e2a9b09aec4ca515618e3bb7f9f87ed29
+sourceHash: sha256:6f573f0e8020ec25cb893acf175a8dd92b8724e6f925c6d27c51922853b5d2af
 domain: frontend
 departmentTags:
   - frontend-platform

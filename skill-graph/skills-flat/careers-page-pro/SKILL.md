@@ -6,26 +6,16 @@ displayName: Careers Page PRO
 description: Use when designing careers pages, job boards, recruiting funnels, and employer brand pages. Pro version focused on role discovery, culture proof, benefits, and application clarity; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - careers-page-pro
+  - Careers Page PRO
+  - careerspagepro
   - 招聘
   - 加入我们
   - 职位页面
-  - 页面
-  - page
-  - 专业版
-  - pro
-  - Careers Page PRO
   - careers
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - design
-  - 设计
-  - UI
-  - 视觉设计
-  - frontend-platform
+  - 招聘页面
+  - careers page
 version: 0.1.0
-sourceHash: sha256:b668cd4e0938029ba39fc52c4e8cd700f2822bb4ddded4a3135c636903334ff4
+sourceHash: sha256:b746fb61191f5b399999213d3d03a764bdd73f623f44568a468fc0f262784f22
 domain: frontend
 departmentTags:
   - frontend-platform

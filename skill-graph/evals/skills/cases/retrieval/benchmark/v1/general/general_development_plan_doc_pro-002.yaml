@@ -14,7 +14,8 @@ query:
   queryText: 我要制定一个详细的开发计划文档，包括模块、函数、接口、数据流程等内容。
   queryContext: 开发计划 文档 模块 函数 接口 数据流程
   cwd: /tmp/skill-eval
-  department: null
+  projectId: null
+  department: dept:backend-platform
   domainHints:
     - general
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - security/security-threat-model
     - frontend/admin-dashboard-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

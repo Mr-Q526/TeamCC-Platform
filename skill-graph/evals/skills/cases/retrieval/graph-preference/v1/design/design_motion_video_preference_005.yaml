@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_design_motion_video_preference_005
+title: 讲解视频偏好扩展表达 005
+dataset: retrieval-graph-preference-v1
+tags:
+  - design
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - content-generation
+query:
+  queryText: 运营脚本要做成一支讲解视频，想先把讲解动画视频这块补完整，核心是narration 配套动效、镜头切换和节奏控制更成熟。
+  queryContext: 讲解动画视频 narration 配套动效、镜头切换和节奏控制更成熟 运营脚本要做成一支讲解视频 讲解视频 motion video 字幕 转场
+  cwd: /tmp/skill-eval
+  projectId: seed:motion-video
+  department: dept:growth
+  domainHints:
+    - design
+  sceneHints:
+    - scene:content-generation
+    - scene:design
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - design/motion-video-maker
+  acceptableSkillIds:
+    - design/jimeng
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: design/motion-video-maker
+    competingSkillId: design/jimeng
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

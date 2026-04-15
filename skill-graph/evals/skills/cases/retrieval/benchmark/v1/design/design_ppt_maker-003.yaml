@@ -14,7 +14,8 @@ query:
   queryText: 我需要一个PPT，主题是人工智能的未来，要有清晰的布局和内容结构。
   queryContext: PPT 人工智能 未来 布局 内容结构
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -31,4 +32,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null

@@ -7,6 +7,8 @@ description: Use as a lightweight baseline/control skill for creating a simple d
 aliases:
   - development-plan-doc-basic
   - Development Plan Document Basic
+  - development plan doc basic
+  - developmentplandocbasic
   - 开发计划文档
   - 功能开发规划
   - 技术方案
@@ -19,22 +21,10 @@ aliases:
   - coding plan
   - implementation plan
   - plan
-  - doc
   - 计划
   - 开发计划
-  - 实施计划
-  - 文档
-  - 方案文档
-  - 技术文档
-  - 基础版
-  - basic
-  - development plan doc basic
-  - development
-  - Document
-  - general
-  - 通用
 version: 0.1.0
-sourceHash: sha256:717e95f65fb0d99f205fcc4a86a6c5645a0f8e12c1add811492dcd5db1ab857d
+sourceHash: sha256:45b976a534e792ac631a62b46d8d635d782cb571197a2cab2a7cd5ee6f9d1af0
 domain: general
 departmentTags:
   - backend-platform

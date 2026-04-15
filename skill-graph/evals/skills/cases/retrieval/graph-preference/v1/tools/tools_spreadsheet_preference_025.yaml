@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_tools_spreadsheet_preference_025
+title: 运营表格偏好邻近表达 025
+dataset: retrieval-graph-preference-v1
+tags:
+  - tools
+  - set:graph-preference
+  - difficulty:adjacent
+  - lang:zh-pure
+  - data-analysis
+query:
+  queryText: 这轮不是写一份说明文档，想先把运营数据表整理里的把增长数据从散乱材料整理成可继续计算的表格理顺，不是做 PPT 演示稿。
+  queryContext: 运营数据表整理 把增长数据从散乱材料整理成可继续计算的表格 这轮不是写一份说明文档 editable sheet 运营数据表 透视汇总 渠道分析 复盘
+  cwd: /tmp/skill-eval
+  projectId: seed:operations-spreadsheet
+  department: dept:data-platform
+  domainHints:
+    - tools
+  sceneHints:
+    - scene:data-analysis
+    - scene:content-generation
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - tools/spreadsheet
+  acceptableSkillIds:
+    - tools/doc
+  forbiddenSkillIds:
+    - design/ppt-maker
+    - tools/pdf
+  preference:
+    preferredSkillId: tools/spreadsheet
+    competingSkillId: tools/doc
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

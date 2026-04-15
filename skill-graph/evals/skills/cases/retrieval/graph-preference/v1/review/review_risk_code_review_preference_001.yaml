@@ -1,0 +1,38 @@
+schemaVersion: 2026-04-12
+caseType: retrieval
+caseId: retrieval_graph_preference_review_risk_code_review_preference_001
+title: 高风险代码审查优先选择反馈更强的候选
+dataset: retrieval-graph-preference-v1
+tags:
+  - review
+  - set:graph-preference
+  - difficulty:direct
+  - lang:zh-pure
+  - review
+query:
+  queryText: 请对一组高风险代码变更做 review，重点看权限、回滚、边界条件、可观测性和潜在爆炸半径。
+  queryContext: 高风险代码审查 权限 回滚 边界条件 可观测性 爆炸半径
+  cwd: /tmp/skill-eval
+  projectId: seed:code-review-risk
+  department: dept:backend-platform
+  domainHints:
+    - review
+  sceneHints:
+    - scene:review
+    - scene:architecture
+  priorInjectedSkillIds: []
+  priorInvokedSkillIds: []
+  limit: 5
+expected:
+  mustHitSkillIds:
+    - review/code-review-risk-based
+  acceptableSkillIds:
+    - review/code-review-general
+  forbiddenSkillIds:
+    - general/bug-fix-debugging
+    - backend/rest-api-implementation
+  preference:
+    preferredSkillId: review/code-review-risk-based
+    competingSkillId: review/code-review-general
+    expectedDirection: preferred_above_competitor
+modeOverrides: {}

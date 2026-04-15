@@ -7,6 +7,7 @@ description: Use when rewriting Chinese articles to remove AI-style writing trac
 aliases:
   - humanizer-zh-pro
   - Humanizer ZH PRO
+  - humanizerzhpro
   - 去AI味
   - 去AI味道
   - 去除AI痕迹
@@ -17,17 +18,10 @@ aliases:
   - humanizer
   - Chinese writing
   - article rewriting
-  - ai
-  - content-generation
-  - 专业版
-  - pro
   - zh
-  - 人工智能
   - 智能助手
-  - writing
-  - ai-platform
 version: 0.1.0
-sourceHash: sha256:9500d9fa2bbf63807d3a48bda1dfce8e886ab1029a44f86e568b66fcdbf83c54
+sourceHash: sha256:7336bb4589acd2cb6d036edbbb99154a8f0e9582809ffdb8b9a6fbd2a05ef6d5
 domain: ai
 departmentTags:
   - ai-platform

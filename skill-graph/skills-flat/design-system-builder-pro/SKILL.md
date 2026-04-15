@@ -6,26 +6,14 @@ displayName: Design System Builder PRO
 description: Use when designing design systems, token systems, UI foundations, and reusable component standards. Pro version focused on tokens, consistency, accessibility, and component governance; emphasizes deep information architecture, strong hierarchy, explicit states, responsive behavior, accessibility, and validation checks.
 aliases:
   - design-system-builder-pro
-  - 设计
-  - UI
-  - 视觉设计
-  - 系统
+  - Design System Builder PRO
+  - designsystembuilderpro
   - 设计系统
   - 构建器
   - 生成器
   - builder
-  - 专业版
-  - pro
-  - Design System Builder PRO
-  - design
-  - system
-  - frontend
-  - 前端
-  - Web 前端
-  - 页面开发
-  - frontend-platform
 version: 0.1.0
-sourceHash: sha256:7e8f050979cabe4e0bb470b7f55c573c7979741dd7cda682edecc64986d6e135
+sourceHash: sha256:2352d624410aa8d31adff2875b615ad317d0e14034678e546dcca244cd19d12a
 domain: frontend
 departmentTags:
   - frontend-platform

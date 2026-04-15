@@ -6,25 +6,16 @@ displayName: Security Threat Model
 description: Repository-grounded threat modeling that enumerates trust boundaries, assets, attacker capabilities, abuse paths, and mitigations, and writes a concise Markdown threat model. Trigger only when the user explicitly asks to threat model a codebase or path, enumerate threats/abuse paths, or perform AppSec threat modeling. Do not trigger for general architecture summaries, code review, or non-security design work.
 aliases:
   - security-threat-model
-  - 安全
-  - 安全审计
-  - security
+  - Security Threat Model
+  - securitythreatmodel
   - 威胁建模
   - 威胁分析
   - threat model
-  - 模型
-  - 建模
-  - Security Threat Model
   - threat
-  - model
-  - architecture
-  - 架构
-  - 架构设计
-  - 模块边界
-  - security-audit
-  - security-platform
+  - 攻击面分析
+  - 攻击路径梳理
 version: 0.1.0
-sourceHash: sha256:dadd445c81d4fcf2ca9bec0508a4492051da9aae5ea59a1281e0cbd7b415c987
+sourceHash: sha256:63c7ecd880edf0911e1bd2a151bc9f4f36ae4f5a243a57428e2b7c7f995b608e
 domain: security
 departmentTags:
   - security-platform

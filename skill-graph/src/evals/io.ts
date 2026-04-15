@@ -59,6 +59,7 @@ function toRecord(value: unknown): Record<string, unknown> {
 function normalizeRetrievalCase(value: Record<string, unknown>): SkillRetrievalEvalCase {
   const query = toRecord(value.query)
   const expected = toRecord(value.expected)
+  const preference = toRecord(expected.preference)
   const modeOverridesRecord = toRecord(value.modeOverrides)
   const requestedModes: Array<'bm25' | 'bm25_vector' | 'bm25_vector_graph'> = [
     'bm25',
@@ -77,6 +78,7 @@ function normalizeRetrievalCase(value: Record<string, unknown>): SkillRetrievalE
       queryText: toStringValue(query.queryText) ?? '',
       queryContext: toStringValue(query.queryContext),
       cwd: toStringValue(query.cwd),
+      projectId: toStringValue(query.projectId),
       department: toStringValue(query.department),
       domainHints: toStringArray(query.domainHints),
       sceneHints: toStringArray(query.sceneHints),
@@ -88,6 +90,19 @@ function normalizeRetrievalCase(value: Record<string, unknown>): SkillRetrievalE
       mustHitSkillIds: toStringArray(expected.mustHitSkillIds),
       acceptableSkillIds: toStringArray(expected.acceptableSkillIds),
       forbiddenSkillIds: toStringArray(expected.forbiddenSkillIds),
+      preference:
+        Object.keys(preference).length > 0 &&
+        toStringValue(preference.preferredSkillId) &&
+        toStringValue(preference.competingSkillId)
+          ? {
+              preferredSkillId: toStringValue(preference.preferredSkillId) as string,
+              competingSkillId: toStringValue(preference.competingSkillId) as string,
+              expectedDirection:
+                preference.expectedDirection === 'preferred_above_competitor'
+                  ? 'preferred_above_competitor'
+                  : 'preferred_above_competitor',
+            }
+          : null,
     },
     modeOverrides: Object.keys(modeOverridesRecord).length
       ? Object.fromEntries(

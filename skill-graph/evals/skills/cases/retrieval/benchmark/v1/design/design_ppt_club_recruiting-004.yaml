@@ -14,7 +14,8 @@ query:
   queryText: 我要做一个大学社团招新的PPT，要有大标题、强节奏、收益表达和明确报名行动，类似PPT Maker的功能，有没有相关工具？
   queryContext: 社团招新 PPT 大标题 强节奏 报名行动
   cwd: /tmp/skill-eval
-  department: dept:ai-platform
+  projectId: null
+  department: dept:growth
   domainHints:
     - design
   sceneHints:
@@ -32,4 +33,5 @@ expected:
   forbiddenSkillIds:
     - backend/database-schema-design
     - frontend/website-homepage-design
-modeOverrides: {}
+  preference: null
+modeOverrides: null
