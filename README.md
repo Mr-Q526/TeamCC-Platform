@@ -154,17 +154,31 @@ Skill 的数据面与检索 owner。负责：
 快速概览：
 
 ```bash
-# 1. 一键启动全部服务（Admin 平台、数据库、图数据库等）
+# 1. 启动默认核心服务（Admin + Skill PG/Redis/Neo4j）
 ./scripts/platform.sh start
 
-# 2. 初始化 Skill 知识图谱数据
+# 2. 如需 Langfuse，再显式启动可选服务
+./scripts/platform.sh start-full
+
+# 3. 初始化 Skill 知识图谱数据
 cd skill-graph && bun install && bun run skills:graph:seed-v1
 
-# 3. 启动企业版 Claude Code CLI
+# 4. 启动企业版 Claude Code CLI
 cd TeamSkill-ClaudeCode && bun install && bun run dev
 ```
 
 启动后在 CLI 中完成 `/login` 即可进入企业运行态。
+
+默认访问地址：
+
+- Admin Web: `http://127.0.0.1:5173`
+- Admin API Health: `http://127.0.0.1:3000/health`
+- Skill PG: `localhost:54329`
+- Skill Redis: `localhost:6381`
+- Neo4j Browser: `http://127.0.0.1:7474`
+- Langfuse Web: `http://127.0.0.1:3300`（仅 `start-full`）
+
+当前 Docker 配置已经改成相对路径挂载，并取消固定容器名。也就是说，仓库 clone 到任意本机目录后，都可以直接用上面的命令启动，不再依赖某台机器上的绝对路径或固定容器名。
 
 ---
 

@@ -492,30 +492,25 @@ API 容器启动时会自动执行：
 直接启动：
 
 ```bash
-docker compose up -d --build
+docker compose up -d --build postgres api web
 ```
 
 ### 12.5 Worktree 使用注意
 
-当前 `docker-compose.yml` 中 `api` 和 `web` 的代码挂载路径写的是主工作区绝对路径：
+当前 `docker-compose.yml` 已改成相对路径挂载：
 
-```text
-/Users/minruiqing/MyProjects/teamcc-platform/teamcc-admin
-```
+- `.:/app`
+- `./frontend:/app`
 
-如果你当前是在 worktree 目录里开发：
+并且已经移除固定 `container_name`，容器名改为由 Compose 自动生成。  
+这意味着仓库 clone 到任意目录后，都可以直接启动，不再依赖某台机器上的绝对路径。
 
-```text
-/Users/minruiqing/MyProjects/teamcc-platform/worktrees/admin/teamcc-admin
-```
-
-那么直接跑完整 `docker compose up` 时，容器会挂载主工作区代码，而不是当前 worktree。  
-在 worktree 中联调时，推荐：
+但在 worktree 中联调时，仍推荐：
 
 - 只用 Compose 起 `postgres`
 - API 和前端直接在当前 worktree 本机启动
 
-或者先把 `docker-compose.yml` 里的挂载路径改成当前 worktree 的绝对路径。
+因为容器只会挂载你执行 `docker compose` 时所在目录对应的那一份代码。
 
 ## 13. 环境变量
 

@@ -433,13 +433,22 @@ Langfuse 当前只负责：
 
 ## 基础设施
 
-当前 `docker-compose.skill-data.yml` 会拉起以下服务：
+`docker-compose.skill-data.yml` 当前分成两组服务：
 
-- PostgreSQL + pgvector
-- Redis
-- Neo4j
-- Langfuse Web / Worker
-- Langfuse Postgres / Redis / ClickHouse / MinIO
+- 默认核心服务：
+  - PostgreSQL + pgvector
+  - Redis
+  - Neo4j
+- 可选 Langfuse 服务：
+  - Langfuse Web / Worker
+  - Langfuse Postgres / Redis / ClickHouse / MinIO
+
+默认脚本行为：
+
+- `bun run skills:db:up`：只启动核心服务
+- `bun run skills:langfuse:up`：额外启动 Langfuse 服务
+- `./scripts/platform.sh start`：从仓库根目录统一启动平台核心服务
+- `./scripts/platform.sh start-full`：从仓库根目录启动核心服务 + Langfuse
 
 默认开发端口：
 
@@ -447,7 +456,7 @@ Langfuse 当前只负责：
 - Skill Redis: `6381`
 - Neo4j HTTP: `7474`
 - Neo4j Bolt: `7687`
-- Langfuse Web: `3300`
+- Langfuse Web: `3300`（可选）
 
 ## 环境变量
 
@@ -498,6 +507,12 @@ bun install
 
 ```bash
 bun run skills:db:up
+```
+
+如需 Langfuse：
+
+```bash
+bun run skills:langfuse:up
 ```
 
 ### 3. 构建 Skill 资产

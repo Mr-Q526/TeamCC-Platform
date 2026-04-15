@@ -1,7 +1,6 @@
 services:
   skill-pg:
     image: pgvector/pgvector:pg16
-    container_name: teamskill-skill-pg
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${SKILL_PG_DATABASE:-skills}
@@ -23,7 +22,6 @@ services:
 
   skill-redis:
     image: docker.io/redis:7
-    container_name: teamskill-skill-redis
     restart: unless-stopped
     command: >
       --requirepass ${SKILL_REDIS_PASSWORD:-skills_redis_password}
@@ -44,7 +42,6 @@ services:
 
   langfuse-worker:
     image: docker.io/langfuse/langfuse-worker:3
-    container_name: teamskill-langfuse-worker
     restart: unless-stopped
     depends_on:
       langfuse-postgres:
@@ -99,7 +96,6 @@ services:
 
   langfuse-web:
     image: docker.io/langfuse/langfuse:3
-    container_name: teamskill-langfuse-web
     restart: unless-stopped
     depends_on:
       langfuse-postgres:
@@ -117,7 +113,6 @@ services:
 
   langfuse-clickhouse:
     image: docker.io/clickhouse/clickhouse-server:24.3
-    container_name: teamskill-langfuse-clickhouse
     restart: unless-stopped
     user: "101:101"
     environment:
@@ -139,7 +134,6 @@ services:
 
   langfuse-minio:
     image: cgr.dev/chainguard/minio
-    container_name: teamskill-langfuse-minio
     restart: unless-stopped
     entrypoint: sh
     command: -c 'mkdir -p /data/${LANGFUSE_S3_BUCKET:-langfuse} && minio server --address ":9000" --console-address ":9001" /data'
@@ -160,7 +154,6 @@ services:
 
   langfuse-redis:
     image: docker.io/redis:7
-    container_name: teamskill-langfuse-redis
     restart: unless-stopped
     command: >
       --requirepass ${LANGFUSE_REDIS_PASSWORD:-langfuse_redis_password}
@@ -177,7 +170,6 @@ services:
 
   langfuse-postgres:
     image: docker.io/postgres:17
-    container_name: teamskill-langfuse-postgres
     restart: unless-stopped
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${LANGFUSE_POSTGRES_USER:-postgres} -d ${LANGFUSE_POSTGRES_DB:-langfuse}']
@@ -197,7 +189,6 @@ services:
 
   skill-neo4j:
     image: neo4j:5-community
-    container_name: teamskill-skill-neo4j
     restart: unless-stopped
     environment:
       NEO4J_AUTH: ${SKILL_NEO4J_USER:-neo4j}/${SKILL_NEO4J_PASSWORD:-skills_dev_password}

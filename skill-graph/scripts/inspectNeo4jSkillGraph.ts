@@ -1,4 +1,6 @@
 import { spawn } from 'child_process'
+import { join } from 'path'
+import { fileURLToPath } from 'url'
 
 type QuerySpec = {
   name: string
@@ -46,6 +48,12 @@ const QUERIES: QuerySpec[] = [
   },
 ]
 
+const PROJECT_ROOT = fileURLToPath(new URL('..', import.meta.url))
+const COMPOSE_FILE = join(PROJECT_ROOT, 'docker-compose.skill-data.yml')
+const COMPOSE_PROJECT =
+  process.env.SKILL_COMPOSE_PROJECT?.trim() || 'teamskill-claudecode'
+const NEO4J_SERVICE = 'skill-neo4j'
+
 function runCypher(cypher: string): Promise<string> {
   const user = process.env.SKILL_NEO4J_USER?.trim() || 'neo4j'
   const password =
@@ -55,8 +63,14 @@ function runCypher(cypher: string): Promise<string> {
     const child = spawn(
       'docker',
       [
+        'compose',
+        '-p',
+        COMPOSE_PROJECT,
+        '-f',
+        COMPOSE_FILE,
         'exec',
-        'teamskill-skill-neo4j',
+        '-T',
+        NEO4J_SERVICE,
         'cypher-shell',
         '-u',
         user,

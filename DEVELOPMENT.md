@@ -169,32 +169,41 @@ git branch -d <branch-name>
 
 ### 4.1 启动数据服务
 
-Admin 数据库：
+推荐直接使用平台入口脚本统一启动：
 
 ```bash
-cd /Users/minruiqing/MyProjects/teamcc-platform/teamcc-admin
-docker compose up -d
+cd /Users/minruiqing/MyProjects/teamcc-platform
+./scripts/platform.sh start
 ```
 
-Skill 数据库和 Neo4j：
+默认会拉起：
+
+- `teamcc-admin`: `postgres`、`api`、`web`
+- `skill-graph`: `skill-pg`、`skill-redis`、`skill-neo4j`
+
+如需 Langfuse，再显式启动全量环境：
 
 ```bash
-cd /Users/minruiqing/MyProjects/teamcc-platform/skill-graph
-bun run skills:db:up
+cd /Users/minruiqing/MyProjects/teamcc-platform
+./scripts/platform.sh start-full
 ```
 
-确认容器：
+确认服务状态：
 
 ```bash
-docker ps | grep -E 'teamcc|teamskill|neo4j|pgvector'
+./scripts/platform.sh status
 ```
 
 当前端口：
 
 ```text
-teamcc-admin-db         localhost:5432
-teamskill-skill-pg      localhost:54329
-teamskill-skill-neo4j   localhost:7474 / 7687
+Admin Postgres      localhost:5432
+Admin API           http://127.0.0.1:3000
+Admin Web           http://127.0.0.1:5173
+Skill PG            localhost:54329
+Skill Redis         localhost:6381
+Neo4j HTTP / Bolt   localhost:7474 / 7687
+Langfuse Web        http://127.0.0.1:3300 (仅 start-full)
 ```
 
 Neo4j Browser：
@@ -306,24 +315,24 @@ screen -S teamcc-admin-dev -X quit
 screen -S teamcc-admin-frontend -X quit
 ```
 
-停止 Admin 数据库：
+停止默认核心服务：
 
 ```bash
-cd /Users/minruiqing/MyProjects/teamcc-platform/teamcc-admin
-docker compose down
+cd /Users/minruiqing/MyProjects/teamcc-platform
+./scripts/platform.sh stop
 ```
 
-停止 Skill 数据服务：
+如果之前启动过 Langfuse，全量停止：
 
 ```bash
-cd /Users/minruiqing/MyProjects/teamcc-platform/TeamSkill-ClaudeCode
-bun run skills:db:down
+cd /Users/minruiqing/MyProjects/teamcc-platform
+./scripts/platform.sh stop-full
 ```
 
 查看仍在监听的端口：
 
 ```bash
-for p in 3000 5173 5432 54329 7474 7687; do
+for p in 3000 5173 5432 54329 6381 7474 7687 3300; do
   echo "== port $p =="
   lsof -nP -iTCP:$p -sTCP:LISTEN || true
 done
@@ -354,6 +363,8 @@ TeamSkill 基础验证：
 ```bash
 cd /Users/minruiqing/MyProjects/teamcc-platform/TeamSkill-ClaudeCode
 bun run version
+
+cd /Users/minruiqing/MyProjects/teamcc-platform/skill-graph
 docker compose -f docker-compose.skill-data.yml config
 ```
 
@@ -426,14 +437,12 @@ cd /Users/minruiqing/MyProjects/teamcc-platform
 git switch main
 git pull
 
-cd teamcc-admin
-docker compose up -d
-npm run db:push
-npm run seed
+./scripts/platform.sh start
+
+cd skill-graph
+bun run skills:graph:seed-v1
 
 cd ../TeamSkill-ClaudeCode
-bun run skills:db:up
-bun run skills:graph:seed-v1
 bun run version
 ```
 
@@ -472,24 +481,24 @@ volumes:
 
 - ❌ 不可能通过 Docker 同时看到两个分支的修改
 - ❌ 在 worktree 里启动 Docker 会让其他分支的改动"消失"
-- ❌ 两个 worktree 同时启动同一个 Docker Compose 会导致端口冲突和容器名冲突
+- ❌ 两个 worktree 同时启动同一个 Docker Compose 会导致端口冲突和重复环境
 
 ### 10.3 正确做法
 
-#### 数据服务（数据库、Neo4j）
+#### 数据服务（数据库、Neo4j、可选 Langfuse）
 
 始终在主工作区启动，所有 worktree 通过网络端口连接：
 
 ```bash
 # 在主工作区启动
-cd /Users/minruiqing/MyProjects/teamcc-platform/teamcc-admin
-docker compose up -d postgres    # 只启动数据库
+cd /Users/minruiqing/MyProjects/teamcc-platform
+./scripts/platform.sh start      # 默认核心服务
 
-cd /Users/minruiqing/MyProjects/teamcc-platform/skill-graph
-bun run skills:db:up             # pgvector + Neo4j
+# 需要 Langfuse 时
+./scripts/platform.sh start-full
 ```
 
-数据库通过 `localhost:5432`、`localhost:54329`、`localhost:7474` 等端口访问，不受文件目录影响。
+数据库和图服务通过 `localhost:5432`、`localhost:54329`、`localhost:6381`、`localhost:7474` 等端口访问，不受文件目录影响。
 
 #### 后端 API
 
@@ -530,31 +539,32 @@ git merge skill-graph
 # 2. 合并后：
 cd /Users/minruiqing/MyProjects/teamcc-platform
 git switch main && git pull
-cd teamcc-admin
-docker compose up -d
+./scripts/platform.sh start
 ```
 
 ### 10.5 服务分层速查
 
 | 服务 | 启动位置 | 启动方式 | 是否受 worktree 隔离影响 |
 |------|---------|---------|------------------------|
-| PostgreSQL (Admin) | 主工作区 | `docker compose up -d postgres` | ❌ named volume, 通过端口访问 |
+| PostgreSQL (Admin) | 主工作区 | `./scripts/platform.sh start` | ❌ named volume, 通过端口访问 |
 | pgvector (Skill) | 主工作区 | `bun run skills:db:up` | ❌ named volume, 通过端口访问 |
 | Neo4j | 主工作区 | `bun run skills:db:up` | ❌ named volume, 通过端口访问 |
+| Langfuse | 主工作区 | `./scripts/platform.sh start-full` 或 `bun run skills:langfuse:up` | ❌ named volume, 通过端口访问 |
 | Admin API | worktree | `npm run dev` (裸跑) | ✅ 读取本地代码 |
 | Admin Frontend | worktree | `npm run dev -- --host 127.0.0.1` (裸跑) | ✅ 读取本地代码 |
 | TeamSkill CLI | worktree | `bun run version` | ✅ 读取本地代码 |
 
 ### 10.6 docker-compose.yml 里的 api / web 服务何时使用
 
-`teamcc-admin/docker-compose.yml` 中的 `api` 和 `web` 服务适用于：
+`teamcc-admin/docker-compose.yml` 中的 `api` 和 `web` 服务现在已经使用相对路径挂载，并由 Compose 自动生成容器名。它们主要适用于：
 
 - 部署到 staging 或生产环境
 - 需要容器化完整性测试
-- CI/CD 流水线
+- 在主工作区做平台级联调
 
-**日常功能开发时，不要使用它们。** 只启动 `postgres` 服务即可：
+**日常功能开发时，仍然优先在 worktree 裸跑 API/Web。** 需要统一联调时，再在主工作区使用平台脚本启动：
 
 ```bash
-docker compose up -d postgres
+cd /Users/minruiqing/MyProjects/teamcc-platform
+./scripts/platform.sh start
 ```

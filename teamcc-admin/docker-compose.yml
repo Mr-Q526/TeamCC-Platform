@@ -1,7 +1,6 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: teamcc-admin-db
     restart: unless-stopped
     environment:
       POSTGRES_USER: teamcc_admin
@@ -20,7 +19,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.api
-    container_name: teamcc-admin-api
     restart: unless-stopped
     depends_on:
       postgres:
@@ -35,13 +33,12 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - /Users/minruiqing/MyProjects/teamcc-platform/teamcc-admin:/app
+      - .:/app
       - teamcc_admin_node_modules:/app/node_modules
   web:
     build:
       context: ./frontend
       dockerfile: Dockerfile.web
-    container_name: teamcc-admin-web
     restart: unless-stopped
     depends_on:
       api:
@@ -52,7 +49,7 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - /Users/minruiqing/MyProjects/teamcc-platform/teamcc-admin/frontend:/app
+      - ./frontend:/app
       - teamcc_admin_frontend_node_modules:/app/node_modules
 
 volumes:
