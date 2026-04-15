@@ -34,31 +34,51 @@
 
 ### Skill 检索评测（最新：`graph-preference` 专项 500 条）
 
-Skill 检索不是"拍脑袋上线"，而是每次变更都过一遍离线评测基准。最新一轮把图谱偏好专项集从 308 条扩到 **500 条**，审计 `issueCount = 0`，正式 run 未降级。
+Skill 检索不是“拍脑袋上线”，而是每次变更都要经过离线评测。当前最新结论基于 `graph-preference/v1` 的 **500 条**专项集：
 
-**整体检索质量（500 cases，Top3 Acceptable Hit ≥ 96.8%）：**
+- 数据集审计：`issueCount = 0`
+- 正式对照组：`canonical`
+- 当前开发默认口径：`experiment`
+- 最新直接复测报告：
+  [graph-preference 500 cases 复测总结（修复评测入口后）](./skill-graph/evals/skills/reports/20260415-graph-preference-v3-500cases-rerun-after-cli-fix-summary.md)
+- 对外展示版总结：
+  [三种 Skill 检索方式评测与图谱增益分析](./skill-graph/docs/reference/20260415-%E4%B8%89%E7%A7%8DSkill%E6%A3%80%E7%B4%A2%E6%96%B9%E5%BC%8F%E8%AF%84%E6%B5%8B%E4%B8%8E%E5%9B%BE%E8%B0%B1%E5%A2%9E%E7%9B%8A%E5%88%86%E6%9E%90.md)
 
-| 模式 | Recall@1 | Recall@3 | Recall@5 | MRR | Top3 Acceptable |
-|------|---------:|---------:|---------:|----:|----------------:|
-| `bm25` | 0.706 | 0.950 | 0.976 | 0.826 | 0.968 |
-| `bm25_vector` | **0.712** | **0.958** | **0.978** | **0.832** | **0.972** |
+**500 cases 总体结果：**
 
-**按业务域分布的 Recall@1（500 cases）：**
+| 条件 | 模式 | Recall@1 | Recall@3 | Recall@5 | MRR |
+|------|------|---------:|---------:|---------:|----:|
+| `canonical` | `bm25` | 0.706 | 0.950 | 0.976 | 0.826333 |
+| `canonical` | `bm25_vector` | 0.712 | 0.958 | 0.978 | 0.831833 |
+| `canonical` | `bm25_vector_graph` | 0.712 | 0.958 | 0.978 | 0.831833 |
+| `experiment` | `bm25` | 0.706 | 0.950 | 0.976 | 0.826333 |
+| `experiment` | `bm25_vector` | 0.712 | 0.958 | 0.978 | 0.831833 |
+| `experiment` | `bm25_vector_graph` | **0.852** | **0.960** | **0.978** | **0.902767** |
 
-| domain | caseCount | bm25 R@1 | bm25+vector R@1 |
-|--------|----------:|---------:|----------------:|
-| `backend` | 60 | **1.000** | **1.000** |
+**核心结论：**
+
+- `bm25_vector` 相比 `bm25` 有稳定小幅提升。
+- `bm25_vector_graph` 在 `canonical` 下与 `bm25_vector` 持平，说明图谱路径已打通，但默认正式图谱信号还偏稀疏。
+- `bm25_vector_graph` 在 `experiment` 下显著优于 `bm25_vector`：
+  - `Recall@1: 0.712 -> 0.852`
+  - `MRR: 0.831833 -> 0.902767`
+  - Top1 被正向改写 `70` 个 case
+  - `hurtCount = 0`
+
+**按业务域看，图谱 uplift 主要集中在已具备正反馈积累的域：**
+
+| domain | caseCount | vector R@1 | graph R@1（experiment） |
+|--------|----------:|-----------:|-------------------------:|
+| `frontend` | 200 | 0.520 | **0.855** |
+| `general` | 19 | 0.632 | **0.789** |
+| `backend` | 60 | 1.000 | 1.000 |
 | `security` | 60 | 0.983 | 0.983 |
-| `ai` | 20 | 0.850 | 0.900 |
-| `tools` | 54 | 0.778 | 0.796 |
-| `review` | 27 | 0.741 | 0.741 |
-| `general` | 19 | 0.684 | 0.632 |
 | `design` | 60 | 0.667 | 0.667 |
-| `frontend` | 200 | 0.510 | 0.520 |
+| `tools` | 54 | 0.796 | 0.796 |
+| `review` | 27 | 0.741 | 0.741 |
+| `ai` | 20 | 0.900 | 0.900 |
 
-**Homepage 偏好子集**：20 条中 **19 条** 将高质量 `-pro` 版本顶上 Top1。
-
-> 图谱 rerank 链路（`bm25_vector_graph`）已接入但本轮因路径回落未真正参与，下一步工作重点在修复图谱 apply 路径后重跑 500 条专项集做 uplift 验收。详见 [graph-preference 500 cases 评测总结](./skill-graph/evals/skills/reports/20260415-graph-preference-v2-500cases-summary.md)。
+这说明 TeamCC 的 Skill 体系已经不是“静态知识库检索”，而是具备了“反馈进入图谱后，持续把更优 Skill 往前推”的能力。
 
 ### 界面预览
 

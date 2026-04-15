@@ -389,6 +389,32 @@ bun run skills:eval:offline:canonical
 bun run skills:eval:graph-preference:canonical
 ```
 
+### 最新评测报告
+
+当前建议优先看两份文档：
+
+1. 最新直接复测结论：
+   [evals/skills/reports/20260415-graph-preference-v3-500cases-rerun-after-cli-fix-summary.md](./evals/skills/reports/20260415-graph-preference-v3-500cases-rerun-after-cli-fix-summary.md)
+2. 对外展示版分析：
+   [docs/reference/20260415-三种Skill检索方式评测与图谱增益分析.md](./docs/reference/20260415-%E4%B8%89%E7%A7%8DSkill%E6%A3%80%E7%B4%A2%E6%96%B9%E5%BC%8F%E8%AF%84%E6%B5%8B%E4%B8%8E%E5%9B%BE%E8%B0%B1%E5%A2%9E%E7%9B%8A%E5%88%86%E6%9E%90.md)
+
+当前最终口径应理解为：
+
+- `canonical`：正式对照组，代表当前默认正式图谱的能力
+- `experiment`：开发期默认评测口径，代表“反馈信号足够时，这套体系能达到的上限”
+
+以 `graph-preference/v1` 的 500 条专项集为例：
+
+- `canonical` 下：
+  - `bm25_vector_graph = bm25_vector`
+  - 说明图谱路径已跑通，但默认正式图谱信号还不够密
+- `experiment` 下：
+  - `bm25_vector_graph Recall@1 = 0.852`
+  - `bm25_vector Recall@1 = 0.712`
+  - `MRR = 0.902767`
+  - Top1 正向改写 `70` 个 case
+  - `hurtCount = 0`
+
 ### Langfuse
 
 Langfuse 当前只负责：
@@ -596,14 +622,15 @@ TeamCC 应负责：
 
 如果要系统接手，推荐按这个顺序阅读：
 
-1. [docs/reference/20260415-三种Skill检索方式评测与图谱增益分析.md](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/docs/reference/20260415-三种Skill检索方式评测与图谱增益分析.md)
-2. [docs/reference/20260415-skill-eval-onboarding.md](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/docs/reference/20260415-skill-eval-onboarding.md)
-3. [docs/reference/20260415-skill-eval-data-reading-guide.md](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/docs/reference/20260415-skill-eval-data-reading-guide.md)
-4. [docs/reference/20260412-neo4j-browser-demo-queries.md](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/docs/reference/20260412-neo4j-browser-demo-queries.md)
-5. [docs/tasks/20260412-skill-evaluation-system-plan.md](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/docs/tasks/20260412-skill-evaluation-system-plan.md)
-6. [src/retrieval/retrieveSkills.ts](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/src/retrieval/retrieveSkills.ts)
-7. [src/events/skillFacts.ts](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/src/events/skillFacts.ts)
-8. [src/aggregates/skillFactAggregates.ts](/Users/minruiqing/MyProjects/teamcc-platform/worktrees/skill-graph/skill-graph/src/aggregates/skillFactAggregates.ts)
+1. [docs/reference/20260415-三种Skill检索方式评测与图谱增益分析.md](./docs/reference/20260415-%E4%B8%89%E7%A7%8DSkill%E6%A3%80%E7%B4%A2%E6%96%B9%E5%BC%8F%E8%AF%84%E6%B5%8B%E4%B8%8E%E5%9B%BE%E8%B0%B1%E5%A2%9E%E7%9B%8A%E5%88%86%E6%9E%90.md)
+2. [evals/skills/reports/20260415-graph-preference-v3-500cases-rerun-after-cli-fix-summary.md](./evals/skills/reports/20260415-graph-preference-v3-500cases-rerun-after-cli-fix-summary.md)
+3. [docs/reference/20260415-skill-eval-onboarding.md](./docs/reference/20260415-skill-eval-onboarding.md)
+4. [docs/reference/20260415-skill-eval-data-reading-guide.md](./docs/reference/20260415-skill-eval-data-reading-guide.md)
+5. [docs/reference/20260412-neo4j-browser-demo-queries.md](./docs/reference/20260412-neo4j-browser-demo-queries.md)
+6. [docs/tasks/20260412-skill-evaluation-system-plan.md](./docs/tasks/20260412-skill-evaluation-system-plan.md)
+7. [src/retrieval/retrieveSkills.ts](./src/retrieval/retrieveSkills.ts)
+8. [src/events/skillFacts.ts](./src/events/skillFacts.ts)
+9. [src/aggregates/skillFactAggregates.ts](./src/aggregates/skillFactAggregates.ts)
 
 ## 相关文档
 
