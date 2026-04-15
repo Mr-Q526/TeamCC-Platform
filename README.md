@@ -1,110 +1,123 @@
 # TeamCC Platform
 
-TeamCC 是一个围绕 Coding Agent（目前基于 Claude Code 改造）做企业级管控的项目。核心解决两个问题：
-
-1. **员工用 Coding Agent 时，怎么管住权限？** —— 防止 Agent 越权操作、乱删文件、访问不该碰的代码。
-2. **团队用 Agent 积累的经验（Skill），怎么沉淀下来复用？** —— 不让好的实践停留在个人脑子里，而是变成团队资产。
+> 面向团队协作的企业级 Coding Agent 平台。基于 Claude Code 深度改造，核心解决 **员工使用 AI Agent 的权限管控** 与 **团队 Skill 资产沉淀** 两个关键问题。
 
 ---
 
-## 🛡️ 企业级权限管控
+## 项目目的
 
-### 问题
+把 Claude Code 这类强大但"过度信任"的 Coding Agent，改造成企业可以放心交给团队用的工具：
 
-把 Claude Code 直接交给团队用，最大的风险就是"过度信任"。Agent 有能力读写任意文件、执行任意命令，如果不做约束：
+1. **权限管控**：防止 Agent 越权操作、执行破坏性命令、访问不该碰的代码。每次工具调用都走统一的身份 + 权限判定链路，可放行、可拦截、可审计。
+2. **Skill 沉淀**：团队成员用 Agent 积累的经验不再停留在个人目录，而是变成可检索、可评价、可流转的团队资产。底层用知识图谱记录"部门 → 场景 → Skill → 调用结果"，用数据反哺 Skill 推荐和质量评价。
 
-- 实习生可能让 Agent 改了不该改的核心模块
-- Agent 可能执行破坏性的 shell 命令（`rm -rf`、`docker down` 之类）
-- 不同项目组的代码和密钥没有隔离，存在横向越权
+---
 
-### 做法
+## 已实现成果
 
-TeamCC 的思路是：**身份 → 权限包 → 运行时拦截 → 审计**，形成闭环。
+当前仓库已不是 PoC，而是一套运行中的三层协作系统。关键数据：
 
-#### 1. 统一身份接入
+| 维度 | 指标 |
+|------|------|
+| Claude Code 运行时改造 | **2000+ TS/TSX 源文件**，覆盖启动鉴权、权限注入、工具拦截、审计埋点 |
+| Skill 知识图谱 | **109 个 Skill** 已入库，支持向量 + BM25 混合检索 |
+| 评测基准 | **409 个评测 case**，覆盖检索召回、重排、部门偏好等场景 |
+| 企业管控接口 | **4 组核心 API**（`auth` / `identity` / `policy` / `audit`），完整覆盖登录 → 权限下发 → 审计上报链路 |
+| 文档体系 | **140+ 架构/参考/运维文档**，已按类型分类归档 |
 
-Claude Code 启动时，先从 TeamCC Admin 拉取当前用户的身份信息（部门、角色、项目），不依赖本地手写配置文件。
+### 核心能力落地情况
+
+- ✅ **企业身份注入**：启动即鉴权，身份唯一真相源是管理平台 `/identity/me`
+- ✅ **权限控制面**：`deny > ask > allow` 规则编译进 `ToolPermissionContext`，fail-closed 受限模式
+- ✅ **全链路审计**：启动 / 登录 / Bash / 文件写入 / 权限决策全部上报 `teamcc-admin`
+- ✅ **Skill 检索收口**：`skill-graph` 作为统一 retrieval owner，支持身份驱动的部门/场景 hint
+- ✅ **图谱驱动评分**：Skill 调用反馈异步回写 Neo4j，定时聚合为重排权重
+
+### 界面预览
 
 ![管理平台-员工管理](./imgs/管理平台-员工管理.png)
-
-```
-src/bootstrap/teamccAuth.ts   → 登录、token 刷新、身份拉取
-src/utils/identity.ts         → 身份数据结构化，给后续权限判断和 Skill 选择用
-```
-
-#### 2. 权限包下发与注入
-
-管理员在 Admin 后台配置好各角色的权限策略（哪些目录可读写、哪些命令禁止执行、哪些工具需要审批），TeamCC 在运行时把这些规则注入到 Claude Code 的权限管道里。
-
-```
-src/utils/permissions/teamccLoader.ts   → 从后端拉权限包，转成运行时规则
-src/utils/permissions/rulesMerger.ts    → 多来源规则按"最严格"原则合并
-```
-
-关键点：**企业规则优先级高于本地配置**。员工不能通过修改本地 `.claude/` 配置文件绕过企业策略。deny 规则绝对优先。
-
-#### 3. 运行时拦截
-
-当 Agent 要执行某个操作时（写文件、跑命令、调工具），权限引擎实时判断：
-
-- **allow**：直接放行
-- **deny**：立即阻断，Agent 无法执行
-- **ask**：弹出审批，需要上级确认
-
-#### 4. 全链路审计
-
-每次操作都会以 fire-and-forget 方式上报到 Admin 后台，记录：谁、什么身份、做了什么、结果如何。
-
-```
-src/bootstrap/teamccAudit.ts  → 审计上报（boot / bash_command / file_write / tool_permission_decision）
-```
-
-Admin 后台提供审计日志查询，以及基于 Neo4j 的权限拓扑可视化（人 → 角色 → 可操作资源的关系图）。
+*管理后台：员工与身份管理*
 
 ![管理后台-审计日志](./imgs/管理后台-审计日志.png)
+*管理后台：全链路审计日志*
 
 ![管理平台-权限拓扑图谱](./imgs/管理平台-neo4j图谱（skill数据未完成）.png)
-
----
-
-## 🧠 Skill 沉淀体系
-
-个人用 Agent 的痛点是每次都要重新教；团队的痛点是好的经验出不了个人目录。TeamCC 把 Skill 从散落的文件变成可检索、可评价、可流转的团队资产。
+*管理后台：基于 Neo4j 的权限拓扑可视化*
 
 ![neo4j图谱-展示skill的存储](./imgs/neo4j图谱-展示skill的存储.png)
-
-- **知识图谱驱动的精准治理**：底层用 Neo4j 构建 **部门 → 场景 → Skill → 调用记录** 的完整知识图谱。每次 Skill 调用都会记录成功/失败结果，系统据此统计每个 Skill 在不同部门、不同场景下的成功率、失败率和综合得分，让 Skill 的质量、适用范围一目了然。管理者可以直观看到"哪个部门在哪个场景用了哪个 Skill，效果怎么样"。
-
-![neo4j图谱-使用xxskill成功](./imgs/neo4j图谱-使用xxskill成功.png)
-- **版本化管理 + 权重动态调整**：每个 Skill 支持版本迭代（v1 → v2 → v3...）。新版本上线后不会立即替换旧版，而是通过 AB 权重分配逐步放量——新版本初始权重低，随着调用数据积累，系统自动调整权重。表现好的版本权重上升成为主力，表现差的自动降权淘汰。
-- **海量 Skill + SaaS 化外放**：架构设计面向 **海量 Skill 规模**（pgvector 向量检索 + BM25 混合召回），支持千级甚至万级 Skill 的毫秒级检索。同时可以作为 **SaaS 平台**，将企业内部沉淀并验证过的高质量 Skill 对外开放给其他团队或企业使用。平台天然具备 **网络效应**：用的人越多 → 调用数据越多 → 排序模型越准 → Skill 匹配效果越好。
-- **异步图谱更新 + 定时统计**：Skill 调用产生的事件（`skill_invoked` / `skill_completed` / `skill_feedback`）通过 **异步消息** 回写到知识图谱，不阻塞 Agent 主流程。后台 **定时任务** 周期性地对图谱中的调用数据进行聚合统计，重新计算各 Skill 的综合得分和排序权重，保证数据最终一致的同时不影响运行时性能。
+*Skill 知识图谱：部门 → 场景 → Skill → 调用记录*
 
 ---
 
-## 本地开发
+## 项目结构
 
-详细的启动步骤、分支规范、Docker 用法见 [DEVELOPMENT.md](./DEVELOPMENT.md)。
+本仓库是 monorepo，由三个协作子项目组成：
+
+```mermaid
+flowchart LR
+    U["Employee"]
+    R["TeamSkill-ClaudeCode<br/>企业 Agent Runtime"]
+    A["teamcc-admin<br/>身份 / 权限 / 审计控制面"]
+    G["skill-graph<br/>Skill 数据 / 检索 / 图谱 / 评测"]
+
+    U --> R
+    R <--> A
+    R <--> G
+```
+
+### 🛠️ [`TeamSkill-ClaudeCode/`](./TeamSkill-ClaudeCode/) — 企业 Agent Runtime
+
+基于 Claude Code 深度改造的运行时核心。负责：
+
+- 启动期鉴权与会话建立
+- 企业身份与权限规则注入工具链
+- Skill 检索适配与 runtime 执行
+- 全链路审计事件埋点与上报
+
+**→ [详细文档](./TeamSkill-ClaudeCode/README.md)**
+
+### 🔐 [`teamcc-admin/`](./teamcc-admin/) — 管理控制面
+
+`Fastify + TypeScript + Drizzle ORM + PostgreSQL` + `React 19` 前端。负责：
+
+- 员工身份档案与部门策略
+- 权限模板与项目授权
+- 用户在项目下的最终权限预览
+- Claude Code 审计事件的接收与查询
+
+**→ [详细文档](./teamcc-admin/README.md)**
+
+### 📊 [`skill-graph/`](./skill-graph/) — Skill 数据与检索
+
+Skill 的数据面与检索 owner。负责：
+
+- Skill registry 与 embeddings 管理
+- 统一检索 API（lexical + BM25 + 向量）
+- 调用反馈事件的异步图谱回写
+- 评测基准与离线评测 runner
+
+**→ [详细文档](./skill-graph/README.md)**
+
+---
+
+## 快速开始
+
+详细启动步骤、分支规范、Docker 用法见 [DEVELOPMENT.md](./DEVELOPMENT.md)。
 
 快速概览：
 
 ```bash
-# 一键启动全部服务（Admin 平台、数据库、图数据库等）
+# 1. 一键启动全部服务（Admin 平台、数据库、图数据库等）
 ./scripts/platform.sh start
 
-# 初始化 Skill 知识图谱数据（Admin 数据已随容器自动初始化）
+# 2. 初始化 Skill 知识图谱数据
 cd skill-graph && bun install && bun run skills:graph:seed-v1
 
-# 本地运行与验证 TeamSkill CLI
-cd TeamSkill-ClaudeCode
-bun run version  # 检查版本
-bun run dev      # 在当前目录启动 CLI
-
-# 💡 建议将 teamcc 注册为全局系统命令
-# 请在你的 shell 配置文件（如 ~/.zshrc 或 ~/.bash_profile）中添加别名：
-# alias teamcc='bun --env-file=/全路径/teamcc-platform/TeamSkill-ClaudeCode/.env run /全路径/teamcc-platform/TeamSkill-ClaudeCode/src/bootstrap-entry.ts'
-# 保存后执行 `source ~/.zshrc`，即可在任何目录下使用 `teamcc` 命令了！
+# 3. 启动企业版 Claude Code CLI
+cd TeamSkill-ClaudeCode && bun install && bun run dev
 ```
+
+启动后在 CLI 中完成 `/login` 即可进入企业运行态。
 
 ---
 
@@ -112,11 +125,26 @@ bun run dev      # 在当前目录启动 CLI
 
 | 层 | 技术 |
 |---|---|
-| Coding Agent 内核 | Claude Code（TypeScript，深度改造） |
-| Admin 后端 | Node.js + Hono + Drizzle ORM |
-| Admin 前端 | React + Vite |
+| Agent 运行时 | Claude Code（TypeScript，深度改造）+ Bun |
+| Admin 后端 | Node.js + Fastify + Drizzle ORM |
+| Admin 前端 | React 19 + Vite + i18next |
 | 关系型数据库 | PostgreSQL |
 | 向量检索 | pgvector |
 | 图数据库 | Neo4j |
-| 运行时 | Bun / Node.js |
-| 容器 | Docker Compose |
+| 容器编排 | Docker Compose |
+
+---
+
+## 平台级文档
+
+- [开发工作流](./DEVELOPMENT.md) — 启动、分支、Docker、worktree 规范
+- [Worktree 协作说明](./WORKTREE_NOTICE.md)
+- 子项目详细文档：[TeamSkill-ClaudeCode](./TeamSkill-ClaudeCode/README.md) · [teamcc-admin](./teamcc-admin/README.md) · [skill-graph](./skill-graph/README.md)
+
+---
+
+## 一句话总结
+
+TeamCC Platform 的本质不是"给 Claude Code 增加几个企业命令"，而是：
+
+**把 Claude Code 的运行时改造成企业员工上下文驱动的安全执行环境，并围绕它搭建起 Skill 治理、权限控制、全链路审计的完整闭环。**

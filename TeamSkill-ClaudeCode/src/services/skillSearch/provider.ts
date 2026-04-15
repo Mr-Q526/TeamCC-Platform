@@ -29,6 +29,7 @@ export type SkillRetrievalResponse = GraphSkillRetrievalResponse
 
 type SkillSearchRuntimeContext = {
   cwd: string
+  projectId: string | null
   department: string | null
 }
 
@@ -49,6 +50,10 @@ function getSkillSearchRuntimeContext(
 
   return {
     cwd: request.cwd ?? getProjectRoot(),
+    projectId:
+      typeof profile?.projectId === 'number' && Number.isFinite(profile.projectId)
+        ? String(profile.projectId)
+        : null,
     department:
       normalizeDepartmentHint(request.department) ??
       normalizeDepartmentHint(profile?.departmentLabel) ??
@@ -64,6 +69,7 @@ export function buildSkillGraphRetrievalRequest(
     queryText: request.queryText,
     queryContext: request.queryContext,
     cwd: runtimeContext.cwd,
+    projectId: runtimeContext.projectId,
     department: runtimeContext.department,
     domainHints: request.domainHints,
     sceneHints: request.sceneHints,
@@ -108,6 +114,7 @@ async function logSkillRetrievalTelemetry(
       factKind: 'retrieval_run',
       source: 'system',
       cwd: runtimeContext.cwd,
+      projectId: runtimeContext.projectId,
       department: runtimeContext.department,
       domain: request.domainHints?.[0] ?? null,
       scene: request.sceneHints?.[0] ?? null,
@@ -153,6 +160,7 @@ async function logSkillRetrievalTelemetry(
           factKind: 'skill_exposed',
           source: 'system',
           cwd: runtimeContext.cwd,
+          projectId: runtimeContext.projectId,
           department: runtimeContext.department,
           scene: candidate.sceneTags[0] ?? request.sceneHints?.[0] ?? null,
           domain: candidate.domain,
